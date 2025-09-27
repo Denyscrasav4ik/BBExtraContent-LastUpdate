@@ -512,8 +512,6 @@ namespace BBTimes.Manager
 			floorDatas[F3].Items.Add(new(item, 20));
 			floorDatas[END].Items.Add(new(item, 25));
 			floorDatas[F3].ForcedItems.Add(new(item));
-			if (EditorExists)
-				EditorLevelPatch.AddPoint(item);
 
 			// Cherry Bsoda
 			var bsodaMeta = ItemMetaStorage.Instance.FindByEnum(Items.Bsoda);
@@ -595,8 +593,6 @@ namespace BBTimes.Manager
 			floorDatas[F3].Items.Add(new(item, 30));
 			floorDatas[END].Items.Add(new(item, 45));
 			floorDatas[F2].ForcedItems.Add(new(item));
-			if (EditorExists)
-				EditorLevelPatch.AddPoint(item);
 
 			// Blow Drier Item
 			item = new ItemBuilder(plug.Info)
@@ -1026,8 +1022,6 @@ namespace BBTimes.Manager
 			floorDatas[F3].Items.Add(new(item, 25));
 			floorDatas[END].Items.Add(new(item, 20));
 			floorDatas[F1].ForcedItems.Add(new(item));
-			if (EditorExists)
-				EditorLevelPatch.AddPoint(item);
 			((ITM_StaminaYTP)item.item).staminaGain = 200;
 
 			// WaterYTP
@@ -1044,8 +1038,6 @@ namespace BBTimes.Manager
 			floorDatas[F3].Items.Add(new(item, 45));
 			floorDatas[END].Items.Add(new(item, 35));
 			floorDatas[F2].ForcedItems.Add(new(item));
-			if (EditorExists)
-				EditorLevelPatch.AddPoint(item);
 
 			// SmallTimesKey
 			item = new ItemBuilder(plug.Info)

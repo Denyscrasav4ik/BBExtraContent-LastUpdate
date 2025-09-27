@@ -1,15 +1,14 @@
-﻿using MTM101BaldAPI;
-using MTM101BaldAPI.AssetTools;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using BBTimes.Plugin;
+using BBTimes.CustomComponents;
+using BBTimes.Extensions;
+using BBTimes.Manager;
+using MTM101BaldAPI;
+using MTM101BaldAPI.AssetTools;
+using MTM101BaldAPI.Registers;
+using PlusStudioLevelLoader;
 using UnityEngine;
 using static UnityEngine.Object;
-using BBTimes.Manager;
-using BBTimes.Extensions;
-using MTM101BaldAPI.Registers;
-using BBTimes.CustomComponents;
-using PlusLevelLoader;
 
 namespace BBTimes.Helpers
 {
@@ -18,10 +17,10 @@ namespace BBTimes.Helpers
 		public static NPC SetupNPCData(this NPC npc, string name, string posterName, string posterDesc, float spriteYoffset = 0f)
 		{
 			var sprites = GetAllNpcSpritesFrom(name);
-			
+
 			// Setup for CustomNPCData
 
-			
+
 			npc.poster.baseTexture = sprites.texture;
 			npc.poster.textData[0].textKey = posterName;
 			npc.poster.textData[1].textKey = posterDesc;
@@ -36,7 +35,7 @@ namespace BBTimes.Helpers
 
 			BasePlugin._cstData.Add(data);
 
-			PlusLevelLoaderPlugin.Instance.npcAliases.Add("times_" + EnumExtensions.GetExtendedName<Character>((int)npc.Character), npc);
+			LevelLoaderPlugin.Instance.npcAliases.Add("times_" + EnumExtensions.GetExtendedName<Character>((int)npc.Character), npc);
 
 			return npc;
 		}
@@ -65,7 +64,7 @@ namespace BBTimes.Helpers
 			npc.gameObject.ConvertToPrefab(true);
 
 			npc.gameObject.layer = LayerMask.NameToLayer("NPCs");
-			
+
 
 
 			var sprites = GetAllNpcSpritesFrom(assetsFolder);
@@ -88,7 +87,7 @@ namespace BBTimes.Helpers
 			data.SetupPrefab();
 			BasePlugin._cstData.Add(data);
 
-			PlusLevelLoaderPlugin.Instance.npcAliases.Add("times_" + name, npc);
+			LevelLoaderPlugin.Instance.npcAliases.Add("times_" + name, npc);
 
 			return npc;
 		}

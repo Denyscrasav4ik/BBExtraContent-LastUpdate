@@ -1,378 +1,266 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BaldiLevelEditor;
-using BBTimes.CustomContent.NPCs;
 using BBTimes.Extensions;
 using BBTimes.Manager;
-using BBTimes.Plugin;
-using HarmonyLib;
 using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.Registers;
-using PlusLevelFormat;
-using PlusLevelLoader;
+using PlusLevelStudio;
+using PlusLevelStudio.Editor;
+using PlusLevelStudio.Editor.Tools;
+using PlusStudioLevelFormat;
 using UnityEngine;
 
 namespace BBTimes.CompatibilityModule.EditorCompat
 {
-	[HarmonyPatch]
-	[ConditionalPatchMod(Storage.guid_LevelStudio)]
-	internal class EditorLevelPatch
+	internal static class EditorIntegration
 	{
+		private static AssetManager _editorAssetMan;
 
-		[HarmonyPatch(typeof(BasePlugin), "PostSetup")]
-		[HarmonyPostfix]
-		private static void MakeEditorSeeAssets(AssetManager man)
+		internal static void Initialize(AssetManager man)
 		{
-			markersToAdd = [];
-			itemsToAdd = [];
-			npcsToAdd = [];
+			LoadEditorAssets();
+			InitializeVisuals(man);
+			EditorLevelData.AddDefaultTextureAction(InitializeDefaultTextures);
+			EditorInterfaceModes.AddModeCallback(InitializeTools);
+		}
 
-			GameObject[] array = [
-				man.Get<GameObject>("editorPrefab_bathStall"),
-				man.Get<GameObject>("editorPrefab_bathDoor"),
-				man.Get<GameObject>("editorPrefab_sink"),
-				man.Get<GameObject>("editorPrefab_Toilet")
-			];
-			MarkRotatingObject(array[0], Vector3.up * array[0].transform.localScale.y / 2f);
-			MarkRotatingObject(array[1], Vector3.zero);
-			MarkObject(array[2], Vector3.zero);
-			MarkObjectRow("fullStall", [
-				new ObjectData(array[0], new Vector3(-5f, 5f, 0f), Quaternion.Euler(0f, 90f, 0f)),
-				new ObjectData(array[1], new Vector3(0f, 0f, 4f), default),
-				new ObjectData(array[0], new Vector3(5f, 5f, 0f), Quaternion.Euler(0f, 90f, 0f))
-			]);
-			MarkObject(array[3], Vector3.zero);
+		/// <summary>
+		/// Add the physical objects, items, npcs, stuff to the editor - aside from the tools.
+		/// </summary>
+		private static void LoadEditorAssets()
+		{
+			_editorAssetMan = new AssetManager();
+			string editorUIPath = Path.Combine(BasePlugin.ModPath, "EditorUI");
 
-			array = [
-				man.Get<GameObject>("editorPrefab_BasketHoop"),
-				man.Get<GameObject>("editorPrefab_BasketballPile"),
-				man.Get<GameObject>("editorPrefab_GrandStand"),
-				man.Get<GameObject>("editorPrefab_BasketMachine"),
-				man.Get<GameObject>("editorPrefab_BasketBallBigLine")];
+			// Load all general UI sprites
+			string[] files = Directory.GetFiles(editorUIPath);
+			foreach (string file in files)
+			{
+				string name = Path.GetFileNameWithoutExtension(file);
+				if (!name.StartsWith("Ignore_"))
+				{
+					_editorAssetMan.Add("UI/" + name, AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(file), 40f));
+				}
+			}
 
-			MarkRotatingObject(array[0], Vector3.zero);
-			MarkObject(array[1], Vector3.up * 2f);
-			MarkRotatingObject(array[2], Vector3.up * (array[2].transform.localScale.y * 0.5f));
-			MarkRotatingObject(array[3], Vector3.zero);
-			MarkRotatingObject(array[4], Vector3.zero);
-
-			MarkRotatingObject(man.Get<GameObject>("editorPrefab_FancyComputerTable"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_ComputerBillboard"), Vector3.up * 5.5f);
-
-			MarkRotatingObject(man.Get<GameObject>("editorPrefab_StraightRunLine"), Vector3.zero);
-			MarkRotatingObject(man.Get<GameObject>("editorPrefab_CurvedRunLine"), Vector3.zero);
-
-			MarkObject(man.Get<GameObject>("editorPrefab_Foresttree"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_Campfire"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_Beartrap"), Vector3.zero);
-
-			MarkObject(man.Get<GameObject>("editorPrefab_KitchenCabinet"), Vector3.up);
-			MarkRotatingObject(man.Get<GameObject>("editorPrefab_JoeChef"), Vector3.up * 5f);
-			MarkObject(man.Get<GameObject>("editorPrefab_FocusedStudent"), Vector3.up * 5f);
-
-			MarkObject(man.Get<GameObject>("editorPrefab_ComputerTeleporter"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_DustShroom"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_SensitiveVase"), Vector3.up * 4.2f);
-			MarkObject(man.Get<GameObject>("editorPrefab_TimesItemDescriptor"), Vector3.up * 5f);
-
-			MarkObject(man.Get<GameObject>("editorPrefab_SnowyPlaygroundTree"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_SnowPile"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_Shovel_ForSnowPile"), Vector3.up * 0.1f);
-			MarkObject(man.Get<GameObject>("editorPrefab_MysteryTresentMaker"), Vector3.zero);
-
-			MarkRotatingObject(man.Get<GameObject>("editorPrefab_MetalFence"), Vector3.zero);
-
-			// Secret stuff
-			//MarkObject(man.Get<GameObject>("editorPrefab_Times_SecretBaldi"), Vector3.up * 5f);
-			//MarkRotatingObject(man.Get<GameObject>("editorPrefab_Times_InvisibleWall"), Vector3.up * 5f);
-			//MarkRotatingObject(man.Get<GameObject>("editorPrefab_Times_CanBeDisabledInvisibleWall"), Vector3.up * 5f);
-			//MarkRotatingObject(man.Get<GameObject>("editorPrefab_Times_ScrewingInvisibleWall"), Vector3.up * 5f);
-			//MarkRotatingObject(man.Get<GameObject>("editorPrefab_Times_KeyLockedInvisibleWall"), Vector3.up * 5f);
-			//MarkRotatingObject(man.Get<GameObject>("editorPrefab_Times_SecretGenerator"), Vector3.up * 5f);
-			//MarkObject(man.Get<GameObject>("editorPrefab_Times_GeneratorCylinder"), Vector3.up * 5f);
-			//for (int i = 1; i <= 4; i++)
-			//	MarkObject(man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), Vector3.up * 5f);
-			//MarkObject(man.Get<GameObject>("editorPrefab_Times_theYAYComputer"), Vector3.up * 5f);
-			//MarkObject(man.Get<GameObject>("editorPrefab_Times_TrueLorePaper"), Vector3.up * 5f);
-			//MarkObject(man.Get<GameObject>("editorPrefab_Times_GeneratorLever"), Vector3.up * 5f);
-
-			// Decorations
-			MarkObject(man.Get<GameObject>("editorPrefab_SecretBread"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_TimesKitchenSteak"), Vector3.zero);
-			MarkObject(man.Get<GameObject>("editorPrefab_JoeSign"), Vector3.zero);
-			for (int i = 1; i <= 8; i++)
-				MarkObject(man.Get<GameObject>("editorPrefab_TimesGenericOutsideFlower_" + i), Vector3.zero);
-			for (int i = 1; i <= 6; i++)
-				MarkObject(man.Get<GameObject>("editorPrefab_TimesGenericCornerLamp_" + i), Vector3.zero);
-
-			// ************************ Items ****************************
-			HashSet<ItemObject> alreadySeenItems = [];
+			// Load and process item sprites
 			foreach (var meta in ItemMetaStorage.Instance.All())
 			{
 				if (meta.info != BBTimesManager.plug.Info) continue;
 
 				ItemObject itm = meta.value;
-				if (alreadySeenItems.Contains(itm)) continue;
-
-				alreadySeenItems.Add(itm);
-
-				itemsToAdd.Add(itm); // Add to dictionary (THAT WORKS?? HUUH)
-			}
-
-
-			// ************************ Npcs *****************************
-
-			AddNPC("0thprize", "ZeroPrize");
-			AddNPC("adverto", "Adverto");
-			AddNPC("bubbly", "Bubbly");
-			AddNPC("Camerastand", "Camerastand");
-			AddNPC("cheeseMan", "CheeseMan");
-			AddNPC("coolMop", "CoolMop");
-			AddNPCCopy<ClassicGottaSweep>("oldsweep");
-			AddNPC("detentionBot", "DetentionBot");
-			AddNPC("dribble", "Dribble");
-			AddNPC("everettTreewood", "EverettTreewood");
-			AddNPC("faker", "Faker");
-			AddNPC("gluebotrony", "Glubotrony");
-			AddNPC("happyholidays", "HappyHolidays");
-			AddNPC("inkArtist", "InkArtist");
-			AddNPC("JerryTheAC", "JerryTheAC");
-			AddNPC("leapy", "Leapy");
-			AddNPC("MGS", "Magicalstudent");
-			AddNPC("mopliss", "Mopliss");
-			AddNPC("mimiCry", "Mimicry");
-			AddNPC("mrKreye", "MrKreye");
-			AddNPC("Mugh", "Mugh");
-			AddNPC("noseMan", "NoseMan");
-			AddNPC("officeChair", "OfficeChair");
-			AddNPC("pencilBoy", "PencilBoy");
-			AddNPC("phawillow", "Phawillow");
-			AddNPC("penny", "Penny");
-			AddNPC("pran", "Pran");
-			AddNPC("pix", "Pix");
-			AddNPC("quiker", "Quiker");
-			AddNPC("rollBot", "Rollingbot");
-			AddNPC("serOran", "SerOran");
-			AddNPC("scienceTeacher", "ScienceTeacher");
-			AddNPC("snowfolke", "Snowfolke");
-			AddNPC("stunly", "Stunly");
-			AddNPC("superintendent", "Superintendent");
-			AddNPC("spj", "Superintendentjr");
-			AddNPC("tickTock", "TickTock");
-			AddNPC("watcher", "Watcher");
-			AddNPC("VacuumCleaner", "VacuumCleaner");
-			AddNPC("winTerry", "Winterry");
-			AddNPC("ZapZap", "ZapZap");
-
-			string[] files = Directory.GetFiles(Path.Combine(BasePlugin.ModPath, "EditorUI"));
-			for (int i = 0; i < files.Length; i++)
-			{
-				string name = Path.GetFileNameWithoutExtension(files[i]);
-				if (!name.StartsWith("Ignore_"))
-					BaldiLevelEditorPlugin.Instance.assetMan.Add("UI/" + name, AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(files[i]), 40f));
-			}
-
-			var maskRef = AssetLoader.TextureFromFile(Path.Combine(BasePlugin.ModPath, "EditorUI", "Ignore_itemSlotMask.png"));
-
-			// Process items for sprites (basically what LotsOfItems does)
-			foreach (var itm in itemsToAdd)
-			{
 				string itmEnum = itm.itemType == Items.Points ? itm.name : itm.itemType.ToStringExtended();
-				BaldiLevelEditorPlugin.itemObjects.Add("times_" + itmEnum, itm);
+
+				// Skip if we've already processed this item (handles shared ItemObject instances)
+				if (_editorAssetMan.ContainsKey("UI/ITM_" + itmEnum)) continue;
 
 				Sprite icon = itm.itemSpriteSmall;
 				var tex = icon.texture;
-				if (icon.texture.width != 32 || icon.texture.height != 32)
+
+				if (tex.width != 32 || tex.height != 32)
 				{
 					tex = tex.ActualResize(32, 32);
-					tex.name = "Resized_" + tex.name;
 				}
-				tex = tex.Mask(maskRef);
-				tex.name = "Masked_" + icon.texture.name;
 				icon = AssetLoader.SpriteFromTexture2D(tex, 40f);
-				BaldiLevelEditorPlugin.Instance.assetMan.Add("UI/ITM_" + itmEnum, icon);
+				_editorAssetMan.Add("UI/ITM_" + itmEnum, icon);
 			}
-
-
-			// ************* Local Methods ***************
-
-			static void MarkRotatingObject(GameObject obj, Vector3 offset)
-			{
-				markersToAdd.Add(new(obj.name, new(false, null)));
-				BaldiLevelEditorPlugin.editorObjects.Add(EditorObjectType.CreateFromGameObject<EditorPrefab, PrefabLocation>(obj.name, obj, offset, false));
-			}
-
-			static void MarkObject(GameObject obj, Vector3 offset)
-			{
-				markersToAdd.Add(new(obj.name, new(true, null)));
-				BaldiLevelEditorPlugin.editorObjects.Add(EditorObjectType.CreateFromGameObject<EditorPrefab, PrefabLocation>(obj.name, obj, offset, false));
-
-			}
-
-			static void MarkObjectRow(string prebuiltToolName, params ObjectData[] objs) =>
-				markersToAdd.Add(new(prebuiltToolName, new(false, objs)));
-
-			//static void AddItem(string itemName, string itemEnum)
-			//{
-			//	var en = EnumExtensions.GetFromExtendedName<Items>(itemEnum);
-			//	var itm = ItemMetaStorage.Instance.FindByEnumFromMod(en, BBTimesManager.plug.Info).value;
-
-			//	BaldiLevelEditorPlugin.itemObjects.Add("times_" + itemEnum, itm);
-			//	itemsToAdd.Add(itemEnum, itemName);
-			//}
-
-			//static void AddPointItem<T>(string itemName) where T : Item
-			//{
-			//	var itm = points.Find(x => x.item is T && x.nameKey == itemName);
-			//	BaldiLevelEditorPlugin.itemObjects.Add("times_" + itemName, itm);
-			//	itemsToAdd.Add(itemName, itemName);
-			//}
-
-			static void AddNPC(string npcName, string npcEnum)
-			{
-				var en = EnumExtensions.GetFromExtendedName<Character>(npcEnum);
-				var val = NPCMetaStorage.Instance.Find(x => x.character == en && BBTimesManager.plug.Info == x.info).value;
-
-				BaldiLevelEditorPlugin.characterObjects.Add("times_" + npcEnum,
-					BaldiLevelEditorPlugin.StripAllScripts(val.gameObject, true)
-					);
-
-				npcsToAdd.Add(new(npcEnum, npcName));
-			}
-
-			static void AddNPCCopy<T>(string npcName) where T : MonoBehaviour
-			{
-				NPC npc = null;
-				foreach (var meta in NPCMetaStorage.Instance.All())
-				{
-					var p = meta.prefabs.FirstOrDefault(x => x.Value.GetComponent<T>());
-					if (p.Value)
-					{
-						npc = p.Value;
-						break;
-					}
-				}
-
-				if (npc == null)
-				{
-					Debug.LogWarning("BBTimes: Failed to locate the NPC copy of type: " + typeof(T));
-					return;
-				}
-
-				BaldiLevelEditorPlugin.characterObjects.Add("times_" + npcName,
-					BaldiLevelEditorPlugin.StripAllScripts(npc.gameObject, true)
-					);
-
-				npcsToAdd.Add(new(npcName, npcName));
-			}
-
 		}
 
-		[HarmonyPatch(typeof(EditorLevel), "InitializeDefaultTextures")]
-		[HarmonyPostfix]
-		private static void AddRoomTexs(EditorLevel __instance)
+		private static void InitializeVisuals(AssetManager man)
 		{
-			__instance.defaultTextures.Add("Bathroom", new TextureContainer("bathFloor", "bathWall", "bathCeil"));
-			__instance.defaultTextures.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
-			__instance.defaultTextures.Add("BasketballArea", new TextureContainer("dirtyGrayFloor", "SaloonWall", "Ceiling"));
-			__instance.defaultTextures.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
-			__instance.defaultTextures.Add("DribbleRoom", new TextureContainer("dribbleRoomFloor", "SaloonWall", "Ceiling"));
-			__instance.defaultTextures.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
-			__instance.defaultTextures.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
-			__instance.defaultTextures.Add("FocusRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
-			__instance.defaultTextures.Add("SuperMystery", new TextureContainer("redCeil", "redWall", "redFloor"));
-			__instance.defaultTextures.Add("ExibitionRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
-			__instance.defaultTextures.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
-			__instance.defaultTextures.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
+			// Objects
+			EditorInterface.AddObjectVisual("bathStall", man.Get<GameObject>("editorPrefab_bathStall"), true);
+			EditorInterface.AddObjectVisual("bathDoor", man.Get<GameObject>("editorPrefab_bathDoor"), true);
+			EditorInterface.AddObjectVisual("sink", man.Get<GameObject>("editorPrefab_sink"), true);
+			EditorInterface.AddObjectVisual("Toilet", man.Get<GameObject>("editorPrefab_Toilet"), true);
+			EditorInterface.AddObjectVisual("BasketHoop", man.Get<GameObject>("editorPrefab_BasketHoop"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("BasketballPile", man.Get<GameObject>("editorPrefab_BasketballPile"), 2f, Vector3.zero);
+			EditorInterface.AddObjectVisual("GrandStand", man.Get<GameObject>("editorPrefab_GrandStand"), true);
+			EditorInterface.AddObjectVisual("BasketMachine", man.Get<GameObject>("editorPrefab_BasketMachine"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("BasketBallBigLine", man.Get<GameObject>("editorPrefab_BasketBallBigLine"), 2.5f, Vector3.zero);
+			EditorInterface.AddObjectVisual("FancyComputerTable", man.Get<GameObject>("editorPrefab_FancyComputerTable"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("ComputerBillboard", man.Get<GameObject>("editorPrefab_ComputerBillboard"), 1f, Vector3.zero);
+			EditorInterface.AddObjectVisualWithCustomBoxCollider("StraightRunLine", man.Get<GameObject>("editorPrefab_StraightRunLine"), new(4.9f, 1f, 4.9f), Vector3.zero);
+			EditorInterface.AddObjectVisualWithCustomBoxCollider("CurvedRunLine", man.Get<GameObject>("editorPrefab_CurvedRunLine"), new(4.9f, 1f, 4.9f), Vector3.zero);
+			EditorInterface.AddObjectVisual("Foresttree", man.Get<GameObject>("editorPrefab_Foresttree"), true);
+			EditorInterface.AddObjectVisual("Campfire", man.Get<GameObject>("editorPrefab_Campfire"), true);
+			EditorInterface.AddObjectVisual("Beartrap", man.Get<GameObject>("editorPrefab_Beartrap"), true);
+			EditorInterface.AddObjectVisual("KitchenCabinet", man.Get<GameObject>("editorPrefab_KitchenCabinet"), true);
+			EditorInterface.AddObjectVisual("JoeChef", man.Get<GameObject>("editorPrefab_JoeChef"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("FocusedStudent", man.Get<GameObject>("editorPrefab_FocusedStudent"), 2f, Vector3.zero);
+			EditorInterface.AddObjectVisual("ComputerTeleporter", man.Get<GameObject>("editorPrefab_ComputerTeleporter"), true);
+			EditorInterface.AddObjectVisual("DustShroom", man.Get<GameObject>("editorPrefab_DustShroom"), true);
+			EditorInterface.AddObjectVisual("SensitiveVase", man.Get<GameObject>("editorPrefab_SensitiveVase"), true);
+			EditorInterface.AddObjectVisual("TimesItemDescriptor", man.Get<GameObject>("editorPrefab_TimesItemDescriptor"), true);
+			EditorInterface.AddObjectVisual("SnowyPlaygroundTree", man.Get<GameObject>("editorPrefab_SnowyPlaygroundTree"), true);
+			EditorInterface.AddObjectVisual("SnowPile", man.Get<GameObject>("editorPrefab_SnowPile"), true);
+			EditorInterface.AddObjectVisual("Shovel_ForSnowPile", man.Get<GameObject>("editorPrefab_Shovel_ForSnowPile"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("MysteryTresentMaker", man.Get<GameObject>("editorPrefab_MysteryTresentMaker"), 2f, Vector3.zero);
+			EditorInterface.AddObjectVisual("MetalFence", man.Get<GameObject>("editorPrefab_MetalFence"), true);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("SecretBread", man.Get<GameObject>("editorPrefab_SecretBread"), 1f, Vector3.zero);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesKitchenSteak", man.Get<GameObject>("editorPrefab_TimesKitchenSteak"), 1f, Vector3.zero);
+			EditorInterface.AddObjectVisualWithCustomSphereCollider("JoeSign", man.Get<GameObject>("editorPrefab_JoeSign"), 2f, Vector3.zero);
+			for (int i = 1; i <= 8; i++)
+				EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesGenericOutsideFlower_" + i, man.Get<GameObject>("editorPrefab_TimesGenericOutsideFlower_" + i), 1.5f, Vector3.zero);
+			for (int i = 1; i <= 6; i++)
+				EditorInterface.AddObjectVisual("TimesGenericCornerLamp_" + i, man.Get<GameObject>("editorPrefab_TimesGenericCornerLamp_" + i), true);
+
+			// NPCs
+			var allNpcs = new Dictionary<string, string>
+			{
+				{"0thprize", "ZeroPrize"}, {"adverto", "Adverto"}, {"bubbly", "Bubbly"}, {"Camerastand", "Camerastand"},
+				{"cheeseMan", "CheeseMan"}, {"coolMop", "CoolMop"}, {"detentionBot", "DetentionBot"}, {"dribble", "Dribble"},
+				{"everettTreewood", "EverettTreewood"}, {"faker", "Faker"}, {"gluebotrony", "Glubotrony"},
+				{"happyholidays", "HappyHolidays"}, {"inkArtist", "InkArtist"}, {"JerryTheAC", "JerryTheAC"},
+				{"leapy", "Leapy"}, {"MGS", "Magicalstudent"}, {"mopliss", "Mopliss"}, {"mimiCry", "Mimicry"},
+				{"mrKreye", "MrKreye"}, {"Mugh", "Mugh"}, {"noseMan", "NoseMan"}, {"officeChair", "OfficeChair"},
+				{"pencilBoy", "PencilBoy"}, {"phawillow", "Phawillow"}, {"penny", "Penny"}, {"pran", "Pran"},
+				{"pix", "Pix"}, {"quiker", "Quiker"}, {"rollBot", "Rollingbot"}, {"serOran", "SerOran"},
+				{"scienceTeacher", "ScienceTeacher"}, {"snowfolke", "Snowfolke"}, {"stunly", "Stunly"},
+				{"superintendent", "Superintendent"}, {"spj", "Superintendentjr"}, {"tickTock", "TickTock"},
+				{"watcher", "Watcher"}, {"VacuumCleaner", "VacuumCleaner"}, {"winTerry", "Winterry"}, {"ZapZap", "ZapZap"}
+			};
+
+			foreach (var pair in allNpcs)
+			{
+				var en = EnumExtensions.GetFromExtendedName<Character>(pair.Value);
+				var meta = NPCMetaStorage.Instance.Find(x => x.character == en && BBTimesManager.plug.Info == x.info);
+				if (meta != null)
+				{
+					EditorInterface.AddNPCVisual("times_" + pair.Value, meta.value);
+				}
+			}
+			// Special case for oldsweep
+			var sweepMeta = NPCMetaStorage.Instance.All().FirstOrDefault(m => m.prefabs.Any(p => p.Value.GetComponent<CustomContent.NPCs.ClassicGottaSweep>()));
+			if (sweepMeta != null)
+			{
+				EditorInterface.AddNPCVisual("times_oldsweep", sweepMeta.value);
+			}
 		}
 
-		[HarmonyPatch(typeof(PlusLevelEditor), "Initialize")]
-		[HarmonyPostfix]
-		static void InitializeStuff(PlusLevelEditor __instance)
+		/// <summary>
+		/// Adds custom room default textures to the editor's dictionary.
+		/// </summary>
+		private static void InitializeDefaultTextures(Dictionary<string, TextureContainer> containers)
 		{
-			__instance.toolCats.Find(x => x.name == "items").tools.AddRange(
-				itemsToAdd.Select(itm =>
-				{
-					string itmEnum = itm.itemType == Items.Points ? itm.name : itm.itemType.ToStringExtended();
-					return new TimesItem(
-						itmEnum,
-						BaldiLevelEditorPlugin.Instance.assetMan.Get<Sprite>("UI/ITM_" + itmEnum)
-						);
-				}
-				));
+			containers.Add("Bathroom", new TextureContainer("bathFloor", "bathWall", "bathCeil"));
+			containers.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
+			containers.Add("BasketballArea", new TextureContainer("dirtyGrayFloor", "SaloonWall", "Ceiling"));
+			containers.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
+			containers.Add("DribbleRoom", new TextureContainer("dribbleRoomFloor", "SaloonWall", "Ceiling"));
+			containers.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
+			containers.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
+			containers.Add("FocusRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
+			containers.Add("SuperMystery", new TextureContainer("redCeil", "redWall", "redFloor"));
+			containers.Add("ExibitionRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
+			containers.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
+			containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
+		}
 
-			__instance.toolCats.Find(x => x.name == "characters").tools.AddRange(npcsToAdd.ConvertAll(x => new TimesNPC(x.Key, x.Value)));
-			var objectCats = __instance.toolCats.Find(x => x.name == "objects").tools;
+		/// <summary>
+		/// Creates and adds all the placeable tools to the editor's toolbox.
+		/// </summary>
+		private static void InitializeTools(EditorMode mode, bool isVanillaCompliant)
+		{
+			// Add Item tools
+			var itemsToAdd = ItemMetaStorage.Instance.GetAllFromMod(BBTimesManager.plug.Info)
+				.Select(meta => meta.value)
+				.Distinct() // No repeated items
+				.ToArray();
 
-			foreach (var objMark in markersToAdd)
+			foreach (var itm in itemsToAdd)
 			{
-				if (objMark.Value.Value == null)
-				{
-					objectCats.Add(objMark.Value.Key ? new ObjectTool(objMark.Key) : new RotateAndPlacePrefab(objMark.Key));
-					continue;
-				}
-				PrefabLocation[] array = new PrefabLocation[objMark.Value.Value.Length];
-
-				for (int i = 0; i < objMark.Value.Value.Length; i++)
-					array[i] = new PrefabLocation(objMark.Value.Value[i].Item1.name, PlusLevelLoader.Extensions.ToData(objMark.Value.Value[i].Item2), PlusLevelLoader.Extensions.ToData(objMark.Value.Value[i].Item3));
-
-				objectCats.Add(new PrebuiltStructureTool(objMark.Key, new EditorPrebuiltStucture(array)));
-
+				string itmEnum = itm.itemType == Items.Points ? itm.name : itm.itemType.ToStringExtended();
+				string key = "times_" + itmEnum;
+				Sprite icon = _editorAssetMan.Get<Sprite>("UI/ITM_" + itmEnum);
+				EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool(key, icon));
 			}
 
-
-			__instance.toolCats.Find(x => x.name == "halls").tools.AddRange(
+			// Add NPC tools
+			string[] npcToolData =
 			[
-				new TimesRoom("Bathroom"),
-				new TimesRoom("AbandonedRoom"),
-				new TimesRoom("BasketballArea"),
-				new TimesRoom("ComputerRoom"),
-				new TimesRoom("DribbleRoom"),
-				new TimesRoom("Forest"),
-				new TimesRoom("Kitchen"),
-				new TimesRoom("FocusRoom"),
-				new TimesRoom("SuperMystery"),
-				new TimesRoom("ExibitionRoom"),
-				new TimesRoom("SnowyPlayground"),
-				new TimesRoom("IceRink"),
-			]);
+				"ZeroPrize", "Adverto", "Bubbly", "Camerastand", "CheeseMan", "CoolMop", "oldsweep", "DetentionBot", "Dribble",
+				"EverettTreewood", "Faker", "Glubotrony", "HappyHolidays", "InkArtist", "JerryTheAC", "Leapy", "Magicalstudent",
+				"Mopliss", "Mimicry", "MrKreye", "Mugh", "NoseMan", "OfficeChair", "PencilBoy", "Phawillow", "Penny",
+				"Pran", "Pix", "Quiker", "Rollingbot", "SerOran", "ScienceTeacher", "Snowfolke", "Stunly",
+				"Superintendent", "Superintendentjr", "TickTock", "Watcher", "VacuumCleaner", "Winterry", "ZapZap"
+			];
+			foreach (string npcName in npcToolData)
+			{
+				string key = "times_" + npcName;
+				Sprite icon = GetSprite($"UI/Npc_{npcName}", $"UI/npc_{npcName}");
+				EditorInterfaceModes.AddToolToCategory(mode, "characters", new NPCTool(key, icon));
+			}
+
+			// Add Room tools
+			string[] roomNames =
+			[
+				"Bathroom", "AbandonedRoom", "BasketballArea", "ComputerRoom", "DribbleRoom", "Forest", "Kitchen",
+				"FocusRoom", "SuperMystery", "ExibitionRoom", "SnowyPlayground", "IceRink"
+			];
+			foreach (string roomName in roomNames)
+			{
+				Sprite icon = GetSprite($"UI/Floor_{roomName}", $"UI/floor_{roomName}");
+				EditorInterfaceModes.AddToolToCategory(mode, "rooms", new RoomTool(roomName, icon));
+			}
+
+			// Add Object tools
+			AddObjectTools(mode);
+		}
+		/// <summary>
+		/// Add object tools.
+		/// </summary>
+		private static void AddObjectTools(EditorMode mode)
+		{
+			// Key: object ID, Value: isRotatable
+			var objectTools = new List<ObjectData>
+			{
+				new("bathStall", true, 5f), new("bathDoor", true), new("sink", false), new("Toilet", false),
+				new("BasketHoop", true), new("BasketballPile", false, 2f), new("GrandStand", true, 4f), new("BasketMachine", true),
+				new("BasketBallBigLine", true), new("FancyComputerTable", true), new("ComputerBillboard", false, 5f),
+				new("StraightRunLine", true), new("CurvedRunLine", true), new("Foresttree", false), new("Campfire", false),
+				new("Beartrap", false), new("KitchenCabinet", false), new("JoeChef", true, 5f), new("FocusedStudent", false, 5f),
+				new("ComputerTeleporter", false), new("DustShroom", false), new("SensitiveVase", false, 4.2f),
+				new("TimesItemDescriptor", false, 5f), new("SnowyPlaygroundTree", false), new("SnowPile", false),
+				new("Shovel_ForSnowPile", false, 0.1f), new("MysteryTresentMaker", false), new("MetalFence", true),
+				new("SecretBread", false), new("TimesKitchenSteak", false), new("JoeSign", false)
+			};
+			for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesGenericOutsideFlower_" + i, false));
+			for (int i = 1; i <= 6; i++) objectTools.Add(new("TimesGenericCornerLamp_" + i, false));
+
+			foreach (var pair in objectTools)
+			{
+				Sprite icon = GetSprite($"UI/Obj_{pair.prefab}", $"UI/obj_{pair.prefab}");
+				if (pair.rotatable) // isRotatable
+					EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectTool(pair.prefab, icon, pair.offset));
+				else
+					EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectToolNoRotation(pair.prefab, icon, pair.offset));
+			}
+
+			// Special Bulk Object Tool
+			Sprite multiStallSprite = GetSprite("UI/Obj_fullStall", "UI/obj_fullStall");
+			EditorInterfaceModes.AddToolToCategory(mode, "objects", new BulkObjectTool("fullStall", multiStallSprite,
+				[
+					new("bathStall", new Vector3(-5f, 0f, 0f), new(0f, 90f)),
+					new("bathDoor", new Vector3(0f, 0f, 4f), Vector3.zero),
+					new("bathStall", new Vector3(5f, 0f, 0f), new(0f, 90f))
+				]
+			));
 		}
 
-		static List<KeyValuePair<string, string>> npcsToAdd;
-		static List<ItemObject> itemsToAdd;
-		static List<KeyValuePair<string, KeyValuePair<bool, ObjectData[]>>> markersToAdd;
+		private static Sprite GetSprite(string key1, string key2) =>
+			_editorAssetMan.ContainsKey(key1) ? _editorAssetMan.Get<Sprite>(key1) : _editorAssetMan.Get<Sprite>(key2);
 
-		internal static void AddPoint(ItemObject point) =>
-			points.Add(point);
-
-		readonly static List<ItemObject> points = [];
-		struct ObjectData(GameObject obj, Vector3 vec, Quaternion rot)
+		private readonly struct ObjectData(string prefab, bool rotatable)
 		{
-			public GameObject Item1 = obj;
+			public ObjectData(string prefab, bool rotatable, float offset) : this(prefab, rotatable) =>
+				this.offset = offset;
 
-			public Vector3 Item2 = vec;
-
-			public Quaternion Item3 = rot;
-		}
-
-		class TimesItem(string obj, Sprite itemTex) : ItemTool("times_" + obj)
-		{
-			public override Sprite editorSprite => spr;
-			readonly Sprite spr = itemTex;
-		}
-		class TimesNPC(string obj, string objTex) : NpcTool("times_" + obj)
-		{
-			public override Sprite editorSprite => BaldiLevelEditorPlugin.Instance.assetMan.ContainsKey("UI/npc_" + objTex) ?
-				BaldiLevelEditorPlugin.Instance.assetMan.Get<Sprite>("UI/npc_" + objTex) : BaldiLevelEditorPlugin.Instance.assetMan.Get<Sprite>("UI/Npc_" + objTex);
-			readonly string objTex = objTex;
-		}
-		class TimesRoom(string obj) : FloorTool(obj)
-		{
-			public override Sprite editorSprite => BaldiLevelEditorPlugin.Instance.assetMan.ContainsKey("UI/floor_" + obj) ?
-				BaldiLevelEditorPlugin.Instance.assetMan.Get<Sprite>("UI/floor_" + obj) : BaldiLevelEditorPlugin.Instance.assetMan.Get<Sprite>("UI/Floor_" + obj);
-			readonly string obj = obj;
+			readonly public string prefab = prefab;
+			readonly public bool rotatable = rotatable;
+			readonly public float offset = 0f;
 		}
 	}
 }

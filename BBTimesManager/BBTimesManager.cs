@@ -87,6 +87,7 @@ namespace BBTimes.Manager
 			else
 				IncreaseWeightsBasedOnHolidays();
 
+			CompatibilityInitializer.InitializePostSetup(man);
 			BasePlugin.PostSetup(man);
 
 			yield break;

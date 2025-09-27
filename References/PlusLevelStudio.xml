@@ -1,0 +1,894 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PlusLevelStudio</name>
+    </assembly>
+    <members>
+        <member name="T:PlusLevelStudio.EditorCustomContent">
+            <summary>
+            A class containg all custom content for the specified floor.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.EditorCustomContentPackage.AsFilePathless">
+            <summary>
+            Returns a copy of this EditorCustomContentPackage and all it's contents, but without using file name references.
+            Will throw an exception if usingFilePaths is false.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorCustomContentEntry.GetData">
+            <summary>
+            Returns the data for the specified CustomContentEntry. If it has none, it will attempt to get it from filePath.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PlusLevelStudio.DoorIngameStatus">
+            <summary>
+            The status of a door when compiled in game.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.DoorIngameStatus.AlwaysDoor">
+            <summary>
+            When the level is compiled, this door will always be a door assigned to the respective room.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.DoorIngameStatus.AlwaysObject">
+            <summary>
+            When the level is compiled, this door will always be a tile object.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.DoorIngameStatus.Smart">
+            <summary>
+            When the level is compiled, if this door is connected to a non-hall room, it'll be a door assigned to that room, otherwise it'll be a tile object.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddDoor``1(System.String,PlusLevelStudio.DoorIngameStatus,UnityEngine.Material,UnityEngine.Material[])">
+            <summary>
+            Creates the DoorDisplay of the specified type and adds it to the editor's keys.
+            (Does not add nor create the tool for placing it)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="ingameState"></param>
+            <param name="mask"></param>
+            <param name="sideMaterials"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddWindow``1(System.String,UnityEngine.Material,UnityEngine.Material[])">
+            <summary>
+            Creates the DoorDisplay of the specified type and adds it to the editor's keys.
+            (Does not add nor create the tool for placing it)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="mask"></param>
+            <param name="sideMaterials"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddWindow``1(System.String,WindowObject)">
+            <summary>
+            Creates the DoorDisplay of the specified type and adds it to the editor's keys.
+            Uses the specified WindowObject for visuals.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="mask"></param>
+            <param name="sideMaterials"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddWindow(System.String,WindowObject)">
+            <summary>
+            Creates the DoorDisplay of the DoorDisplay type and adds it to the editor's keys.
+            Uses the specified WindowObject for visuals.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="mask"></param>
+            <param name="sideMaterials"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddExit(System.String,Elevator)">
+            <summary>
+            Generates the visual for the specified elevator prefab.
+            </summary>
+            <param name="key"></param>
+            <param name="prefab"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddExit(System.String,UnityEngine.GameObject)">
+            <summary>
+            Adds the specified exit visual to the editors database.
+            </summary>
+            <param name="key"></param>
+            <param name="visual"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.CloneToPrefabStripMonoBehaviors(UnityEngine.GameObject,System.Type[])">
+            <summary>
+            Clones the GameObject, strips the clone's components, and then converts it to a prefab and returns.
+            </summary>
+            <param name="toStrip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddActivityVisual(System.String,UnityEngine.GameObject)">
+            <summary>
+            Automatically sets up the visual and adds it to the dictionary for the specified Activity. You may need to further configure the generated object.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddNPCVisual(System.String,NPC)">
+            <summary>
+            Automatically generates the visual and adds it to the dictionary for the specified NPC based off of the prefab.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="npc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddStructureGenericVisual(System.String,UnityEngine.GameObject)">
+            <summary>
+            Generates a visual for the specified structure, and adds it to the genericStructureDisplays dictionary.
+            </summary>
+            <param name="key">The key to use for the dictionary.</param>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddMarkerGenericVisual(System.String,UnityEngine.GameObject)">
+            <summary>
+            Generates a visual for the specified marker, and adds it to the genericMarkerDisplays dictionary.
+            </summary>
+            <param name="key">The key to use for the dictionary.</param>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisual(System.String,UnityEngine.GameObject,System.Boolean)">
+            <summary>
+            Automatically generates a visual for the specified BasicObject and sets up its collision.
+            If you aren't using useRegularColliderAsEditorHitbox, be sure to assign EditorBasicObject's .editorCollider variable.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj">The prefab to copy.</param>
+            <param name="useRegularColliderAsEditorHitbox">If true, a copy of the regular collider for the object will be created based off the first found collider.</param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisualWithCustomBoxCollider(System.String,UnityEngine.GameObject,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Adds the specified object visual with a custom box collider for use in editor.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj">The prefab to copy.</param>
+            <param name="size"></param>
+            <param name="center"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisualWithCustomSphereCollider(System.String,UnityEngine.GameObject,System.Single,UnityEngine.Vector3)">
+            <summary>
+            Adds the specified object visual with a custom sphere collider for use in editor.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj">The prefab to copy.</param>
+            <param name="radius"></param>
+            <param name="center"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisualWithCustomCapsuleCollider(System.String,UnityEngine.GameObject,System.Single,System.Single,System.Int32,UnityEngine.Vector3)">
+            <summary>
+            Adds the specified object visual with a custom capsule collider for use in editor.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj">The prefab to copy.</param>
+            <param name="radius"></param>
+            <param name="height"></param>
+            <param name="direction"></param>
+            <param name="center"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisualWithMeshCollider(System.String,UnityEngine.GameObject,System.Boolean)">
+            <summary>
+            Adds the specified object visual with a custom capsule collider for use in editor.
+            </summary>
+            <param name="key">The key to use in the dictionary.</param>
+            <param name="obj">The prefab to copy.</param>
+            <param name="convex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddRoomVisualManager``1(System.String)">
+            <summary>
+            Creates a RoomVisualManager of the specified class type for the specified room type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="forType"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaToolTools(PlusLevelStudio.Editor.EditorMode,System.Boolean)">
+            <summary>
+            Adds the vanilla tools (the ones in the tools category) to the specified EditorMode
+            </summary>
+            <param name="includeNonVanillaCompliant"></param>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaDoors(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Add the vanilla doors to the specified EditorMode
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaLights(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Add the vanilla lights to the specified EditorMode.
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaActivities(PlusLevelStudio.Editor.EditorMode,System.Boolean)">
+            <summary>
+            Add the vanilla activities to the specified EditorMode.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="includeNonVanillaCompliant"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaPosters(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Add the vanilla posters to the specified EditorMode.
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaNPCs(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Add the vanilla NPCs to the specified EditorMode.
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaEvents(PlusLevelStudio.Editor.EditorMode,System.Boolean)">
+            <summary>
+            Add the vanilla random events to the specified EditorMode.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="includeNonVanillaComplaint"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaStructures(PlusLevelStudio.Editor.EditorMode,System.Boolean)">
+            <summary>
+            Add the vanilla structures to the specified editor mode.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="includeNonVanillaComplaintTools">If true, includes tools that require editor specific versions of the structures to work</param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaItems(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Add the vanilla items to the specified editor mode.
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaRooms(PlusLevelStudio.Editor.EditorMode,System.Boolean)">
+            <summary>
+            Adds the vanilla rooms to the specified editor mode.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="includeNonVanillaComplaintTools">If true, includes tools that require editor exclusive rooms</param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddVanillaObjects(PlusLevelStudio.Editor.EditorMode)">
+            <summary>
+            Adds the vanilla objects to the specified editor mode.
+            </summary>
+            <param name="modeToModify"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.InsertToolsInCategory(PlusLevelStudio.Editor.EditorMode,System.String,System.String,System.Collections.Generic.IEnumerable{PlusLevelStudio.Editor.EditorTool})">
+            <summary>
+            Insert tools after the specified tool in the category.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="category"></param>
+            <param name="idToInsertAt"></param>
+            <param name="tools"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.InsertToolInCategory(PlusLevelStudio.Editor.EditorMode,System.String,System.String,PlusLevelStudio.Editor.EditorTool)">
+            <summary>
+            Insert a tool after the specified tool in the category.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="category"></param>
+            <param name="idToInsertAt"></param>
+            <param name="tool"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddToolsToCategory(PlusLevelStudio.Editor.EditorMode,System.String,System.Collections.Generic.IEnumerable{PlusLevelStudio.Editor.EditorTool},System.Boolean)">
+            <summary>
+            Add the tools into the specified category of the EditorMode if it exists.
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="category"></param>
+            <param name="tools"></param>
+            <param name="addCategoryIfDoesntExist"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterfaceModes.AddToolToCategory(PlusLevelStudio.Editor.EditorMode,System.String,PlusLevelStudio.Editor.EditorTool,System.Boolean)">
+            <summary>
+            Add a tool into the specified category of the EditorMode if it exists
+            </summary>
+            <param name="modeToModify"></param>
+            <param name="category"></param>
+            <param name="tool"></param>
+            <param name="addCategoryIfDoesntExist"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.ValidatePosition(PlusLevelStudio.Editor.EditorLevelData)">
+            <summary>
+            Called when cells change, use this to validate your structure.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.ShiftBy(UnityEngine.Vector3,IntVector2,IntVector2)">
+            <summary>
+            Called when your structure needs to be shifted due to a level resize.
+            </summary>
+            <param name="worldOffset"></param>
+            <param name="cellOffset"></param>
+            <param name="sizeDifference"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.AddStringsToCompressor(PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Called before writing, passes in a string compressor you can add your structures strings to reduce file size.
+            Be sure to use the appropiate methods from the compressor in your reader and writer.
+            </summary>
+            <param name="compressor"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.Write(PlusLevelStudio.Editor.EditorLevelData,System.IO.BinaryWriter,PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Write the data for your structure to be saved in the editor level file.
+            Do not write the type, as that has already been done.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.ReadInto(PlusLevelStudio.Editor.EditorLevelData,System.IO.BinaryReader,PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Read the data for your structure to be loaded from the editor level file.
+            Do not read the type, as that has already been done.
+            </summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.StructureLocation.Compile(PlusLevelStudio.Editor.EditorLevelData,PlusStudioLevelFormat.BaldiLevel)">
+            <summary>
+            Compile this structure into the StructureInfo class that will later get converted into StructureData by the level loader.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:PlusLevelStudio.Editor.CellArea.rect">
+            <summary>
+            The rect for when this CellArea is selected. Return null to prevent the resize handles from showing up.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.CellArea.Resize(IntVector2,IntVector2)">
+            <summary>
+            Called when this Area is being resized.
+            </summary>
+            <param name="sizeDif"></param>
+            <param name="posDif"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.CellArea.VectorIsInArea(IntVector2)">
+            <summary>
+            Returns if the specified IntVector2 is inside of this area.
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.MarkerLocation.AddStringsToCompressor(PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Called before writing, passes in a string compressor you can add your structures strings to reduce file size.
+            Be sure to use the appropiate methods from the compressor in your reader and writer.
+            </summary>
+            <param name="compressor"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.MarkerLocation.Compile(PlusLevelStudio.Editor.EditorLevelData,PlusStudioLevelFormat.BaldiLevel)">
+            <summary>
+            Compiles this marker. Don't change anything in data.
+            </summary>
+            <param name="data"></param>
+            <param name="compiled"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.MarkerLocation.Write(PlusLevelStudio.Editor.EditorLevelData,System.IO.BinaryWriter,PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Write the data for the marker to be saved in the editor level file.
+            Do not write the type, as that has already been done.
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.MarkerLocation.ReadInto(PlusLevelStudio.Editor.EditorLevelData,System.IO.BinaryReader,PlusStudioLevelFormat.StringCompressor)">
+            <summary>
+            Read the data for the marker to be loaded from the editor level file.
+            Do not read the type, as that has already been done.
+            </summary>
+            <param name="reader"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.MarkerLocation.ShiftBy(UnityEngine.Vector3,IntVector2,IntVector2)">
+            <summary>
+            Called when your marker needs to be shifted due to a level resize.
+            </summary>
+            <param name="worldOffset"></param>
+            <param name="cellOffset"></param>
+            <param name="sizeDifference"></param>
+        </member>
+        <member name="T:PlusLevelStudio.Editor.RoomTechnicalStructureBase">
+            <summary>
+            An abstract "structure" that will only work correctly in the "room" editor mode.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.AddUndo">
+            <summary>
+            Adds the current state to the undo memory.
+            Do this BEFORE you perform your operation!
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.HoldUndo">
+            <summary>
+            Creates an undo, but doesn't add it right away.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.PrepareForUndo">
+            <summary>
+            Prepares for an undo by filling in the latest undo slot.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.CancelHeldUndo">
+            <summary>
+            Cancels the currently held undo.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.AddHeldUndo">
+            <summary>
+            Adds the currently held undo.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.PreFileLoad">
+            <summary>
+            Called right before a file is processed by the editor.
+            Use this call to remove any obsolete content.
+            It is advised to also call PreFileLoadMods as well.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.CleanupUnusedContentFromData">
+            <summary>
+            Attempts to clean up all unused data.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.AddVisual(PlusLevelStudio.Editor.IEditorVisualizable)">
+            <summary>
+            Adds the specified IEditorVisualizable into the editor visuals system.
+            </summary>
+            <param name="visualizable"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.UpdateAllVisuals">
+            <summary>
+            Updates all the object visuals.
+            Only use when necessary!
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.UpdateVisual(PlusLevelStudio.Editor.IEditorVisualizable)">
+            <summary>
+            Updates the visual for a specific object
+            </summary>
+            <param name="visualizable"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.GetVisual(PlusLevelStudio.Editor.IEditorVisualizable)">
+            <summary>
+            Gets the visual created for the specified IEditorVisualizable.
+            </summary>
+            <param name="visualizable"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.CastMouseRayToPlane(UnityEngine.Plane,System.Boolean)">
+            <summary>
+            Casts the current mouse ray to the specified plane
+            </summary>
+            <param name="plane"></param>
+            <param name="doubleSided"></param>
+            <returns>The position the ray landed on.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.SwitchToTool(PlusLevelStudio.Editor.EditorTool)">
+            <summary>
+            Switches the current tool to the one passed in.
+            </summary>
+            <param name="tool"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.SwitchToToolToolbox(PlusLevelStudio.Editor.EditorTool)">
+            <summary>
+            Switches the current tool and sets a flag that will cause the toolbox to re-appear when the tool is done.
+            </summary>
+            <param name="tool"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.SwitchCurrentHoveringSlot(PlusLevelStudio.Editor.EditorTool)">
+            <summary>
+            Attempts to get the slot the mouse is hovering over and replaces it with the specified tool.
+            This will open the toolbox afterwards if it wasnt already.
+            </summary>
+            <param name="tool"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.ResizeGrid(IntVector2,IntVector2)">
+            <summary>
+            Resizes the grid to the respective size and shifts everything by the respective position.
+            The camera is moved so no visible change is noticed
+            </summary>
+            <param name="posDif"></param>
+            <param name="sizeDif"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.HighlightCells(IntVector2[],System.String)">
+            <summary>
+            Highlights all the cells at the corresponding positions.
+            </summary>
+            <param name="positions"></param>
+            <param name="highlight">The lightmap/highlight to use.</param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorController.UnhighlightAllCells">
+            <summary>
+            Removes highlights from all cells.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorFileContainer.Read(System.IO.BinaryReader)">
+            <summary>
+            Read from the specified BinaryReader, without accounting for versions less than 2
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorFileContainer.ReadMindful(System.IO.BinaryReader)">
+            <summary>
+            Read from the specified BinaryReader. The returned EditorFileContainer may have null EditorFileMeta if the file was made before format version 2.
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGameMode.settingsPagePath">
+            <summary>
+            The path for the settings page JSON file. This will be ignored if hasSettingsPage is false.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGameMode.settingsPageType">
+            <summary>
+            The type for the settings page. This will be ignored if hasSettingsPage is false.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorGameMode.CreateSettings">
+            <summary>
+            Creates the settings for the specified mode. Return null to indicate that this mode has no configurable settings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorGameModeSettings.MakeCopy">
+            <summary>
+            Makes a copy of the settings by writing into a memory stream and then reading that back.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:PlusLevelStudio.Editor.EditorLevelData">
+            <summary>
+            The level data class used by the editor itself.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorLevelData.AddDefaultTextureAction(System.Action{System.Collections.Generic.Dictionary{System.String,PlusStudioLevelFormat.TextureContainer}})">
+            <summary>
+            Adds the specified action to be called whenever default textures need to be defined or redefined.
+            </summary>
+            <param name="action"></param>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGlobalPage.pageName">
+            <summary>
+            The name of the category object.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGlobalPage.pageKey">
+            <summary>
+            The localization key for the name of the page ingame.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGlobalPage.filePath">
+            <summary>
+            The path to load the page UI from.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorGlobalPage.managerType">
+            <summary>
+            The type of the manager. Should inherit from GlobalSettingsUIExchangeHandler
+            </summary>
+        </member>
+        <member name="T:PlusLevelStudio.Editor.EditorMode">
+            <summary>
+            Contains the important editor definitions for a specific mode, along with its prefab.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorRendererContainer.myRenderers">
+            <summary>
+            Used for changing the material's LightMap for the highlight effect.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorRoomVisualManager.Cleanup">
+            <summary>
+            Called when this is about to be destroyed.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorRoomVisualManager.Initialize">
+            <summary>
+            Called when this is initially created.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorRoomVisualManager.ModifyLightsForEditor(EnvironmentController)">
+            <summary>
+            Used to modify the lights.
+            </summary>
+            <param name="workerEc"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorRoomVisualManager.RoomUpdated">
+            <summary>
+            Called whenever this room is updated, supposedly. Only appears to be called when every visual gets refreshed.
+            </summary>
+        </member>
+        <member name="T:PlusLevelStudio.Editor.EditorTool">
+            <summary>
+            The base class for all editor tools.
+            </summary>
+        </member>
+        <member name="P:PlusLevelStudio.Editor.EditorTool.id">
+            <summary>
+            The ID for this tool, used during the save/load process.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.EditorTool.sprite">
+            <summary>
+            The sprite for this tool in the editor.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.Begin">
+            <summary>
+            Called when the tool is selected/picked up
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.Exit">
+            <summary>
+            Called when the tool is put away/closed
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.Cancelled">
+            <summary>
+            Called when the tool gets cancelled for any reason/the user attempts to cancel the tool.
+            </summary>
+            <returns>If the tool should be cancelled/returned when the cancel is performed.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.MousePressed">
+            <summary>
+            Called when the mouse is pressed.
+            </summary>
+            <returns>If the tool should be returned.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.MouseReleased">
+            <summary>
+            Called when the mouse is released.
+            </summary>
+            <returns>If the tool should be returned.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.EditorTool.Update">
+            <summary>
+            Called when the controller does its standard update
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.GlobalStructurePage.settingsPagePath">
+            <summary>
+            The path for the settings page JSON file. Ignored if settingsPageType is null.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.GlobalStructurePage.settingsPageType">
+            <summary>
+            The type for the settings page.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorDeletable.OnDelete(PlusLevelStudio.Editor.EditorLevelData)">
+            <summary>
+            What should be done when this item is deleted by the delete tool.
+            </summary>
+            <returns>Whether the deletion was successful.</returns>
+        </member>
+        <member name="T:PlusLevelStudio.Editor.EditorDeletableObject">
+            <summary>
+            The monobehavior that is searched for by the delete tool.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorInteractable.OnClicked">
+            <summary>
+            Gets called when this EditorInteractable is clicked
+            </summary>
+            <returns>If this object can be held. If false, then OnHeld and OnReleased won't be called.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorInteractable.OnHeld">
+            <summary>
+            Gets called when this EditorInteractable is continually held.
+            </summary>
+            <returns>Whether or not the held action should be called again.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorInteractable.OnReleased">
+            <summary>
+            Gets called when this EditorInteractable is released
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorInteractable.InteractableByTool(PlusLevelStudio.Editor.EditorTool)">
+            <summary>
+            Gets called when this EditorInteractable is clicked on when a tool is active.
+            </summary>
+            <returns>Whether this interactable can be clicked on when a tool is active.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorMovable.Selected">
+            <summary>
+            When this object is selected.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorMovable.Unselected">
+            <summary>
+            When this object is unselected.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorMovable.MoveUpdate(System.Nullable{UnityEngine.Vector3},System.Nullable{UnityEngine.Quaternion})">
+            <summary>
+            Called when the arrow is moved.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorMovable.GetTransform">
+            <summary>
+            Gets the transform that the handle should go to.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorVisualizable.GetVisualPrefab">
+            <summary>
+            Gets the prefab for the visual we want.
+            </summary>
+            <returns>The prefab. Return null to be given an empty object</returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorVisualizable.InitializeVisual(UnityEngine.GameObject)">
+            <summary>
+            Initializes the visual for the specified visualObject. Called when this visual is first added.
+            </summary>
+            <param name="visualObject"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorVisualizable.UpdateVisual(UnityEngine.GameObject)">
+            <summary>
+            Updates the visual for the specified visualObject.
+            </summary>
+            <param name="visualObject"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.IEditorVisualizable.CleanupVisual(UnityEngine.GameObject)">
+            <summary>
+            Cleans up the visual for the specified visualObject. Called right before visualObject is destroyed.
+            Use this to clean up any potential child IEditorVisualizables or stray objects you might've made.
+            </summary>
+            <param name="visualObject"></param>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.None">
+            <summary>
+            Nothing is selected or displayed.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.Tile">
+            <summary>
+            A tile is selected, show the tile selection box.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.Area">
+            <summary>
+            An area is selected. Show the resize handles.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.Direction">
+            <summary>
+            A direction is waiting to be selected. Show the resize handles in a 1x1 box.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.Object">
+            <summary>
+            An object is selected. Show the 3D rotation handles and the settings.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.Settings">
+            <summary>
+            An object that only can have its settings changed. Show the settings. Legacy.
+            </summary>
+        </member>
+        <member name="P:PlusLevelStudio.Editor.Selector.currentState">
+            <summary>
+            The current state of the selector.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.Selector.DisableSelection">
+            <summary>
+            Removes the active selection
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.Selector.SelectTile(IntVector2)">
+            <summary>
+            Selects the specified tile.
+            </summary>
+            <param name="tile"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.Selector.SelectRotation(IntVector2,System.Action{Direction})">
+            <summary>
+            Places the Selector at the specified tile and shows the arrows.
+            directionSelectAction is called when one of the arrows is clicked.
+            </summary>
+            <param name="tile"></param>
+            <param name="directionSelectAction"></param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.Selector.SelectArea(UnityEngine.RectInt,System.Action{IntVector2,IntVector2})">
+            <summary>
+            Select the area specified by Rect.
+            </summary>
+            <param name="rect"></param>
+            <param name="resizeAction">First parameter is the change in size, the second parameter is the change in position.</param>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.Tools.PlaceAndRotateTool.TryPlace(IntVector2,Direction)">
+            <summary>
+            Attempt to "place" at the specified position and direction.
+            </summary>
+            <param name="position"></param>
+            <param name="dir"></param>
+            <returns>Whether the placement was successful. If it was, the tool is returned.</returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorExtensions.ToCellVector(UnityEngine.Vector3)">
+            <summary>
+            Converts a given position to an int vector corresponding to a cell position
+            </summary>
+            <param name="position"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorExtensions.ToWorld(IntVector2)">
+            <summary>
+            Converts a given IntVector to a world position
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorExtensions.CalculateDifferencesForHandleDrag(Direction,System.Int32,IntVector2@,IntVector2@)">
+            <summary>
+            From the given direction and amount, calculate the size and position difference required to keep the origin in the top left.
+            </summary>
+            <param name="direction"></param>
+            <param name="dif"></param>
+            <param name="sizeDif"></param>
+            <param name="posDif"></param>
+        </member>
+        <member name="M:PlusLevelStudio.EditorExtensions.RawDistanceVector(IntVector2,Direction)">
+            <summary>
+            An IntVector2 where both numbers are always positive.
+            </summary>
+            <param name="me"></param>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PlusLevelStudio.Ingame.WormholeAmbienceRoomFunction">
+            <summary>
+            Identical to AmbienceRoomFunction, but can be checked for, so multiple wormholes dont add unnecessary extra ambiences.
+            </summary>
+        </member>
+        <member name="M:PlusLevelStudio.UI.UIExchangeHandler.SendInteractionMessage(System.String,System.Object)">
+            <summary>
+            Sends an interaction message to this exchange handler.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:PlusLevelStudio.UI.UIExchangeHandler.GetStateBoolean(System.String)">
+            <summary>
+            Gets the respective state boolean.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.UI.UIExchangeHandler.OnElementsCreated">
+            <summary>
+            Called when the UI is finished being built.
+            </summary>
+        </member>
+        <member name="T:PlusLevelStudio.UI.DummyUIExchangeHandler">
+            <summary>
+            A dummy UIExchangeHandler that just logs whenever its methods are called. Does nothing and shouldn't be used in anything.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -25,9 +25,6 @@
   
   <ItemGroup>
     <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
-    <Reference Include="BaldiLevelEditor">
-      <HintPath>References\BaldiLevelEditor.dll</HintPath>
-    </Reference>
     <Reference Include="BaldisBasicsPlusAdvanced">
       <HintPath>References\BaldisBasicsPlusAdvanced.dll</HintPath>
     </Reference>
@@ -49,9 +46,6 @@
     <Reference Include="CustomVendingMachines">
       <HintPath>References\CustomVendingMachines.dll</HintPath>
     </Reference>
-    <Reference Include="EditorCustomRooms">
-      <HintPath>References\EditorCustomRooms.dll</HintPath>
-    </Reference>
     <Reference Include="GrapplingHookTweaks">
       <HintPath>References\GrapplingHookTweaks.dll</HintPath>
     </Reference>
@@ -61,6 +55,15 @@
     <Reference Include="MTM101BaldAPI">
       <HintPath>References\MTM101BaldAPI.dll</HintPath>
     </Reference>
+	<Reference Include="PlusLevelStudio">
+	   <HintPath>References\PlusLevelStudio.dll</HintPath>
+	 </Reference>
+   <Reference Include="PlusStudioLevelFormat">
+	   <HintPath>References\PlusStudioLevelFormat.dll</HintPath>
+	 </Reference>
+   <Reference Include="PlusStudioLevelLoader">
+	   <HintPath>References\PlusStudioLevelLoader.dll</HintPath>
+	 </Reference>
     
 	
 </ItemGroup>
@@ -78,12 +81,6 @@
     </Reference>
     <Reference Include="PixelInternalAPI">
       <HintPath>References\PixelInternalAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="PlusLevelFormat">
-      <HintPath>References\editor\PlusLevelFormat.dll</HintPath>
-    </Reference>
-    <Reference Include="PlusLevelLoader">
-      <HintPath>References\editor\PlusLevelLoader.dll</HintPath>
     </Reference>
     <Reference Include="StackableItems">
       <HintPath>References\StackableItems.dll</HintPath>

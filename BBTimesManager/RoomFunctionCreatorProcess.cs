@@ -95,7 +95,7 @@ namespace BBTimes.Manager
 				});
 			}
 
-			if (TryAddFunctionToEveryRoom<CornerObjectSpawner>(RoomCategory.Office, out cos))
+			if (TryAddFunctionToEveryRoom(RoomCategory.Office, out cos))
 			{
 				cos.ForEach(func =>
 				{

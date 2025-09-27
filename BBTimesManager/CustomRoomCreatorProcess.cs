@@ -12,9 +12,9 @@ using BBTimes.CustomContent.RoomFunctions;
 using BBTimes.Extensions;
 using BBTimes.Extensions.ObjectCreationExtensions;
 using BBTimes.Manager.InternalClasses.LevelTypeWeights;
+using BBTimes.ModPatches.GeneratorPatches;
 using BBTimes.ModPatches.NpcPatches;
 using BBTimes.Plugin;
-using EditorCustomRooms;
 using HarmonyLib;
 using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
@@ -24,7 +24,8 @@ using NewPlusDecorations;
 using PixelInternalAPI.Classes;
 using PixelInternalAPI.Components;
 using PixelInternalAPI.Extensions;
-using PlusLevelLoader;
+using PlusStudioLevelFormat;
+using PlusStudioLevelLoader;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,6 +40,7 @@ namespace BBTimes.Manager
 			// ===================== 1. CREATE STRUCTURES FOR CUSTOM ROOMS ==============================
 			// ==========================================================================================
 			// This section is for creating all the GameObjects, prefabs, and assets that will be used in custom rooms.
+			// This part remains largely the same, as it deals with asset creation, not loading infrastructure.
 
 			// --- Variable Declarations (for reuse throughout the method) ---
 			RoomGroupWithLevelType levelTypeGroup = null; // Used for registering room groups with level types
@@ -190,8 +192,6 @@ namespace BBTimes.Manager
 				renderer.renderers = renderer.renderers.AddToArray(machineWheel.GetComponent<MeshRenderer>());
 			}
 
-
-
 			table.AddObjectToEditor();
 
 			// Computer
@@ -246,8 +246,6 @@ namespace BBTimes.Manager
 			teleporter.audTeleport = man.Get<SoundObject>("teleportAud");
 			teleporter.audLoop = ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromFile(GetRoomAsset("ComputerRoom", GetAssetName("teleportationNoises.wav"))), "Vfx_CompTel_Working", SoundType.Voice, Color.white);
 
-
-
 			// Item Descriptor
 			var descriptorObj = ObjectCreationExtensions.CreateSpriteBillboard(AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(GetRoomAsset("ComputerRoom", GetAssetName("item_descriptor.png"))), 13f))
 				.AddSpriteHolder(out var descriptorRenderer, -0.15f, LayerStorage.iClickableLayer);
@@ -296,7 +294,6 @@ namespace BBTimes.Manager
 			// Kitchen "table"
 			var shelf = new GameObject("KitchenCabinet");
 			shelf.gameObject.AddBoxCollider(Vector3.zero, new(10f, 10f, 10f), false);
-			//shelf.gameObject.AddNavObstacle(new(10f, 10f, 10f)); Not required as the player can't go through anyways. This is for guarantee that wandering npcs just don't go through walls after going past these structures
 			shelf.layer = LayerStorage.ignoreRaycast;
 			var renderers = new Renderer[2];
 
@@ -434,7 +431,6 @@ namespace BBTimes.Manager
 
 			// Huge line
 			var line = ObjectCreationExtensions.CreateSpriteBillboard(AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(GetRoomAsset("BasketballArea", "bigLine.png")), 2f), false).AddSpriteHolder(out runLineRenderer, 0.1f, 0);
-			//line.gameObject.layer = 0; // default layer
 			runLineRenderer.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 			line.name = "BasketBallBigLine";
 			line.gameObject.AddObjectToEditor();
@@ -677,7 +673,7 @@ namespace BBTimes.Manager
 			metalFence.transform.localScale = new(0.977f, 1f, 1f);
 
 			// ** Ice Water
-			var iceWater = ObjectCreationExtensions.CreateSpriteBillboard(AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(GetRoomAsset("IceRink", "IceRinkWater.png")), 20f), false) // make sure to load a sprite sheet
+			var iceWater = ObjectCreationExtensions.CreateSpriteBillboard(AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(GetRoomAsset("IceRink", "IceRinkWater.png")), 20f), false)
 				.AddSpriteHolder(out var iceWaterRenderer, Vector3.up * 0.1f, LayerStorage.ignoreRaycast);
 			iceWater.name = "iceWater";
 			iceWater.gameObject.AddBoxCollider(Vector3.up * 5f, new(3.85f, 5f, 3.85f), true);
@@ -1238,7 +1234,7 @@ namespace BBTimes.Manager
 			room[0].selection.AddRoomFunctionToContainer<RuleFreeZone>();
 			room[0].selection.AddRoomFunctionToContainer<CoverRoomFunction>().coverage = (CellCoverage)~0; // Reverse of 0
 
-			var highCeil = room[0].selection.AddRoomFunctionToContainer<HighCeilingRoomFunction>(); // The first is from the playground
+			var highCeil = room[0].selection.AddRoomFunctionToContainer<HighCeilingRoomFunction>();
 			highCeil.ceilingHeight = 2;
 			highCeil.usesSingleCustomWall = true;
 			var tex = TextureExtensions.CreateSolidTexture(1, 1, new(0.12156f, 0.12156f, 0.478431f));
@@ -1346,8 +1342,6 @@ namespace BBTimes.Manager
 
 			commonRoomWeight = Storage.IsChristmas ? 265 : 85;
 
-
-
 			room = GetAllAssets(GetRoomAsset("IceRink"), commonRoomWeight, 1, cont: playgroundClonedRoomContainer, mapBg: Storage.HasCrispyPlus ? AssetLoader.TextureFromFile(GetRoomAsset("IceRink", "mapIcon_iceRink.png")) : null, squaredShape: true, keepTextures: true, autoSizeLimitControl: -1);
 			floorTex = AssetLoader.TextureFromFile(GetRoomAsset("IceRink", "IceRinkFloor.png"));
 			AddTextureToEditor("IceRinkFloor", floorTex);
@@ -1375,8 +1369,6 @@ namespace BBTimes.Manager
 
 			// ================================================ Base Game Room Variants ====================================================
 
-
-
 			//Classrooms
 
 			classWeightPre = FindRoomGroupOfName("Class");
@@ -1396,7 +1388,7 @@ namespace BBTimes.Manager
 				x.selection.basicSwaps = classWeightPre.selection.basicSwaps;
 			});
 
-			floorDatas[F1].Classrooms.AddRange(room.Where(x => x.selection.activity.prefab is NoActivity).ToList().FilterRoomAssetsByFloor()); // why not "is NoActivity"? Well, probably because the game doesn't have the right NET to work like that in runtime
+			floorDatas[F1].Classrooms.AddRange(room.Where(x => x.selection.activity.prefab is NoActivity).ToList().FilterRoomAssetsByFloor());
 			var activityRooms = room.Where(x => x.selection.activity.prefab is not NoActivity).ToList().FilterRoomAssetsByFloor();
 
 			floorDatas[END].Classrooms.AddRange(activityRooms);
@@ -1417,9 +1409,9 @@ namespace BBTimes.Manager
 			Superintendent.AddAllowedRoom(sets.category);
 			CameraStand.allowedRoomsToSpawn.Add(sets.category);
 			ChalkfacePatch.allowedClassroomCategories.Add(sets.category);
+			WormholeRoomFunctionPatches.allowedClassRooms.Add(sets.category);
 
 			room = GetAllAssets(GetRoomAsset("FocusRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 2, classWeightPre.selection.offLimits, classWeightPre.selection.roomFunctionContainer, keepTextures: false);
-			// Workaround to not have to edit every focus room layout lol
 			var redCouchprefab = Resources.FindObjectsOfTypeAll<RendererContainer>().First(x => x.name == "RedCouch");
 			room.ForEach(foc => foc.selection.basicObjects.ForEach(basO => { if (basO.prefab.name == "Couch") basO.prefab = redCouchprefab.transform; }));
 
@@ -1435,6 +1427,7 @@ namespace BBTimes.Manager
 			Superintendent.AddAllowedRoom(sets.category);
 			CameraStand.allowedRoomsToSpawn.Add(sets.category);
 			ChalkfacePatch.allowedClassroomCategories.Add(sets.category);
+			WormholeRoomFunctionPatches.allowedClassRooms.Add(sets.category);
 
 			room = GetAllAssets(GetRoomAsset("ExibitionRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 2, classWeightPre.selection.offLimits, classWeightPre.selection.roomFunctionContainer, keepTextures: false);
 
@@ -1451,7 +1444,7 @@ namespace BBTimes.Manager
 
 				room.ForEach(x =>
 				{
-					x.selection.name.Replace("Class", sets.category.ToString()); // lol
+					x.selection.name.Replace("Class", sets.category.ToString());
 					x.selection.doorMats = sets.doorMat;
 					x.selection.category = sets.category;
 					x.selection.color = sets.color;
@@ -1527,23 +1520,6 @@ namespace BBTimes.Manager
 
 			foreach (var floorData in floorDatas)
 				floorData.Value.Offices.AddRange(room.FilterRoomAssetsByFloor(floorData.Key));
-
-			// Hall (PREV HALL DOESN'T EXIST ANYMORE CURRENTLY)
-			//classWeightPre = Resources.FindObjectsOfTypeAll<LevelObject>().First(x => x.potentialPrePlotSpecialHalls.Length != 0).potentialPrePlotSpecialHalls[0];
-
-			//room = GetAllAssets(GetRoomAsset("PrevHalls"), classWeightPre.selection.maxItemValue, classWeightPre.weight, classWeightPre.selection.offLimits, classWeightPre.selection.roomFunctionContainer, keepTextures: true, isAHallway: true);
-
-			//room.ForEach(x =>
-			//{
-			//	x.selection.posters = classWeightPre.selection.posters;
-			//	x.selection.posterChance = classWeightPre.selection.posterChance;
-			//	x.selection.windowChance = classWeightPre.selection.windowChance;
-			//	x.selection.windowObject = classWeightPre.selection.windowObject;
-			//	x.selection.lightPre = classWeightPre.selection.lightPre;
-			//});
-
-			//for (int i = 0; i < floorDatas.Count; i++)
-			//	floorDatas[i].Halls.AddRange(room.FilterRoomAssetsByFloor(i).ConvertAll<KeyValuePair<WeightedRoomAsset, bool>>(x => new(x, false))); // Pre halls
 
 			classWeightPre = Resources.FindObjectsOfTypeAll<LevelObject>().First(x => x.potentialPostPlotSpecialHalls.Length != 0).potentialPostPlotSpecialHalls[0];
 
@@ -1641,8 +1617,6 @@ namespace BBTimes.Manager
 				});
 			}
 
-
-
 			static WeightedRoomAsset FindRoomGroupOfName(string name)
 			{
 				foreach (var lvl in Resources.FindObjectsOfTypeAll<LevelObject>())
@@ -1708,7 +1682,7 @@ namespace BBTimes.Manager
 			{
 				if (assets[i].selection.GetRoomSize().Magnitude() >= averageGiven)
 				{
-					Object.Destroy(assets[i].selection); // Remove the asset since it's never going to be used anyways (free up memory)
+					Object.Destroy(assets[i].selection);
 					assets.RemoveAt(i--);
 				}
 			}
@@ -1718,13 +1692,13 @@ namespace BBTimes.Manager
 
 		static void AddTextureToEditor(string name, Texture2D tex)
 		{
-			PlusLevelLoaderPlugin.Instance.textureAliases.Add(name, tex);
-			man.Add("editorTexture_" + name, tex);
+			LevelLoaderPlugin.Instance.roomTextureAliases.Add(name, tex);
+			man.Add(name, tex);
 		}
 
 		static void AddObjectToEditor(this GameObject obj)
 		{
-			PlusLevelLoaderPlugin.Instance.prefabAliases.Add(obj.name, obj);
+			LevelLoaderPlugin.Instance.basicObjects.Add(obj.name, obj);
 			man.Add($"editorPrefab_{obj.name}", obj);
 			obj.ConvertToPrefab(true);
 		}
@@ -1732,7 +1706,7 @@ namespace BBTimes.Manager
 		static RoomSettings RegisterRoom(string roomName, Color color, StandardDoorMats mat)
 		{
 			var settings = new RoomSettings(EnumExtensions.ExtendEnum<RoomCategory>(roomName), RoomType.Room, color, mat);
-			PlusLevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
+			LevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
 			return settings;
 		}
 
@@ -1754,17 +1728,10 @@ namespace BBTimes.Manager
 			return newAssets;
 		}
 
-		//static RoomSettings RegisterRoom(string roomName, RoomCategory en, Color color, StandardDoorMats mat)
-		//{
-		//	var settings = new RoomSettings(en, RoomType.Room, color, mat);
-		//	PlusLevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
-		//	return settings;
-		//}
-
 		static RoomSettings RegisterSpecialRoom(string roomName, Color color)
 		{
 			var settings = new RoomSettings(RoomCategory.Special, RoomType.Room, color, man.Get<StandardDoorMats>("ClassDoorSet"));
-			PlusLevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
+			LevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
 			return settings;
 		}
 
@@ -1772,36 +1739,79 @@ namespace BBTimes.Manager
 		{
 			List<WeightedRoomAsset> assets = [];
 			RoomFunctionContainer container = cont;
-			foreach (var file in Directory.GetFiles(path))
+			BaldiRoomAsset roomData = null;
+
+			string roomName = Path.GetDirectoryName(path);
+
+			// Search for the new .rbpl file format instead of the obsolete .cbld
+			foreach (var file in Directory.GetFiles(path, "*.rbpl", SearchOption.AllDirectories))
 			{
-				if (File.ReadAllBytes(file).Length == 0) continue; // if the cbld file is empty, it means it has been "removed". This is to make sure that anyone who extracts newer versions don't include these layouts.
+				if (new FileInfo(file).Length == 0) continue; // Skip empty files
 				try
 				{
-					var asset = RoomFactory.CreateAssetsFromPath(file, maxValue, isOffLimits, container, isAHallway, secretRoom, mapBg, keepTextures, squaredShape);
-					assets.AddRange(asset.ConvertAll(x => new WeightedRoomAsset() { selection = x, weight = assetWeight }));
-					_moddedAssets.AddRange(asset);
-					if (!container)
-						container = asset[0].roomFunctionContainer;
+					// Load RBPL file
+					using BinaryReader reader = new(File.OpenRead(file));
 
-					// for (int i = 0; i < asset.Count; i++)
-					// 	RoomAssetMetaStorage.Instance.Add(new RoomAssetMeta(plug.Info, asset[i]));
+					roomData = BaldiRoomAsset.Read(reader);
+					// Create an ExtendedRoomAsset from the loaded data
+					var asset = LevelImporter.CreateRoomAsset(roomData, squaredShape);
+
+					asset.name = Path.GetFileNameWithoutExtension(file);
+					asset.maxItemValue = maxValue;
+					asset.offLimits = isOffLimits;
+					// asset.hallway lol = isAHallway; // Doesn't actually exist, but it's good to keep here as a reminder that this boolean exists
+					// Copy paste from EditorCustomRooms lol
+					if (mapBg != null)
+					{
+						asset.mapMaterial = new(asset.mapMaterial);
+						asset.mapMaterial.SetTexture("_MapBackground", mapBg);
+						asset.mapMaterial.SetShaderKeywords(["_KEYMAPSHOWBACKGROUND_ON"]);
+						asset.mapMaterial.name = asset.name;
+					}
+
+					if (isAHallway)
+					{
+						asset.mapMaterial = null; // hallways have no material
+					}
+					else if (container == null) // No reason why would a hallway need a container anyways
+					{
+						// If no RoomFunctionContainer is provided, create one for the first loaded room in the set.
+						container = new GameObject(asset.name + "_Container").AddComponent<RoomFunctionContainer>();
+						container.functions = []; // Initializes the functions bruh
+						container.gameObject.ConvertToPrefab(true);
+
+						if (!LevelLoaderPlugin.Instance.roomSettings.TryGetValue(roomName, out var settings))
+							settings = LevelLoaderPlugin.Instance.roomSettings[asset.category.ToStringExtended()]; // If the roomName is not correct, just use the category as last resort
+
+						settings.container = container; // Sets the container for this category
+					}
+					asset.keepTextures = keepTextures;
+
+
+					asset.roomFunctionContainer = container;
+
+					assets.Add(new WeightedRoomAsset() { selection = asset, weight = assetWeight });
+					_moddedAssets.Add(asset);
+
 				}
-				catch (KeyNotFoundException e)
+				catch (System.Exception e)
 				{
-					Debug.LogWarning("------------- Warning: actual exception found during room loading --------------");
-					Debug.LogWarning("Current path: " + file);
+					Debug.LogWarning($"------------- Warning: an exception was found during .rbpl room loading of file: {file} --------------");
 					Debug.LogException(e);
-					//using (BinaryReader reader = new(File.OpenRead(file)))
-					//{
-					//	var asset = LevelExtensions.ReadLevel(reader);
-					//	Debug.Log("Prefabs:");
-					//	asset.rooms[1].prefabs.ForEach(x => Debug.Log(x.prefab));
-					//	Debug.Log("---");
-					//	Debug.Log(asset.rooms[1].type);
-					//	Debug.Log(asset.rooms[1].textures.floor + "," + asset.rooms[1].textures.wall + "," + asset.rooms[1].textures.ceiling);
-					//}
+					erroredOutRooms.Add(roomData);
+					if (!LevelLoaderPlugin.Instance.roomSettings.ContainsKey(roomData.type))
+						Debug.Log($"\'{roomData.type}\' RoomCategory does not exist in loader.");
+					foreach (var obj in roomData.basicObjects)
+					{
+						if (!LevelLoaderPlugin.Instance.basicObjects.ContainsKey(obj.prefab))
+							Debug.Log($"\'{obj.prefab}\' Object does not exist in loader.");
+					}
+					foreach (var obj in roomData.items)
+					{
+						if (!LevelLoaderPlugin.Instance.basicObjects.ContainsKey(obj.item))
+							Debug.Log($"\'{obj.item}\' Item does not exist in loader.");
+					}
 				}
-				catch { }
 
 			}
 
@@ -1810,9 +1820,9 @@ namespace BBTimes.Manager
 
 			if (throwIfNoRoomFound && assets.Count == 0)
 				throw new System.ArgumentOutOfRangeException($"RoomAssets loaded from path: {path} resulted in 0 rooms loaded in.");
-
 			return assets;
 		}
+		static List<BaldiRoomAsset> erroredOutRooms = []; // For debugging in UE
 		static List<WeightedRoomAsset> FilterRoomAssetsByFloor(this List<WeightedRoomAsset> assets) =>
 			assets.FilterRoomAssetsByFloor(string.Empty);
 		static List<WeightedRoomAsset> FilterRoomAssetsByFloor(this List<WeightedRoomAsset> assets, string floor)
@@ -1823,7 +1833,8 @@ namespace BBTimes.Manager
 			{
 				for (int i = 0; i < newAss.Count; i++)
 				{
-
+					// This logic parses metadata from the filename (e.g., floor targeting, weights)
+					// It is preserved as it's part of the mod's content organization.
 					string[] rawData = newAss[i].selection.name.Split('!');
 
 					if (rawData.Length > 2)
@@ -1832,7 +1843,7 @@ namespace BBTimes.Manager
 						{
 							newAss[i].selection.maxItemValue = val;
 							if (val >= 200)
-								newAss[i].weight = 10; // Weight of a standard rare faculty
+								newAss[i].weight = 10;
 						}
 						if (rawData.Length > 3)
 						{
@@ -1845,14 +1856,13 @@ namespace BBTimes.Manager
 					{
 						string[] sdata = rawData[1].Split(',');
 
-						if (!sdata.Contains(floor)) // Finally remove the asset if it isn't for the intended floor
+						if (!sdata.Contains(floor))
 						{
 							newAss.RemoveAt(i--);
 							if (newAss.Count == 0)
 								break;
 						}
 					}
-
 				}
 			}
 			catch (System.IndexOutOfRangeException ex)

@@ -54,6 +54,9 @@ namespace BBTimes.CustomContent.Builders
 		public override void OnGenerationFinished(LevelBuilder lb)
 		{
 			base.OnGenerationFinished(lb);
+			// If there's no power lever and no room is powered off by default, it's likely this level won't have any power change
+			if (!FindObjectOfType<Structure_PowerLever>() && !lb.Ec.rooms.Exists(room => !room.Powered)) return;
+
 			foreach (var room in lb.Ec.rooms)
 			{
 				if (room.hasActivity && room.activity is NoActivity) // No Activity is from Notebooks
@@ -69,6 +72,7 @@ namespace BBTimes.CustomContent.Builders
 					machine.LinkToNotebook(room.activity.notebook, ec);
 				}
 			}
+
 		}
 
 

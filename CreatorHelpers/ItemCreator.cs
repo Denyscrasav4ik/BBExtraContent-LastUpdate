@@ -8,8 +8,7 @@ using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.ObjectCreation;
 using MTM101BaldAPI.Registers;
-using PixelInternalAPI.Extensions;
-using PlusLevelLoader;
+using PlusStudioLevelLoader;
 using UnityEngine;
 using static UnityEngine.Object;
 
@@ -55,7 +54,7 @@ namespace BBTimes.Helpers
 				BasePlugin._cstData.Add(data);
 			}
 
-			PlusLevelLoaderPlugin.Instance.itemObjects.Add("times_" + name, itemObj);
+			LevelLoaderPlugin.Instance.itemObjects.Add("times_" + name, itemObj);
 		}
 
 		public static ItemObject DuplicateItem(this ItemObject item, string nameKey, bool createNewMeta, string newItemEnumString = "", bool registerToLevelLoader = true)
@@ -86,7 +85,7 @@ namespace BBTimes.Helpers
 				it.itemType = EnumExtensions.ExtendEnum<Items>(newItemEnumString);
 
 			if (registerToLevelLoader)
-				PlusLevelLoaderPlugin.Instance.itemObjects.Add("times_" + (newEnum ? newItemEnumString : it.name), it);
+				LevelLoaderPlugin.Instance.itemObjects.Add("times_" + (newEnum ? newItemEnumString : it.name), it);
 
 			return it;
 		}

@@ -86,7 +86,7 @@ namespace BBTimes.Manager
 			vent = CreatorExtensions.CreateObjectBuilder<Structure_NotebookMachine>("Structure_NotebookMachine", out _, "NotebookMachine");
 
 			foreach (var floor in floorDatas)
-				floor.Value.ForcedObjectBuilders.Add(new(vent, LevelType.Maintenance)); // Every floor that has maintenance must have this
+				floor.Value.ForcedObjectBuilders.Add(new(vent)); // Every floor must have this for rooms
 
 
 			// SecretButton Builder
