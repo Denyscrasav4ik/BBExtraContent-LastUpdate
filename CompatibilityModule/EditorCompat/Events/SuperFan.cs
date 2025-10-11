@@ -3,7 +3,7 @@ using PlusLevelStudio.Editor;
 using PlusStudioLevelFormat;
 using PlusStudioLevelLoader;
 
-namespace BBTimes.CompatibilityModule.EditorCompat;
+namespace BBTimes.CompatibilityModule.EditorCompat.Events;
 
 public class SuperFanMarker : CellMarker
 {

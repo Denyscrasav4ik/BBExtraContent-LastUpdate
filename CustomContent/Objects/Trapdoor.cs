@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using UnityEngine;
-using TMPro;
 using BBTimes.CustomComponents;
+using TMPro;
+using UnityEngine;
 
 namespace BBTimes.CustomContent.Objects
 {
@@ -23,7 +23,7 @@ namespace BBTimes.CustomContent.Objects
 				var pa = other.GetComponent<PlayerAttributesComponent>();
 				if (e && e.Grounded && (pa == null || !pa.HasAttribute("boots")) && e.Override(overrider))
 					StartCoroutine(Teleport(e));
-				
+
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace BBTimes.CustomContent.Objects
 				overrider.Release();
 			}
 
-			
+
 
 			if (linkedTrapdoor != null)
 			{
@@ -159,12 +159,12 @@ namespace BBTimes.CustomContent.Objects
 				fake.GetComponent<PropagatedAudioManager>().PlaySingle(aud_shut);
 				StartCoroutine(FakeTrapdoorDespawn(fake));
 			}
-			
+
 		}
 
 		IEnumerator Timer()
 		{
-			cooldown = Random.Range(minCooldown, maxCooldown);
+			cooldown = baseCooldown;
 			while (cooldown > 0f)
 			{
 				text.text = Mathf.FloorToInt(cooldown).ToString();
@@ -203,7 +203,7 @@ namespace BBTimes.CustomContent.Objects
 
 		public void SetLinkedTrapDoor(Trapdoor d) =>
 			linkedTrapdoor = d;
-		
+
 
 		EnvironmentController ec;
 
@@ -217,27 +217,19 @@ namespace BBTimes.CustomContent.Objects
 
 		public Trapdoor Link => linkedTrapdoor;
 
-		[SerializeField]
 		public TextMeshPro text;
-
-		[SerializeField]
 		public SpriteRenderer renderer;
-
-		[SerializeField]
 		public Sprite[] sprites;
-
-		[SerializeField]
 		public SoundObject aud_shut, aud_open;
-
-		[SerializeField]
 		public PropagatedAudioManager audMan;
+		public Transform fakeTrapdoorPre;
 
 		[SerializeField]
-		public Transform fakeTrapdoorPre;
+		internal float baseCooldown = 15f;
 
 		readonly EntityOverrider overrider = new();
 
-		const float minCooldown = 15f, maxCooldown = 30f, sinkSpeed = 0.5f, fakeSpawnSpeed = 5f;
+		const float sinkSpeed = 0.5f, fakeSpawnSpeed = 5f;
 
 		float cooldown;
 	}

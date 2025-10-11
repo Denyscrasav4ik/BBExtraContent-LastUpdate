@@ -1,11 +1,16 @@
-﻿using BBTimes.Extensions;
-using System.Collections;
+﻿using System.Collections;
+using BBTimes.Extensions;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.Objects
 {
 	public class Vase : EnvironmentObject
 	{
+		public override void LoadingFinished()
+		{
+			base.LoadingFinished();
+			renderer.color = new(Random.Range(minColor.r, maxColor.r), Random.Range(minColor.g, maxColor.g), Random.Range(minColor.b, maxColor.b));
+		}
 		void OnTriggerEnter(Collider other)
 		{
 			if (IsBroken) return;
@@ -24,9 +29,9 @@ namespace BBTimes.CustomContent.Objects
 				IsBroken = true;
 				audMan.PlaySingle(audBreak);
 				renderer.sprite = sprBroken;
-				ec.CallOutPrincipals(transform.position, whistleCall:false);
+				ec.CallOutPrincipals(transform.position, whistleCall: false);
 				other.GetComponent<PlayerManager>()?.RuleBreak("breakingproperty", ruleBreakTime, 0.5f);
-				
+
 				ec.MakeNoise(transform.position, 35); // Not so high because principal can just take you to detention
 			}
 		}
@@ -50,6 +55,9 @@ namespace BBTimes.CustomContent.Objects
 
 		[SerializeField]
 		internal PropagatedAudioManager audMan;
+
+		[SerializeField]
+		internal Color minColor = new(0.15f, 0.15f, 0.15f), maxColor = Color.white;
 
 		[SerializeField]
 		internal SoundObject audBreak;

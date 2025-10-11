@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomContent.Objects;
 using BBTimes.Extensions;
 using MTM101BaldAPI;
 using PixelInternalAPI.Extensions;
+using PlusStudioLevelLoader;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.Builders
@@ -37,6 +39,9 @@ namespace BBTimes.CustomContent.Builders
 			camComp.audDetect = this.GetSound("spot.wav", "Vfx_Camera_Spot", SoundType.Effect, Color.white);
 
 			camPre = cam.transform;
+
+			// Makes the LoaderStructureData for the camera spawn
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "SecurityCamera", new() { structure = this });
 
 			return new() { prefab = this, parameters = new() { minMax = [new(1, 1), new(5, 10)] } }; // 0 = Amount of cameras, 1 = minMax distance for them
 		}
@@ -86,7 +91,6 @@ namespace BBTimes.CustomContent.Builders
 		public override void Load(List<StructureData> data)
 		{
 			base.Load(data);
-			var ecData = ec.GetComponent<EnvironmentControllerData>();
 			for (int i = 0; i < data.Count; i++)
 			{
 				var spot = ec.CellFromPosition(data[i].position);

@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BBTimes.CompatibilityModule.EditorCompat.Events;
+using BBTimes.CompatibilityModule.EditorCompat.Structures;
+using BBTimes.CustomContent.Builders;
 using BBTimes.CustomContent.Events;
+using BBTimes.CustomContent.Objects;
 using BBTimes.Extensions;
 using BBTimes.Manager;
 using BBTimes.Plugin;
@@ -9,12 +13,14 @@ using HarmonyLib;
 using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.Registers;
+using PixelInternalAPI.Classes;
 using PixelInternalAPI.Extensions;
 using PlusLevelStudio;
 using PlusLevelStudio.Editor;
 using PlusLevelStudio.Editor.Tools;
 using PlusStudioLevelFormat;
 using PlusStudioLevelLoader;
+using TMPro;
 using UnityEngine;
 
 namespace BBTimes.CompatibilityModule.EditorCompat
@@ -24,7 +30,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 		private static AssetManager _editorAssetMan;
 
 		// CONSTANT FIELDS for registering content
-		const string TimesPrefix = "times_";
+		public const string TimesPrefix = "times_";
 		// NPCs
 		static readonly string[] allNpcs = [
 			"ZeroPrize", "Adverto", "Bubbly", "Camerastand",
@@ -160,7 +166,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Special case for oldsweep
 			EditorInterface.AddNPCVisual("times_oldsweep", BBTimesManager.man.Get<NPC>("NPC_oldsweep"));
 
-
 			// Rooms
 			EditorInterface.AddRoomVisualManager<OutsideRoomVisualManager>("SnowyPlayground");
 			EditorInterface.AddRoomVisualManager<OutsideRoomVisualManager>("IceRink");
@@ -168,6 +173,46 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Random Events
 			foreach (var evName in allEvents)
 				LevelStudioPlugin.Instance.eventSprites.Add(TimesPrefix + evName, GetSprite($"UI/event_{evName}", $"UI/Event_{evName}"));
+
+			// ** Structures **
+			// Security Camera
+			var securityCameraBuilder = (Structure_Camera)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Camera");
+			var securityCamera = securityCameraBuilder.camPre.GetComponent<SecurityCamera>(); // Gets camera here
+			var securityCameraObj = EditorInterface.AddStructureGenericVisual(TimesPrefix + "SecurityCamera", securityCameraBuilder.camPre.gameObject); // Add as a generic visual with no components
+
+			// Visual manager setup for Security Camera
+			var secCamVisualManager = securityCameraObj.AddComponent<EditorSecurityCameraVisualManager>();
+			secCamVisualManager.cameraPlaneRendererPre = securityCamera.visionIndicatorPre; // Indicator
+			secCamVisualManager.collider = securityCameraObj.AddComponent<BoxCollider>(); // Adds collider
+			secCamVisualManager.collider.isTrigger = true;
+			secCamVisualManager.renderContainer = securityCameraObj.AddComponent<EditorRendererContainer>();
+
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "SecurityCamera", typeof(SecurityCameraStructureLocation));
+			// Trapdoors
+			var trapdoorBuilder = (Structure_Trapdoor)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Trapdoor");
+			var trapdoor = trapdoorBuilder.trapDoorpre;
+			var trapdoorRandomObj = AddStructureGenericVisual(TimesPrefix + "TrapdoorRandom", trapdoor.gameObject, typeof(TextMeshPro));
+			trapdoorRandomObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
+			trapdoorRandomObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[0];
+			var trapdoorLinkedObj = AddStructureGenericVisual(TimesPrefix + "TrapdoorLinked", trapdoor.gameObject, typeof(TextMeshPro));
+			trapdoorLinkedObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
+			trapdoorLinkedObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[1]; // Linked is index 1
+																												  // Add line renderer to indicate linkage for linked trapdoors
+			var trapdoorLinkedObj_lineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer.SafeInstantiate();
+			trapdoorLinkedObj_lineRenderer.transform.SetParent(trapdoorLinkedObj.transform);
+			trapdoorLinkedObj_lineRenderer.transform.localPosition = Vector3.zero;
+			trapdoorLinkedObj_lineRenderer.gameObject.SetActive(false);
+			trapdoorLinkedObj_lineRenderer.material.SetColor("_TextureColor", Color.blue);
+			trapdoorLinkedObj_lineRenderer.widthMultiplier = 0.95f;
+			trapdoorLinkedObj_lineRenderer.gameObject.layer = LayerMask.NameToLayer("Overlay");
+			trapdoorLinkedObj_lineRenderer.positionCount = 2;
+			trapdoorLinkedObj_lineRenderer.material.SetTexture("_LightMap", null); // No light map effect
+
+			var trapdoorLinkedObj_visualManager = trapdoorLinkedObj.AddComponent<TrapdoorEditorVisualManager>();
+			trapdoorLinkedObj_visualManager.container = trapdoorLinkedObj.GetComponent<EditorRendererContainer>();
+			trapdoorLinkedObj_visualManager.lineRenderer = trapdoorLinkedObj_lineRenderer;
+
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Trapdoor", typeof(TrapdoorStructureLocation));
 
 			// ** Markers **
 
@@ -258,6 +303,11 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			];
 			foreach (var marker in markerNames)
 				EditorInterfaceModes.AddToolToCategory(mode, "structures", new CellMarkerTool(marker, GetSprite($"UI/Marker_{marker}", $"UI/marker_{marker}")));
+
+			// Structures
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SecurityCameraTool(GetSprite($"UI/Structure_SecurityCamera", $"UI/structure_SecurityCamera")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorRng", $"UI/structure_TrapdoorRng"), false));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorLink", $"UI/structure_TrapdoorLink"), true));
 		}
 		/// <summary>
 		/// Add object tools.
@@ -332,6 +382,18 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			readonly public string prefab = prefab;
 			readonly public bool rotatable = rotatable;
 			readonly public float offset = 0f;
+		}
+
+		static GameObject AddStructureGenericVisual(string key, GameObject obj, params System.Type[] exceptions)
+		{
+			GameObject gameObject = EditorInterface.CloneToPrefabStripMonoBehaviors(obj, exceptions);
+			gameObject.name = gameObject.name.Replace("_Stripped", "_GenericStructureVisual");
+			EditorRendererContainer editorRendererContainer = gameObject.gameObject.AddComponent<EditorRendererContainer>();
+			editorRendererContainer.AddRendererRange(gameObject.GetComponentsInChildren<Renderer>(), "none");
+			gameObject.gameObject.AddComponent<EditorDeletableObject>().renderContainer = editorRendererContainer;
+			gameObject.layer = 13;
+			LevelStudioPlugin.Instance.genericStructureDisplays.Add(key, gameObject);
+			return gameObject;
 		}
 	}
 
