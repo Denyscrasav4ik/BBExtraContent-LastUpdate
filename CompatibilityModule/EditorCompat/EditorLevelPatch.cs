@@ -13,13 +13,11 @@ using HarmonyLib;
 using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.Registers;
-using PixelInternalAPI.Classes;
 using PixelInternalAPI.Extensions;
 using PlusLevelStudio;
 using PlusLevelStudio.Editor;
 using PlusLevelStudio.Editor.Tools;
 using PlusStudioLevelFormat;
-using PlusStudioLevelLoader;
 using TMPro;
 using UnityEngine;
 
@@ -175,6 +173,9 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 				LevelStudioPlugin.Instance.eventSprites.Add(TimesPrefix + evName, GetSprite($"UI/event_{evName}", $"UI/Event_{evName}"));
 
 			// ** Structures **
+			// Readonly variables here
+			var referenceLineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer;
+
 			// Security Camera
 			var securityCameraBuilder = (Structure_Camera)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Camera");
 			var securityCamera = securityCameraBuilder.camPre.GetComponent<SecurityCamera>(); // Gets camera here
@@ -198,7 +199,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			trapdoorLinkedObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
 			trapdoorLinkedObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[1]; // Linked is index 1
 																												  // Add line renderer to indicate linkage for linked trapdoors
-			var trapdoorLinkedObj_lineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer.SafeInstantiate();
+			var trapdoorLinkedObj_lineRenderer = referenceLineRenderer.SafeInstantiate();
 			trapdoorLinkedObj_lineRenderer.transform.SetParent(trapdoorLinkedObj.transform);
 			trapdoorLinkedObj_lineRenderer.transform.localPosition = Vector3.zero;
 			trapdoorLinkedObj_lineRenderer.gameObject.SetActive(false);
@@ -213,6 +214,48 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			trapdoorLinkedObj_visualManager.lineRenderer = trapdoorLinkedObj_lineRenderer;
 
 			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Trapdoor", typeof(TrapdoorStructureLocation));
+
+			// Notebook Machine
+			var ntbMachineBuilder = (Structure_NotebookMachine)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_NotebookMachine");
+			var ntbMachineObj = EditorInterface.AddStructureGenericVisual(TimesPrefix + "NotebookMachine", ntbMachineBuilder.ntbMachinePre.gameObject);
+			Object.Destroy(ntbMachineObj.GetComponent<BoxCollider>()); // No Box collider
+
+			var ntbMachineObj_collider = ntbMachineObj.AddComponent<SphereCollider>();
+			ntbMachineObj_collider.isTrigger = true;
+			ntbMachineObj_collider.center = Vector3.up * 1.25f;
+			ntbMachineObj_collider.radius = 3f; // Slightly bigger than the notebook for a reason
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "NotebookMachine", typeof(NotebookMachineStructureLocation));
+
+			// Item Alarm
+			var itemAlarmBuilder = (Structure_ItemAlarm)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_ItemAlarm");
+			var itemAlarmObj = EditorInterface.AddStructureGenericVisual(TimesPrefix + "ItemAlarm", itemAlarmBuilder.alarmPre.gameObject);
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "ItemAlarm", typeof(ItemAlarmStructureLocation));
+
+			// Duct
+			var ductBuilder = (Structure_Duct)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Duct");
+			var ductPrefab = ductBuilder.ventPrefab;
+
+			// Visual for individual Duct
+			var ductVisual = EditorInterface.AddStructureGenericVisual(TimesPrefix + "Duct", ductPrefab);
+			var ductVisualManager = ductVisual.AddComponent<DuctEditorVisualManager>();
+			ductVisualManager.container = ductVisual.GetComponent<EditorRendererContainer>();
+			ductVisualManager.container.AddRendererRange(ductVisual.GetComponentsInChildren<Renderer>(), "none");
+
+			var ductHitbox = ductVisual.GetComponent<BoxCollider>();
+			ductHitbox.center = Vector3.up * 9.5f;
+			ductHitbox.size = new(9.99f, 1f, 9.99f);
+
+			// Create LineRenderer prefab for connections
+			var duct_lineRenderer = referenceLineRenderer.SafeInstantiate();
+			duct_lineRenderer.transform.SetParent(ductVisual.transform, false);
+			duct_lineRenderer.material.SetColor("_TextureColor", Color.cyan);
+			duct_lineRenderer.widthMultiplier = 0.75f;
+			duct_lineRenderer.positionCount = 2;
+			duct_lineRenderer.gameObject.layer = LayerMask.NameToLayer("Overlay");
+			duct_lineRenderer.material.SetTexture("_LightMap", null);
+			ductVisualManager.lineRendererPrefab = duct_lineRenderer;
+
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Duct", typeof(DuctStructureLocation));
 
 			// ** Markers **
 
@@ -292,6 +335,8 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Add Object tools
 			AddObjectTools(mode);
 
+			if (mode.id == "rooms") return; // Below here, there are things that are unnecessary for the rooms editor
+
 			// Random Events
 			foreach (var evName in allEvents)
 				mode.availableRandomEvents.Add(TimesPrefix + evName);
@@ -308,6 +353,10 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SecurityCameraTool(GetSprite($"UI/Structure_SecurityCamera", $"UI/structure_SecurityCamera")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorRng", $"UI/structure_TrapdoorRng"), false));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorLink", $"UI/structure_TrapdoorLink"), true));
+			EditorInterfaceModes.AddToolToCategory(mode, "activities", new NotebookMachineTool(GetSprite("UI/Structure_NotebookMachine", "UI/structure_NotebookMachine")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new ItemAlarmTool(GetSprite("UI/Structure_ItemAlarm", "UI/structure_ItemAlarm")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctPlaceTool(GetSprite("UI/Structure_Duct", "UI/structure_Duct")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctConnectTool(GetSprite("UI/Structure_DuctConnect", "UI/structure_DuctConnect")));
 		}
 		/// <summary>
 		/// Add object tools.

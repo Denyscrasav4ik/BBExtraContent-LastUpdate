@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomContent.Objects;
 using BBTimes.Extensions;
@@ -5,6 +7,7 @@ using BBTimes.Extensions.ObjectCreationExtensions;
 using BBTimes.Manager;
 using MTM101BaldAPI;
 using PixelInternalAPI.Extensions;
+using PlusStudioLevelLoader;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.Builders
@@ -43,6 +46,10 @@ namespace BBTimes.CustomContent.Builders
 
 			ntbMachinePre.gameObject.layer = LayerMask.NameToLayer("ClickableCollideable");
 
+
+			// Makes the LoaderStructureData for the spawn
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "NotebookMachine", new() { structure = this });
+
 			return new() { prefab = this, parameters = null }; // 0 = Amount of cameras, 1 = minMax distance for them
 		}
 		public void SetupPrefab() { }
@@ -51,9 +58,37 @@ namespace BBTimes.CustomContent.Builders
 		public string Name { get; set; }
 		public string Category => "objects";
 
+		public override void Load(List<StructureData> data)
+		{
+			base.Load(data);
+			loadedAsLevelLoader = true;
+			if (data.Count == 0) return;
+
+			foreach (var dat in data)
+			{
+				Vector3 dataPosition = dat.position.ToVector3();
+				var room = ec.CellFromPosition(dataPosition).room;
+				if (!room.hasActivity || room.activity is not NoActivity)
+				{
+					Debug.LogWarning("NotebookMachine spawned in a room that has no activity to override, that's illegal!");
+					continue;
+				}
+
+				var machine = CreateMachine(room.activity.notebook, room);
+
+				if (room.doors.Count == 0) continue; // If the room has no doors, just leave it as it is
+				var door = room.doors[Random.Range(0, room.doors.Count)].transform;
+				Vector3 lookAtPos = door.position;
+				lookAtPos.y = machine.transform.position.y; // To avoid the machine tilting
+				machine.transform.LookAt(lookAtPos, Vector3.up);
+			}
+		}
+
 		public override void OnGenerationFinished(LevelBuilder lb)
 		{
 			base.OnGenerationFinished(lb);
+			if (loadedAsLevelLoader) return; // No load should let this go
+
 			// If there's no power lever and no room is powered off by default, it's likely this level won't have any power change
 			if (!FindObjectOfType<Structure_PowerLever>() && !lb.Ec.rooms.Exists(room => !room.Powered)) return;
 
@@ -61,23 +96,30 @@ namespace BBTimes.CustomContent.Builders
 			{
 				if (room.hasActivity && room.activity is NoActivity) // No Activity is from Notebooks
 				{
-					var machine = Instantiate(ntbMachinePre, room.objectObject.transform);
-					machine.transform.position = room.activity.transform.position + Vector3.down * 1.25f;
+					var machine = CreateMachine(room.activity.notebook, room);
 					var door = room.doors[lb.controlledRNG.Next(room.doors.Count)].transform;
 
 					Vector3 lookAtPos = door.position;
 					lookAtPos.y = machine.transform.position.y; // To avoid the machine tilting
 					machine.transform.LookAt(lookAtPos, Vector3.up);
-
-					machine.LinkToNotebook(room.activity.notebook, ec);
 				}
 			}
 
+		}
+
+		NotebookMachine CreateMachine(Notebook notebook, RoomController room)
+		{
+			var machine = Instantiate(ntbMachinePre, room.objectObject.transform);
+			machine.transform.position = notebook.transform.position + Vector3.down * 1.25f;
+			machine.LinkToNotebook(notebook, ec);
+			return machine;
 		}
 
 
 
 		[SerializeField]
 		internal NotebookMachine ntbMachinePre;
+
+		bool loadedAsLevelLoader = false;
 	}
 }

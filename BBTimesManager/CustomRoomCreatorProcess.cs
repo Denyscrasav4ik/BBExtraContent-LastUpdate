@@ -1676,7 +1676,6 @@ namespace BBTimes.Manager
 								return potRooms[i];
 						}
 					}
-					return lvlGroup.potentialRooms[0];
 				}
 				return null;
 			}
@@ -1777,8 +1776,8 @@ namespace BBTimes.Manager
 		{
 			var settings = new RoomSettings(EnumExtensions.ExtendEnum<RoomCategory>(roomName), RoomType.Room, color, mat);
 			LevelLoaderPlugin.Instance.roomSettings.Add(roomName, settings);
-			// Debug.Log("{\"key\": \"Ed_Tool_room_" + roomName + "_Title\", \"value\":\"" + roomName.ToFriendlyName() + " \"},");
-			// Debug.Log("{\"key\": \"Ed_Tool_room_" + roomName + "_Desc\", \"value\":\"[DESCRIPTION]\"},");
+			Debug.Log("{\"key\": \"Ed_Tool_room_" + roomName + "_Title\", \"value\":\"" + roomName.ToFriendlyName() + " \"},");
+			Debug.Log("{\"key\": \"Ed_Tool_room_" + roomName + "_Desc\", \"value\":\"[DESCRIPTION]\"},");
 			return settings;
 		}
 

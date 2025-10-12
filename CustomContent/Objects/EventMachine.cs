@@ -1,5 +1,5 @@
-﻿using BBTimes.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BBTimes.Extensions;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.Objects
@@ -11,7 +11,7 @@ namespace BBTimes.CustomContent.Objects
 
 		public void InsertItem(PlayerManager pm, EnvironmentController ec)
 		{
-			List<RandomEventType> types = new(ec.CurrentEventTypes);
+			List<RandomEventType> types = [.. ec.CurrentEventTypes];
 			types.ForEach(x => ec.GetEvent(x).EndEarlier()); // guarantee every event is ended
 
 			if (audBalAngry != null)
@@ -28,7 +28,7 @@ namespace BBTimes.CustomContent.Objects
 			if (!_isDead)
 				spriteToChange.sprite = ec.CurrentEventTypes.Count != 0 && !ec.timeOut ? sprWorking : sprNoEvents;
 		}
-		
+
 
 		[SerializeField]
 		internal Sprite sprNoEvents, sprWorking, sprDead;

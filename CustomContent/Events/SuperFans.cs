@@ -23,7 +23,7 @@ namespace BBTimes.CustomContent.Events
 
 			Cumulo cloud = (Cumulo)NPCMetaStorage.Instance.Get(Character.Cumulo).value;
 
-			var storedSprites = this.GetSpriteSheet(5, 1, 50f, "fan.png");
+			var storedSprites = this.GetSpriteSheet(5, 1, 35f, "fan.png");
 
 			var superFanRend = ObjectCreationExtensions.CreateSpriteBillboard(storedSprites[0], false);
 			superFanRend.gameObject.ConvertToPrefab(true);
@@ -73,7 +73,7 @@ namespace BBTimes.CustomContent.Events
 			List<Cell> list = ec.AllCells();
 
 			for (int i = 0; i < list.Count; i++)
-				if (!list[i].TileMatches(ec.mainHall) || !list[i].HasHardFreeWall || list[i].open || (!list[i].shape.HasFlag(TileShapeMask.Single) && !list[i].shape.HasFlag(TileShapeMask.Corner)))
+				if (!list[i].TileMatches(ec.mainHall) || !list[i].HasHardFreeWall || list[i].open || list[i].AllWallDirections.Count > 2) // If wall directions is above 2, this is not a corner or single cell
 					list.RemoveAt(i--);
 
 			int fans = rng.Next(minFans, maxFans + 1);

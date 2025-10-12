@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using BBTimes.CustomComponents;
-using BBTimes.Extensions;
+﻿using BBTimes.CustomComponents;
+using UnityEngine;
 
 namespace BBTimes.CustomContent.Builders
 {
-    public class RandomForcedPostersBuilder : StructureBuilder, IBuilderPrefab
+	public class RandomForcedPostersBuilder : StructureBuilder, IBuilderPrefab
 	{
 		public StructureWithParameters SetupBuilderPrefabs() =>
 			new() { parameters = new() { chance = [0f] }, prefab = this }; // Can be null, right?

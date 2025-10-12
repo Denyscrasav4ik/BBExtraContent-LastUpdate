@@ -21,6 +21,12 @@ namespace BBTimes.CustomContent.Objects
 			}
 		}
 
+		public void Initialize()
+		{
+			cooldown = Random.Range(minCooldown, maxCooldown);
+			BlockAllDirections(false); // Disabled by default
+		}
+
 		public void BlockMe() => animation = StartCoroutine(BlockAnimation());
 
 		IEnumerator BlockAnimation()
@@ -98,7 +104,6 @@ namespace BBTimes.CustomContent.Objects
 			gasLeakVentAudioMan.SetLoop(true);
 			ec.BlockAllDirs(transform.position, block);
 			colliders.Do(x => x.enabled = block);
-
 		}
 
 		private void Update()
@@ -193,8 +198,6 @@ namespace BBTimes.CustomContent.Objects
 		internal PropagatedAudioManager normalVentAudioMan, gasLeakVentAudioMan;
 
 		[SerializeField]
-		internal float leakPushForce = 31f, leakAccelerationForce = -12.5f;
-
-		const float minCooldown = 10f, maxCooldown = 25f, emissionRate = 75f;
+		internal float leakPushForce = 31f, leakAccelerationForce = -12.5f, minCooldown = 10f, maxCooldown = 25f, emissionRate = 75f;
 	}
 }

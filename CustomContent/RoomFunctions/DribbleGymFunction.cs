@@ -55,19 +55,25 @@ namespace BBTimes.CustomContent.RoomFunctions
 		public override void Build(LevelBuilder builder, System.Random rng)
 		{
 			base.Build(builder, rng);
-			List<Cell> availableCells = [];
+			GeneratePoster(rng);
+		}
+		void GeneratePoster() => GeneratePoster(null);
+		void GeneratePoster(System.Random rng)
+		{
+			if (posterCell != null) return; // Should only be called once
 
+			List<Cell> availableCells = [];
 			foreach (var cell in room.cells)
 			{
 				if (cell.WallCount != 0)
 					availableCells.Add(cell);
 			}
-
 			if (availableCells.Count == 0)
 			{
 				Debug.LogError("BBTIMES: PlayerRunCornerFunction couldn\'t find a spot for the chalkboard.");
 				return;
 			}
+			rng ??= new(); // Uses random rng if it is null
 
 			// Get spot for poster
 			posterCell = availableCells[rng.Next(availableCells.Count)];
@@ -77,6 +83,7 @@ namespace BBTimes.CustomContent.RoomFunctions
 		{
 			base.OnGenerationFinished();
 
+			GeneratePoster(); // Failsafe in case Build() is never called
 			UpdatePoster(0); // Get the poster on the wall
 
 			// Useful when locking up the doors

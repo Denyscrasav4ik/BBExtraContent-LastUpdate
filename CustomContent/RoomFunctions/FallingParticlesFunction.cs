@@ -13,10 +13,10 @@ namespace BBTimes.CustomContent.RoomFunctions
 		internal Texture2D particleTexture;
 
 		[SerializeField]
-		internal float gravityFactor = 0.25f, initialFallingSpeed = 3f, emissionFactor = 60f, rotationFactor = 0.1f, lifeTime = 6.5f, yOffset = 65f;
+		internal float minGravityFactor = 0.25f, maxGravityFactor = 1f, initialFallingSpeed = 3f, emissionFactor = 60f, rotationFactor = 0.1f, yOffset = 65f;
 
 		[SerializeField]
-		internal Vector2 minMaxSpeedX = new(-1.5f, 1.5f), minMaxSpeedZ = new(-1.5f, 1.5f);
+		internal Vector2 minMaxSpeedX = new(-7f, 7f), minMaxSpeedZ = new(-7f, 7f);
 
 		[SerializeField]
 		internal bool bounderiesOnly = false;
@@ -44,15 +44,16 @@ namespace BBTimes.CustomContent.RoomFunctions
 			{
 				var particle = GameExtensions.GetNewParticleSystem();
 				particle.gameObject.name = room.name + "_particles";
-				particle.transform.SetParent(transform);
+				particle.transform.SetParent(transform, false);
 				particle.transform.localPosition = Vector3.up * 1.25f;
 				particle.GetComponent<ParticleSystemRenderer>().material = new Material(ObjectCreationExtension.defaultDustMaterial) { mainTexture = particleTexture };
 
 				var main = particle.main;
 
-				main.startLifetime = lifeTime;
-				main.startSpeed = 5f;
-				main.gravityModifier = gravityFactor;
+				// Make particles effectively infinite-lived; cleanup will be handled by ParticleCleaner
+				main.startLifetime = float.PositiveInfinity;
+				main.startSpeed = 0f; // No start speed, otherwise it'll just go in a random tendency direction
+				main.gravityModifier = new(minGravityFactor, maxGravityFactor);
 
 				var shape = particle.shape;
 				shape.enabled = true;
@@ -87,6 +88,10 @@ namespace BBTimes.CustomContent.RoomFunctions
 				// Assigning planes for particles
 				for (int i = 0; i < planeBounderies.Length; i++)
 					collision.AddPlane(planeBounderies[i]);
+
+				// Add a cleaner component that will remove particles when they fall below y = -5
+				var cleaner = particle.gameObject.AddComponent<ParticleCleaner>();
+				cleaner.killY = -5f;
 			}
 
 
@@ -94,6 +99,49 @@ namespace BBTimes.CustomContent.RoomFunctions
 			// Check for snow piles
 			foreach (var snowPile in room.objectObject.GetComponentsInChildren<SnowPile>())
 				snowPile.AssignParticlePlanes(planeBounderies);
+		}
+
+		internal class ParticleCleaner : MonoBehaviour
+		{
+			// Y position below which particles are killed
+			public float killY = -5f;
+
+			private ParticleSystem ps;
+
+			void Awake()
+			{
+				ps = GetComponent<ParticleSystem>();
+			}
+
+			void LateUpdate()
+			{
+				if (ps == null) return;
+
+				var particles = new ParticleSystem.Particle[ps.main.maxParticles > 0 ? ps.main.maxParticles : 1024];
+				int count = ps.GetParticles(particles);
+
+				bool changed = false;
+				for (int i = 0; i < count; i++)
+				{
+					// Transform particle position to world space
+					Vector3 worldPos = ps.transform.TransformPoint(particles[i].position);
+					if (worldPos.y < killY)
+					{
+						// kill this particle by setting remainingLifetime to 0
+						particles[i].remainingLifetime = 0f;
+						changed = true;
+					}
+				}
+
+				if (changed)
+					ps.SetParticles(particles, count);
+
+				// If there are no alive particles and system is not looping, destroy the GameObject to free resources
+				if (!ps.IsAlive(true))
+				{
+					Destroy(gameObject);
+				}
+			}
 		}
 	}
 }

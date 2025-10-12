@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomContent.Objects;
 using BBTimes.Extensions;
@@ -7,6 +8,7 @@ using BBTimes.ModPatches.EnvironmentPatches;
 using MTM101BaldAPI;
 using PixelInternalAPI.Classes;
 using PixelInternalAPI.Extensions;
+using PlusStudioLevelLoader;
 using UnityEngine;
 
 
@@ -125,7 +127,11 @@ namespace BBTimes.CustomContent.Builders
 			Destroy(connection2);
 			connection.ConvertToPrefab(true);
 
-			return new() { prefab = this, parameters = new() { chance = [0.45f] } };
+
+			// Makes the LoaderStructureData for the spawn
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Duct", new() { structure = this });
+
+			return new() { prefab = this, parameters = new() { chance = [1 / 5f, 1 / 3f], minMax = [new(3, 8), new(1, 2)] } }; // Chance= [chanceToSpawn, factorToReduceOverLevelSize, factorToReduceWebSizeOverLevelSize], minMax=[AmountOfDucts, AmountOfWebs]
 		}
 
 		public void SetupPrefab() { }
@@ -144,106 +150,100 @@ namespace BBTimes.CustomContent.Builders
 		{
 			base.PostOpenCalcGenerate(lg, rng);
 
-			// Chance for the ducts to spawn in the seed (since it is forced)
-			if (rng.NextDouble() < parameters.chance[0])
-			{
-				Finished();
-				return;
-			}
+			var room = lg.Ec.mainHall; // hallway
 
-			var room = lg.Ec.mainHall;
-
-			List<Cell> halls = room.GetTilesOfShape(TileShapeMask.Corner | TileShapeMask.Single, false);
-			if (halls.Count == 0)
+			// Find suitable corner/single tiles for duct placement
+			List<Cell> candidateCells = room.GetTilesOfShape(TileShapeMask.Corner | TileShapeMask.Single, false);
+			if (candidateCells.Count == 0)
 			{
 				Debug.LogWarning("Structure_Duct failed to find any good spots to spawn them.");
 				Finished();
 				return;
 			}
+			int webAmount = rng.Next(parameters.minMax[1].x, parameters.minMax[1].z);
+			List<Region> webRegions = [];
+			// Offset
+			IntVector2 offset = new(Mathf.FloorToInt(lg.levelSize.x * parameters.chance[1]), Mathf.FloorToInt(lg.levelSize.z * parameters.chance[2])); // negative
 
-			int ventAmount = lg.levelSize.x * lg.levelSize.z / 4;
-
-			var selectedWebTile = halls[rng.Next(halls.Count)];
-			var web = lg.Ec.FindNearbyTiles(selectedWebTile.position - new IntVector2(lg.levelSize.x / 5, lg.levelSize.z / 5),
-				selectedWebTile.position + new IntVector2(lg.levelSize.x / 5, lg.levelSize.z / 5),
-				(lg.levelSize.x + lg.levelSize.z) / 6);
-
-			List<Duct> vents = [];
-
-			foreach (var cell in web)
+			for (int webCounter = 0; webCounter < webAmount; webCounter++)
 			{
-				if (cell.TileMatches(room) && !cell.HasAnyHardCoverage && !cell.open && !cell.doorHere && (cell.shape.HasFlag(TileShapeMask.Corner) || cell.shape.HasFlag(TileShapeMask.Single)) && !lg.Ec.TrapCheck(cell))
+				// Calculate number of vents based on level size
+				int ventAmount = Mathf.FloorToInt(Mathf.Clamp(lg.levelSize.x * lg.levelSize.z * parameters.chance[0], parameters.minMax[0].x, parameters.minMax[0].z));
+
+				for (int i = 0; i < webRegions.Count; i++)
 				{
-					var vent = Instantiate(ventPrefab, cell.ObjectBase); // Prefab for Vent is index 0
-					vent.transform.position = cell.FloorWorldPosition;
-					vent.SetActive(true);
-					var v = vent.GetComponent<Duct>();
-					v.ec = ec;
-					cell.HardCoverEntirely();
-					cell.AddRenderer(v.renderer);
-					cell.AddRenderer(v.particle.GetComponent<ParticleSystemRenderer>());
-					vents.Add(v);
+					candidateCells.RemoveAll(cell =>
+						webRegions[i].InsideRegion(cell.position) || // If there's a cell inside any of the regions, delete them
+						new Region(cell.position - offset, cell.position + offset).Intersects(webRegions[i]) // If the region from the cell intersects the other, it should be removed too
+						);
 				}
-				if (vents.Count >= ventAmount)
+
+				if (candidateCells.Count == 0)
 					break;
-			}
 
-			if (vents.Count == 0)
-			{
-				Debug.LogWarning("Structure_Duct failed to find any good spots to spawn them.");
-				Finished();
-				return;
-			}
+				// Select a central point for the duct web
+				Cell webCenter = candidateCells[rng.Next(candidateCells.Count)];
 
-			Dictionary<IntVector2, GameObject> connectionpos = [];
+				// Define a localized region around the center
+				Region webRegion = new(
+					webCenter.position - offset,
+					webCenter.position + offset
+				);
 
-			foreach (var vent in vents)
-			{
-				Cell center = ec.CellFromPosition(vent.transform.position);
-				for (int i = 0; i < vents.Count; i++)
+				// Clamp region to the level size
+				webRegion.min = IntVector2.CombineGreatest(webRegion.min, new IntVector2(0, 0)); // Max function but with other name
+				webRegion.max = IntVector2.CombineLowest(webRegion.max, lg.levelSize - new IntVector2(1, 1)); // Min function
+
+				webRegions.Add(webRegion);
+
+				// Find cells within the localized region
+				List<Cell> webCells = [];
+				for (int x = webRegion.min.x; x <= webRegion.max.x; x++)
 				{
-					if (vents[i] == vent) continue; // Not make a path to itself of course
-					EnvironmentControllerPatch.SetNewData([TileShapeMask.Closed], [RoomType.Hall], true); // Limit to only hallways
-					ec.FindPath(center, ec.CellFromPosition(vents[i].transform.position), PathType.Const, out var path, out bool success);
-					EnvironmentControllerPatch.ResetData();
-					if (!success) continue;
-					foreach (var t in path)
+					for (int z = webRegion.min.z; z <= webRegion.max.z; z++)
 					{
-						if (connectionpos.ContainsKey(t.position)) continue;
-						var c = Instantiate(ventConnectionPrefab, t.ObjectBase); // Connection prefab will be index 1
-																				 //t.HardCover(CellCoverage.Up); Avoid this so lights aren't blocked off
-
-						t.AddRenderer(c.GetComponent<MeshRenderer>());
-
-						c.transform.localPosition = Vector3.up * 9.5f;
-						c.SetActive(true);
-						connectionpos.Add(t.position, c);
-
-						List<Cell> neighbors = [];
-						ec.GetNavNeighbors(t, neighbors, PathType.Const);
-						foreach (var n in neighbors)
+						Cell cell = ec.cells[x, z];
+						if (cell.TileMatches(room) && !cell.HasAnyHardCoverage && !cell.open && // Open and with 0 hard coverage
+							!cell.doorHere && (cell.shape.HasFlag(TileShapeMask.Corner) || cell.shape.HasFlag(TileShapeMask.Single)) && // should have the same shape
+							!lg.Ec.TrapCheck(cell)) // And shall not be a trap
 						{
-							if (connectionpos.TryGetValue(n.position, out var c2))
-							{
-								var dir = Directions.DirFromVector3(c2.transform.position - c.transform.position, 45f); // 90° angle
-								var child = c.transform.Find("VentPrefab_Connection_" + dir);
-								child?.gameObject.SetActive(true);
-
-								child = c2.transform.Find("VentPrefab_Connection_" + dir.GetOpposite());
-								child?.gameObject.SetActive(true);
-							}
+							webCells.Add(cell);
 						}
 
-						foreach (var c2 in c.transform.AllChilds())
-							t.AddRenderer(c2.GetComponent<MeshRenderer>());
+						candidateCells.Remove(cell); // Where the web reaches won't be suitable places for the candidateCells
 					}
 				}
-				var v = vent.GetComponent<Duct>();
-				v.nextVents = new(vents);
-				v.nextVents.Remove(vent); // nextVents, excluding itself
-			}
 
-			vents[0].BlockMe();
+				if (webCells.Count == 0)
+				{
+					Debug.LogWarning("Structure_Duct failed to find any good spots in the localized region.");
+					continue;
+				}
+
+				// Randomly select cells for vents from the localized region
+				List<Cell> selectedCells = [];
+				while (selectedCells.Count < ventAmount && webCells.Count != 0)
+				{
+					int randomIndex = rng.Next(webCells.Count);
+					selectedCells.Add(webCells[randomIndex]);
+					webCells.RemoveAt(randomIndex);
+				}
+
+				// Create vents and group them
+				List<Duct> webVents = CreateVentsInCells(selectedCells);
+
+				if (webVents.Count == 0)
+				{
+					Debug.LogWarning("Structure_Duct failed to create any vents.");
+					continue;
+				}
+
+				// Connect vents within the same web
+				ConnectVentsInWeb(webVents);
+
+				// Block the first vent to prevent NPCs from using it immediately
+				webVents[0].BlockMe();
+			}
 
 			Finished();
 		}
@@ -252,72 +252,170 @@ namespace BBTimes.CustomContent.Builders
 		{
 			base.Load(data);
 
-			List<Duct> vents = [];
-
-			foreach (var p in data)
+			if (data.Count == 0)
 			{
-				var cell = ec.CellFromPosition(p.position);
-				var vent = Instantiate(p.prefab, cell.ObjectBase);
-				vent.transform.position = cell.FloorWorldPosition;
-				vent.SetActive(true);
-				var v = vent.GetComponent<Duct>();
-				v.ec = ec;
-				cell.HardCoverEntirely();
-				vents.Add(v);
+				Finished();
+				return;
 			}
 
-			if (vents.Count == 0) return;
-
-			Dictionary<IntVector2, GameObject> connectionpos = [];
-
-			foreach (var vent in vents)
+			// Group ducts by their data field (web ID)
+			Dictionary<int, List<StructureData>> webGroups = [];
+			foreach (StructureData structureData in data)
 			{
-				Cell center = ec.CellFromPosition(vent.transform.position);
-				for (int i = 0; i < vents.Count; i++)
+				if (!webGroups.ContainsKey(structureData.data))
+					webGroups[structureData.data] = [];
+
+				webGroups[structureData.data].Add(structureData);
+			}
+
+			// Process each web group separately
+			foreach (var webGroup in webGroups)
+			{
+				List<StructureData> webData = webGroup.Value;
+
+				// Create vents for this web group
+				List<Duct> webVents = [];
+				foreach (StructureData structureData in webData)
 				{
-					if (vents[i] == vent) continue; // Not make a path to itself of course
-					EnvironmentControllerPatch.SetNewData([TileShapeMask.Closed], [RoomType.Hall], true); // Limit to only hallways
-					ec.FindPath(center, ec.CellFromPosition(vents[i].transform.position), PathType.Const, out var path, out bool success);
-					EnvironmentControllerPatch.ResetData();
-					if (!success) continue;
-					foreach (var t in path)
-					{
-						if (connectionpos.ContainsKey(t.position)) continue;
-						var c = Instantiate(ventConnectionPrefab, t.ObjectBase);
-						t.HardCover(CellCoverage.Up);
+					Cell cell = ec.CellFromPosition(structureData.position);
+					if (cell == null) continue;
 
-						t.AddRenderer(c.GetComponent<MeshRenderer>());
+					GameObject vent = Instantiate(ventPrefab, cell.ObjectBase);
+					vent.transform.position = cell.FloorWorldPosition;
+					vent.SetActive(true);
 
-						c.transform.localPosition = Vector3.up * 9.5f;
-						c.SetActive(true);
-						connectionpos.Add(t.position, c);
+					Duct duct = vent.GetComponent<Duct>();
+					duct.ec = ec;
+					cell.HardCoverEntirely();
+					cell.AddRenderer(duct.renderer);
+					cell.AddRenderer(duct.particle.GetComponent<ParticleSystemRenderer>());
+					duct.Initialize();
 
-						List<Cell> neighbors = [];
-						ec.GetNavNeighbors(t, neighbors, PathType.Const);
-						foreach (var n in neighbors)
-						{
-							if (connectionpos.TryGetValue(n.position, out var c2))
-							{
-								var d = Directions.DirFromVector3(c2.transform.position - c.transform.position, 45f); // 90° angle
-								var child = c.transform.Find("VentPrefab_Connection_" + d);
-								child?.gameObject.SetActive(true);
-
-								child = c2.transform.Find("VentPrefab_Connection_" + d.GetOpposite());
-								child?.gameObject.SetActive(true);
-							}
-						}
-
-						foreach (var c2 in c.transform.AllChilds())
-							t.AddRenderer(c2.GetComponent<MeshRenderer>());
-					}
+					webVents.Add(duct);
 				}
-				vent.nextVents = [.. vents];
-				vent.nextVents.Remove(vent); // nextVents, excluding itself
-			}
 
-			vents[0].BlockMe();
+				if (webVents.Count == 0) continue;
+
+				// Connect vents within this web group
+				ConnectVentsInWeb(webVents);
+
+				// Block the first vent in this web
+				webVents[0].BlockMe();
+			}
 
 			Finished();
+		}
+
+		// Creates duct vents in the specified cells and assigns them to a web group
+		private List<Duct> CreateVentsInCells(List<Cell> cells)
+		{
+			List<Duct> vents = [];
+
+			foreach (Cell cell in cells)
+			{
+				GameObject vent = Instantiate(ventPrefab, cell.ObjectBase);
+				vent.transform.position = cell.FloorWorldPosition;
+				vent.SetActive(true);
+
+				Duct duct = vent.GetComponent<Duct>();
+				duct.ec = ec;
+				cell.HardCoverEntirely();
+				cell.AddRenderer(duct.renderer);
+				cell.AddRenderer(duct.particle.GetComponent<ParticleSystemRenderer>());
+				duct.Initialize();
+
+				vents.Add(duct);
+			}
+
+			return vents;
+		}
+
+		// Connects all vents within a web group using pathfinding and connection pieces
+		private void ConnectVentsInWeb(List<Duct> webVents)
+		{
+			Dictionary<IntVector2, GameObject> connectionPositions = [];
+
+			// Connect each vent to every other vent in the same web
+			foreach (Duct vent in webVents)
+			{
+				Cell centerCell = ec.CellFromPosition(vent.transform.position);
+
+				foreach (Duct targetVent in webVents)
+				{
+					if (targetVent == vent) continue; // Skip self-connection
+
+					Cell targetCell = ec.CellFromPosition(targetVent.transform.position);
+
+					// Use pathfinding limited to hallways
+					EnvironmentControllerPatch.SetNewData(
+						[TileShapeMask.Closed],
+						[RoomType.Hall],
+						true
+					);
+
+					ec.FindPath(centerCell, targetCell, PathType.Const, out List<Cell> path, out bool success);
+					EnvironmentControllerPatch.ResetData();
+
+					if (!success) continue;
+
+					// Place connection pieces along the path
+					foreach (Cell pathCell in path)
+					{
+						if (connectionPositions.ContainsKey(pathCell.position)) continue;
+
+						GameObject connection = Instantiate(ventConnectionPrefab, pathCell.ObjectBase);
+						pathCell.AddRenderer(connection.GetComponent<MeshRenderer>());
+						connection.transform.localPosition = Vector3.up * 9.5f;
+						connection.SetActive(true);
+
+						connectionPositions.Add(pathCell.position, connection);
+
+						// Connect to adjacent connection pieces
+						ConnectToAdjacentPieces(pathCell, connection, connectionPositions);
+
+						// Add renderers for all child connection pieces
+						foreach (Transform child in connection.transform.AllChilds())
+						{
+							MeshRenderer childRenderer = child.GetComponent<MeshRenderer>();
+							if (childRenderer != null)
+								pathCell.AddRenderer(childRenderer);
+						}
+					}
+				}
+
+				// Set nextVents to all other vents in the same web (excluding self)
+				vent.nextVents = [.. webVents];
+				vent.nextVents.Remove(vent);
+			}
+		}
+
+		// Connects a connection piece to adjacent pieces in the network
+		private void ConnectToAdjacentPieces(Cell cell, GameObject connection, Dictionary<IntVector2, GameObject> connectionPositions)
+		{
+			List<Cell> neighbors = [];
+			ec.GetNavNeighbors(cell, neighbors, PathType.Const);
+
+			foreach (Cell neighbor in neighbors)
+			{
+				if (connectionPositions.TryGetValue(neighbor.position, out GameObject adjacentConnection))
+				{
+					// Calculate direction and activate appropriate connection arms
+					Direction direction = Directions.DirFromVector3(
+						adjacentConnection.transform.position - connection.transform.position,
+						45f
+					);
+
+					Direction oppositeDirection = direction.GetOpposite();
+
+					// Activate connection arm on current piece
+					Transform connectionArm = connection.transform.Find("VentPrefab_Connection_" + direction);
+					connectionArm?.gameObject.SetActive(true);
+
+					// Activate corresponding arm on adjacent piece
+					Transform adjacentArm = adjacentConnection.transform.Find("VentPrefab_Connection_" + oppositeDirection);
+					adjacentArm?.gameObject.SetActive(true);
+				}
+			}
 		}
 
 
