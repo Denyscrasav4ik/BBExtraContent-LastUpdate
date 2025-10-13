@@ -58,7 +58,7 @@ namespace BBTimes.CustomContent.CustomItems
 
 			for (int i = 0; i < pm.ec.Npcs.Count; i++)
 			{
-				if (pm.ec.Npcs[i].Navigator.isActiveAndEnabled && pm.ec.Npcs[i].GetMeta().flags.HasFlag(NPCFlags.Standard))
+				if (pm.ec.Npcs[i].Navigator.isActiveAndEnabled && (pm.ec.Npcs[i].GetMeta()?.flags.HasFlag(NPCFlags.Standard) ?? false))
 				{
 					var navigationState_WanderFleeOverride = new NavigationState_WanderFleeOverride(pm.ec.Npcs[i], 64, map);
 					fleeStates.Add(navigationState_WanderFleeOverride);

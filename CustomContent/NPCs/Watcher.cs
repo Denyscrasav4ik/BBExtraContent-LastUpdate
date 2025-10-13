@@ -158,7 +158,7 @@ namespace BBTimes.CustomContent.NPCs
 			pm.GetCustomCam().ReverseSlideFOVAnimation(new ValueModifier(), 115f, 4f);
 			_npcs.Clear();
 			_npcs.AddRange(ec.Npcs);
-			_npcs.RemoveAll(x => x == this || !x.GetMeta().flags.HasFlag(NPCFlags.Standard) || !x.Entity || ec.CellFromPosition(x.transform.position).Null);
+			_npcs.RemoveAll(x => x == this || (!x.GetMeta()?.flags.HasFlag(NPCFlags.Standard) ?? false) || !x.Entity || ec.CellFromPosition(x.transform.position).Null);
 
 			if (_npcs.Count != 0)
 				StartCoroutine(TeleportDelay(pm, _npcs[Random.Range(0, _npcs.Count)]));

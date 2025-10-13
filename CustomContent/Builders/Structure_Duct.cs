@@ -131,7 +131,7 @@ namespace BBTimes.CustomContent.Builders
 			// Makes the LoaderStructureData for the spawn
 			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Duct", new() { structure = this });
 
-			return new() { prefab = this, parameters = new() { chance = [1 / 5f, 1 / 3f], minMax = [new(3, 8), new(1, 2)] } }; // Chance= [chanceToSpawn, factorToReduceOverLevelSize, factorToReduceWebSizeOverLevelSize], minMax=[AmountOfDucts, AmountOfWebs]
+			return new() { prefab = this, parameters = new() { chance = [1 / 7f, 1 / 4f], minMax = [new(3, 8), new(1, 2)] } }; // Chance= [factorToReduceVentsOverLevelSize, factorToReduceWebSizeOverLevelSize], minMax=[AmountOfDucts, AmountOfWebs]
 		}
 
 		public void SetupPrefab() { }
@@ -163,7 +163,7 @@ namespace BBTimes.CustomContent.Builders
 			int webAmount = rng.Next(parameters.minMax[1].x, parameters.minMax[1].z);
 			List<Region> webRegions = [];
 			// Offset
-			IntVector2 offset = new(Mathf.FloorToInt(lg.levelSize.x * parameters.chance[1]), Mathf.FloorToInt(lg.levelSize.z * parameters.chance[2])); // negative
+			IntVector2 offset = new(Mathf.FloorToInt(lg.levelSize.x * parameters.chance[1]), Mathf.FloorToInt(lg.levelSize.z * parameters.chance[1]));
 
 			for (int webCounter = 0; webCounter < webAmount; webCounter++)
 			{

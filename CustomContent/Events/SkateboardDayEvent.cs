@@ -41,7 +41,7 @@ namespace BBTimes.CustomContent.Events
 			base.Begin();
 			for (int i = 0; i < ec.Npcs.Count; i++)
 			{
-				if (ec.Npcs[i].Navigator.isActiveAndEnabled && ec.Npcs[i].GetMeta().flags.HasFlag(NPCFlags.Standard))
+				if (ec.Npcs[i].Navigator.isActiveAndEnabled && (ec.Npcs[i].GetMeta()?.flags.HasFlag(NPCFlags.Standard) ?? false))
 				{
 					var s = Instantiate(skatePre);
 					boards.Add(s);
