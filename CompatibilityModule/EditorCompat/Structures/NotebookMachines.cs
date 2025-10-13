@@ -78,16 +78,9 @@ public class NotebookMachineLocation : IEditorVisualizable, IEditorDeletable
         bool existStructures = data.structures.Exists( // Basically checks if there's no other notebook machine occupying the same spot. This is actually needed.
             str => str is NotebookMachineStructureLocation ntbLoc &&
                 ntbLoc.machines.Exists(
-                    machine =>
-                    {
-                        if (machine == this) return false;
-                        var pos = machine.position.ToCellVector();
-                        Debug.Log($"{pos.ToString()} == {alignedPosition.ToString()}");
-                        return pos == alignedPosition;
-                    }
+                    machine => machine != this && machine.position.ToCellVector() == alignedPosition
                 )
             );
-        Debug.Log(existStructures);
         return room?.activity?.type == "notebook" && !existStructures;
     }
 }

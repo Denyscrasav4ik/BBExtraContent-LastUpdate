@@ -82,7 +82,7 @@ namespace BBTimes.CustomContent.Objects
 
 			renderer.material.mainTexture = ventTexs[0];
 			var nVent = nextVents[Random.Range(0, nextVents.Count)];
-			float ventBlockCooldown = Vector3.Distance(transform.position, nVent.transform.position) / 6f;
+			float ventBlockCooldown = Vector3.Distance(transform.position, nVent.transform.position) * distanceForLeakFactor;
 
 			while (ventBlockCooldown > 0f)
 			{
@@ -199,5 +199,9 @@ namespace BBTimes.CustomContent.Objects
 
 		[SerializeField]
 		internal float leakPushForce = 31f, leakAccelerationForce = -12.5f, minCooldown = 10f, maxCooldown = 25f, emissionRate = 75f;
+
+		[SerializeField]
+		[Range(0f, 1f)]
+		internal float distanceForLeakFactor = 0.15f;
 	}
 }

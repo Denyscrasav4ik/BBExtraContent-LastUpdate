@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BBTimes.CustomContent.Objects
 {
-	public class MysteryTresentMaker : MonoBehaviour, IItemAcceptor
+	public class MysteryTresentMaker : EnvironmentObject, IItemAcceptor
 	{
 		public void InsertItem(PlayerManager pm, EnvironmentController ec)
 		{

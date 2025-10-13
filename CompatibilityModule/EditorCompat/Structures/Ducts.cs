@@ -17,7 +17,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
 
         protected override bool TryPlace(IntVector2 position)
         {
-            var structure = (DuctStructureLocation)EditorController.Instance.AddOrGetStructureToData(EditorIntegration.TimesPrefix + "Duct", false);
+            var structure = (DuctStructureLocation)EditorController.Instance.AddOrGetStructureToData(EditorIntegration.TimesPrefix + "Duct", true); // Super important to be true, to have a good connection handling
             var duct = structure.CreateDuctLocation();
             duct.position = position;
 
@@ -54,7 +54,9 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
         {
             DuctEditorVisualManager.ShowConnections = false;
             UpdateAllDuctVisuals();
-            UnhighlightDucts();
+            UnhighlightDucts(forReal: true);
+            _firstDuct = null;
+            _highlightedDuct = null;
         }
 
         public override bool Cancelled()
@@ -90,12 +92,12 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
 
                 var structure = _firstDuct.owner;
                 if (structure.connections.Exists(c => (c.ductA == _firstDuct && c.ductB == duct) || (c.ductA == duct && c.ductB == _firstDuct)))
-                    return false; // Already connected
-
-                EditorController.Instance.AddUndo();
+                    EditorController.Instance.AddUndo();
                 structure.connections.Add(new(_firstDuct, duct));
                 UpdateAllDuctVisuals();
+                UnhighlightDucts(forReal: true);
                 _firstDuct = null;
+                _highlightedDuct = null;
             }
             return false;
         }
@@ -130,12 +132,12 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
             if (duct == null) return;
             EditorController.Instance.GetVisual(duct)?.GetComponent<EditorRendererContainer>().Highlight(color);
         }
-        private void UnhighlightDucts()
+        private void UnhighlightDucts(bool forReal = false)
         {
             if (_highlightedDuct != null)
                 HighlightDuct(_highlightedDuct, "none");
             if (_firstDuct != null)
-                HighlightDuct(_firstDuct, "none");
+                HighlightDuct(_firstDuct, forReal ? "none" : "yellow");
 
         }
 
@@ -235,7 +237,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
         public override void ReadInto(EditorLevelData data, BinaryReader reader, StringCompressor compressor)
         {
             _ = reader.ReadByte(); // Version
-            // Read duct points: first the count, then each position encoded as a bytevector2
+                                   // Read duct points: first the count, then each position encoded as a bytevector2
             int ductCount = reader.ReadInt32();
             for (int i = 0; i < ductCount; i++)
                 ducts.Add(new() { owner = this, position = PlusStudioLevelLoader.Extensions.ToInt(reader.ReadByteVector2()) });
@@ -244,8 +246,8 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
             int connectionCount = reader.ReadInt32();
             for (int i = 0; i < connectionCount; i++)
             {
-                int idx1 = Mathf.Min(ducts.Count - 1, reader.ReadInt32());
-                int idx2 = Mathf.Min(ducts.Count - 1, reader.ReadInt32());
+                int idx1 = Mathf.Max(0, Mathf.Min(ducts.Count - 1, reader.ReadInt32()));
+                int idx2 = Mathf.Max(0, Mathf.Min(ducts.Count - 1, reader.ReadInt32()));
                 if (ducts.Count != 0) // To not worry about index out of range
                     connections.Add(new(ducts[idx1], ducts[idx2]));
             }
@@ -272,7 +274,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
                 if (!ducts[i].ValidatePosition(data))
                     DeleteDuct(ducts[i]);
             }
-            return ducts.Count > 0;
+            return ducts.Count != 0;
         }
 
         public override void Write(EditorLevelData data, BinaryWriter writer, StringCompressor compressor)
@@ -287,8 +289,8 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
             writer.Write(connections.Count);
             foreach (var connection in connections)
             {
-                writer.Write(ducts.IndexOf(connection.ductA));
-                writer.Write(ducts.IndexOf(connection.ductB));
+                writer.Write(Mathf.Max(0, ducts.IndexOf(connection.ductA)));
+                writer.Write(Mathf.Max(0, ducts.IndexOf(connection.ductB)));
             }
         }
 

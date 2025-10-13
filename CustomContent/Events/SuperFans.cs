@@ -69,29 +69,81 @@ namespace BBTimes.CustomContent.Events
 
 		public override void AfterUpdateSetup(System.Random rng)
 		{
-			base.AfterUpdateSetup(rng); // Copy paste from LockdownDoorEvent
-			List<Cell> list = ec.AllCells();
+			base.AfterUpdateSetup(rng);
 
-			for (int i = 0; i < list.Count; i++)
-				if (!list[i].TileMatches(ec.mainHall) || !list[i].HasHardFreeWall || list[i].open || list[i].AllWallDirections.Count > 2) // If wall directions is above 2, this is not a corner or single cell
-					list.RemoveAt(i--);
+			const int MinHallwayLength = 5;
+			List<Cell> cells = ec.AllCells();
+			List<Direction> candidateDirections = [];
+
+			// Filter cells: must have a hard free wall, not open, not main hall, and not more than 2 wall directions
+			for (int i = 0; i < cells.Count; i++)
+			{
+				if (!cells[i].TileMatches(ec.mainHall) || !cells[i].HasHardFreeWall || cells[i].open || cells[i].AllWallDirections.Count > 2)
+					cells.RemoveAt(i--);
+			}
 
 			int fans = rng.Next(minFans, maxFans + 1);
 			for (int i = 0; i < fans; i++)
 			{
-				if (list.Count == 0) return;
+				if (cells.Count == 0) return;
 
-				int num3 = rng.Next(list.Count);
-				var superFan = Instantiate(superFanPre, list[num3].TileTransform);
-				var wallDir = list[num3].RandomConstDirection(rng);
+				int idx = rng.Next(cells.Count);
+				Cell cell = cells[idx];
+				var expectedRoom = cell.room;
+				candidateDirections.Clear();
 
-				superFan.Initialize(ec, list[num3].position, wallDir.GetOpposite(), out var l);
+				// Find a wall direction whose opposite side faces an open direction and a long hallway
+				foreach (var wallDir in cell.AllWallDirections)
+				{
+					Direction oppositeDir = wallDir.GetOpposite();
+					Cell nextCell = ec.CellFromPosition(cell.position + oppositeDir.ToIntVector2());
+					bool cancelHallLengthCheck = false;
+					if (!nextCell.Null && nextCell.TileMatches(expectedRoom))
+					{
+						// Check hallway length in the open direction
+						int length = 0;
+						Cell hallwayCell = nextCell;
+						while (!hallwayCell.Null && length < MinHallwayLength)
+						{
+							IntVector2 nextVector = hallwayCell.position + oppositeDir.ToIntVector2();
+							if (!ec.ContainsCoordinates(nextVector)) // Coordinate check
+							{
+								cancelHallLengthCheck = true;
+								break;
+							}
+							hallwayCell = ec.CellFromPosition(nextVector);
 
-				list[num3].HardCover(wallDir.ToCoverage());
+							// Misc check for stuff like room equivalency
+							if (hallwayCell.TileMatches(expectedRoom))
+							{
+								cancelHallLengthCheck = true;
+								break;
+							}
+							length++;
+						}
+						if (cancelHallLengthCheck) continue; // Skips to the next direction in the list
+
+						if (length >= MinHallwayLength)
+							candidateDirections.Add(wallDir);
+					}
+				}
+
+				if (candidateDirections.Count == 0)
+				{
+					cells.RemoveAt(idx);
+					i--; // -1 to not consider the super fan was added
+					continue;
+				}
+
+				Direction chosenWallDir = candidateDirections[rng.Next(candidateDirections.Count)];
+				var superFan = Instantiate(superFanPre, cell.TileTransform);
+				superFan.Initialize(ec, cell.position, chosenWallDir.GetOpposite(), out var l);
+
+				cell.HardCover(chosenWallDir.ToCoverage());
 				superFans.Add(superFan);
-				list.RemoveAt(num3);
+				cells.RemoveAt(idx);
 				for (int z = 0; z < l.Count; z++)
-					list.Remove(l[z]);
+					cells.Remove(l[z]);
 			}
 		}
 

@@ -186,7 +186,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			secCamVisualManager.cameraPlaneRendererPre = securityCamera.visionIndicatorPre; // Indicator
 			secCamVisualManager.collider = securityCameraObj.AddComponent<BoxCollider>(); // Adds collider
 			secCamVisualManager.collider.isTrigger = true;
-			secCamVisualManager.renderContainer = securityCameraObj.AddComponent<EditorRendererContainer>();
+			secCamVisualManager.renderContainer = securityCameraObj.GetComponent<EditorRendererContainer>();
 
 			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "SecurityCamera", typeof(SecurityCameraStructureLocation));
 			// Trapdoors
@@ -253,6 +253,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			duct_lineRenderer.positionCount = 2;
 			duct_lineRenderer.gameObject.layer = LayerMask.NameToLayer("Overlay");
 			duct_lineRenderer.material.SetTexture("_LightMap", null);
+			duct_lineRenderer.gameObject.SetActive(false);
 			ductVisualManager.lineRendererPrefab = duct_lineRenderer;
 
 			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Duct", typeof(DuctStructureLocation));

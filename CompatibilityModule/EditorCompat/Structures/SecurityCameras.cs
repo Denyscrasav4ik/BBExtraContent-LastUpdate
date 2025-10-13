@@ -121,8 +121,8 @@ public class SecurityCameraTool : EditorTool
 public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable
 {
     public IntVector2 position;
-    public byte distance;
-    public Direction direction;
+    public byte distance = 1;
+    public Direction direction = Direction.Null;
     public SecurityCameraStructureLocation owner;
 
     public void CleanupVisual(GameObject visualObject) { }
@@ -149,19 +149,18 @@ public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable
 
     public void InitializeVisual(GameObject visualObject)
     {
-        visualObject.GetComponent<EditorSecurityCameraVisualManager>().InitializeVisuals(distance, direction);
         visualObject.GetComponent<EditorDeletableObject>().toDelete = this;
         UpdateVisual(visualObject);
     }
 
     public void UpdateVisual(GameObject visualObject)
     {
-        var manager = visualObject.GetComponent<EditorSecurityCameraVisualManager>();
-        if (manager.length != distance || manager.direction != direction)
-            manager.InitializeVisuals(distance, direction);
-
         visualObject.transform.position = position.ToWorld();
         visualObject.transform.rotation = direction.ToRotation(); // yaw correction here to prevent the indicator's misaligment
+
+        var manager = visualObject.GetComponent<EditorSecurityCameraVisualManager>();
+        if (direction != Direction.Null && (manager.length != distance || manager.direction != direction))
+            manager.InitializeVisuals(distance, direction);
     }
 
     public bool OnDelete(EditorLevelData data)
@@ -272,7 +271,16 @@ public class EditorSecurityCameraVisualManager : MonoBehaviour
 
     public void InitializeVisuals(int length, Direction direction)
     {
-        cameraRenderers.ForEach(cam => Destroy(cam.gameObject));
+        cameraRenderers.ForEach(cam =>
+        {
+            var rendererIndex = renderContainer.myRenderers.IndexOf(cam);
+            if (rendererIndex != -1) // Remove the old renderers before clearing out
+            {
+                renderContainer.myRenderers.RemoveAt(rendererIndex);
+                renderContainer.defaultHighlights.RemoveAt(rendererIndex);
+            }
+            Destroy(cam.gameObject); // Destroy the renderer itself
+        });
         cameraRenderers.Clear();
         this.length = length;
         this.direction = direction;

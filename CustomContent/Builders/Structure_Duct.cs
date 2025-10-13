@@ -263,7 +263,10 @@ namespace BBTimes.CustomContent.Builders
 			foreach (StructureData structureData in data)
 			{
 				if (!webGroups.ContainsKey(structureData.data))
+				{
 					webGroups[structureData.data] = [];
+					// Debug.Log($"Structure_Duct: Unique web ID found ({structureData.data})");
+				}
 
 				webGroups[structureData.data].Add(structureData);
 			}
@@ -288,7 +291,7 @@ namespace BBTimes.CustomContent.Builders
 					duct.ec = ec;
 					cell.HardCoverEntirely();
 					cell.AddRenderer(duct.renderer);
-					cell.AddRenderer(duct.particle.GetComponent<ParticleSystemRenderer>());
+					cell.AddRenderer(duct.particle.GetComponentInChildren<ParticleSystemRenderer>());
 					duct.Initialize();
 
 					webVents.Add(duct);
@@ -333,45 +336,59 @@ namespace BBTimes.CustomContent.Builders
 		// Connects all vents within a web group using pathfinding and connection pieces
 		private void ConnectVentsInWeb(List<Duct> webVents)
 		{
-			Dictionary<IntVector2, GameObject> connectionPositions = [];
+			// Get all the possible room types and categories these vents can have based on their locations
+			RoomCategory[] allowedRoomCategories = [.. webVents.ConvertAll(vent => ec.CellFromPosition(vent.transform.position).room.category)];
+			RoomType[] allowedRoomTypes = [.. webVents.ConvertAll(vent => ec.CellFromPosition(vent.transform.position).room.type)];
+			bool[] successConnection = new bool[webVents.Count];
 
 			// Connect each vent to every other vent in the same web
-			foreach (Duct vent in webVents)
+			for (int i = 0; i < webVents.Count; i++)
 			{
+				if (successConnection[i]) continue; // A connection should not be done twice with another vent
+
+				var vent = webVents[i];
 				Cell centerCell = ec.CellFromPosition(vent.transform.position);
 
-				foreach (Duct targetVent in webVents)
+				for (int j = 0; j < webVents.Count; j++)
 				{
-					if (targetVent == vent) continue; // Skip self-connection
+					var targetVent = webVents[j];
+					// If the vent already had a successfull connection
+					if (targetVent == vent || successConnection[j]) continue; // Skip self-connection
 
 					Cell targetCell = ec.CellFromPosition(targetVent.transform.position);
 
 					// Use pathfinding limited to hallways
 					EnvironmentControllerPatch.SetNewData(
-						[TileShapeMask.Closed],
-						[RoomType.Hall],
+						null,
+						allowedRoomCategories,
+						allowedRoomTypes,
 						true
 					);
 
 					ec.FindPath(centerCell, targetCell, PathType.Const, out List<Cell> path, out bool success);
 					EnvironmentControllerPatch.ResetData();
 
-					if (!success) continue;
+					if (!success) // No managed success, we skip here
+						continue;
+
+					successConnection[i] = true; // Two connections are established
+					successConnection[j] = true; // then both are satisfied
 
 					// Place connection pieces along the path
 					foreach (Cell pathCell in path)
 					{
-						if (connectionPositions.ContainsKey(pathCell.position)) continue;
+						if (allConnectionPositions.ContainsKey(pathCell.position)) continue;
 
 						GameObject connection = Instantiate(ventConnectionPrefab, pathCell.ObjectBase);
 						pathCell.AddRenderer(connection.GetComponent<MeshRenderer>());
 						connection.transform.localPosition = Vector3.up * 9.5f;
 						connection.SetActive(true);
+						pathCell.HardCover(CellCoverage.Up);
 
-						connectionPositions.Add(pathCell.position, connection);
+						allConnectionPositions.Add(pathCell.position, connection);
 
 						// Connect to adjacent connection pieces
-						ConnectToAdjacentPieces(pathCell, connection, connectionPositions);
+						ConnectToAdjacentPieces(pathCell, connection);
 
 						// Add renderers for all child connection pieces
 						foreach (Transform child in connection.transform.AllChilds())
@@ -390,14 +407,14 @@ namespace BBTimes.CustomContent.Builders
 		}
 
 		// Connects a connection piece to adjacent pieces in the network
-		private void ConnectToAdjacentPieces(Cell cell, GameObject connection, Dictionary<IntVector2, GameObject> connectionPositions)
+		private void ConnectToAdjacentPieces(Cell cell, GameObject connection)
 		{
 			List<Cell> neighbors = [];
 			ec.GetNavNeighbors(cell, neighbors, PathType.Const);
 
 			foreach (Cell neighbor in neighbors)
 			{
-				if (connectionPositions.TryGetValue(neighbor.position, out GameObject adjacentConnection))
+				if (allConnectionPositions.TryGetValue(neighbor.position, out GameObject adjacentConnection))
 				{
 					// Calculate direction and activate appropriate connection arms
 					Direction direction = Directions.DirFromVector3(
@@ -418,6 +435,7 @@ namespace BBTimes.CustomContent.Builders
 			}
 		}
 
+		readonly Dictionary<IntVector2, GameObject> allConnectionPositions = [];
 
 		[SerializeField]
 		public GameObject ventPrefab;

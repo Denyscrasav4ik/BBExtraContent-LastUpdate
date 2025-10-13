@@ -58,53 +58,44 @@ namespace BBTimes.CustomContent.Builders
 		public string Name { get; set; }
 		public string Category => "objects";
 
-		public override void Load(List<StructureData> data)
-		{
-			base.Load(data);
-			loadedAsLevelLoader = true;
-			if (data.Count == 0) return;
-
-			foreach (var dat in data)
-			{
-				Vector3 dataPosition = dat.position.ToVector3();
-				var room = ec.CellFromPosition(dataPosition).room;
-				if (!room.hasActivity || room.activity is not NoActivity)
-				{
-					Debug.LogWarning("NotebookMachine spawned in a room that has no activity to override, that's illegal!");
-					continue;
-				}
-
-				var machine = CreateMachine(room.activity.notebook, room);
-
-				if (room.doors.Count == 0) continue; // If the room has no doors, just leave it as it is
-				var door = room.doors[Random.Range(0, room.doors.Count)].transform;
-				Vector3 lookAtPos = door.position;
-				lookAtPos.y = machine.transform.position.y; // To avoid the machine tilting
-				machine.transform.LookAt(lookAtPos, Vector3.up);
-			}
-		}
-
 		public override void OnGenerationFinished(LevelBuilder lb)
 		{
 			base.OnGenerationFinished(lb);
-			if (loadedAsLevelLoader) return; // No load should let this go
 
 			// If there's no power lever and no room is powered off by default, it's likely this level won't have any power change
 			if (!FindObjectOfType<Structure_PowerLever>() && !lb.Ec.rooms.Exists(room => !room.Powered)) return;
 
+			TryAddMachinesToRooms(lb);
+
+			Finished();
+		}
+
+		public void OnLoadingFinished(LevelBuilder builder) // Plus studio level loader calls this, thanks mtm101!
+		{
+			TryAddMachinesToRooms(builder);
+			Finished();
+		}
+
+		void TryAddMachinesToRooms(LevelBuilder lb)
+		{
 			foreach (var room in lb.Ec.rooms)
+				TryAddMachineToRoom(room, lb.controlledRNG);
+
+			void TryAddMachineToRoom(RoomController room, System.Random rng)
 			{
 				if (room.hasActivity && room.activity is NoActivity) // No Activity is from Notebooks
 				{
+					rng ??= new();
+					// Debug.Log("Structure_NotebookMachine: Added machine successfully!");
+
 					var machine = CreateMachine(room.activity.notebook, room);
-					var door = room.doors[lb.controlledRNG.Next(room.doors.Count)].transform;
+					var door = room.doors[rng.Next(room.doors.Count)].transform;
 
 					Vector3 lookAtPos = door.position;
 					lookAtPos.y = machine.transform.position.y; // To avoid the machine tilting
 					machine.transform.LookAt(lookAtPos, Vector3.up);
 				}
 			}
-
 		}
 
 		NotebookMachine CreateMachine(Notebook notebook, RoomController room)
@@ -119,7 +110,5 @@ namespace BBTimes.CustomContent.Builders
 
 		[SerializeField]
 		internal NotebookMachine ntbMachinePre;
-
-		bool loadedAsLevelLoader = false;
 	}
 }
