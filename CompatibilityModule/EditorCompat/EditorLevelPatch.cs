@@ -176,6 +176,19 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Readonly variables here
 			var referenceLineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer;
 
+			// Small Doors
+			var smallDoorBuilder = BBTimesManager.man.Get<Structure_SmallDoor>("Builder_Structure_SmallDoor");
+			EditorInterface.AddDoor<DoorDisplay>(TimesPrefix + "SmallDoor", DoorIngameStatus.AlwaysObject, smallDoorBuilder.doorPre.mask[0], smallDoorBuilder.doorPre.overlayShut);
+
+			// Squishers
+			var squisherBuilder = BBTimesManager.man.Get<Structure_Squisher>("Builder_Structure_Squisher");
+			var squisherVisual = EditorInterface.AddStructureGenericVisual(TimesPrefix + "Squisher", squisherBuilder.squisherPre.gameObject);
+			var squisherCollider = squisherVisual.GetComponent<BoxCollider>();
+			squisherCollider.size = new(4.5f, 21f, 4.5f);
+			squisherCollider.center = new(0f, 10.5f, 0f);
+			squisherVisual.AddComponent<SettingsComponent>().offset = Vector3.up * 25f;
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Squisher", typeof(SquisherStructureLocation));
+
 			// Security Camera
 			var securityCameraBuilder = (Structure_Camera)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Camera");
 			var securityCamera = securityCameraBuilder.camPre.GetComponent<SecurityCamera>(); // Gets camera here
@@ -247,13 +260,13 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 
 			// Create LineRenderer prefab for connections
 			var duct_lineRenderer = referenceLineRenderer.SafeInstantiate();
+			duct_lineRenderer.gameObject.SetActive(false);
 			duct_lineRenderer.transform.SetParent(ductVisual.transform, false);
 			duct_lineRenderer.material.SetColor("_TextureColor", Color.cyan);
 			duct_lineRenderer.widthMultiplier = 0.75f;
 			duct_lineRenderer.positionCount = 2;
 			duct_lineRenderer.gameObject.layer = LayerMask.NameToLayer("Overlay");
 			duct_lineRenderer.material.SetTexture("_LightMap", null);
-			duct_lineRenderer.gameObject.SetActive(false);
 			ductVisualManager.lineRendererPrefab = duct_lineRenderer;
 
 			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Duct", typeof(DuctStructureLocation));
@@ -358,6 +371,11 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new ItemAlarmTool(GetSprite("UI/Structure_ItemAlarm", "UI/structure_ItemAlarm")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctPlaceTool(GetSprite("UI/Structure_Duct", "UI/structure_Duct")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctConnectTool(GetSprite("UI/Structure_DuctConnect", "UI/structure_DuctConnect")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherTool(GetSprite("UI/Structure_Squisher", "UI/structure_Squisher")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherWithButtonTool(GetSprite("UI/Structure_SquisherWithButton", "UI/structure_SquisherWithButton")));
+
+			// Door tools
+			EditorInterfaceModes.AddToolToCategory(mode, "doors", new DoorTool(TimesPrefix + "SmallDoor", GetSprite("UI/Door_SmallDoor", "UI/door_SmallDoor")));
 		}
 		/// <summary>
 		/// Add object tools.

@@ -61,10 +61,10 @@ namespace BBTimes.CompatibilityModule.EditorCompat.Structures
 
         public override bool Cancelled()
         {
+            UnhighlightDucts(forReal: true);
             if (_firstDuct != null)
             {
                 _firstDuct = null;
-                UnhighlightDucts(forReal: true);
                 return false;
             }
             return true;

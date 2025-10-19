@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomContent.Objects;
 using BBTimes.Extensions;
@@ -7,6 +8,7 @@ using BBTimes.Manager;
 using HarmonyLib;
 using MTM101BaldAPI;
 using PixelInternalAPI.Extensions;
+using PlusStudioLevelLoader;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.Builders
@@ -52,6 +54,8 @@ namespace BBTimes.CustomContent.Builders
 			builder.squisherPre = squishBase;
 			builder.buttonPre = BBTimesManager.man.Get<GameButton>("buttonPre");
 
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Squisher", new() { structure = this });
+
 			return new() { prefab = this, parameters = new() { chance = [0.35f], minMax = [new(1, 1), new(5, 9), new(4, 7)] } };
 			// Chance = chanceForButtons
 			// minMax = SquisherAmount, squisherSpeed, button range
@@ -64,6 +68,7 @@ namespace BBTimes.CustomContent.Builders
 
 		public string Name { get; set; }
 		public string Category => "objects";
+		public static string GetJSONUIPath() => System.IO.Path.Combine(BasePlugin.ModPath, "objects", "Squisher", "SquisherUI.json");
 
 
 
@@ -126,11 +131,14 @@ namespace BBTimes.CustomContent.Builders
 					continue;
 				}
 
+				// A = Speed; B = Cooldown
+				EmbeddedInteger embeddedData = data[i].data; // Assume it is embedded.
+
 				var cell = ec.CellFromPosition(data[i].position);
 				var squ = Instantiate(squisherPre, cell.ObjectBase);
 				squ.transform.localPosition = Vector3.up * 9f;
 				squ.Ec = ec;
-				squ.Setup(data[i].data);
+				squ.Setup(embeddedData.A, embeddedData.B);
 				squ.GetComponentsInChildren<Renderer>().Do(cell.AddRenderer);
 
 				lastBuiltSquisher = squ;

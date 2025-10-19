@@ -20,7 +20,7 @@ namespace BBTimes.CustomContent.Objects
 		public void TurnMe(bool on)
 		{
 			waitingForSquish = on;
-			cooldown = Random.Range(5f, 10f);
+			cooldown = Random.Range(squishCooldownMin, squishCooldownMax);
 			if (!on)
 			{
 				StopAllCoroutines();
@@ -28,9 +28,16 @@ namespace BBTimes.CustomContent.Objects
 			}
 		}
 
+		public void Setup(float speed, float fixedCooldown)
+		{
+			this.fixedCooldown = fixedCooldown;
+			Setup(speed);
+		}
+
 		public void Setup(float speed)
 		{
 			ogPos = transform.position;
+			cooldown = UsesFixedCooldown ? fixedCooldown : Random.Range(squishCooldownMin, squishCooldownMax);
 			this.speed = speed;
 		}
 
@@ -55,7 +62,7 @@ namespace BBTimes.CustomContent.Objects
 				if (e)
 				{
 					if (!e.Squished) // Should fix the noclip bug
-						e.Squish(12f);
+						e.Squish(squishForce);
 					e.SetFrozen(true);
 					squishedEntities.Add(e);
 				}
@@ -88,7 +95,7 @@ namespace BBTimes.CustomContent.Objects
 		IEnumerator SquishSequence()
 		{
 			active = true;
-			float cool = forceSquish ? Random.Range(0.5f, 1.5f) : Random.Range(3f, 5f);
+			float cool = forceSquish ? Random.Range(forceSquishPrepareMin, forceSquishPrepareMax) : Random.Range(prepareSquishMin, prepareSquishMax);
 			forceSquish = false;
 
 			audMan.QueueAudio(audPrepare);
@@ -97,7 +104,7 @@ namespace BBTimes.CustomContent.Objects
 			while (cool > 0f) // preparing to squish
 			{
 				if (Time.timeScale > 0f)
-					transform.position = new(ogPos.x + Random.Range(-0.2f, 0.2f), ogPos.y, ogPos.z + Random.Range(-0.2f, 0.2f));
+					transform.position = new(ogPos.x + Random.Range(-prepareShakeAmount, prepareShakeAmount), ogPos.y, ogPos.z + Random.Range(-prepareShakeAmount, prepareShakeAmount));
 				cool -= ec.EnvironmentTimeScale * Time.deltaTime;
 				yield return null;
 			}
@@ -128,7 +135,7 @@ namespace BBTimes.CustomContent.Objects
 			canSquish = false;
 			blockCollider.enabled = true; // This should be called after any frozen entity is done
 			collider.enabled = false;
-			cool = Random.Range(2f, 3.5f);
+			cool = Random.Range(stayGroundMin, stayGroundMax);
 			audMan.FlushQueue(true);
 			audMan.QueueAudio(audHit);
 
@@ -152,7 +159,7 @@ namespace BBTimes.CustomContent.Objects
 			t = 0f;
 			while (true) // go back up
 			{
-				t += ec.EnvironmentTimeScale * Time.deltaTime * (speed * 0.5f);
+				t += ec.EnvironmentTimeScale * Time.deltaTime * (speed * returnSpeedMultiplier);
 
 				if (t >= 1f)
 					break;
@@ -162,12 +169,14 @@ namespace BBTimes.CustomContent.Objects
 			}
 			transform.position = ogPos;
 			waitingForSquish = true;
-			cooldown = Random.Range(5f, 10f);
+			cooldown = UsesFixedCooldown ? fixedCooldown : Random.Range(squishCooldownMin, squishCooldownMax);
 			audMan.FlushQueue(true);
 			active = false;
 
 			yield break;
 		}
+
+		public bool UsesFixedCooldown => fixedCooldown != -1f;
 
 		[SerializeField]
 		internal BoxCollider collider, blockCollider;
@@ -178,7 +187,11 @@ namespace BBTimes.CustomContent.Objects
 		[SerializeField]
 		internal SoundObject audPrepare, audRun, audHit;
 
-		float cooldown = Random.Range(5f, 10f);
+		[SerializeField]
+		internal float squishCooldownMin = 5f, squishCooldownMax = 10f, squishForce = 12f, prepareSquishMin = 3f, prepareSquishMax = 5f, forceSquishPrepareMin = 0.25f,
+		forceSquishPrepareMax = 0.75f, prepareShakeAmount = 0.2f, stayGroundMin = 2f, stayGroundMax = 3.5f, returnSpeedMultiplier = 0.5f;
+
+		float cooldown, fixedCooldown = -1f;
 		float speed;
 		bool waitingForSquish = true, canSquish = false, forceSquish = false, active = false;
 

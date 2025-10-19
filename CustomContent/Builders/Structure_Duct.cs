@@ -374,6 +374,9 @@ namespace BBTimes.CustomContent.Builders
 					successConnection[i] = true; // Two connections are established
 					successConnection[j] = true; // then both are satisfied
 
+					vent.nextVents.Add(targetVent); // Make literal connection by nextVents too
+					targetVent.nextVents.Add(vent);
+
 					// Place connection pieces along the path
 					foreach (Cell pathCell in path)
 					{
@@ -399,10 +402,6 @@ namespace BBTimes.CustomContent.Builders
 						}
 					}
 				}
-
-				// Set nextVents to all other vents in the same web (excluding self)
-				vent.nextVents = [.. webVents];
-				vent.nextVents.Remove(vent);
 			}
 		}
 
