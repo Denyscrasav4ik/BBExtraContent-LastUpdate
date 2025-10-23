@@ -75,6 +75,8 @@ namespace BBTimes.CustomContent.Builders
 		public void SetupPrefabPost() { }
 		public void SetupPrefab() { }
 
+		public static string GetJSONUIPath() => System.IO.Path.Combine(BasePlugin.ModPath, "objects", "Trapdoor", "TrapdoorUI.json");
+
 		public string Name { get; set; }
 		public string Category => "objects";
 
@@ -178,16 +180,20 @@ namespace BBTimes.CustomContent.Builders
 				}
 
 				// Algorithm to find a potential trapdoor to link
-				int id = datas[i].data;
+				Embedded2Shorts embeddedData = datas[i].data;
+				short id = embeddedData.A, openCooldown = embeddedData.B;
 				bool success = false;
 
 				for (int z = i + 1; z < datas.Count; z++)
 				{
-					if (datas[z].data == id)
+					Embedded2Shorts nextEmbeddedData = datas[z].data;
+					short nextId = nextEmbeddedData.A;
+
+					if (nextId == id)
 					{
 						cell = ec.CellFromPosition(datas[z].position); // Updates cell for the next position
 
-						var strap = CreateTrapDoor(cell, ec); // Linked trapdoor setup
+						var strap = CreateTrapDoor(cell, ec, openCooldown); // Linked trapdoor setup
 						trap.SetLinkedTrapDoor(strap);
 						strap.SetLinkedTrapDoor(trap);
 
@@ -196,10 +202,10 @@ namespace BBTimes.CustomContent.Builders
 						trap.sprites = [closedSprites[1], openSprites[1]];
 						strap.sprites = [closedSprites[1], openSprites[1]];
 
-
 						datas.RemoveAt(z);
 						datas.RemoveAt(i--);
 						success = true;
+
 						break;
 					}
 				}
@@ -221,13 +227,15 @@ namespace BBTimes.CustomContent.Builders
 			Finished();
 		}
 
-		private Trapdoor CreateTrapDoor(Cell pos, EnvironmentController ec)
+		private Trapdoor CreateTrapDoor(Cell pos, EnvironmentController ec, short cooldown = -1)
 		{
 			var trapdoor = Instantiate(trapDoorpre);
 			trapdoor.transform.SetParent(pos.ObjectBase);
 			trapdoor.transform.position = pos.FloorWorldPosition;
 			trapdoor.gameObject.SetActive(true);
 			trapdoor.SetEC(ec);
+			if (cooldown != -1) trapdoor.SetOpenCooldown(cooldown); // If new cooldown exists, set the trapdoor to it
+
 			pos.HardCover(CellCoverage.Down | CellCoverage.Center);
 			pos.AddRenderer(trapdoor.renderer);
 			pos.AddRenderer(trapdoor.text.GetComponent<MeshRenderer>());

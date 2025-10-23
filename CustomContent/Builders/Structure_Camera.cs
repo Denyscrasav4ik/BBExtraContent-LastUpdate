@@ -20,7 +20,7 @@ namespace BBTimes.CustomContent.Builders
 			cam.gameObject.ConvertToPrefab(true);
 
 			var camComp = cam.gameObject.AddComponent<SecurityCamera>();
-			camComp.collider = cam.gameObject.AddBoxCollider(new(0f, 1f, 5f), new(3f, 10f, 3f), true);
+			camComp.collider = cam.gameObject.AddBoxCollider(new(0f, 9f, 0f), Vector3.one * 2f, true);
 
 			var visionIndicator = ObjectCreationExtensions.CreateSpriteBillboard(this.GetSprite(15f, "tiledGrid.png"), false);
 			visionIndicator.gameObject.layer = 0;
@@ -50,6 +50,8 @@ namespace BBTimes.CustomContent.Builders
 
 		public string Name { get; set; }
 		public string Category => "objects";
+
+		public static string GetJSONUIPath() => System.IO.Path.Combine(BasePlugin.ModPath, "objects", "SecurityCamera", "CameraUI.json");
 
 
 		// Prefab stuff above ^^
@@ -91,12 +93,15 @@ namespace BBTimes.CustomContent.Builders
 		public override void Load(List<StructureData> data)
 		{
 			base.Load(data);
-			for (int i = 0; i < data.Count; i++)
+			for (int i = 0; i < data.Count; i += 2)
 			{
 				var spot = ec.CellFromPosition(data[i].position);
 				var cam = Instantiate(camPre, spot.ObjectBase).GetComponentInChildren<SecurityCamera>();
 				cam.Ec = ec;
-				cam.Setup(spot.AllOpenNavDirections, data[i].data);
+
+				Embedded2Shorts embedded = data[i].data;
+				float turnCooldown = data[i + 1].data.ReinterpretAsFloat();
+				cam.Setup(spot.AllOpenNavDirections, embedded.A, embedded.B, turnCooldown);
 
 				spot.HardCover(CellCoverage.Up);
 			}

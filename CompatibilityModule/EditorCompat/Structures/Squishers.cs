@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using BBTimes.CustomContent.Builders;
+using BBTimes.Extensions;
 using PlusLevelStudio.Editor;
 using PlusLevelStudio.Editor.Tools;
 using PlusLevelStudio.UI;
@@ -206,7 +207,7 @@ public class SquisherStructureLocation : StructureLocation
             info.data.Add(new StructureDataInfo()
             {
                 position = squisher.position.ToData(),
-                data = new EmbeddedInteger(squisher.speed, squisher.cooldown)
+                data = new Embedded2Shorts(squisher.speed, squisher.cooldown)
             });
             if (squisher.button != null)
             {

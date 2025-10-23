@@ -1,7 +1,10 @@
 using System.Collections.Generic;
 using System.IO;
+using BBTimes.CustomContent.Builders;
+using BBTimes.Extensions;
 using PlusLevelStudio;
 using PlusLevelStudio.Editor;
+using PlusLevelStudio.UI;
 using PlusStudioLevelFormat;
 using PlusStudioLevelLoader;
 using TMPro;
@@ -104,11 +107,11 @@ public class TrapdoorTool : EditorTool
                 }
 
                 // Assign a new unique ID for this pair
-                int newId = 1;
+                short newId = 1;
                 if (currentStructure.trapdoorLocations.Count != 0)
                 {
                     foreach (var trap in currentStructure.trapdoorLocations) // Find the highest id inside the locations
-                        if (trap.id >= newId) newId = trap.id + 1;
+                        if (trap.id >= newId) newId = (short)(trap.id + 1);
                 }
 
                 currentTrapdoor.id = newId;
@@ -148,14 +151,21 @@ public class TrapdoorTool : EditorTool
     }
 }
 
-public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable
+public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable, IEditorSettingsable
 {
     public IntVector2 position;
-    public int id = -1;
-    public int openCooldown = 15;
+    public short id = -1;
+    public short openCooldown = 15;
     public bool IsLinked => id != -1;
     public TrapdoorLocation Link => !IsLinked ? throw new System.NotSupportedException("TrapdoorLocation does not support linkage.") : owner.trapdoorLocations.Find(trap => trap != this && trap.id == id);
     public TrapdoorStructureLocation owner;
+
+    public void SettingsClicked()
+    {
+        var ui = EditorController.Instance.CreateUI<TrapdoorSettingsExchangeHandler>("TrapdoorConfig", Structure_Trapdoor.GetJSONUIPath());
+        ui.myTrapdoor = this;
+        ui.Refresh();
+    }
 
     public void CleanupVisual(GameObject visualObject) { }
     public bool ValidatePosition(EditorLevelData data)
@@ -172,6 +182,7 @@ public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable
     public void InitializeVisual(GameObject visualObject)
     {
         visualObject.GetComponent<EditorDeletableObject>().toDelete = this;
+        visualObject.GetComponent<SettingsComponent>().activateSettingsOn = this;
         UpdateVisual(visualObject);
     }
 
@@ -180,16 +191,25 @@ public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable
         visualObject.transform.position = position.ToWorld();
         visualObject.transform.rotation = Direction.North.ToRotation(); // Faces north by default
 
-        var textMesh = visualObject.GetComponentInChildren<TextMeshPro>();
-        textMesh.text = openCooldown.ToString();
-        textMesh.gameObject.SetActive(true);
+        UpdateText(visualObject);
 
         if (IsLinked)
         {
             var link = Link;
             if (link != null)
+            {
+                link.openCooldown = openCooldown; // Both should share the same cooldown
+                link.UpdateText(EditorController.Instance.GetVisual(link));
                 visualObject.GetComponent<TrapdoorEditorVisualManager>().UpdateLinePositions(position.ToWorld() + Vector3.up, link.position.ToWorld() + Vector3.up);
+            }
         }
+    }
+
+    public void UpdateText(GameObject visualObject)
+    {
+        var textMesh = visualObject.GetComponentInChildren<TextMeshPro>();
+        textMesh.text = openCooldown.ToString();
+        textMesh.gameObject.SetActive(true);
     }
 
     public bool OnDelete(EditorLevelData data)
@@ -233,7 +253,7 @@ public class TrapdoorStructureLocation : StructureLocation
         {
             info.data.Add(new()
             {
-                data = trapdoor.id,
+                data = new Embedded2Shorts(trapdoor.id, trapdoor.openCooldown),
                 position = trapdoor.position.ToData()
             });
         }
@@ -247,15 +267,33 @@ public class TrapdoorStructureLocation : StructureLocation
 
     public override void ReadInto(EditorLevelData data, BinaryReader reader, StringCompressor compressor)
     {
-        _ = reader.ReadByte(); // Version
+        var version = reader.ReadByte(); // Version
 
-        int trapdoorCount = reader.ReadInt32();
+        int trapdoorCount;
+        if (version == 0)
+        {
+            trapdoorCount = reader.ReadInt32();
+            for (int i = 0; i < trapdoorCount; i++)
+            {
+                trapdoorLocations.Add(new()
+                {
+                    owner = this,
+                    id = (short)reader.ReadInt32(),
+                    position = PlusStudioLevelLoader.Extensions.ToInt(reader.ReadByteVector2())
+                });
+            }
+            return;
+        }
+
+        // Version 1
+        trapdoorCount = reader.ReadInt32();
         for (int i = 0; i < trapdoorCount; i++)
         {
             trapdoorLocations.Add(new()
             {
                 owner = this,
-                id = reader.ReadInt32(),
+                id = reader.ReadInt16(),
+                openCooldown = reader.ReadInt16(),
                 position = PlusStudioLevelLoader.Extensions.ToInt(reader.ReadByteVector2())
             });
         }
@@ -278,11 +316,12 @@ public class TrapdoorStructureLocation : StructureLocation
 
     public override void Write(EditorLevelData data, BinaryWriter writer, StringCompressor compressor)
     {
-        writer.Write((byte)0);
+        writer.Write((byte)1);
         writer.Write(trapdoorLocations.Count);
         for (int i = 0; i < trapdoorLocations.Count; i++)
         {
             writer.Write(trapdoorLocations[i].id);
+            writer.Write(trapdoorLocations[i].openCooldown);
             writer.Write(PlusStudioLevelLoader.Extensions.ToByte(trapdoorLocations[i].position));
         }
     }
@@ -325,4 +364,50 @@ public class TrapdoorEditorVisualManager : MonoBehaviour, IEditorInteractable, I
     public void MoveUpdate(Vector3? position, Quaternion? rotation) { }
 
     public Transform GetTransform() => transform;
+}
+
+public class TrapdoorSettingsExchangeHandler : EditorOverlayUIExchangeHandler
+{
+    public TrapdoorLocation myTrapdoor;
+    TextMeshProUGUI openCooldownText;
+    bool somethingChanged = false;
+
+    public override void OnElementsCreated()
+    {
+        base.OnElementsCreated();
+        openCooldownText = transform?.Find("OpenCooldownBox").GetComponent<TextMeshProUGUI>();
+        EditorController.Instance.HoldUndo();
+    }
+
+    public void Refresh()
+    {
+        openCooldownText.text = myTrapdoor.openCooldown.ToString();
+    }
+
+    public override bool OnExit()
+    {
+        if (somethingChanged)
+            EditorController.Instance.AddHeldUndo();
+        else
+            EditorController.Instance.CancelHeldUndo();
+        myTrapdoor.UpdateVisual(EditorController.Instance.GetVisual(myTrapdoor)); // Updates text
+
+        return base.OnExit();
+    }
+
+    public override void SendInteractionMessage(string message, object data)
+    {
+        switch (message)
+        {
+            case "setOpenCooldown":
+                if (short.TryParse((string)data, out var cooldown))
+                {
+                    myTrapdoor.openCooldown = (short)Mathf.Max(cooldown, 0);
+                    somethingChanged = true;
+                }
+                Refresh();
+                break;
+        }
+        base.SendInteractionMessage(message, data);
+    }
 }

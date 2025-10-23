@@ -1,35 +1,44 @@
 using PlusLevelStudio;
 using PlusLevelStudio.Editor;
-using PlusStudioLevelFormat;
-using PlusStudioLevelLoader;
+using PlusLevelStudio.Editor.Tools;
+using UnityEngine;
 
 namespace BBTimes.CompatibilityModule.EditorCompat.Events;
 
-public class SuperFanMarker : CellMarker
+public class SuperFanTool : PlaceAndRotateTool
 {
-    public override void Compile(EditorLevelData data, BaldiLevel compiled)
-    {
-        ushort num = data.RoomIdFromPos(position, true);
-        if (num == 0)
-        {
-            throw new System.Exception("Uh oh, no room found for super fan.");
-        }
+    public override string id => "object_timessuperfansmarker";
 
-        compiled.rooms[num - 1].basicObjects.Add(new BasicObjectInfo
-        {
-            position = position.ToWorld().ToData(),
-            prefab = type,
-            rotation = default
-        });
+    public SuperFanTool(Sprite sprite)
+    {
+        this.sprite = sprite;
     }
 
-    public override bool ValidatePosition(EditorLevelData data)
+    public override bool ValidLocation(IntVector2 position)
     {
-        EditorRoom editorRoom = data.RoomFromPos(position, true);
+        if (!base.ValidLocation(position)) return false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (EditorController.Instance.levelData.WallFree(position, (Direction)i, false)) return true;
+        }
+        return false;
+    }
 
-        return
-        editorRoom != null &&
-        editorRoom.roomType == "hall" &&
-        data.cells[position.x, position.z].walls != 0; // It can't be a place with no walls
+    protected override bool TryPlace(IntVector2 position, Direction dir)
+    {
+        if (EditorController.Instance.levelData.WallFree(position, dir, false))
+        {
+            EditorController.Instance.AddUndo();
+            BasicObjectLocation obj = new()
+            {
+                prefab = "timessuperfansmarker",
+                position = position.ToWorld() + (dir.ToVector3() * 4.8f),
+                rotation = dir.GetOpposite().ToRotation()
+            };
+            EditorController.Instance.levelData.objects.Add(obj);
+            EditorController.Instance.AddVisual(obj);
+            return true;
+        }
+        return false;
     }
 }

@@ -204,6 +204,9 @@ namespace BBTimes.CustomContent.Objects
 		public void SetLinkedTrapDoor(Trapdoor d) =>
 			linkedTrapdoor = d;
 
+		public void SetOpenCooldown(float newCooldown) =>
+			baseCooldown = newCooldown;
+
 
 		EnvironmentController ec;
 

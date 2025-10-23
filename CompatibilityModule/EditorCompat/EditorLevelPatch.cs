@@ -99,6 +99,8 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 
 		private static void InitializeVisuals(AssetManager man)
 		{
+			UntouchableEditorBasicObject ReplaceEditorBasicObject(EditorBasicObject basicObj) =>
+				basicObj.gameObject.SwapComponent<EditorBasicObject, UntouchableEditorBasicObject>(false);
 			// Objects
 			EditorInterface.AddObjectVisual("bathStall", man.Get<GameObject>("editorPrefab_bathStall"), true);
 			EditorInterface.AddObjectVisual("bathDoor", man.Get<GameObject>("editorPrefab_bathDoor"), true);
@@ -193,6 +195,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			var securityCameraBuilder = (Structure_Camera)BBTimesManager.man.Get<StructureBuilder>("Builder_Structure_Camera");
 			var securityCamera = securityCameraBuilder.camPre.GetComponent<SecurityCamera>(); // Gets camera here
 			var securityCameraObj = EditorInterface.AddStructureGenericVisual(TimesPrefix + "SecurityCamera", securityCameraBuilder.camPre.gameObject); // Add as a generic visual with no components
+			securityCameraObj.AddComponent<SettingsComponent>().offset = Vector3.up * 15f;
 
 			// Visual manager setup for Security Camera
 			var secCamVisualManager = securityCameraObj.AddComponent<EditorSecurityCameraVisualManager>();
@@ -208,10 +211,13 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			var trapdoorRandomObj = AddStructureGenericVisual(TimesPrefix + "TrapdoorRandom", trapdoor.gameObject, typeof(TextMeshPro));
 			trapdoorRandomObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
 			trapdoorRandomObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[0];
+			trapdoorRandomObj.AddComponent<SettingsComponent>();
 			var trapdoorLinkedObj = AddStructureGenericVisual(TimesPrefix + "TrapdoorLinked", trapdoor.gameObject, typeof(TextMeshPro));
 			trapdoorLinkedObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
 			trapdoorLinkedObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[1]; // Linked is index 1
 																												  // Add line renderer to indicate linkage for linked trapdoors
+			trapdoorLinkedObj.AddComponent<SettingsComponent>();
+
 			var trapdoorLinkedObj_lineRenderer = referenceLineRenderer.SafeInstantiate();
 			trapdoorLinkedObj_lineRenderer.transform.SetParent(trapdoorLinkedObj.transform);
 			trapdoorLinkedObj_lineRenderer.transform.localPosition = Vector3.zero;
@@ -274,20 +280,13 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// ** Markers **
 
 			// SuperFans
-			// Ed_Tool_marker_timessuperfansmarker
 			var superFan = ((SuperFans)BBTimesManager.man.Get<RandomEvent>("Event_SuperFans")).superFanPre;
 			var superFanDisplay = ObjectCreationExtensions.CreateSpriteBillboard(superFan.renderer.sprite, true).AddSpriteHolder(out var superFanRenderer, 5f);
 			superFanRenderer.transform.localScale = Vector3.one * 3f;
 			superFanDisplay.gameObject.ConvertToPrefab(true);
-			superFanDisplay.name = "SuperFanMarker";
+			superFanDisplay.name = "SuperFans_visual";
 
-			var superFanCollider = superFanDisplay.gameObject.AddComponent<SphereCollider>();
-			superFanCollider.radius = 3f;
-			superFanCollider.center = Vector3.up * 5f;
-			superFanCollider.isTrigger = true;
-
-			EditorInterface.AddMarkerGenericVisual("timessuperfansmarker", superFanDisplay.gameObject);
-			LevelStudioPlugin.Instance.markerTypes.Add("timessuperfansmarker", typeof(SuperFanMarker));
+			ReplaceEditorBasicObject(EditorInterface.AddObjectVisualWithCustomSphereCollider("timessuperfansmarker", superFanDisplay.gameObject, 3f, Vector3.up * 5f));
 		}
 
 		/// <summary>
@@ -355,14 +354,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			foreach (var evName in allEvents)
 				mode.availableRandomEvents.Add(TimesPrefix + evName);
 
-			// Markers
-			string[] markerNames =
-			[
-				"timessuperfansmarker"
-			];
-			foreach (var marker in markerNames)
-				EditorInterfaceModes.AddToolToCategory(mode, "structures", new CellMarkerTool(marker, GetSprite($"UI/Marker_{marker}", $"UI/marker_{marker}")));
-
 			// Structures
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SecurityCameraTool(GetSprite($"UI/Structure_SecurityCamera", $"UI/structure_SecurityCamera")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorRng", $"UI/structure_TrapdoorRng"), false));
@@ -373,6 +364,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctConnectTool(GetSprite("UI/Structure_DuctConnect", "UI/structure_DuctConnect")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherTool(GetSprite("UI/Structure_Squisher", "UI/structure_Squisher")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherWithButtonTool(GetSprite("UI/Structure_SquisherWithButton", "UI/structure_SquisherWithButton")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SuperFanTool(GetSprite($"UI/Structure_SuperFans", $"UI/structure_SuperFans")));
 
 			// Door tools
 			EditorInterfaceModes.AddToolToCategory(mode, "doors", new DoorTool(TimesPrefix + "SmallDoor", GetSprite("UI/Door_SmallDoor", "UI/door_SmallDoor")));

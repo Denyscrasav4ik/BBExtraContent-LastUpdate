@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
+using BBTimes.CustomContent.Builders;
+using BBTimes.Extensions;
 using PlusLevelStudio;
 using PlusLevelStudio.Editor;
+using PlusLevelStudio.UI;
 using PlusStudioLevelFormat;
 using PlusStudioLevelLoader;
+using TMPro;
 using UnityEngine;
 
 namespace BBTimes.CompatibilityModule.EditorCompat.Structures;
@@ -118,10 +122,11 @@ public class SecurityCameraTool : EditorTool
     }
 }
 
-public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable
+public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable, IEditorSettingsable
 {
     public IntVector2 position;
-    public byte distance = 1;
+    public short distance = 1, turnCooldown = 10;
+    public float detectCooldown = 2.5f;
     public Direction direction = Direction.Null;
     public SecurityCameraStructureLocation owner;
 
@@ -150,6 +155,7 @@ public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable
     public void InitializeVisual(GameObject visualObject)
     {
         visualObject.GetComponent<EditorDeletableObject>().toDelete = this;
+        visualObject.GetComponent<SettingsComponent>().activateSettingsOn = this;
         UpdateVisual(visualObject);
     }
 
@@ -167,6 +173,13 @@ public class SecurityCameraLocation : IEditorVisualizable, IEditorDeletable
     {
         owner.DeleteCamera(this);
         return true;
+    }
+
+    public void SettingsClicked()
+    {
+        var ui = EditorController.Instance.CreateUI<SecurityCameraSettingsExchangeHandler>("SecurityCameraConfig", Structure_Camera.GetJSONUIPath());
+        ui.myCamera = this;
+        ui.Refresh();
     }
 }
 
@@ -190,10 +203,11 @@ public class SecurityCameraStructureLocation : StructureLocation
         {
             info.data.Add(new()
             {
-                data = camera.distance,
+                data = new Embedded2Shorts(camera.distance, camera.turnCooldown),
                 direction = (PlusDirection)camera.direction,
                 position = camera.position.ToData()
             });
+            info.data.Add(new() { data = camera.detectCooldown.ReinterpretAsInt() });
         }
         return info;
     }
@@ -206,15 +220,35 @@ public class SecurityCameraStructureLocation : StructureLocation
 
     public override void ReadInto(EditorLevelData data, BinaryReader reader, StringCompressor compressor)
     {
-        _ = reader.ReadByte(); // Version
+        var version = reader.ReadByte(); // Version
+        int camCount;
+        // V0 Loading
+        if (version == 0)
+        {
+            camCount = reader.ReadInt32();
+            for (int i = 0; i < camCount; i++)
+            {
+                cameraLocations.Add(new()
+                {
+                    owner = this,
+                    distance = reader.ReadByte(),
+                    direction = (Direction)reader.ReadByte(),
+                    position = PlusStudioLevelLoader.Extensions.ToInt(reader.ReadByteVector2())
+                });
+            }
+            return;
+        }
 
-        int camCount = reader.ReadInt32();
-        for (int i = 0; i < camCount; i++)
+        // V1 Loading
+        camCount = reader.ReadInt32();
+        for (int i = 0; i < camCount; i += 2)
         {
             cameraLocations.Add(new()
             {
                 owner = this,
-                distance = reader.ReadByte(),
+                distance = reader.ReadInt16(),
+                turnCooldown = reader.ReadInt16(),
+                detectCooldown = reader.ReadSingle(),
                 direction = (Direction)reader.ReadByte(),
                 position = PlusStudioLevelLoader.Extensions.ToInt(reader.ReadByteVector2())
             });
@@ -238,11 +272,13 @@ public class SecurityCameraStructureLocation : StructureLocation
 
     public override void Write(EditorLevelData data, BinaryWriter writer, StringCompressor compressor)
     {
-        writer.Write((byte)0);
+        writer.Write((byte)1);
         writer.Write(cameraLocations.Count);
         for (int i = 0; i < cameraLocations.Count; i++)
         {
             writer.Write(cameraLocations[i].distance);
+            writer.Write(cameraLocations[i].turnCooldown);
+            writer.Write(cameraLocations[i].detectCooldown);
             writer.Write((byte)cameraLocations[i].direction);
             writer.Write(PlusStudioLevelLoader.Extensions.ToByte(cameraLocations[i].position));
         }
@@ -297,5 +333,59 @@ public class EditorSecurityCameraVisualManager : MonoBehaviour
         }
         collider.size = new Vector3(10f, 0.01f, length * 10f);
         collider.center = Vector3.forward * (length - 1) * 5f;
+    }
+}
+
+public class SecurityCameraSettingsExchangeHandler : EditorOverlayUIExchangeHandler
+{
+    public SecurityCameraLocation myCamera;
+    TextMeshProUGUI detectCooldownText, turnCooldownText;
+    bool somethingChanged = false;
+
+    public override void OnElementsCreated()
+    {
+        base.OnElementsCreated();
+        detectCooldownText = transform?.Find("DetectCooldownBox").GetComponent<TextMeshProUGUI>();
+        turnCooldownText = transform?.Find("TurnCooldownBox").GetComponent<TextMeshProUGUI>();
+        EditorController.Instance.HoldUndo();
+    }
+
+    public void Refresh()
+    {
+        detectCooldownText.text = myCamera.detectCooldown.ToString();
+        turnCooldownText.text = myCamera.turnCooldown.ToString();
+    }
+
+    public override bool OnExit()
+    {
+        if (somethingChanged)
+            EditorController.Instance.AddHeldUndo();
+        else
+            EditorController.Instance.CancelHeldUndo();
+        return base.OnExit();
+    }
+
+    public override void SendInteractionMessage(string message, object data)
+    {
+        switch (message)
+        {
+            case "setDetectCooldown":
+                if (float.TryParse((string)data, out var cooldown))
+                {
+                    myCamera.detectCooldown = Mathf.Max(cooldown, 0.25f);
+                    somethingChanged = true;
+                }
+                Refresh();
+                break;
+            case "setTurnCooldown":
+                if (short.TryParse((string)data, out var turnCooldown))
+                {
+                    myCamera.turnCooldown = (short)Mathf.Max(turnCooldown, 1);
+                    somethingChanged = true;
+                }
+                Refresh();
+                break;
+        }
+        base.SendInteractionMessage(message, data);
     }
 }

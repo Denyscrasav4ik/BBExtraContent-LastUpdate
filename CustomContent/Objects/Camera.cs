@@ -22,7 +22,8 @@ namespace BBTimes.CustomContent.Objects
 			collider.enabled = on;
 			isCameraOn = on;
 		}
-		public void Setup(List<Direction> dirs, int maximumDistance)
+		public void Setup(List<Direction> dirs, int maximumDistance) => Setup(dirs, maximumDistance, -1f, defaultSpotCool);
+		public void Setup(List<Direction> dirs, int maximumDistance, float turnCooldown, float defaultSpotCool)
 		{
 			nextDirections = dirs;
 			maxDistance = maximumDistance;
@@ -30,6 +31,12 @@ namespace BBTimes.CustomContent.Objects
 
 			cooldown = Random.Range(minTurnCool, maxTurnCool);
 			spotCooldown = defaultSpotCool;
+			minimumRedSpotThreshold = defaultSpotCool * 0.5f;
+			if (turnCooldown != -1f)
+			{
+				minTurnCool = turnCooldown;
+				maxTurnCool = turnCooldown;
+			}
 		}
 
 		void Start() =>
@@ -239,14 +246,14 @@ namespace BBTimes.CustomContent.Objects
 
 		IntVector2 basePos;
 
-		float cooldown, spotCooldown, alarmTime = 0f;
+		float cooldown, spotCooldown, alarmTime = 0f, minimumRedSpotThreshold;
 		int spottedPlayersBreakingRules = 0;
 		bool wasAlarming = false, isCameraOn = true;
 
 		Color currentColor = Color.blue;
 
 		[SerializeField]
-		internal float maxTurnCool = 30f, minTurnCool = 15f, defaultSpotCool = 2.5f, minimumRedSpotThreshold = 1.25f,
+		internal float maxTurnCool = 30f, minTurnCool = 15f, defaultSpotCool = 2.5f,
 		angerValue = 2f, additionalGuiltTimePenalty = 7f;
 
 		[SerializeField]

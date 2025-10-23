@@ -132,7 +132,7 @@ namespace BBTimes.CustomContent.Builders
 				}
 
 				// A = Speed; B = Cooldown
-				EmbeddedInteger embeddedData = data[i].data; // Assume it is embedded.
+				Embedded2Shorts embeddedData = data[i].data; // Assume it is embedded.
 
 				var cell = ec.CellFromPosition(data[i].position);
 				var squ = Instantiate(squisherPre, cell.ObjectBase);
