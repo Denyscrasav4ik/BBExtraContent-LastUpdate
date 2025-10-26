@@ -124,6 +124,14 @@
             <param name="npc"></param>
             <returns></returns>
         </member>
+        <member name="M:PlusLevelStudio.EditorInterface.AddTileBasedObjectVisual(System.String,UnityEngine.GameObject)">
+            <summary>
+            Generates a visual for the specified tile based object, and adds it to the tileBasedObjectDisplays dictionary.
+            </summary>
+            <param name="key">The key to use for the dictionary.</param>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="M:PlusLevelStudio.EditorInterface.AddStructureGenericVisual(System.String,UnityEngine.GameObject)">
             <summary>
             Generates a visual for the specified structure, and adds it to the genericStructureDisplays dictionary.
@@ -139,6 +147,14 @@
             <param name="key">The key to use for the dictionary.</param>
             <param name="obj"></param>
             <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.EditorInterface.ReplaceAnimatedRotators(UnityEngine.GameObject)">
+            <summary>
+            Replaces all <see cref="T:AnimatedSpriteRotator"/> components in the hierarchy of the <paramref name="rootObject"/>
+            with <see cref="T:SpriteRotator"/> components, while preserving the sprite mapping.
+            <para> If the target sprite cannot be found in the sprite map, or if the sprite sheet is too short, a warning is logged and the conversion for that rotator is skipped. </para>
+            </summary>
+            <param name="rootObject">The root <see cref="T:UnityEngine.GameObject"/> whose children will be searched for the <see cref="T:AnimatedSpriteRotator"/> components to replace.</param>
         </member>
         <member name="M:PlusLevelStudio.EditorInterface.AddObjectVisual(System.String,UnityEngine.GameObject,System.Boolean)">
             <summary>
@@ -312,6 +328,23 @@
             <param name="category"></param>
             <param name="tool"></param>
             <param name="addCategoryIfDoesntExist"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.RandomStructureLocation.Compile(PlusLevelStudio.Editor.EditorLevelData,PlusStudioLevelFormat.BaldiLevel)">
+            <summary>
+            This throws an exception, do not use.
+            </summary>
+            <param name="data"></param>
+            <param name="level"></param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:PlusLevelStudio.Editor.RandomStructureLocation.CompileIntoRandom(PlusLevelStudio.Editor.EditorLevelData,PlusStudioLevelFormat.BaldiLevel)">
+            <summary>
+            Compile this structure into the RandomStructureInfo
+            </summary>
+            <param name="data"></param>
+            <param name="level"></param>
             <returns></returns>
         </member>
         <member name="M:PlusLevelStudio.Editor.StructureLocation.ValidatePosition(PlusLevelStudio.Editor.EditorLevelData)">
