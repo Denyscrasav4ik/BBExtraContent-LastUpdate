@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BBTimes.CompatibilityModule.EditorCompat.Events;
 using BBTimes.CompatibilityModule.EditorCompat.Structures;
 using BBTimes.CustomContent.Builders;
 using BBTimes.CustomContent.Events;
@@ -48,11 +47,16 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 		static readonly string[] allEvents = [
 				"Principalout", "FrozenEvent", "CurtainsClosed", "HologramPast", "SkateboardDay", "Earthquake", "SuperFans", "LightningEvent", "SuperMysteryRoom", "NatureEvent"
 			];
+		// Skyboxes
+		static readonly string[] allSkyboxes = [
+			"TimesNightSky"
+		];
 
 		internal static void Initialize(AssetManager man)
 		{
 			LoadEditorAssets();
 			InitializeVisuals(man);
+			InitializeOtherTextures();
 			EditorLevelData.AddDefaultTextureAction(InitializeDefaultTextures);
 			EditorInterfaceModes.AddModeCallback(InitializeTools);
 		}
@@ -95,12 +99,23 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 				icon = AssetLoader.SpriteFromTexture2D(tex, 40f);
 				_editorAssetMan.Add("UI/ITM_" + itmEnum, icon);
 			}
+
+			// *** Skyboxes ***
+			foreach (var skybox in allSkyboxes)
+			{
+				LevelStudioPlugin.Instance.skyboxSprites.Add(skybox, GetSprite($"UI/Skybox_{skybox}", $"UI/skybox_{skybox}"));
+				LevelStudioPlugin.Instance.selectableSkyboxes.Add(skybox);
+			}
 		}
 
 		private static void InitializeVisuals(AssetManager man)
 		{
-			UntouchableEditorBasicObject ReplaceEditorBasicObject(EditorBasicObject basicObj) =>
-				basicObj.gameObject.SwapComponent<EditorBasicObject, UntouchableEditorBasicObject>(false);
+			static UntouchableEditorBasicObject ReplaceEditorBasicObject(string key, EditorBasicObject basicObj)
+			{
+				var newComp = basicObj.gameObject.SwapComponent<EditorBasicObject, UntouchableEditorBasicObject>(false);
+				LevelStudioPlugin.Instance.basicObjectDisplays[key] = newComp; // Update the component to not display a Null object
+				return newComp;
+			}
 			// Objects
 			EditorInterface.AddObjectVisual("bathStall", man.Get<GameObject>("editorPrefab_bathStall"), true);
 			EditorInterface.AddObjectVisual("bathDoor", man.Get<GameObject>("editorPrefab_bathDoor"), true);
@@ -151,6 +166,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// EditorInterface.AddObjectVisual("Times_GeneratorLever", man.Get<GameObject>("editorPrefab_Times_GeneratorLever"), true);
 			// for (int i = 1; i <= 4; i++)
 			// 	EditorInterface.AddObjectVisual($"Times_ContainedBaldi_F{i}", man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), true);
+			ReplaceEditorBasicObject(TimesPrefix + "SecretButton", EditorInterface.AddObjectVisual(TimesPrefix + "SecretButton", man.Get<GameObject>("editorPrefab_SecretButton"), true));
 
 			// NPCs
 			foreach (var npcName in allNpcs)
@@ -174,13 +190,19 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			foreach (var evName in allEvents)
 				LevelStudioPlugin.Instance.eventSprites.Add(TimesPrefix + evName, GetSprite($"UI/event_{evName}", $"UI/Event_{evName}"));
 
-			// ** Structures **
-			// Readonly variables here
-			var referenceLineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer;
-
+			// ** Door/Windows
 			// Small Doors
 			var smallDoorBuilder = BBTimesManager.man.Get<Structure_SmallDoor>("Builder_Structure_SmallDoor");
 			EditorInterface.AddDoor<DoorDisplay>(TimesPrefix + "SmallDoor", DoorIngameStatus.AlwaysObject, smallDoorBuilder.doorPre.mask[0], smallDoorBuilder.doorPre.overlayShut);
+
+			// Windows
+			EditorInterface.AddWindow(TimesPrefix + "MetalWindow", BBTimesManager.man.Get<WindowObject>("Window_MetalWindow"));
+			EditorInterface.AddWindow(TimesPrefix + "ClassicWindow", BBTimesManager.man.Get<WindowObject>("Window_ClassicWindow"));
+			EditorInterface.AddWindow(TimesPrefix + "RoundWindow", BBTimesManager.man.Get<WindowObject>("Window_RoundWindow"));
+
+			// ** Structures **
+			// Readonly variables here
+			var referenceLineRenderer = Resources.FindObjectsOfTypeAll<ITM_GrapplingHook>()[0].lineRenderer;
 
 			// Squishers
 			var squisherBuilder = BBTimesManager.man.Get<Structure_Squisher>("Builder_Structure_Squisher");
@@ -215,8 +237,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			var trapdoorLinkedObj = AddStructureGenericVisual(TimesPrefix + "TrapdoorLinked", trapdoor.gameObject, typeof(TextMeshPro));
 			trapdoorLinkedObj.GetComponent<BoxCollider>().size = new(9.8f, 1f, 9.8f);
 			trapdoorLinkedObj.GetComponentInChildren<SpriteRenderer>().sprite = trapdoorBuilder.closedSprites[1]; // Linked is index 1
-																												  // Add line renderer to indicate linkage for linked trapdoors
-			trapdoorLinkedObj.AddComponent<SettingsComponent>();
+																												  // Add line renderer to indicate linkage for linked trapdoor
 
 			var trapdoorLinkedObj_lineRenderer = referenceLineRenderer.SafeInstantiate();
 			trapdoorLinkedObj_lineRenderer.transform.SetParent(trapdoorLinkedObj.transform);
@@ -277,16 +298,23 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 
 			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "Duct", typeof(DuctStructureLocation));
 
-			// ** Markers **
+			// ** Room Structures **
+			// Event Machine
+			var eventMachine = BBTimesManager.man.Get<GameObject>("editorPrefab_EventMachine");
+			ReplaceEditorBasicObject(TimesPrefix + "EventMachine", EditorInterface.AddObjectVisualWithCustomSphereCollider(TimesPrefix + "EventMachine", eventMachine, 3f, Vector3.zero));
+
+			// ** Structure Events **
 
 			// SuperFans
 			var superFan = ((SuperFans)BBTimesManager.man.Get<RandomEvent>("Event_SuperFans")).superFanPre;
-			var superFanDisplay = ObjectCreationExtensions.CreateSpriteBillboard(superFan.renderer.sprite, true).AddSpriteHolder(out var superFanRenderer, 5f);
-			superFanRenderer.transform.localScale = Vector3.one * 3f;
+			var superFanDisplay = ObjectCreationExtensions.CreateSpriteBillboard(superFan.renderer.sprite, false).AddSpriteHolder(out var superFanRenderer, 0f);
 			superFanDisplay.gameObject.ConvertToPrefab(true);
 			superFanDisplay.name = "SuperFans_visual";
 
-			ReplaceEditorBasicObject(EditorInterface.AddObjectVisualWithCustomSphereCollider("timessuperfansmarker", superFanDisplay.gameObject, 3f, Vector3.up * 5f));
+			ReplaceEditorBasicObject(TimesPrefix + "SuperFan", EditorInterface.AddObjectVisualWithCustomSphereCollider(TimesPrefix + "SuperFan", superFanDisplay.gameObject, 3f, Vector3.zero));
+
+			// ** Global Structures **
+			LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "OutsideBox", typeof(FactoryBoxStructureLocation)); // It does nothing, so it's a good stub
 		}
 
 		/// <summary>
@@ -307,6 +335,10 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			containers.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
 			containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
 		}
+
+		static void InitializeOtherTextures() =>
+			LevelStudioPlugin.Instance.selectableTextures.AddRange(BBTimesManager.man.Get<List<string>>("TimesSchoolTextures"));
+
 
 		/// <summary>
 		/// Creates and adds all the placeable tools to the editor's toolbox.
@@ -332,8 +364,10 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			foreach (string npcName in allNpcs)
 			{
 				string key = TimesPrefix + npcName;
-				Sprite icon = GetSprite($"UI/Npc_{npcName}", $"UI/npc_{npcName}");
-				EditorInterfaceModes.AddToolToCategory(mode, "npcs", new NPCTool(key, icon));
+				EditorInterfaceModes.AddToolToCategory(mode, "npcs", new NPCTool(key, GetSprite($"UI/Npc_{npcName}", $"UI/npc_{npcName}")));
+
+				// Adding PRI posters
+				EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool(key + "_PRIPoster"));
 			}
 
 			// Add Room tools
@@ -348,6 +382,9 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Add Object tools
 			AddObjectTools(mode);
 
+			// Add light tools
+			EditorInterfaceModes.AddToolToCategory(mode, "lights", new LightTool("Times_HangingLongLight", GetSprite($"UI/Light_HangingLongLight", $"UI/light_HangingLongLight")));
+
 			if (mode.id == "rooms") return; // Below here, there are things that are unnecessary for the rooms editor
 
 			// Random Events
@@ -355,19 +392,34 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 				mode.availableRandomEvents.Add(TimesPrefix + evName);
 
 			// Structures
+			EditorInterfaceModes.AddToolToCategory(mode, "activities", new NotebookMachineTool(GetSprite("UI/Structure_NotebookMachine", "UI/structure_NotebookMachine")));
+
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new StructureOnWallPlacementTool(TimesPrefix + "SuperFan", GetSprite($"UI/Structure_SuperFans", $"UI/structure_SuperFans")));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new StructureOnWallPlacementTool(TimesPrefix + "EventMachine", GetSprite($"UI/Structure_EventMachine", $"UI/structure_EventMachine"), useOppositeRotation: false));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SecurityCameraTool(GetSprite($"UI/Structure_SecurityCamera", $"UI/structure_SecurityCamera")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorRng", $"UI/structure_TrapdoorRng"), false));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new TrapdoorTool(GetSprite($"UI/Structure_TrapdoorLink", $"UI/structure_TrapdoorLink"), true));
-			EditorInterfaceModes.AddToolToCategory(mode, "activities", new NotebookMachineTool(GetSprite("UI/Structure_NotebookMachine", "UI/structure_NotebookMachine")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new ItemAlarmTool(GetSprite("UI/Structure_ItemAlarm", "UI/structure_ItemAlarm")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctPlaceTool(GetSprite("UI/Structure_Duct", "UI/structure_Duct")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new DuctConnectTool(GetSprite("UI/Structure_DuctConnect", "UI/structure_DuctConnect")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherTool(GetSprite("UI/Structure_Squisher", "UI/structure_Squisher")));
 			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SquisherWithButtonTool(GetSprite("UI/Structure_SquisherWithButton", "UI/structure_SquisherWithButton")));
-			EditorInterfaceModes.AddToolToCategory(mode, "structures", new SuperFanTool(GetSprite($"UI/Structure_SuperFans", $"UI/structure_SuperFans")));
+
+			// Window tools
+			EditorInterfaceModes.AddToolToCategory(mode, "doors", new WindowTool(TimesPrefix + "MetalWindow", GetSprite("UI/Window_MetalWindow", "UI/window_MetalWindow")));
+			EditorInterfaceModes.AddToolToCategory(mode, "doors", new WindowTool(TimesPrefix + "ClassicWindow", GetSprite("UI/Window_ClassicWindow", "UI/window_ClassicWindow")));
+			EditorInterfaceModes.AddToolToCategory(mode, "doors", new WindowTool(TimesPrefix + "RoundWindow", GetSprite("UI/Window_RoundWindow", "UI/window_RoundWindow")));
 
 			// Door tools
 			EditorInterfaceModes.AddToolToCategory(mode, "doors", new DoorTool(TimesPrefix + "SmallDoor", GetSprite("UI/Door_SmallDoor", "UI/door_SmallDoor")));
+
+			// Outside Tool
+			mode.globalStructures.Add(new()
+			{
+				nameKey = $"Ed_GlobalStructure_{TimesPrefix}OutsideBox_Title",
+				descKey = $"Ed_GlobalStructure_{TimesPrefix}OutsideBox_Desc",
+				structureToSpawn = TimesPrefix + "OutsideBox",
+			});
 		}
 		/// <summary>
 		/// Add object tools.
@@ -377,7 +429,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Key: object ID, Value: isRotatable
 			var objectTools = new List<ObjectData>
 			{
-				new("bathStall", true, 5f), new("bathDoor", true), new("sink", false), new("Toilet", false),
+				new("bathStall", true, 5f), new("bathDoor", true, "doors"), new("sink", false), new("Toilet", false),
 				new("BasketHoop", true), new("BasketballPile", false, 2f), new("GrandStand", true, 4f), new("BasketMachine", true),
 				new("BasketBallBigLine", true), new("FancyComputerTable", true), new("ComputerBillboard", false, 5f),
 				new("StraightRunLine", true), new("CurvedRunLine", true), new("Foresttree", false), new("Campfire", false),
@@ -403,14 +455,15 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// objectTools.Add(new("Times_GeneratorLever", true, 5f));
 			// for (int i = 1; i <= 4; i++)
 			// 	objectTools.Add(new($"Times_ContainedBaldi_F{i}", true, 5f));
+			EditorInterfaceModes.AddToolToCategory(mode, "structures", new StructureOnWallPlacementTool(TimesPrefix + "SecretButton", null));
 
 			foreach (var pair in objectTools)
 			{
 				Sprite icon = GetSprite($"UI/Object_{pair.prefab}", $"UI/object_{pair.prefab}");
 				if (pair.rotatable) // isRotatable
-					EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectTool(pair.prefab, icon, pair.offset));
+					EditorInterfaceModes.AddToolToCategory(mode, pair.tool, new ObjectTool(pair.prefab, icon, pair.offset));
 				else
-					EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectToolNoRotation(pair.prefab, icon, pair.offset));
+					EditorInterfaceModes.AddToolToCategory(mode, pair.tool, new ObjectToolNoRotation(pair.prefab, icon, pair.offset));
 				// Debug.Log("{\"key\": \"Ed_Tool_object_" + pair.prefab + "_Name\", \"value\":\"" + pair.prefab.ToFriendlyName() + "\"},");
 				// Debug.Log("{\"key\": \"Ed_Tool_object_" + pair.prefab + "_Desc\", \"value\":\"[DESCRIPTION]\"},");
 			}
@@ -418,9 +471,9 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			// Special Bulk Object Tool
 			// Uses "Ed_Tool_bulkobject_" prefix for these things
 			EditorInterfaceModes.AddToolToCategory(mode, "objects", new BulkObjectTool("fullStall", GetSprite("UI/Helper_fullStall", "UI/helper_fullStall"), [
-					new("bathStall", new Vector3(-5f, 0f, 0f), new(0f, 90f)),
+					new("bathStall", new Vector3(-5f, 5f, 0f), new(0f, 90f)),
 					new("bathDoor", new Vector3(0f, 0f, 4f)),
-					new("bathStall", new Vector3(5f, 0f, 0f), new(0f, 90f))
+					new("bathStall", new Vector3(5f, 5f, 0f), new(0f, 90f))
 				]
 			));
 
@@ -434,7 +487,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 		}
 
 
-		private readonly struct ObjectData(string prefab, bool rotatable)
+		private readonly struct ObjectData(string prefab, bool rotatable, string category = "objects")
 		{
 			public ObjectData(string prefab, bool rotatable, float offset) : this(prefab, rotatable) =>
 				this.offset = offset;
@@ -442,6 +495,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 			readonly public string prefab = prefab;
 			readonly public bool rotatable = rotatable;
 			readonly public float offset = 0f;
+			readonly public string tool = category;
 		}
 
 		static GameObject AddStructureGenericVisual(string key, GameObject obj, params System.Type[] exceptions)

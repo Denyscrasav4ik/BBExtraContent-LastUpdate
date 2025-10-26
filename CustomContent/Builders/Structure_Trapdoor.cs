@@ -171,8 +171,9 @@ namespace BBTimes.CustomContent.Builders
 			for (int i = 0; i < datas.Count; i++)
 			{
 				var cell = ec.CellFromPosition(datas[i].position);
+				Embedded2Shorts embeddedData = datas[i].data;
 
-				var trap = CreateTrapDoor(cell, ec);
+				var trap = CreateTrapDoor(cell, ec, embeddedData.B); // B here for cooldown
 				if (datas[i].data <= 0) // If below or equal to 0, there's no link explicitely told
 				{
 					RandomTrapdoor();
@@ -180,8 +181,7 @@ namespace BBTimes.CustomContent.Builders
 				}
 
 				// Algorithm to find a potential trapdoor to link
-				Embedded2Shorts embeddedData = datas[i].data;
-				short id = embeddedData.A, openCooldown = embeddedData.B;
+				short id = embeddedData.A;
 				bool success = false;
 
 				for (int z = i + 1; z < datas.Count; z++)
@@ -193,7 +193,8 @@ namespace BBTimes.CustomContent.Builders
 					{
 						cell = ec.CellFromPosition(datas[z].position); // Updates cell for the next position
 
-						var strap = CreateTrapDoor(cell, ec, openCooldown); // Linked trapdoor setup
+						// Linked Trapdoor Setup
+						var strap = CreateTrapDoor(cell, ec, nextEmbeddedData.B); // nextEmbeddedData.B because it has the cooldown there
 						trap.SetLinkedTrapDoor(strap);
 						strap.SetLinkedTrapDoor(trap);
 

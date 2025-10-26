@@ -79,7 +79,7 @@ namespace BBTimes.CustomContent.Builders
 			doorPre.doorIcon = this.GetSprite(ObjectCreationExtension.defaultMapIconPixelsPerUnit, "smallDoorIcon.png");
 
 			LevelLoaderPlugin.Instance.tileBasedObjectPrefabs.Add(EditorIntegration.TimesPrefix + "SmallDoor", doorPre);
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "SmallDoor", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "SmallDoor", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = new() { chance = [0.35f] } }; // Chance = factor to multiply with the amount of rooms in a level (determines the amount of small doors)
 		}

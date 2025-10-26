@@ -48,7 +48,7 @@ namespace BBTimes.CustomContent.Builders
 
 
 			// Makes the LoaderStructureData for the spawn
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "NotebookMachine", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "NotebookMachine", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = null }; // 0 = Amount of cameras, 1 = minMax distance for them
 		}

@@ -182,7 +182,9 @@ public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable, IEditorSe
     public void InitializeVisual(GameObject visualObject)
     {
         visualObject.GetComponent<EditorDeletableObject>().toDelete = this;
-        visualObject.GetComponent<SettingsComponent>().activateSettingsOn = this;
+        var visualManager = visualObject.GetComponent<TrapdoorEditorVisualManager>();
+        if (visualManager)
+            visualManager.activateSettingsOn = this;
         UpdateVisual(visualObject);
     }
 
@@ -199,7 +201,9 @@ public class TrapdoorLocation : IEditorVisualizable, IEditorDeletable, IEditorSe
             if (link != null)
             {
                 link.openCooldown = openCooldown; // Both should share the same cooldown
-                link.UpdateText(EditorController.Instance.GetVisual(link));
+                var visual = EditorController.Instance.GetVisual(link);
+                if (visual)
+                    link.UpdateText(visual);
                 visualObject.GetComponent<TrapdoorEditorVisualManager>().UpdateLinePositions(position.ToWorld() + Vector3.up, link.position.ToWorld() + Vector3.up);
             }
         }
@@ -327,19 +331,31 @@ public class TrapdoorStructureLocation : StructureLocation
     }
 }
 
-public class TrapdoorEditorVisualManager : MonoBehaviour, IEditorInteractable, IEditorMovable
+public class TrapdoorEditorVisualManager : MonoBehaviour, IEditorMovable, IEditorInteractable
 {
     public LineRenderer lineRenderer;
     public EditorRendererContainer container;
-    public bool OnClicked() // To trigger movable selection
+    public IEditorSettingsable activateSettingsOn;
+    public Vector3 offset = Vector3.up * 7f;
+    bool goForSettingsAfterwards = false;
+    public bool OnClicked() // To trigger selection
     {
-        EditorController.Instance.selector.SelectObject(this, MoveAxis.None, RotateAxis.None);
+        if (!goForSettingsAfterwards)
+        {
+            EditorController.Instance.selector.SelectObject(this, MoveAxis.None, RotateAxis.None);
+            goForSettingsAfterwards = true;
+        }
+        else
+        {
+            Singleton<EditorController>.Instance.selector.ShowSettingsSelect(transform.TransformPoint(offset), activateSettingsOn.SettingsClicked);
+            goForSettingsAfterwards = false;
+        }
         return false;
     }
+    public bool OnHeld() => throw new System.NotImplementedException();
 
-    public bool OnHeld() => throw new System.NotImplementedException("Not used!");
+    public void OnReleased() => throw new System.NotImplementedException();
 
-    public void OnReleased() => throw new System.NotImplementedException("Not used!");
 
     public bool InteractableByTool(EditorTool tool) => false;
 
@@ -359,6 +375,7 @@ public class TrapdoorEditorVisualManager : MonoBehaviour, IEditorInteractable, I
     {
         lineRenderer.gameObject.SetActive(false);
         container.Highlight("none");
+        goForSettingsAfterwards = false;
     }
 
     public void MoveUpdate(Vector3? position, Quaternion? rotation) { }

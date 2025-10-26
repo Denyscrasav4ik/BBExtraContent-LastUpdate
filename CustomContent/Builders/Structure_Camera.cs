@@ -41,7 +41,7 @@ namespace BBTimes.CustomContent.Builders
 			camPre = cam.transform;
 
 			// Makes the LoaderStructureData for the camera spawn
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "SecurityCamera", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "SecurityCamera", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = new() { minMax = [new(1, 1), new(5, 10)] } }; // 0 = Amount of cameras, 1 = minMax distance for them
 		}
@@ -100,7 +100,7 @@ namespace BBTimes.CustomContent.Builders
 				cam.Ec = ec;
 
 				Embedded2Shorts embedded = data[i].data;
-				float turnCooldown = data[i + 1].data.ReinterpretAsFloat();
+				float turnCooldown = data[i + 1].data.ConvertToFloatNoRecast();
 				cam.Setup(spot.AllOpenNavDirections, embedded.A, embedded.B, turnCooldown);
 
 				spot.HardCover(CellCoverage.Up);

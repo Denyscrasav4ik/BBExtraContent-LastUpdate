@@ -3,6 +3,7 @@ using BBTimes.CustomContent.Builders;
 using BBTimes.Helpers;
 using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
+using UnityEngine;
 
 namespace BBTimes.Manager
 {
@@ -10,10 +11,6 @@ namespace BBTimes.Manager
 	{
 		static void CreateObjBuilders()
 		{
-			// 0 - F1
-			// 1 - F2
-			// 2 - F3
-			// 3 - END
 
 			// Duct Builder
 			StructureWithParameters vent = CreatorExtensions.CreateObjectBuilder<Structure_Duct>("Structure_Duct", out _, "Duct");
@@ -88,10 +85,23 @@ namespace BBTimes.Manager
 			foreach (var floor in floorDatas)
 				floor.Value.ForcedObjectBuilders.Add(new(vent)); // Every floor must have this for rooms
 
+			// Outside Box
+			// *for F1
+			vent = CreatorExtensions.CreateObjectBuilder<Structure_OutsideBox>("Structure_OutsideBox", out _, "OutsideBox");
+			Structure_OutsideBox.decorations = new GameObject[8];
+			for (int i = 0; i < Structure_OutsideBox.decorations.Length; i++)
+				Structure_OutsideBox.decorations[i] = man.Get<GameObject>($"editorPrefab_TimesGenericOutsideFlower_{i + 1}");
 
-			// SecretButton Builder
-			vent = CreatorExtensions.CreateObjectBuilder<Structure_SecretButton>("Structure_SecretTimesButton", out _, "SecretButton");
-			floorDatas[F5].ForcedObjectBuilders.Add(new(vent));
+			floorDatas[F1].ForcedObjectBuilders.Add(new(vent));
+			floorDatas[END].ForcedObjectBuilders.Add(new(vent));
+
+			// *for the rest of the levels
+			vent = CloneParameter(vent);
+			vent.parameters.chance[0] = 0f;
+
+			foreach (var floor in floorDatas)
+				if (floor.Key != F1 && floor.Key != END) // Except F1, that one is special
+					floor.Value.ForcedObjectBuilders.Add(new(vent)); // Every floor must have this for rooms
 
 			static StructureWithParameters CloneParameter(StructureWithParameters bld) =>
 				new() { prefab = bld.prefab, parameters = new() { chance = bld.parameters.chance.CopyArray(), minMax = bld.parameters.minMax.CopyArray(), prefab = bld.parameters.prefab.CopyObjArray() } };
@@ -119,9 +129,6 @@ namespace BBTimes.Manager
 				newAr[i] = new() { selection = ogAr[i].selection, weight = ogAr[i].weight };
 			return newAr;
 		}
-
-
-
 
 	}
 }

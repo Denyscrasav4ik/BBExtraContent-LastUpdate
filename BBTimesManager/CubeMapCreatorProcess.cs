@@ -2,6 +2,7 @@
 using BBTimes.CustomComponents;
 using MTM101BaldAPI.AssetTools;
 using PixelInternalAPI.Extensions;
+using PlusStudioLevelLoader;
 using UnityEngine;
 
 namespace BBTimes.Manager
@@ -11,6 +12,8 @@ namespace BBTimes.Manager
 		static void CreateCubeMaps()
 		{
 			var F3Map = AssetLoader.CubemapFromFile(Path.Combine(MiscPath, TextureFolder, GetAssetName("cubemap_night.png")));
+			LevelLoaderPlugin.Instance.skyboxAliases.Add("TimesNightSky", F3Map);
+
 			var twilight = GenericExtensions.FindResourceObjectByName<Cubemap>("Cubemap_Twilight");
 
 			// Add lightings outside for GameManagers
@@ -25,14 +28,14 @@ namespace BBTimes.Manager
 				//}
 				if (man.levelTitle == F2 || man.levelTitle == F5)
 				{
-					comp.outsideLighting = new Color(0.7f, 0.7f, 0.7f, 1f);
+					comp.outsideLighting = new Color32(255, 204, 131, 255);
 					man.skybox = twilight;
 					continue;
 				}
 				if (man.levelTitle == F3 || man.levelTitle == F4)
 				{
 					man.skybox = F3Map;
-					comp.outsideLighting = new Color(0.45f, 0.45f, 0.45f, 1f);
+					comp.outsideLighting = new Color32(160, 153, 255, 255);
 					continue;
 				}
 			}

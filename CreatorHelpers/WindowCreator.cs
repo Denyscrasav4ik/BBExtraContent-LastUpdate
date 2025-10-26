@@ -1,7 +1,9 @@
-﻿using BBTimes.CustomComponents;
+﻿using BBTimes.CompatibilityModule.EditorCompat;
+using BBTimes.CustomComponents;
 using BBTimes.Extensions;
 using BBTimes.Manager;
 using MTM101BaldAPI;
+using PlusStudioLevelLoader;
 using UnityEngine;
 using static UnityEngine.Object;
 
@@ -26,6 +28,7 @@ namespace BBTimes.Helpers
 			window.windowPre.audMan.sourceId = 0;
 
 			BBTimesManager.man.Add("Window_" + name, window);
+			LevelLoaderPlugin.Instance.windowObjects.Add(EditorIntegration.TimesPrefix + name, window);
 
 			return window;
 		}

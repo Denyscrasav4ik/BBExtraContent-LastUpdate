@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BBTimes.Misc;
 using BBTimes.Misc.SelectionHolders;
@@ -17,6 +18,9 @@ namespace BBTimes.Manager
 			// 2 - F3
 			// 3 - END
 
+			List<string> timesSchoolTextures = [];
+			man.Add("TimesSchoolTextures", timesSchoolTextures);
+
 			foreach (var rootDir in Directory.GetDirectories(Path.Combine(BasePlugin.ModPath, "rooms")))
 			{
 				RoomCategory cat;
@@ -26,15 +30,16 @@ namespace BBTimes.Manager
 
 				try
 				{
-					if (Enum.TryParse(dirName, out RoomCategory c))
-					{
-						cat = c;
-						modded = c == RoomCategory.Special;
-					}
-					else
+					if (EnumExtensions.EnumWithExtendedNameExists<RoomCategory>(dirName))
 					{
 						cat = EnumExtensions.GetFromExtendedName<RoomCategory>(dirName);
 						modded = true;
+					}
+					else
+					{
+						RoomCategory c = (RoomCategory)Enum.Parse(typeof(RoomCategory), dirName);
+						cat = c;
+						modded = c == RoomCategory.Special;
 					}
 
 				}
@@ -63,7 +68,10 @@ namespace BBTimes.Manager
 					Texture2D tex = AssetLoader.TextureFromFile(file);
 
 					if (modded)
+					{
+						timesSchoolTextures.Add(data[0]);
 						AddTextureToEditor(data[0], tex);
+					}
 
 					Debug.Log($"Texture size is {tex.width}x{tex.height}");
 

@@ -29,7 +29,7 @@ namespace BBTimes.CustomContent.NPCs
 			audSeeLaught = soundObjects[4];
 			audSuperAngry = soundObjects[5];
 
-			var storedSprites = this.GetSpriteSheet(2, 2, 65f, "pencilBoy.png");
+			var storedSprites = this.GetSpriteSheet(2, 2, 40f, "pencilBoy.png");
 			angrySprite = storedSprites[0];
 			findPlayerSprite = storedSprites[1];
 			happySprite = storedSprites[2];

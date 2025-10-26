@@ -434,8 +434,11 @@ namespace BBTimes.Extensions
 			return inst;
 		}
 
-		public static bool RotateSmoothlyToNextPoint(this Transform transform, Vector3 nextPoint, float speed)
+		public static bool RotateSmoothlyToNextPoint(this Transform transform, Vector3 nextPoint, float speed) =>
+			transform.RotateSmoothlyToNextPoint(nextPoint, speed, true);
+		public static bool RotateSmoothlyToNextPoint(this Transform transform, Vector3 nextPoint, float speed, bool sameYLevel)
 		{
+			if (sameYLevel) nextPoint.y = transform.position.y;
 			Vector3 rot = (nextPoint - transform.position).normalized;
 			Vector3 vector = Vector3.RotateTowards(transform.forward, rot, Time.deltaTime * 2f * Mathf.PI * speed, 0f);
 			if (vector != Vector3.zero)

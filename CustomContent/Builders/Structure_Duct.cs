@@ -129,7 +129,7 @@ namespace BBTimes.CustomContent.Builders
 
 
 			// Makes the LoaderStructureData for the spawn
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Duct", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Duct", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = new() { chance = [1 / 7f, 1 / 4f], minMax = [new(3, 8), new(1, 2)] } }; // Chance= [factorToReduceVentsOverLevelSize, factorToReduceWebSizeOverLevelSize], minMax=[AmountOfDucts, AmountOfWebs]
 		}

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.Extensions;
 using BBTimes.Manager;
@@ -35,7 +36,12 @@ namespace BBTimes.Helpers
 
 			BasePlugin._cstData.Add(data);
 
-			LevelLoaderPlugin.Instance.npcAliases.Add("times_" + EnumExtensions.GetExtendedName<Character>((int)npc.Character), npc);
+			string characterName = EditorIntegration.TimesPrefix + EnumExtensions.GetExtendedName<Character>((int)npc.Character);
+			LevelLoaderPlugin.Instance.npcAliases.Add(characterName, npc);
+			LevelLoaderPlugin.Instance.posterAliases.Add(characterName + "_PRIPoster", npc.Poster);
+			// Debug.Log("{\"key\":\"Ed_Poster_Title_" + characterName + "_PRIPoster\",\"value\":\"" + name + "\'s Office Poster\"},");
+			// Debug.Log("{\"key\":\"Ed_Poster_Desc_" + characterName + "_PRIPoster\",\"value\":\"" + name + "\'s poster in the office.\"},");
+
 			BBTimesManager.man.Add("NPC_" + name, npc);
 
 			return npc;

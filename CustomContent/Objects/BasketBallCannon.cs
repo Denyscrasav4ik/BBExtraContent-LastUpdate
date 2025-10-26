@@ -78,20 +78,23 @@ namespace BBTimes.CustomContent.Objects
             audMan.PlaySingle(audBoom);
             basketBalls.Add(b);
 
-            Vector3 pos = cannon.transform.localPosition;
-            cannon.transform.localPosition -= cannon.transform.forward * cannonRecoilDistance;
-            Vector3 shootPos = cannon.transform.localPosition;
+            Vector3 cannonScale = cannon.transform.localScale;
+            float originalZScale = cannonScale.z;
+            cannonScale.z -= cannonRecoilDistance;
+            float decreasedCannonZScale = cannonScale.z;
+            cannon.transform.localScale = cannonScale;
             float t = 0;
             while (true)
             {
                 t += Time.deltaTime * ec.EnvironmentTimeScale * cannonRecoilSpeed;
                 if (t >= 1f)
                     break;
-                cannon.transform.localPosition = Vector3.Lerp(shootPos, pos, t);
+                cannonScale.z = Mathf.Lerp(decreasedCannonZScale, originalZScale, t);
+                cannon.transform.localScale = cannonScale;
                 yield return null;
             }
-
-            cannon.transform.localPosition = pos;
+            cannonScale.z = originalZScale;
+            cannon.transform.localScale = cannonScale;
             turning = false;
             yield break;
         }

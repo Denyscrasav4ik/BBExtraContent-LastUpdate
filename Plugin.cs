@@ -22,6 +22,7 @@ using MTM101BaldAPI;
 using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.Registers;
 using MTM101BaldAPI.SaveSystem;
+using PixelInternalAPI.Extensions;
 using UnityEngine;
 
 
@@ -139,7 +140,7 @@ namespace BBTimes
 				MISC_SETTINGS = "Miscellaneous Settings",
 				SPECIAL_SETTINGS = "Holidays Settings";
 
-			disableOutside = Config.Bind(ENV_SETTINGS, "Disable the outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should increase performance BUT will also change the seed layouts in the game.");
+			disableOutside = Config.Bind(ENV_SETTINGS, "Disable the outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should slightly increase performance BUT will also change the seed layouts in the game.");
 			disableHighCeilings = Config.Bind(ENV_SETTINGS, "Disable high ceilings", false, "Setting this \"true\" will completely disable the high ceilings from existing in pre-made levels (that includes the ones made with the Level Editor).");
 			enableBigRooms = Config.Bind(ENV_SETTINGS, "Enable big rooms", false, "Setting this \"true\" will add the rest of the layouts Times also comes with. WARNING: These layouts completely unbalance the game, making it a lot harder than the usual.");
 			disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable schoolhouse escape", false, "Setting this to \"true\" will disable entirely the schoolhouse escape sequence (the only exception is for the red sequence).");
@@ -738,7 +739,7 @@ namespace BBTimes
 							ld.potentialPrePlotSpecialHalls = ld.potentialPrePlotSpecialHalls.AddToArray(fl.Key);
 
 					}
-
+					var transparentReference = GenericExtensions.FindResourceObjectByName<Texture2D>("Transparent");
 					// ----- *MODDED* School Textures -----
 					foreach (var holder in floordata.SchoolTextures)
 					{
@@ -748,14 +749,17 @@ namespace BBTimes
 							switch (holder.TextureType)
 							{
 								case Misc.SchoolTexture.Ceiling:
+									if (ld.hallCeilingTexs.Length == 1 && ld.hallCeilingTexs.Any(tex => tex.selection == transparentReference)) break; // Don't add Times' textures if there's a single transparent texture
 									markModifiedByMod = true;
 									ld.hallCeilingTexs = ld.hallCeilingTexs.AddToArray(holder.Selection.ToWeightedTexture());
 									break;
 								case Misc.SchoolTexture.Floor:
+								if (ld.hallFloorTexs.Length == 1 && ld.hallFloorTexs.Any(tex => tex.selection == transparentReference)) break; // Don't add Times' textures if there's a single transparent texture
 									markModifiedByMod = true;
 									ld.hallFloorTexs = ld.hallFloorTexs.AddToArray(holder.Selection.ToWeightedTexture());
 									break;
 								case Misc.SchoolTexture.Wall:
+								if (ld.hallWallTexs.Length == 1 && ld.hallWallTexs.Any(tex => tex.selection == transparentReference)) break; // Don't add Times' textures if there's a single transparent texture
 									markModifiedByMod = true;
 									ld.hallWallTexs = ld.hallWallTexs.AddToArray(holder.Selection.ToWeightedTexture());
 									break;

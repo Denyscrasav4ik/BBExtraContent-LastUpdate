@@ -1,4 +1,5 @@
 using System.IO;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomComponents.SecretEndingComponents;
 using BBTimes.Extensions;
@@ -19,7 +20,25 @@ namespace BBTimes.Manager
     {
         public static void SetupPreAssetsForSecretEnding()
         {
-            var sprs = TextureExtensions.LoadSpriteSheet(6, 3, 25f, MiscPath, TextureFolder, "SecretEnding", "susComputerBaldi.png");
+
+            // ** Secret Button **
+            var sprs = TextureExtensions.LoadSpriteSheet(3, 1, 25f, MiscPath, TextureFolder, "SecretEnding", "BBTimesAsset_SecretButton.png");
+            var but = ObjectCreationExtensions.CreateSpriteBillboard(sprs[0], false)
+                .AddSpriteHolder(out var butRenderer, 0f, LayerStorage.iClickableLayer);
+            but.name = "SecretButton";
+            but.gameObject.AddObjectToEditor(EditorIntegration.TimesPrefix + but.name);
+            butRenderer.name = "SecretButtonRenderer";
+
+            var secButPre = but.gameObject.AddComponent<SecretButton>();
+            secButPre.audMan = secButPre.gameObject.CreatePropagatedAudioManager();
+            secButPre.renderer = butRenderer;
+            secButPre.sprPressed = sprs[2];
+            secButPre.gameObject.AddBoxCollider(Vector3.zero, new(5f, 5f, 1f), true);
+            secButPre.audPress = GenericExtensions.FindResourceObject<GameButton>().audPress;
+            secButPre.sprReadyToPress = sprs[1];
+
+            // ** Sus Baldi **
+            sprs = TextureExtensions.LoadSpriteSheet(6, 3, 25f, MiscPath, TextureFolder, "SecretEnding", "susComputerBaldi.png");
 
             var bal = ObjectCreationExtensions.CreateSpriteBillboard(sprs[0])
                 .AddSpriteHolder(out var balRenderer, 0.345f, 0);

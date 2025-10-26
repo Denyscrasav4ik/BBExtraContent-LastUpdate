@@ -30,12 +30,15 @@ namespace BBTimes.CustomContent.Objects
 			basePos = ec.CellFromPosition(transform.position).position;
 
 			cooldown = Random.Range(minTurnCool, maxTurnCool);
+
+			this.defaultSpotCool = defaultSpotCool;
 			spotCooldown = defaultSpotCool;
 			minimumRedSpotThreshold = defaultSpotCool * 0.5f;
 			if (turnCooldown != -1f)
 			{
 				minTurnCool = turnCooldown;
 				maxTurnCool = turnCooldown;
+				cooldown = turnCooldown;
 			}
 		}
 
@@ -144,40 +147,6 @@ namespace BBTimes.CustomContent.Objects
 			collider.center = new Vector3(0f, 1f, (5 * collider.size.z / 9f) + 5f); // Linear function lol
 		}
 
-		void OnTriggerEnter(Collider other)
-		{
-			if (alarmTime > 0f)
-				return;
-
-			if (other.isTrigger)
-			{
-				if (other.CompareTag("Player"))
-				{
-					var pm = other.GetComponent<PlayerManager>();
-					if (pm && !caughtRuleBreakers.Contains(pm.plm.Entity) && // Is not registered already
-					!pm.Tagged && !pm.Invisible && // Is visible and normal
-					pm.Disobeying) // IS breaking rules
-					{
-						caughtRuleBreakers.Add(pm.plm.Entity);
-						spottedPlayersBreakingRules++;
-					}
-				}
-
-				if (other.CompareTag("NPC"))
-				{
-					var npc = other.GetComponent<NPC>();
-					if (npc && !caughtRuleBreakers.Contains(npc.Entity) && npc.Disobeying) // Checks whether they are still set as "caughtable"
-					{
-						caughtRuleBreakers.Add(npc.Entity);
-					}
-				}
-
-				if (!SawRuleBreaker) // In the end, to make sure it resets properly
-					SetIndicatorsToColor(suspiciousColor);
-			}
-
-		}
-
 		void OnTriggerStay(Collider other)
 		{
 			if (wasAlarming || !SawRuleBreaker)
@@ -188,19 +157,39 @@ namespace BBTimes.CustomContent.Objects
 				if (other.CompareTag("Player"))
 				{
 					var pm = other.GetComponent<PlayerManager>();
-					if (pm && caughtRuleBreakers.Contains(pm.plm.Entity) && (pm.Tagged || pm.Invisible || !pm.Disobeying)) // Checks whether they are still set as "caughtable"
+					if (pm)
 					{
-						if (--spottedPlayersBreakingRules < 0)
-							spottedPlayersBreakingRules = 0;
-						caughtRuleBreakers.Remove(pm.plm.Entity);
+						bool isHiddenFromCamera = pm.Tagged || pm.Invisible || !pm.Disobeying;
+						if (!caughtRuleBreakers.Contains(pm.plm.Entity))
+						{
+							if (!isHiddenFromCamera)
+							{
+								caughtRuleBreakers.Add(pm.plm.Entity);
+								spottedPlayersBreakingRules++;
+							}
+						}
+						else if (isHiddenFromCamera) // Checks whether they are still set as "caughtable"
+						{
+							if (--spottedPlayersBreakingRules < 0)
+								spottedPlayersBreakingRules = 0;
+							caughtRuleBreakers.Remove(pm.plm.Entity);
+						}
 					}
 				}
 
 				if (other.CompareTag("NPC"))
 				{
 					var npc = other.GetComponent<NPC>();
-					if (npc && caughtRuleBreakers.Contains(npc.Entity) && !npc.Disobeying) // Checks whether they are still set as "caughtable"
-						caughtRuleBreakers.Remove(npc.Entity);
+					if (npc)
+					{
+						if (!caughtRuleBreakers.Contains(npc.Entity)) // Checks whether they are still set as "caughtable"
+						{
+							if (npc.Disobeying)
+								caughtRuleBreakers.Add(npc.Entity);
+						}
+						else if (!npc.Disobeying) // Checks whether they are still set as "caughtable"
+							caughtRuleBreakers.Remove(npc.Entity);
+					}
 
 				}
 

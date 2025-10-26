@@ -54,7 +54,7 @@ namespace BBTimes.CustomContent.Builders
 			builder.squisherPre = squishBase;
 			builder.buttonPre = BBTimesManager.man.Get<GameButton>("buttonPre");
 
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Squisher", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "Squisher", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = new() { chance = [0.35f], minMax = [new(1, 1), new(5, 9), new(4, 7)] } };
 			// Chance = chanceForButtons

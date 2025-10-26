@@ -156,7 +156,7 @@ namespace BBTimes.CustomContent.NPCs
 			if (target)
 			{
 				bool canCollideWithPran = target.CanCollideWith(pran.Entity);
-				if (!pran.audMan.AnyAudioIsPlaying || !canCollideWithPran)
+				if (!pran.musicAudMan.AnyAudioIsPlaying || !canCollideWithPran)
 				{
 					if (canCollideWithPran)
 					{

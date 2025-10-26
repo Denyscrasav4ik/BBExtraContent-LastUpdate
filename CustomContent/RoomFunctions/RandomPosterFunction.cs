@@ -15,10 +15,6 @@ namespace BBTimes.CustomContent.RoomFunctions
 					if (!cells[i].shape.HasFlag(TileShapeMask.Single) && !cells[i].shape.HasFlag(TileShapeMask.Corner))
 						cells.RemoveAt(i--);
 
-
-				if (cells.Count == 0)
-					return;
-
 				while (cells.Count != 0)
 				{
 					int idx = rng.Next(cells.Count);

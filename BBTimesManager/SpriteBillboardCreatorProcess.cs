@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using BBTimes.CustomContent.Builders;
 using BBTimes.CustomContent.Misc;
 using BBTimes.Extensions;
 using BBTimes.ModPatches.EnvironmentPatches;
@@ -23,8 +24,6 @@ namespace BBTimes.Manager
 				flowers[i].name = $"TimesGenericOutsideFlower_{i + 1}";
 				flowers[i].AddObjectToEditor();
 			}
-
-			EnvironmentControllerMakeBeautifulOutside.decorations = flowers;
 			// Fire Object
 			var fire = ObjectCreationExtensions.CreateSpriteBillboard(null);
 			fire.gameObject.ConvertToPrefab(true);

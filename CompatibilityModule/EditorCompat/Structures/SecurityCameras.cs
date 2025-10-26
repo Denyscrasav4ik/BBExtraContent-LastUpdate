@@ -207,7 +207,7 @@ public class SecurityCameraStructureLocation : StructureLocation
                 direction = (PlusDirection)camera.direction,
                 position = camera.position.ToData()
             });
-            info.data.Add(new() { data = camera.detectCooldown.ReinterpretAsInt() });
+            info.data.Add(new() { data = camera.detectCooldown.ConvertToIntNoRecast() });
         }
         return info;
     }

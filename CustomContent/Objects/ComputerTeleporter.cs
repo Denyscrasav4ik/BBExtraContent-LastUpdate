@@ -79,6 +79,7 @@ namespace BBTimes.CustomContent.Objects
 
 		void DisableTeleportSequence()
 		{
+			teleporting = false;
 			if (activeEntity)
 			{
 				activeEntity.ExternalActivity.moveMods.Remove(moveMod);
@@ -160,7 +161,7 @@ namespace BBTimes.CustomContent.Objects
 		[SerializeField]
 		internal float pitchSpeedPerTeleport = 1.25f, maxPitchBeforeTeleporting = 1.75f, timeToTeleport = 1f;
 
-		MovementModifier moveMod = new(Vector3.zero, 0.25f);
+		readonly MovementModifier moveMod = new(Vector3.zero, 0.25f);
 		Entity activeEntity;
 	}
 }

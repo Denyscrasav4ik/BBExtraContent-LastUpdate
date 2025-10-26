@@ -12,11 +12,6 @@ namespace BBTimes.ModPatches
 		[HarmonyPostfix]
 		static void CullNullChunks(CullingManager __instance) =>
 			__instance.GetComponent<NullCullingManager>()?.CheckAllChunks();
-		
 
-		[HarmonyPatch("PrepareOcclusionCalculations")]
-		[HarmonyPostfix]
-		static void SetupNullCulling(CullingManager __instance) =>
-			__instance.GetComponent<NullCullingManager>()?.ReorganizeRendererPairs();
 	}
 }

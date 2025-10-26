@@ -26,7 +26,7 @@ namespace BBTimes.CustomContent.Builders
 			alarmPre.renderer = renderer.transform;
 
 			// Makes the LoaderStructureData for the spawn
-			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "ItemAlarm", new() { structure = this });
+			LevelLoaderPlugin.Instance.structureAliases.Add(EditorIntegration.TimesPrefix + "ItemAlarm", new LoaderStructureData(this));
 
 			return new() { prefab = this, parameters = new() { minMax = [new(2, 5)] } }; // minMax amount
 		}

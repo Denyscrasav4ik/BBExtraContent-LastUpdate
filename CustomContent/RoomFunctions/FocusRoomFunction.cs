@@ -1,19 +1,36 @@
-﻿using BBTimes.CustomContent.Misc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BBTimes.CustomContent.Misc;
 using UnityEngine;
 
 namespace BBTimes.CustomContent.RoomFunctions
 {
 	public class FocusRoomFunction : RoomFunction
 	{
-		public void Setup(FocusedStudent student) =>
-			this.student = student;
+		public float readingDuration = 10f;
+		public float notReadingDuration = 6f;
+		public float maxRelaxCooldown = 30f;
+		public float minTimeToBeDisturbed = 0.85f;
+
+		private float stateTimer;
+		private bool isReading = true; // true = Reading (Red Light), false = Not Reading (Green Light)
+
+		private float relaxCooldown = 0f;
+		private readonly List<PlayerManager> playersToWatch = [];
+		private readonly List<float> playersPatience = [];
+		private FocusedStudent student;
+
+		public void Setup(FocusedStudent student) => this.student = student;
+
 		public override void OnPlayerEnter(PlayerManager player)
 		{
 			base.OnPlayerEnter(player);
-			playersToWatch.Add(player);
-			playersPatience.Add(0f);
+			if (!playersToWatch.Contains(player))
+			{
+				playersToWatch.Add(player);
+				playersPatience.Add(0f);
+			}
 		}
+
 		public override void OnPlayerExit(PlayerManager player)
 		{
 			base.OnPlayerExit(player);
@@ -25,43 +42,77 @@ namespace BBTimes.CustomContent.RoomFunctions
 			}
 		}
 
+		void Start()
+		{
+			stateTimer = readingDuration;
+			SetReadingState(true);
+		}
+
 		void Update()
 		{
-			relaxCooldown -= room.ec.EnvironmentTimeScale * Time.deltaTime;
-			if (relaxCooldown <= 0f)
-			{
-				student.Relax();
-				relaxCooldown += 15f;
-			}
+			if (student == null) return;
 
+			float delta = room.ec.EnvironmentTimeScale * Time.deltaTime;
 
-			for (int i = 0; i < playersToWatch.Count; i++)
+			// Handle Red/Green cycle
+			if (student.IsBusy) return; // It can't do anything below when busy
+
+			// Detect rule breaks ONLY when reading
+			bool disturbed = false;
+			if (isReading)
 			{
-				if (playersToWatch[i].ruleBreak == "Running" && playersToWatch[i].guiltTime > 0f)
+				for (int i = 0; i < playersToWatch.Count; i++)
 				{
-					playersPatience[i] += room.ec.EnvironmentTimeScale * Time.deltaTime;
-					if (playersPatience[i] >= 0.67f)
+					var player = playersToWatch[i];
+					if (player.ruleBreak == "Running" && player.guiltTime > 0f)
 					{
-						relaxCooldown = 30f;
-						playersToWatch[i].ClearGuilt();
-						playersPatience[i] = 0f;
-						if (student.Disturbed(playersToWatch[i]))
+						disturbed = true;
+						playersPatience[i] += delta;
+						if (playersPatience[i] >= minTimeToBeDisturbed)
 						{
-							playersToWatch.RemoveAt(i);
-							playersPatience.RemoveAt(i);
+							relaxCooldown = maxRelaxCooldown;
+							player.ClearGuilt();
+							playersPatience[i] = 0f;
+							isReading = false;
+
+							if (student.Disturbed(player))
+							{
+								playersToWatch.RemoveAt(i);
+								playersPatience.RemoveAt(i);
+							}
 						}
-						return;
 					}
 				}
 			}
 
+			// Relax student occasionally
+			if (!disturbed)
+			{
+				stateTimer -= delta;
+				if (stateTimer <= 0f)
+				{
+					isReading = !isReading;
+					SetReadingState(isReading);
+					stateTimer = isReading ? readingDuration : notReadingDuration;
+				}
+
+				relaxCooldown -= delta;
+				if (relaxCooldown <= 0f)
+				{
+					student.Relax();
+					relaxCooldown = maxRelaxCooldown;
+				}
+			}
+			else
+			{
+				relaxCooldown = Mathf.Min(relaxCooldown + delta, maxRelaxCooldown);
+			}
 		}
 
-		float relaxCooldown = 0f;
-
-		readonly List<PlayerManager> playersToWatch = [];
-		readonly List<float> playersPatience = [];
-
-		FocusedStudent student;
+		private void SetReadingState(bool reading)
+		{
+			isReading = reading;
+			student.SwitchState(reading);
+		}
 	}
 }

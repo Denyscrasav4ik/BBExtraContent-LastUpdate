@@ -85,9 +85,3 @@ public readonly struct Embedded4Bytes
     public static implicit operator int(Embedded4Bytes intg) => intg._embeddedValue;
     public static implicit operator Embedded4Bytes(int num) => new(num);
 }
-
-public static class IntegerManipulation
-{
-    public static float ReinterpretAsFloat(this int a) => BitConverter.ToSingle(BitConverter.GetBytes(a), 0); // Get the reinterpreted int as a float now
-    public static int ReinterpretAsInt(this float a) => BitConverter.ToInt32(BitConverter.GetBytes(a), 0); // Get the bits of the float and turn into an reinterpreted integer
-}

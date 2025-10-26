@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomComponents.EventSpecificComponents;
 using BBTimes.Extensions;
@@ -42,7 +44,7 @@ namespace BBTimes.CustomContent.Events
 
 			superFanPre = superFan;
 
-			LevelLoaderPlugin.Instance.basicObjects.Add("timessuperfansmarker", superFan.gameObject);
+			LevelLoaderPlugin.Instance.basicObjects.Add(EditorIntegration.TimesPrefix + "SuperFan", superFan.gameObject);
 		}
 		public void SetupPrefabPost() { }
 		public string Name { get; set; }
@@ -55,14 +57,19 @@ namespace BBTimes.CustomContent.Events
 			base.PremadeSetup();
 			foreach (var su in FindObjectsOfType<SuperFan>())
 			{
-				var chosenDirection = ec.CellFromPosition(su.transform.position).RandomUncoveredDirection(crng);
+				var chosenDirection = Directions.DirFromVector3(su.transform.forward, 45f);
 				if (chosenDirection == Direction.Null)
 				{
 					Debug.LogWarning("A Super Fan was located on a spot with no available wall to be chosen! Destroying it instead.", this);
 					Destroy(su.gameObject);
 					continue;
 				}
-				su.Initialize(ec, IntVector2.GetGridPosition(su.transform.position), chosenDirection.GetOpposite(), out _);
+
+				// If the direction it faces is a wall, set it to face the opposite
+				if (ec.CellFromPosition(su.transform.position).HasWallInDirection(chosenDirection)) // The chosenDirection should always be facing the where the fan will blow, not the wall it is attached to
+					chosenDirection = chosenDirection.GetOpposite();
+
+				su.Initialize(ec, IntVector2.GetGridPosition(su.transform.position), chosenDirection, out _);
 				superFans.Add(su);
 			}
 		}
@@ -148,17 +155,26 @@ namespace BBTimes.CustomContent.Events
 		public override void Begin()
 		{
 			base.Begin();
-			superFans.ForEach(x => x.TurnMe(true));
+			superFans.ForEach(x => StartCoroutine(SlowlyTurnFans(x, true)));
 		}
 
 		public override void End()
 		{
 			base.End();
-			superFans.ForEach(x => x.TurnMe(false));
+			superFans.ForEach(x => StartCoroutine(SlowlyTurnFans(x, false)));
+		}
+
+		IEnumerator SlowlyTurnFans(SuperFan fan, bool on)
+		{
+			yield return new WaitForSecondsEnvironmentTimescale(ec, Random.Range(minTurnCooldown, maxTurnCooldown));
+			fan.TurnMe(on);
 		}
 
 		[SerializeField]
 		internal int minFans = 13, maxFans = 21, minHallwayLength = 7;
+
+		[SerializeField]
+		internal float minTurnCooldown = 2f, maxTurnCooldown = 5f;
 
 		[SerializeField]
 		internal SuperFan superFanPre;

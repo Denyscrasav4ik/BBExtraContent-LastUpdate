@@ -20,7 +20,7 @@ namespace BBTimes.Manager
 	{
 		static void CreateRoomFunctions() // This is specifically for base game rooms, custom rooms can add their room functions by other ways
 		{
-			var classicWindow = CreatorExtensions.CreateWindow("classicWindow",
+			var classicWindow = CreatorExtensions.CreateWindow("ClassicWindow",
 				AssetLoader.TextureFromFile(Path.Combine(MiscPath, TextureFolder, GetAssetName("ClassicWindow.png"))),
 				AssetLoader.TextureFromFile(Path.Combine(MiscPath, TextureFolder, GetAssetName("ClassicWindow_Broken.png"))),
 				AssetLoader.TextureFromFile(Path.Combine(MiscPath, TextureFolder, GetAssetName("ClassicWindow_Mask.png"))));

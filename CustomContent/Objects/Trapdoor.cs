@@ -21,10 +21,20 @@ namespace BBTimes.CustomContent.Objects
 			{
 				Entity e = other.GetComponent<Entity>();
 				var pa = other.GetComponent<PlayerAttributesComponent>();
-				if (e && e.Grounded && (pa == null || !pa.HasAttribute("boots")) && e.Override(overrider))
+				if (e && lastTouchedEntity != e && e.Grounded && (pa == null || !pa.HasAttribute("boots")) && e.Override(overrider))
+				{
+					lastTouchedEntity = e;
 					StartCoroutine(Teleport(e));
+				}
 
 			}
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (!other.isTrigger || !lastTouchedEntity || lastTouchedEntity.gameObject != other.gameObject) return;
+
+			lastTouchedEntity = null;
 		}
 
 		IEnumerator FakeTrapdoorSpawning(Transform fake)
@@ -82,7 +92,6 @@ namespace BBTimes.CustomContent.Objects
 
 		IEnumerator Teleport(Entity subject)
 		{
-
 			if (subject)
 			{
 				overrider.SetFrozen(true);
@@ -147,13 +156,14 @@ namespace BBTimes.CustomContent.Objects
 
 
 
-			if (linkedTrapdoor != null)
+			if (linkedTrapdoor)
 			{
 				linkedTrapdoor.Shut(true, true);
 				linkedTrapdoor.ForceDisableCollision = false;
+				linkedTrapdoor.SetLastEntity(subject);
 			}
 
-			if (fake != null)
+			if (fake)
 			{
 				fake.GetComponent<SpriteRenderer>().sprite = sprites[0];
 				fake.GetComponent<PropagatedAudioManager>().PlaySingle(aud_shut);
@@ -207,6 +217,9 @@ namespace BBTimes.CustomContent.Objects
 		public void SetOpenCooldown(float newCooldown) =>
 			baseCooldown = newCooldown;
 
+		public void SetLastEntity(Entity e) =>
+			lastTouchedEntity = e;
+
 
 		EnvironmentController ec;
 
@@ -220,6 +233,8 @@ namespace BBTimes.CustomContent.Objects
 
 		public Trapdoor Link => linkedTrapdoor;
 
+		Entity lastTouchedEntity;
+
 		public TextMeshPro text;
 		public SpriteRenderer renderer;
 		public Sprite[] sprites;
@@ -228,11 +243,9 @@ namespace BBTimes.CustomContent.Objects
 		public Transform fakeTrapdoorPre;
 
 		[SerializeField]
-		internal float baseCooldown = 15f;
+		internal float baseCooldown = 15f, sinkSpeed = 0.5f, fakeSpawnSpeed = 5f;
 
 		readonly EntityOverrider overrider = new();
-
-		const float sinkSpeed = 0.5f, fakeSpawnSpeed = 5f;
 
 		float cooldown;
 	}

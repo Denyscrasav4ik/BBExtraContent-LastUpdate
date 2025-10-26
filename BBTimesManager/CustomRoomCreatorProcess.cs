@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BBTimes.CompatibilityModule.EditorCompat;
 using BBTimes.CustomComponents;
 using BBTimes.CustomComponents.EventSpecificComponents.FrozenEvent;
 using BBTimes.CustomContent.CustomItems;
@@ -157,6 +158,7 @@ namespace BBTimes.Manager
 				.AddSpriteHolder(out _, 8.98f).transform;
 			bathLightPre.name = "hangingLongLight";
 			bathLightPre.gameObject.ConvertToPrefab(true);
+			LevelLoaderPlugin.Instance.lightTransforms.Add("Times_HangingLongLight", bathLightPre);
 
 			// ------------------------------------------------------------------------------------------
 			// -------------------------- COMPUTER ROOM STRUCTURES --------------------------------------
@@ -206,7 +208,7 @@ namespace BBTimes.Manager
 			var machine = ObjectCreationExtensions.CreateSpriteBillboard(sprs[1], false);
 			machine.gameObject.layer = 0;
 			machine.name = "EventMachine";
-			machine.gameObject.ConvertToPrefab(true);
+			machine.gameObject.AddObjectToEditor(EditorIntegration.TimesPrefix + machine.name);
 			var evMac = machine.gameObject.AddComponent<EventMachine>();
 			evMac.spriteToChange = machine;
 			evMac.sprNoEvents = machine.sprite;
@@ -222,6 +224,7 @@ namespace BBTimes.Manager
 			evMac.audBalAngry[1].additionalKeys = [new() { key = "Vfx_BAL_NoEvent1_1", time = 1.841f }];
 
 			machine.gameObject.AddBoxCollider(Vector3.forward * -1.05f, new(6f, 10f, 1f), true);
+			man.Add($"editorPrefab_{machine.name}", machine.gameObject);
 
 			// ComputerTeleporter
 			sprs = TextureExtensions.LoadSpriteSheet(3, 2, 12.5f, GetRoomAsset("ComputerRoom", GetAssetName("ComputerTeleporter.png")));
@@ -719,26 +722,40 @@ namespace BBTimes.Manager
 			focusedStudent.audMan = student.gameObject.CreatePropagatedAudioManager(20f, 60f);
 			focusedStudent.audMan.overrideSubtitleColor = true;
 			focusedStudent.renderer = student;
+			focusedStudent.audBookNoise = ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromFile(GetRoomAsset("FocusRoom", "FocusedStudent_PageTurn.wav")), "Vfx_PageTurn", SoundType.Voice, Color.white);
+
+			Sprite focusedStudent_smallBubble = GenericExtensions.FindResourceObjectByName<Sprite>("Cloud_Sprite_Small"),
+				focusedStudent_bigBubble = AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(GetRoomAsset("FocusRoom", "FocusedStudent_ThoughtCloud.png")), 15f);
+
+			var focusedStudent_bubbleHolder = new GameObject("FocusedStudent_BubbleHolder").AddComponent<BillboardUpdater>();
+			focusedStudent_bubbleHolder.transform.SetParent(focusedStudent.transform, false);
+			focusedStudent_bubbleHolder.transform.localPosition = Vector3.zero;
+
+			focusedStudent.readingIndicatorRenderers = [
+				FocusedStudent_AddThoughtBubble(true, new(1.5f, 1.25f)),
+				FocusedStudent_AddThoughtBubble(false, new(3.07f, 3.15f)),
+			];
+
 
 			FocusedStudent.appearanceSet = [
-				GetNewAppearance(1, true, new(0f, 0.65f, 0f)), // The OG
-				GetNewAppearance(2, true, new Color32(198, 196, 9, byte.MaxValue)),
-				GetNewAppearance(3, true, new Color32(189, 16, 16, byte.MaxValue)),
-				GetNewAppearance(4, true, new Color32(16, 142, 164, byte.MaxValue)),
-				GetNewAppearance(5, true, new Color32(179, 46, 173, byte.MaxValue)),
-				GetNewAppearance(6, true, new Color32(53, 91, 215, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(1, true, new(0f, 0.65f, 0f)), // The OG
+				FocusedStudent_GetNewAppearance(2, true, new Color32(198, 196, 9, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(3, true, new Color32(189, 16, 16, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(4, true, new Color32(16, 142, 164, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(5, true, new Color32(179, 46, 173, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(6, true, new Color32(53, 91, 215, byte.MaxValue)),
 
-				GetNewAppearance(1, false, new(0f, 0.65f, 0f)), // The Female OG lol
-				GetNewAppearance(2, false, new Color32(198, 196, 9, byte.MaxValue)),
-				GetNewAppearance(3, false, new Color32(189, 16, 16, byte.MaxValue)),
-				GetNewAppearance(4, false, new Color32(16, 142, 164, byte.MaxValue)),
-				GetNewAppearance(5, false, new Color32(179, 46, 173, byte.MaxValue)),
-				GetNewAppearance(6, false, new Color32(53, 91, 215, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(1, false, new(0f, 0.65f, 0f)), // The Female OG lol
+				FocusedStudent_GetNewAppearance(2, false, new Color32(198, 196, 9, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(3, false, new Color32(189, 16, 16, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(4, false, new Color32(16, 142, 164, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(5, false, new Color32(179, 46, 173, byte.MaxValue)),
+				FocusedStudent_GetNewAppearance(6, false, new Color32(53, 91, 215, byte.MaxValue)),
 			];
 
 			student.sprite = FocusedStudent.appearanceSet[0].Reading;
 
-			FocusedStudent.Appearances GetNewAppearance(int variant, bool isMale, Color subtitleColor)
+			FocusedStudent.Appearances FocusedStudent_GetNewAppearance(int variant, bool isMale, Color subtitleColor)
 			{
 				char genderLetter = isMale ? 'M' : 'F';
 				var sprites = TextureExtensions.LoadSpriteSheet(3, 1, 25f, GetRoomAsset("FocusRoom", $"FocusStd_{genderLetter}{variant}.png"));
@@ -755,6 +772,16 @@ namespace BBTimes.Manager
 					subtitleColor = subtitleColor
 				};
 				return appearance;
+			}
+
+			SpriteRenderer FocusedStudent_AddThoughtBubble(bool smallBubble, Vector2 offset)
+			{
+				var newBubble = ObjectCreationExtensions.CreateSpriteBillboard(smallBubble ? focusedStudent_smallBubble : focusedStudent_bigBubble);
+				newBubble.enabled = false;
+				newBubble.transform.SetParent(focusedStudent_bubbleHolder.transform);
+				newBubble.transform.localPosition = offset;
+
+				return newBubble;
 			}
 
 			// ------------------------------------------------------------------------------------------
@@ -1407,24 +1434,24 @@ namespace BBTimes.Manager
 			room.Clear();
 			// F3+ (Match and other activities) classrooms
 			// Don't exist layouts for these yet, but I'm adding the code here
-			// classWeightPre = FindRoomGroupOfNameWithActivity<MatchActivity>("Class"); // Match
-			// room.AddRange(fullClassCopy);
-			// room.RemoveAll(room => room.selection.activity.prefab is not MatchActivity); // Only matches allowed
+			classWeightPre = FindRoomGroupOfNameWithActivity<MatchActivity>("Class"); // Match
+			room.AddRange(fullClassCopy);
+			room.RemoveAll(room => room.selection.activity.prefab is not MatchActivity); // Only matches allowed
 
-			// floorDatas[F3].Classrooms.AddRange(room);
-			// floorDatas[F4].Classrooms.AddRange(room);
-			// floorDatas[F5].Classrooms.AddRange(room);
+			floorDatas[F3].Classrooms.AddRange(room);
+			floorDatas[F4].Classrooms.AddRange(room);
+			floorDatas[F5].Classrooms.AddRange(room);
 
-			// // Balloon buster thing
-			// room.Clear();
+			// Balloon buster thing
+			room.Clear();
 
-			// classWeightPre = FindRoomGroupOfNameWithActivity<BalloonBuster>("Class"); // Balloon Buster
-			// room.AddRange(fullClassCopy);
-			// room.RemoveAll(room => room.selection.activity.prefab is not BalloonBuster); // Only matches allowed
+			classWeightPre = FindRoomGroupOfNameWithActivity<BalloonBuster>("Class"); // Balloon Buster
+			room.AddRange(fullClassCopy);
+			room.RemoveAll(room => room.selection.activity.prefab is not BalloonBuster); // Only busters allowed
 
-			// floorDatas[F3].Classrooms.AddRange(room);
-			// floorDatas[F4].Classrooms.AddRange(room);
-			// floorDatas[F5].Classrooms.AddRange(room);
+			floorDatas[F3].Classrooms.AddRange(room);
+			floorDatas[F4].Classrooms.AddRange(room);
+			floorDatas[F5].Classrooms.AddRange(room);
 
 
 			// ****** Focus Room (A classroom variant, but with a new npc) ******
@@ -1442,7 +1469,9 @@ namespace BBTimes.Manager
 			ChalkfacePatch.allowedClassroomCategories.Add(sets.category);
 			WormholeRoomFunctionPatches.allowedClassRooms.Add(sets.category);
 
-			room = GetAllAssets(GetRoomAsset("FocusRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 2, classWeightPre.selection.offLimits, classWeightPre.selection.roomFunctionContainer, keepTextures: false);
+			room = GetAllAssets(GetRoomAsset("FocusRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 3, classWeightPre.selection.offLimits, keepTextures: false);
+			GenerateActivityExplainingPoster(room[0].selection, "PST_CHK_FocusedStudentTitle", "PST_CHK_FocusedStudentDesc", "FocusedStudent");
+
 			var redCouchprefab = Resources.FindObjectsOfTypeAll<RendererContainer>().First(x => x.name == "RedCouch");
 			room.ForEach(foc => foc.selection.basicObjects.ForEach(basO => { if (basO.prefab.name == "Couch") basO.prefab = redCouchprefab.transform; }));
 
@@ -1460,7 +1489,8 @@ namespace BBTimes.Manager
 			ChalkfacePatch.allowedClassroomCategories.Add(sets.category);
 			WormholeRoomFunctionPatches.allowedClassRooms.Add(sets.category);
 
-			room = GetAllAssets(GetRoomAsset("ExibitionRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 2, classWeightPre.selection.offLimits, classWeightPre.selection.roomFunctionContainer, keepTextures: false);
+			room = GetAllAssets(GetRoomAsset("ExibitionRoom"), classWeightPre.selection.maxItemValue, classWeightPre.weight / 3, classWeightPre.selection.offLimits, keepTextures: false);
+			GenerateActivityExplainingPoster(room[0].selection, "PST_CHK_VaseTitle", "PST_CHK_VaseDesc", "SensibleVases");
 
 			RegisterFalseClass();
 			addAsPowerReceiver(sets.category);
@@ -1472,6 +1502,7 @@ namespace BBTimes.Manager
 
 				if (room.Count != 0)
 					room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = wallClock;
+
 
 				room.ForEach(x =>
 				{
@@ -1496,6 +1527,16 @@ namespace BBTimes.Manager
 				floorDatas[F3].Classrooms.AddRange(room);
 				floorDatas[F4].Classrooms.AddRange(room);
 				floorDatas[F5].Classrooms.AddRange(room);
+			}
+
+			static void GenerateActivityExplainingPoster(RoomAsset asset, string nameKey, string descKey, string activityName)
+			{
+				var posterClone = Object.Instantiate(GenericExtensions.FindResourceObjectByName<PosterObject>("Chk_Act_MathMachine"));
+				posterClone.textData[0].textKey = nameKey;
+				posterClone.textData[1].textKey = descKey;
+				posterClone.name = $"Chk_Act_{activityName}";
+
+				asset.AddRoomFunctionToContainer<ChalkboardBuilderFunction>().chalkBoards = [new() { selection = posterClone, weight = 100 }];
 			}
 
 			//Faculties
@@ -1765,9 +1806,9 @@ namespace BBTimes.Manager
 			man.Add(name, tex);
 		}
 
-		static void AddObjectToEditor(this GameObject obj)
+		static void AddObjectToEditor(this GameObject obj, string key = null)
 		{
-			LevelLoaderPlugin.Instance.basicObjects.Add(obj.name, obj);
+			LevelLoaderPlugin.Instance.basicObjects.Add(string.IsNullOrEmpty(key) ? obj.name : key, obj);
 			man.Add($"editorPrefab_{obj.name}", obj);
 			obj.ConvertToPrefab(true);
 		}
