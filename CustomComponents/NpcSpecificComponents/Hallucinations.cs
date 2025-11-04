@@ -2,24 +2,19 @@
 using System.Collections.Generic;
 using BBTimes.CustomContent.NPCs;
 using MTM101BaldAPI;
-using MTM101BaldAPI.Components;
-using PixelInternalAPI.Components;
-using PixelInternalAPI.Extensions;
 using UnityEngine;
 
 namespace BBTimes.CustomComponents.NpcSpecificComponents
 {
 	public class Hallucinations : MonoBehaviour
 	{
-		public MomentumNavigator nav; // Add navigator field
 		Watcher watcher;
 		DijkstraMap map;
-		public int minDistanceFromPlayer = 4, maxDistanceFromPlayer = 7;
+
 		public void AttachToPlayer(PlayerManager pm, Watcher watcher)
 		{
 			if (initialized) return;
 			this.watcher = watcher;
-			timeAlive = lifeTime;
 			target = pm;
 			ec = pm.ec;
 			initialized = true;
@@ -29,7 +24,7 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			nav.Initialize(ec);
 
 			activeHallucinations.Add(new(this, pm));
-			StartCoroutine(Hallucinating());
+			mainCoroutine = StartCoroutine(Hallucinating());
 		}
 
 		IEnumerator Hallucinating()
@@ -51,9 +46,9 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			transform.position = candidateCells.Count != 0 ? candidateCells[Random.Range(0, candidateCells.Count)].CenterWorldPosition :
 				target.transform.position;
 
+			audMan.maintainLoop = true;
 			audMan.QueueAudio(audLoop);
 			audMan.SetLoop(true);
-			audMan.maintainLoop = true;
 			audMan.PlaySingle(audSpawn);
 
 			// Fade in
@@ -70,7 +65,7 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			renderer.color = alpha;
 
 			// Chase the player until lifetime expires
-			while (timeAlive > 0f)
+			while (true)
 			{
 				if (!target)
 				{
@@ -80,69 +75,26 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 				nav.FindPath(target.transform.position);
 				yield return null;
 			}
-
-			// Fade out
-			while (alpha.a > 0f)
-			{
-				alpha.a -= ec.EnvironmentTimeScale * Time.deltaTime * 2f; // Faster fade out
-				renderer.color = alpha;
-				yield return null;
-			}
-
-			Despawn(true);
-		}
-
-		void Update()
-		{
-			if (!initialized) return;
-
-			timeAlive -= ec.EnvironmentTimeScale * Time.deltaTime;
 		}
 
 		void OnTriggerEnter(Collider other)
 		{
-			if (!initialized) return;
+			if (!initialized || isDespawning) return;
 
 			if (other.isTrigger && other.CompareTag("Player") && other.gameObject == target.gameObject)
 			{
-				// Camera Flicker
-				StartCoroutine(FlickerFOV(target.GetCustomCam()));
-
 				// Cumulative Fog
-				if (watcher.obscurityDebuff == null)
-				{
-					watcher.obscurityDebuff = new Fog
-					{
-						color = Color.black,
-						startDist = 5f,
-						maxDist = 20f,
-						strength = 0f,
-						priority = 1
-					};
-					ec.AddFog(watcher.obscurityDebuff);
-				}
-				watcher.obscurityDebuff.strength = Mathf.Min(watcher.obscurityDebuff.strength + 0.15f, 0.8f);
-				ec.UpdateFog();
+				watcher.CreateOrIncreaseFog();
+				watcher.SetTimeToWatcherEffect(effectCooldown);
 
+				if (!target.pc.reachExtensions.Contains(reachExt))
+					target.pc.reachExtensions.Add(reachExt);
 
-				Despawn();
+				StartCoroutine(HideAndResetEffectsLater());
 			}
 		}
 
-		IEnumerator FlickerFOV(CustomPlayerCameraComponent cam)
-		{
-			var mod = new ValueModifier() { addend = 20f };
-			cam.AddModifier(mod);
-			yield return new WaitForSecondsEnvironmentTimescale(ec, 0.1f);
-			cam.RemoveModifier(mod);
-		}
-
-
-		public void SetToDespawn() =>
-			timeAlive = 0f;
-
-
-		public void Despawn() => Despawn(true); // Public overload for simplicity
+		public void Despawn() => Despawn(true);
 		public void Despawn(bool destroy)
 		{
 			if (isDespawning) return;
@@ -150,11 +102,11 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			StopAllCoroutines();
 			StartCoroutine(FadeOutAndDestroy(destroy));
 		}
+		public void InstantDespawn() => Destroy(gameObject);
 		IEnumerator FadeOutAndDestroy(bool destroy)
 		{
 			activeHallucinations.RemoveAll(x => x.Key == this);
-			if (nav) nav.ClearDestination();
-			GetComponent<Collider>().enabled = false;
+			nav.ClearDestination();
 
 			Color alpha = renderer.color;
 			while (alpha.a > 0f)
@@ -167,18 +119,36 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			if (destroy)
 				Destroy(gameObject);
 		}
+		IEnumerator HideAndResetEffectsLater()
+		{
+			if (mainCoroutine != null) StopCoroutine(mainCoroutine);
+			renderer.enabled = false;
+			isDespawning = true;
+			audMan.FlushQueue(true);
+			nav.ClearDestination();
+			yield return new WaitForSecondsEnvironmentTimescale(ec, effectCooldown);
+			Destroy(gameObject);
+		}
+
+		void OnDestroy()
+		{
+			if (isDespawning)
+			{
+				watcher.DecrementFog();
+				target?.pc.reachExtensions.Remove(reachExt);
+			}
+		}
 
 
 		EnvironmentController ec;
 		PlayerManager target;
 		bool initialized = false, isDespawning = false;
-		float timeAlive;
 
 		[SerializeField]
 		internal SpriteRenderer renderer;
 
 		[SerializeField]
-		internal float lifeTime = 45f, delayAroundThePlayer = 3f;
+		internal float lifeTime = 45f, delayAroundThePlayer = 3f, effectCooldown = 15f;
 
 		[SerializeField]
 		internal AudioManager audMan;
@@ -186,6 +156,10 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 		[SerializeField]
 		internal SoundObject audSpawn, audLoop;
 
+		public int minDistanceFromPlayer = 4, maxDistanceFromPlayer = 7;
+		public MomentumNavigator nav;
+		Coroutine mainCoroutine;
+		internal ReachExtension reachExt = new() { distance = -5, overrideSquished = false };
 		readonly public static List<KeyValuePair<Hallucinations, PlayerManager>> activeHallucinations = [];
 	}
 }

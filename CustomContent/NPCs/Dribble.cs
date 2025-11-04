@@ -61,7 +61,7 @@ namespace BBTimes.CustomContent.NPCs
 			const float pixelsPerUnit = 48f;
 
 			// Normal
-			var storedSprites = this.GetSpriteSheet(13, 1, pixelsPerUnit, "dribbleSpriteSheet.png");
+			var storedSprites = this.GetSpriteSheet(12, 1, pixelsPerUnit, "dribbleSpriteSheet.png");
 			spriteRenderer[0].sprite = storedSprites[0];
 			idleSprs = [storedSprites[0], storedSprites[1]];
 			clapSprs = [storedSprites[5], storedSprites[6]];
@@ -71,7 +71,7 @@ namespace BBTimes.CustomContent.NPCs
 			chasingSprs = [storedSprites[10], storedSprites[11]];
 
 			// Talking
-			storedSprites = this.GetSpriteSheet(13, 1, pixelsPerUnit, "dribbleSpriteSheet_2.png");
+			storedSprites = this.GetSpriteSheet(12, 1, pixelsPerUnit, "dribbleSpriteSheet_2.png");
 			idleSprsTalking = [storedSprites[0], storedSprites[1]];
 			clapSprsTalking = [storedSprites[5], storedSprites[6]];
 			classSprsTalking = [storedSprites[2], storedSprites[3], storedSprites[4]];

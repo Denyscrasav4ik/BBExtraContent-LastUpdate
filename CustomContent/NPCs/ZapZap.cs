@@ -152,7 +152,7 @@ namespace BBTimes.CustomContent.NPCs
 
 		[SerializeField]
 		[Range(0f, 1f)]
-		internal float chanceToSpawnStorm = 0.05f;
+		internal float chanceToSpawnStorm = 0.025f;
 
 		[SerializeField]
 		internal float stormSpawnCooldown = 5f;
@@ -160,7 +160,6 @@ namespace BBTimes.CustomContent.NPCs
 		[SerializeField]
 		internal ZapZapEletricity eletricityPre;
 
-		// ADDED FIELDS
 		[SerializeField]
 		internal ITM_StormInABag stormPrefab;
 

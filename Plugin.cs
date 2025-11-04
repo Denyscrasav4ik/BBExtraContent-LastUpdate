@@ -749,33 +749,38 @@ namespace BBTimes
 					}
 
 					// ----- *MODDED* School Textures -----
+
 					foreach (var holder in floordata.SchoolTextures)
 					{
 						// Hall customization here
 						if (holder.SelectionLimiters[0] == RoomCategory.Hall)
 						{
-							switch (holder.TextureType)
+							if (ld.type == LevelType.Schoolhouse)
 							{
-								case Misc.SchoolTexture.Ceiling:
-									if (ld.hallCeilingTexs.Length == 1 && ld.hallCeilingTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
-									markModifiedByMod = true;
-									ld.hallCeilingTexs = ld.hallCeilingTexs.AddToArray(holder.Selection.ToWeightedTexture());
-									break;
-								case Misc.SchoolTexture.Floor:
-									if (ld.hallFloorTexs.Length == 1 && ld.hallFloorTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
-									markModifiedByMod = true;
-									ld.hallFloorTexs = ld.hallFloorTexs.AddToArray(holder.Selection.ToWeightedTexture());
-									break;
-								case Misc.SchoolTexture.Wall:
-									if (ld.hallWallTexs.Length == 1 && ld.hallWallTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
-									markModifiedByMod = true;
-									ld.hallWallTexs = ld.hallWallTexs.AddToArray(holder.Selection.ToWeightedTexture());
-									break;
-								default:
-									break;
+								switch (holder.TextureType)
+								{
+									case Misc.SchoolTexture.Ceiling:
+										if (ld.hallCeilingTexs.Length == 1 && ld.hallCeilingTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
+										markModifiedByMod = true;
+										ld.hallCeilingTexs = ld.hallCeilingTexs.AddToArray(holder.Selection.ToWeightedTexture());
+										break;
+									case Misc.SchoolTexture.Floor:
+										if (ld.hallFloorTexs.Length == 1 && ld.hallFloorTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
+										markModifiedByMod = true;
+										ld.hallFloorTexs = ld.hallFloorTexs.AddToArray(holder.Selection.ToWeightedTexture());
+										break;
+									case Misc.SchoolTexture.Wall:
+										if (ld.hallWallTexs.Length == 1 && ld.hallWallTexs[0].selection.name == "Transparent") break; // Don't add Times' textures if there's a single transparent texture
+										markModifiedByMod = true;
+										ld.hallWallTexs = ld.hallWallTexs.AddToArray(holder.Selection.ToWeightedTexture());
+										break;
+									default:
+										break;
+								}
 							}
 							continue;
 						}
+
 
 						// Modded rooms below
 						string name = EnumExtensions.GetExtendedName<RoomCategory>((int)holder.SelectionLimiters[0]);

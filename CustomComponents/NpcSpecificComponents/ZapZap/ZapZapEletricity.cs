@@ -11,10 +11,10 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents.ZapZap
 			CreateEletricity(actMod);
 		}
 
-		public void CreateEletricity(ActivityModifier actMod)
+		public bool CreateEletricity(ActivityModifier actMod)
 		{
 			if (AffectedEntities.Contains(actMod))
-				return;
+				return false;
 			actMod.entity.AddForce(new((actMod.transform.position - transform.position).normalized, repulsionForce, -repulsionForce));
 
 			var ele = Instantiate(compPre);
@@ -22,6 +22,7 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents.ZapZap
 			ele.AttachTo(actMod, ec, this);
 			AffectedEntities.Add(actMod);
 			eles.Add(ele);
+			return true;
 		}
 
 		protected override void Despawn()

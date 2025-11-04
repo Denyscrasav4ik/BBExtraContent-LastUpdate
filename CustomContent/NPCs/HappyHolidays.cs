@@ -142,7 +142,7 @@ namespace BBTimes.CustomContent.NPCs
 		internal Sprite[] unwrapSprites;
 		[SerializeField]
 
-		internal float maxClickDelay = 0.75f, normSpeed = 14.5f, runSpeed = 23.05f, fleeTime = 5f, despawnHeight = -15f, respawnCooldown = 50f, aboutToRespawnCooldown = 5f;
+		internal float maxClickDelay = 1.25f, normSpeed = 14.5f, maxRunSpeed = 35f, fleeTime = 12f, despawnHeight = -15f, respawnCooldown = 50f, aboutToRespawnCooldown = 5f;
 		[SerializeField]
 		internal float guiltTimeOnGift = 15f;
 		[SerializeField]
@@ -190,8 +190,8 @@ namespace BBTimes.CustomContent.NPCs
 		public override void Enter()
 		{
 			base.Enter();
-			hh.Navigator.maxSpeed = hh.runSpeed;
-			hh.Navigator.SetSpeed(hh.runSpeed);
+			hh.Navigator.maxSpeed = hh.maxRunSpeed;
+			hh.Navigator.SetSpeed(hh.maxRunSpeed);
 			map.QueueUpdate();
 			map.Activate();
 			ChangeNavigationState(new NavigationState_WanderFlee(hh, 0, map));
@@ -202,9 +202,14 @@ namespace BBTimes.CustomContent.NPCs
 			base.Update();
 			fleeCooldown -= hh.TimeScale * Time.deltaTime;
 			if (fleeCooldown <= 0f)
-			{
 				hh.behaviorStateMachine.ChangeState(prevState);
+			else
+			{
+				float newSpeed = Mathf.Lerp(hh.maxRunSpeed, hh.normSpeed, 1f / fleeCooldown);
+				hh.Navigator.maxSpeed = newSpeed;
+				hh.Navigator.SetSpeed(newSpeed);
 			}
+
 		}
 
 		public override void Exit()

@@ -114,7 +114,7 @@ namespace BBTimes.CustomContent.NPCs
 				if (!bubbles[i])
 					bubbles.RemoveAt(i--); // Bubble is null? Remove it!
 
-			b.Spawn(ec, navigator.Entity, transform.position, dir, Random.Range(16f, 22f));
+			b.Spawn(ec, navigator.Entity, transform.position, dir, Random.Range(minBubbleSpeed, maxBubbleSpeed));
 			StartCoroutine(FillupBubble(b));
 			return b;
 		}
@@ -138,7 +138,6 @@ namespace BBTimes.CustomContent.NPCs
 			float scale = 0f;
 			b.entity.SetFrozen(true);
 
-
 			float speed = Random.Range(minSpeedToFillupBubble, maxSpeedToFillupBubble);
 			while (true)
 			{
@@ -153,7 +152,7 @@ namespace BBTimes.CustomContent.NPCs
 			b.entity.SetFrozen(false);
 
 			b.Initialize();
-
+			behaviorStateMachine.ChangeState(new Bubbly_Navigating(this));
 			yield break;
 		}
 
@@ -211,7 +210,7 @@ namespace BBTimes.CustomContent.NPCs
 		internal float speed = 17f;
 
 		[SerializeField]
-		internal float minBubbleCooldown = 0.5f, maxBubbleCooldown = 1.5f, minSpeedToFillupBubble = 3f, maxSpeedToFillupBubble = 6.5f;
+		internal float minBubbleCooldown = 0.5f, maxBubbleCooldown = 1.5f, minSpeedToFillupBubble = 2.5f, maxSpeedToFillupBubble = 5.5f, minBubbleSpeed = 16f, maxBubbleSpeed = 22f;
 
 		[SerializeField]
 		internal int bubbleMaxAmmo = 3;
@@ -334,9 +333,6 @@ namespace BBTimes.CustomContent.NPCs
 				bub.SpitBubbleAtDirection(dirsToSpit[i]);
 				bub.bubbleAmmo--;
 			}
-
-			// Immediately transition back to navigating
-			bub.behaviorStateMachine.ChangeState(new Bubbly_Navigating(bub));
 		}
 	}
 }

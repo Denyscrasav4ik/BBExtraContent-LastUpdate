@@ -42,13 +42,15 @@ namespace BBTimes.CustomContent.CustomItems
 		IEnumerator Timer()
 		{
 			for (int i = 0; i < pm.ec.Npcs.Count; i++)
+			{
 				if (pm.ec.Npcs[i])
 					pm.ec.map.AddArrow(pm.ec.Npcs[i].Entity, Color.yellow);
+			}
 
 
 			float cooldown = timerSeconds;
 
-			while (cooldown >= 0f)
+			while (cooldown > 0f)
 			{
 				cooldown -= pm.PlayerTimeScale * Time.deltaTime;
 				gauge.SetValue(timerSeconds, cooldown);

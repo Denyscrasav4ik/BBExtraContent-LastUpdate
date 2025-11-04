@@ -36,10 +36,12 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents.ZapZap
 				var e = other.GetComponent<Entity>();
 				if (e && PhysicsManager.RaycastEntity(e, transform.position, raycastLayer, QueryTriggerInteraction.Ignore, rayCastRadius, false))
 				{
-					eletricity.CreateEletricity(e.ExternalActivity);
-					Vector3 direction = (e.transform.position - transform.position).normalized;
-					e.AddForce(new(direction, repulsionForce, -repulsionForce));
-					target.entity.AddForce(new(-direction, repulsionForce, -repulsionForce));
+					if (eletricity.CreateEletricity(e.ExternalActivity)) // Only push back when electructed
+					{
+						Vector3 direction = (e.transform.position - transform.position).normalized;
+						e.AddForce(new(direction, repulsionForce, -repulsionForce));
+						target.entity.AddForce(new(-direction, repulsionForce, -repulsionForce));
+					}
 				}
 			}
 		}

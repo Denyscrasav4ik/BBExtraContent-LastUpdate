@@ -64,7 +64,7 @@ namespace BBTimes.CustomContent.NPCs
 
 			parts = system;
 
-			SlipperController.CreateSlipperPackPrefab(this, this.GetSprite(16.5f, "Pudding.png"));
+			SlipperController.CreateSlipperPackPrefab(this, this.GetSprite(12.799f, "Pudding.png"));
 		}
 		public void SetupPrefabPost() { }
 		public string Name { get; set; }
@@ -153,6 +153,7 @@ namespace BBTimes.CustomContent.NPCs
 
 			RemoveFuncIfExists();
 			lastCreatedFunction = room.functionObject.AddComponent<FreezingRoomFunction>();
+			lastCreatedFunction.AssignImmunityToEntity(Navigator.Entity);
 			lastCreatedFunction.owner = this;
 			room.functions.AddFunction(lastCreatedFunction);
 			lastCreatedFunction.Initialize(room);
@@ -173,6 +174,7 @@ namespace BBTimes.CustomContent.NPCs
 				var room = lastCreatedFunction.Room;
 				var driedPudding = room.functionObject.AddComponent<DriedPuddingRoomFunction>();
 				room.functions.AddFunction(driedPudding);
+				driedPudding.slipMatPre = slipperPre.gameObject;
 				driedPudding.Initialize(room);
 
 				lastCreatedFunction.Room.functions.RemoveFunction(lastCreatedFunction);
@@ -186,7 +188,6 @@ namespace BBTimes.CustomContent.NPCs
 			base.VirtualUpdate();
 			if (nextPos != zero)
 				transform.RotateSmoothlyToNextPoint(nextPos, 1f);
-
 		}
 
 		public bool ItemFits(Items itm) =>

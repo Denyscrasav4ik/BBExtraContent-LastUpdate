@@ -100,7 +100,6 @@ namespace BBTimes.CustomContent.CustomItems
 			active = true;
 			currentCharge = 0f;
 
-
 			// Charge phase
 			audMan.QueueAudio(chargeSound);
 
@@ -243,6 +242,7 @@ namespace BBTimes.CustomContent.CustomItems
 			audMan.PlaySingle(audHit);
 			entity.SetVisible(false);
 			entity.SetFrozen(true);
+			entity.SetInteractionState(false);
 			hasHit = true;
 			e.AddForce(new(direction, speed, -speed));
 			e.ExternalActivity.moveMods.Add(moveMod);

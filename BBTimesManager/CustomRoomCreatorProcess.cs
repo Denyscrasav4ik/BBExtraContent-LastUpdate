@@ -1122,7 +1122,7 @@ namespace BBTimes.Manager
 				new()
 				{
 					chance = 0.75f,
-					potentialReplacements = [new() { selection = ModifyExistingBillboard(DecorsPlugin.Get<GameObject>("editorPrefab_SaltAndHot"), Vector3.up * 1.2f).transform, weight = 100 }],
+					potentialReplacements = [new() { selection = MakeOffsettedCopy(DecorsPlugin.Get<GameObject>("editorPrefab_SaltAndHot").transform, Vector3.up * 1.25f), weight = 100 }],
 					prefabToSwap = lunchObj
 				},
 				new()
@@ -1573,10 +1573,10 @@ namespace BBTimes.Manager
 			{
 				chance = 0.75f,
 				potentialReplacements = [
-							new() { selection = DecorsPlugin.Get<GameObject>("editorPrefab_SmallPottedPlant").transform },
-							new() { selection = DecorsPlugin.Get<GameObject>("editorPrefab_TableLightLamp").transform },
-							new() { selection = DecorsPlugin.Get<GameObject>("editorPrefab_FancyOfficeLamp").transform },
-							new() { selection = DecorsPlugin.Get<GameObject>("editorPrefab_TheRulesBook").transform }
+							new() { selection = MakeOffsettedCopy(DecorsPlugin.Get<GameObject>("editorPrefab_SmallPottedPlant").transform, Vector3.up * 1.01f) },
+							new() { selection = MakeOffsettedCopy(DecorsPlugin.Get<GameObject>("editorPrefab_TableLightLamp").transform, Vector3.up * 2.16f) },
+							new() { selection = MakeOffsettedCopy(DecorsPlugin.Get<GameObject>("editorPrefab_FancyOfficeLamp").transform, Vector3.up * 1.26f) },
+							new() { selection = MakeOffsettedCopy(DecorsPlugin.Get<GameObject>("editorPrefab_TheRulesBook").transform, Vector3.up * 1.56f) }
 							],
 				prefabToSwap = globePrefab
 			});
@@ -1740,6 +1740,15 @@ namespace BBTimes.Manager
 				return null;
 			}
 
+			static Transform MakeOffsettedCopy(Transform og, Vector3 offset)
+			{
+				var newObj = new GameObject($"{og.name}_Holder");
+				newObj.ConvertToPrefab(true);
+				og.SetParent(newObj.transform, false);
+				og.localPosition = offset;
+				return newObj.transform;
+			}
+
 			GameObject SetupObjCollisionAndScale(GameObject obj, Vector3 navMeshSize, float newScale, bool automaticallyContainer = true, bool addMeshCollider = true)
 			{
 				obj.transform.localScale = Vector3.one;
@@ -1767,15 +1776,6 @@ namespace BBTimes.Manager
 
 
 				return obj;
-			}
-
-			RendererContainer ModifyExistingBillboard(GameObject billboard, Vector3 newOffset)
-			{
-				var clone = billboard.GetComponent<RendererContainer>().DuplicatePrefab();
-				clone.name = "Times_Modified_" + billboard.name;
-				foreach (var renderer in clone.renderers)
-					renderer.transform.localPosition = newOffset;
-				return clone;
 			}
 
 			void AddGroupToAllFloors(RoomGroup roomGroup)

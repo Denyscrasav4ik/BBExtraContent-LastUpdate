@@ -195,7 +195,7 @@ public class Structure_OutsideBox : StructureBuilder, IBuilderPrefab
 					for (int i = 0; i < amount; i++)
 					{
 						tileData.decorations.Add(new(
-							cell.FloorWorldPosition + new Vector3(((float)decorationRng.NextDouble() * 8f) - 4, 0f, ((float)decorationRng.NextDouble() * 8f) - 4),
+							cell.FloorWorldPosition + new Vector3(((float)decorationRng.NextDouble() * 4f) - 2, 0f, ((float)decorationRng.NextDouble() * 4f) - 2),
 							decorationRng.Next(decorations.Length)
 							));
 					}

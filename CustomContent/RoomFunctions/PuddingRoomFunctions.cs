@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace BBTimes.CustomContent.RoomFunctions
 {
-	// THIS CLASS NOW HANDLES THE "WET PUDDING" EFFECT
 	public class FreezingRoomFunction : RoomFunction
 	{
 		public PuddingFan owner;
@@ -15,9 +14,7 @@ namespace BBTimes.CustomContent.RoomFunctions
 		{
 			base.Initialize(room);
 			slipperController = SlipperController.CreateSlipperController(owner);
-			slipperController.transform.SetParent(room.transform);
-
-			foreach (var cell in room.AllEntitySafeCellsNoGarbage())
+			foreach (var cell in room.cells)
 			{
 				slipperController.CreateStain(cell);
 			}
@@ -29,7 +26,7 @@ namespace BBTimes.CustomContent.RoomFunctions
 			if (immuneEntity == entity)
 				return;
 
-			if (entity.TryGetComponent<PlayerMovement>(out var pm))
+			if (entity.CompareTag("Player") && entity.TryGetComponent<PlayerMovement>(out var pm))
 				pm.pm.GetAttribute().AddAttribute(Storage.ATTR_STOP_PLAYER_MOVEMENT_RUN_TAG);
 		}
 
@@ -40,13 +37,19 @@ namespace BBTimes.CustomContent.RoomFunctions
 			if (immuneEntity == entity)
 				return;
 
-			if (entity.TryGetComponent<PlayerMovement>(out var pm))
+			if (entity.CompareTag("Player") && entity.TryGetComponent<PlayerMovement>(out var pm))
 				pm.pm.GetAttribute().RemoveAttribute(Storage.ATTR_STOP_PLAYER_MOVEMENT_RUN_TAG);
 		}
 		void OnDestroy()
 		{
 			if (slipperController)
 				Destroy(slipperController.gameObject);
+
+			foreach (var entity in allEntities)
+			{
+				if (entity && entity.CompareTag("Player") && entity.TryGetComponent<PlayerMovement>(out var pm))
+					pm.pm.GetAttribute().RemoveAttribute(Storage.ATTR_STOP_PLAYER_MOVEMENT_RUN_TAG);
+			}
 		}
 
 		public void AssignImmunityToEntity(Entity e) =>
@@ -57,10 +60,9 @@ namespace BBTimes.CustomContent.RoomFunctions
 		readonly List<Entity> allEntities = [];
 	}
 
-	// "DRIED PUDDING" EFFECT
 	public class DriedPuddingRoomFunction : RoomFunction
 	{
-		public float lifeTime = 5f;
+		public float lifeTime = 30f;
 		public override void OnPlayerStay(PlayerManager player)
 		{
 			base.OnPlayerStay(player);
@@ -71,7 +73,7 @@ namespace BBTimes.CustomContent.RoomFunctions
 		public override void Initialize(RoomController room)
 		{
 			base.Initialize(room);
-			var cells = room.AllEntitySafeCellsNoGarbage();
+			var cells = room.cells;
 
 			int am = Random.Range(4, 8); // Spawn some visual puddles
 			for (int i = 0; i <= am; i++)

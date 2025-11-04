@@ -5,6 +5,7 @@ using BBTimes.CustomComponents.NpcSpecificComponents.Penny;
 using BBTimes.Extensions;
 using BBTimes.Extensions.ObjectCreationExtensions;
 using BBTimes.Manager;
+using BBTimes.Plugin;
 using MTM101BaldAPI;
 using PixelInternalAPI.Classes;
 using PixelInternalAPI.Components;
@@ -181,6 +182,9 @@ namespace BBTimes.CustomContent.NPCs
 			corruptedLetterPrefab.text = tmpro;
 			corruptedLetterPrefab.collider = col;
 			corruptedLetterPrefab.blockingCollider = blockingCol;
+
+			// gaugeSprite
+			gaugeSprite = this.GetSprite(Storage.GaugeSprite_PixelsPerUnit, "gaugeIcon.png");
 		}
 		public void SetupPrefabPost() { }
 		public string Name { get; set; }
@@ -222,6 +226,9 @@ namespace BBTimes.CustomContent.NPCs
 		internal SpriteVolumeAnimator animator;
 
 		[SerializeField]
+		internal Sprite gaugeSprite;
+
+		[SerializeField]
 		internal float normalSpeed = 12f, angrySpeed = 19f, normalChaseSpeed = 18f, angryChaseSpeed = 25f, stepMax = 8f, classTimeDistanceThreshold = 25f, calmDownCooldownDefault = 120f,
 		fadeAboveTextScaleVel = 1.2f, fadeAboveTextScaleVelDecrease = 13f, fadeAboveTextScaleIncrease = 0.15f;
 		[SerializeField]
@@ -231,9 +238,7 @@ namespace BBTimes.CustomContent.NPCs
 		internal int numberOfLetters = 5;
 		[SerializeField]
 		internal float letterCircleRadius = 5f, letterRotationSpeed = 1.5f, letterRotationSpeedIncrement = 0.75f, angryLetterRotationSpeed = 3.5f, maxLetterRotationSpeed = 5f,
-			minCorruptedLetterSpawnDelay = 0.75f, maxCorruptedLetterSpawnDelay = 10f, corruptedLetterSpawnDecrementDelay = 0.65f, missClickDelay = 0.85f;
-		[SerializeField]
-		internal int corruptedLetterMaxCount = 150;
+			minCorruptedLetterSpawnDelay = 0.75f, maxCorruptedLetterSpawnDelay = 6f, corruptedLetterSpawnDecrementDelay = 0.65f, missClickDelay = 0.85f, nextClassTimeDelay = 60f;
 		[SerializeField]
 		internal CorruptedLetter corruptedLetterPrefab;
 
@@ -245,6 +250,7 @@ namespace BBTimes.CustomContent.NPCs
 		private Coroutine playerSlowdownCoroutine;
 
 		internal readonly MovementModifier moveMod = new(Vector3.zero, 1f);
+		public HudGauge gauge;
 
 		public override void Initialize()
 		{
@@ -261,6 +267,7 @@ namespace BBTimes.CustomContent.NPCs
 		public override void Despawn()
 		{
 			base.Despawn();
+			gauge?.Deactivate();
 			CleanUpCorruptedLetters();
 		}
 
@@ -316,7 +323,7 @@ namespace BBTimes.CustomContent.NPCs
 					SetAngry(false);
 					SetIdleOnMood(0);
 					moveMod.movementMultiplier = 1f;
-					behaviorStateMachine.ChangeState(new Penny_Wandering(this, 60f));
+					behaviorStateMachine.ChangeState(new Penny_Wandering(this, nextClassTimeDelay));
 					StartCoroutine(FadeAboveTextOut());
 
 					return;
@@ -383,6 +390,12 @@ namespace BBTimes.CustomContent.NPCs
 
 		public void SetAngry(bool angry) =>
 			this.angry = angry;
+		public void CalmDown()
+		{
+			SetAngry(false);
+			NormalSpeed();
+			CleanUpCorruptedLetters();
+		}
 
 		/* -------------------------------- MINI GAME --------------------------------*/
 		public void InitiateMinigame(PlayerManager pm)
@@ -599,10 +612,9 @@ namespace BBTimes.CustomContent.NPCs
 		}
 	}
 
-	internal class Penny_Wandering(Penny pen, float cooldown = 0f, float calmDownCooldown = 0f, PlayerManager target = null) : Penny_StateBase(pen)
+	internal class Penny_Wandering(Penny pen, float cooldown = 0f) : Penny_StateBase(pen)
 	{
-		float cooldown = cooldown, calmDownCooldown = calmDownCooldown;
-		readonly PlayerManager target = target;
+		float cooldown = cooldown;
 		public override void Enter()
 		{
 			base.Enter();
@@ -613,9 +625,8 @@ namespace BBTimes.CustomContent.NPCs
 		public override void PlayerInSight(PlayerManager player)
 		{
 			base.PlayerInSight(player);
-			if (cooldown <= 0f && !player.Tagged && (target == null || player == target))
+			if (cooldown <= 0f && !player.Tagged)
 				pen.behaviorStateMachine.ChangeState(new Penny_NoticeChase(pen, player, this));
-
 		}
 
 		public override void Update()
@@ -623,15 +634,6 @@ namespace BBTimes.CustomContent.NPCs
 			base.Update();
 			if (cooldown > 0f)
 				cooldown -= pen.TimeScale * Time.deltaTime;
-			if (calmDownCooldown > 0f)
-			{
-				calmDownCooldown -= pen.TimeScale * Time.deltaTime;
-				if (calmDownCooldown <= 0f && pen.IsAngry)
-				{
-					pen.SetAngry(false);
-					pen.NormalSpeed();
-				}
-			}
 		}
 	}
 
@@ -723,12 +725,12 @@ namespace BBTimes.CustomContent.NPCs
 			if (!pen.audMan.AnyAudioIsPlaying)
 			{
 				pen.SpawnCorruptedLetters();
-				pen.behaviorStateMachine.ChangeState(new Penny_PunishmentIdle(pen, pm));
+				pen.behaviorStateMachine.ChangeState(new Penny_PunishmentIdle(pen, pm, pen.calmDownCooldownDefault));
 			}
 		}
 	}
 
-	internal class Penny_PunishmentIdle(Penny pen, PlayerManager target) : Penny_StateBase(pen)
+	internal class Penny_PunishmentIdle(Penny pen, PlayerManager target, float calmdownCooldown) : Penny_StateBase(pen)
 	{
 		public readonly PlayerManager target = target;
 		public override void Enter()
@@ -736,7 +738,37 @@ namespace BBTimes.CustomContent.NPCs
 			base.Enter();
 			pen.SetIdleOnMood(2);
 			pen.NormalSpeed();
+			pen.gauge = Singleton<CoreGameManager>.Instance.GetHud(target.playerNumber).gaugeManager.ActivateNewGauge(pen.gaugeSprite, originalCalmDown);
 			ChangeNavigationState(new NavigationState_WanderRandom(pen, 0));
 		}
+
+		public override void Update()
+		{
+			base.Update();
+			if (!pen.IsAngry)
+			{
+				pen.behaviorStateMachine.ChangeState(new Penny_Wandering(pen, pen.nextClassTimeDelay));
+				return;
+			}
+			if (calmDownCooldown > 0f)
+			{
+				calmDownCooldown -= pen.TimeScale * Time.deltaTime;
+				pen.gauge?.SetValue(originalCalmDown, calmDownCooldown);
+				if (calmDownCooldown <= 0f)
+				{
+					pen.CalmDown();
+					pen.behaviorStateMachine.ChangeState(new Penny_Wandering(pen, pen.nextClassTimeDelay));
+				}
+			}
+		}
+
+		public override void Exit()
+		{
+			base.Exit();
+			pen.gauge?.Deactivate();
+		}
+
+		private float calmDownCooldown = calmdownCooldown;
+		private readonly float originalCalmDown = calmdownCooldown;
 	}
 }

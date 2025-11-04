@@ -108,8 +108,6 @@ namespace BBTimes.CustomContent.Objects
 				dirIndex = ++dirIndex % nextDirections.Count;
 				UpdateVision();
 			}
-
-
 		}
 
 		void UpdateVision()
@@ -160,7 +158,6 @@ namespace BBTimes.CustomContent.Objects
 					if (pm)
 					{
 						bool isHiddenFromCamera = pm.Tagged || pm.Invisible || !pm.Disobeying;
-						Debug.Log($"Is hidden from camera: {isHiddenFromCamera}");
 						if (!caughtRuleBreakers.Contains(pm.plm.Entity))
 						{
 							if (!isHiddenFromCamera)
@@ -177,8 +174,7 @@ namespace BBTimes.CustomContent.Objects
 						}
 					}
 				}
-
-				if (other.CompareTag("NPC"))
+				else if (other.CompareTag("NPC"))
 				{
 					var npc = other.GetComponent<NPC>();
 					if (npc)
@@ -205,6 +201,7 @@ namespace BBTimes.CustomContent.Objects
 
 			if (other.isTrigger && other.TryGetComponent<Entity>(out var e))
 			{
+				Debug.Log($"Rule breaker removed: {e.name}");
 				caughtRuleBreakers.Remove(e);
 				if (other.CompareTag("Player"))
 				{

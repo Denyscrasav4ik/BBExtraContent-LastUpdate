@@ -30,13 +30,13 @@ public class SlipperController : MonoBehaviour // Copy paste from BloxyCola from
 
 		var collider = owner.slipperPre.gameObject.AddComponent<BoxCollider>();
 		collider.isTrigger = true;
-		collider.size = new Vector3(4.98f, 5f, 4.98f);
+		collider.size = new Vector3(5f, 5f, 5f);
 		collider.center = Vector3.up * 5f;
 
 		owner.slipperEffectorPre = new GameObject("SlipperEffector").AddComponent<SlipperEffector>();
 		owner.slipperEffectorPre.gameObject.ConvertToPrefab(true);
 		owner.slipperEffectorPre.gameObject.layer = LayerStorage.standardEntities;
-		owner.slipperEffectorPre.entity = owner.slipperEffectorPre.gameObject.CreateEntity(4.5f, 2f);
+		owner.slipperEffectorPre.entity = owner.slipperEffectorPre.gameObject.CreateEntity(1.75f, 2f);
 		owner.slipperEffectorPre.entity.collisionLayerMask = ((ITM_NanaPeel)ItemMetaStorage.Instance.FindByEnum(Items.NanaPeel).value.item).entity.collisionLayerMask;
 
 		owner.slipperEffectorPre.audMan = owner.slipperEffectorPre.gameObject.CreatePropagatedAudioManager(65f, 75f)
@@ -97,13 +97,13 @@ public class Slipper : MonoBehaviour
 	}
 
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
 	{
-		if (spawnDelay > 0f || other.gameObject == controller.owner.gameObject)
+		if (!(other.CompareTag("Player") || other.CompareTag("NPC")) || !other.isTrigger || spawnDelay > 0f || other.gameObject == controller.owner.gameObject)
 			return;
 
 		Entity entity = other.GetComponent<Entity>();
-		if (entity != null && entity.Grounded)
+		if (entity != null && entity.Grounded && entity.Velocity.magnitude > 0.1f)
 			controller.CreateEffector(entity);
 	}
 }
@@ -160,14 +160,11 @@ public class SlipperEffector : MonoBehaviour, IEntityTrigger
 
 		entity.UpdateInternalMovement(slipDirection * speed * controller.owner.ec.EnvironmentTimeScale);
 		slipMod.movementAddend = entity.ExternalActivity.Addend + slipDirection * speed * controller.owner.ec.EnvironmentTimeScale;
-
 	}
 
-	bool IsInCoveredCell()
-	{
-		Cell currentCell = controller.owner.ec.CellFromPosition(transform.position);
-		return controller.stainedCells.Contains(currentCell);
-	}
+	bool IsInCoveredCell() =>
+		controller.stainedCells.Contains(controller.owner.ec.CellFromPosition(transform.position));
+
 
 	void DestroyEffector()
 	{
@@ -180,10 +177,8 @@ public class SlipperEffector : MonoBehaviour, IEntityTrigger
 	public void EntityTriggerStay(Collider other, bool validCollision) { }
 	public void EntityTriggerExit(Collider other, bool validCollision)
 	{
-		if (validCollision && other.transform == targetEntity.transform)
-		{
-			DestroyEffector();
-		}
+		if (other.transform == targetEntity.transform)
+			transform.position = targetEntity.transform.position; // Make sure to always be there
 	}
 }
 

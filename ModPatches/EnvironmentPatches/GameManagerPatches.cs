@@ -85,6 +85,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 			if (!elevator) // failsafe
 				return true;
 			var cam = new GameObject("CameraView").AddComponent<Camera>();
+			cam.gameObject.AddComponent<CullAffector>(); // Important failsafe
 			var player = Singleton<CoreGameManager>.Instance.GetPlayer(0); // Specifically for Player 0
 
 			while (!player.plm.Entity.InteractionDisabled || !player.plm.Entity.Frozen)
