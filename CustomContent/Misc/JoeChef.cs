@@ -10,9 +10,13 @@ namespace BBTimes.CustomContent.Misc
 		public override void LoadingFinished()
 		{
 			base.LoadingFinished();
-			positions = [transform.position - (transform.forward * 2f),
-				transform.position + ((transform.right * 16f) - (transform.forward * 2f)),
-			transform.position + ((-transform.right * 16f) - (transform.forward * 2f))];
+			int offset = GetDistanceFromSide(transform.right);
+			offset = Mathf.Min(offset, GetDistanceFromSide(-transform.right)); // get the maximum distance needed for walking sideways
+
+			positions = [transform.position - (transform.forward * backwardsOffset), // Back
+				transform.position + (offset * ((transform.right * 10f) - (transform.forward * backwardsOffset))), // Right
+			transform.position + (offset * ((-transform.right * 10f) - (transform.forward * backwardsOffset)))]; // Left
+
 			ogPosition = transform.position;
 			target = ogPosition;
 
@@ -22,6 +26,19 @@ namespace BBTimes.CustomContent.Misc
 			backupPickup = ec.CreateItem(ec.CellFromPosition(transform.position).room, Singleton<CoreGameManager>.Instance.NoneItem, itemPosition);
 			ec.items.Remove(backupPickup); // Don't globalize this pickup
 			backupPickup.gameObject.SetActive(false);
+
+			int GetDistanceFromSide(Vector3 right)
+			{
+				int limitedOffset = maxTileDistanceWhenWorking + 1;
+				Vector3 pos;
+				Cell currentCell;
+				do
+				{
+					pos = transform.position + (--limitedOffset * ((right * 10f) - (transform.forward * backwardsOffset)));
+					currentCell = ec.CellFromPosition(pos);
+				} while ((currentCell.Null || !ec.ContainsCoordinates(pos)) && limitedOffset >= 0); // If the position is still out of bounds, the limited offset will be decremented on the next iteration
+				return limitedOffset;
+			}
 		}
 
 		public void Clicked(int player)
@@ -83,6 +100,12 @@ namespace BBTimes.CustomContent.Misc
 
 		[SerializeField]
 		internal int price = 25;
+
+		[SerializeField]
+		internal int maxTileDistanceWhenWorking = 2;
+
+		[SerializeField]
+		internal float backwardsOffset = 2f;
 
 		readonly static List<WeightedItemObject> foods = [];
 		Pickup backupPickup;

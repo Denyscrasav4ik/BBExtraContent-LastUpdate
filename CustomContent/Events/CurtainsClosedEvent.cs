@@ -15,7 +15,6 @@ namespace BBTimes.CustomContent.Events
 	{
 		public void SetupPrefab()
 		{
-
 			eventIntro = this.GetSound("Bal_curtainsClosed.wav", "Event_CurtClosed0", SoundType.Voice, Color.green);
 			eventIntro.additionalKeys = [new() { time = 6.155f, key = "Event_CurtClosed1" }, new() { time = 9.861f, key = "Event_CurtClosed2" }];
 

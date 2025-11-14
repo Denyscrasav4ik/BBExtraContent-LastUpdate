@@ -154,40 +154,40 @@ namespace BBTimes.ModPatches
 #pragma warning restore Harmony003 // Harmony non-ref patch parameters modified
 
 
-	[HarmonyPatch]
-	internal static class EasyTraceBack
-	{
-		[HarmonyTargetMethods]
-		static IEnumerable<MethodInfo> AllTheBuildCalls()
-		{
-			System.Type[] allowedTypes = [typeof(RoomFunctionContainer), typeof(StructureBuilder), typeof(LevelBuilder), typeof(RoomController)];
-			HashSet<string> prohibitedMethods = ["FrameShouldEnd", "ProximityCheck", "RoomFits", "get_Ec", "AddTile", "RemoveTile", "GetNewTileList", "WeightFromPos", "Update"];
+	// [HarmonyPatch]
+	// internal static class EasyTraceBack
+	// {
+	// 	[HarmonyTargetMethods]
+	// 	static IEnumerable<MethodInfo> AllTheBuildCalls()
+	// 	{
+	// 		System.Type[] allowedTypes = [typeof(RoomFunctionContainer), typeof(StructureBuilder), typeof(LevelBuilder), typeof(RoomController)];
+	// 		HashSet<string> prohibitedMethods = ["FrameShouldEnd", "ProximityCheck", "RoomFits", "get_Ec", "AddTile", "RemoveTile", "GetNewTileList", "WeightFromPos", "Update"];
 
-			foreach (var type in allowedTypes)
-			{
-				foreach (var method in AccessTools.GetDeclaredMethods(type))
-				{
-					if (!prohibitedMethods.Contains(method.Name))
-						yield return method;
-				}
-			}
-		}
+	// 		foreach (var type in allowedTypes)
+	// 		{
+	// 			foreach (var method in AccessTools.GetDeclaredMethods(type))
+	// 			{
+	// 				if (!prohibitedMethods.Contains(method.Name))
+	// 					yield return method;
+	// 			}
+	// 		}
+	// 	}
 
-		[HarmonyPrefix]
-		static void LogExistence(MethodBase __originalMethod, object __instance)
-		{
-			// Debug.Log($"Called method: {__originalMethod.DeclaringType.FullName}.{__originalMethod.Name} on Instance: {__instance}");
-		}
+	// 	[HarmonyPrefix]
+	// 	static void LogExistence(MethodBase __originalMethod, object __instance)
+	// 	{
+	// 		// Debug.Log($"Called method: {__originalMethod.DeclaringType.FullName}.{__originalMethod.Name} on Instance: {__instance}");
+	// 	}
 
-		[HarmonyFinalizer]
-		static System.Exception DebugLogFinalizer(System.Exception __exception)
-		{
-			if (__exception != null)
-				Debug.LogException(__exception);
+	// 	[HarmonyFinalizer]
+	// 	static System.Exception DebugLogFinalizer(System.Exception __exception)
+	// 	{
+	// 		if (__exception != null)
+	// 			Debug.LogException(__exception);
 
-			return null;
-		}
-	}
+	// 		return null;
+	// 	}
+	// }
 
 
 }

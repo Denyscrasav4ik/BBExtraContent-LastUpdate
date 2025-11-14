@@ -869,7 +869,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 						if (npc is Baldi bald)
 						{
 							bald = (Baldi)npc;
-							bald.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f));
+							___ec.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f));
 							if (npc.Character == Character.Baldi) // Check Baldi enum (TeacherAPI has unique enums, so it's fine)
 								baldiToFollow = bald;
 

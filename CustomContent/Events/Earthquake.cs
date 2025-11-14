@@ -1,16 +1,16 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-using MTM101BaldAPI.Registers;
+﻿using System.Collections.Generic;
 using BBTimes.CustomComponents;
+using BBTimes.Extensions;
 using BBTimes.Extensions.ObjectCreationExtensions;
 using MTM101BaldAPI;
+using MTM101BaldAPI.Registers;
 using PixelInternalAPI.Extensions;
-using BBTimes.Extensions;
+using UnityEngine;
 
 
 namespace BBTimes.CustomContent.Events
 {
-    public class Earthquake : RandomEvent, IObjectPrefab
+	public class Earthquake : RandomEvent, IObjectPrefab
 	{
 		public void SetupPrefab()
 		{
@@ -50,8 +50,9 @@ namespace BBTimes.CustomContent.Events
 			audTrembling = this.GetSoundNoSub("earthQuakeGoing.wav", SoundType.Effect);
 		}
 		public void SetupPrefabPost() { }
-		public string Name { get; set; } public string Category => "events";
-		
+		public string Name { get; set; }
+		public string Category => "events";
+
 		// ---------------------------------------------------
 
 		public override void PremadeSetup()
@@ -77,7 +78,7 @@ namespace BBTimes.CustomContent.Events
 
 			for (int i = 0; i < ec.Npcs.Count; i++)
 			{
-				if (ec.Npcs[i].Navigator.isActiveAndEnabled && ec.Npcs[i].GetMeta().flags.HasFlag(NPCFlags.Standard))
+				if (ec.Npcs[i].Navigator.isActiveAndEnabled && (ec.Npcs[i].GetMeta()?.flags.HasFlag(NPCFlags.Standard) ?? false))
 				{
 					var moveMod = new MovementModifier(Vector3.zero, 1f) { forceTrigger = true, ignoreAirborne = true };
 					ec.Npcs[i].Navigator.Am.moveMods.Add(moveMod);
@@ -108,7 +109,7 @@ namespace BBTimes.CustomContent.Events
 				delay += tremblingFrameDelay;
 				for (int i = 0; i < actMods.Count; i++)
 					actMods[i].Value.movementAddend = new(crng.Next(-shakeStrength, shakeStrength) * strengthConstant, 0f, crng.Next(-shakeStrength, shakeStrength) * strengthConstant);
-				
+
 			}
 
 			for (int i = 0; i < particles.Count; i++)

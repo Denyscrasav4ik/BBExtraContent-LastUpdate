@@ -369,10 +369,13 @@ namespace BBTimes.CustomContent.NPCs
 			{
 				wi.behaviorStateMachine.ChangeState(new Phawillow_Wandering(wi, wi.delayBeforeCatchAgain));
 
-				pickup.AssignItem(previousItem);
-				pickup.gameObject.SetActive(true);
-				if (pickup.icon != null)
-					pickup.icon.spriteRenderer.enabled = true;
+				if (previousItem.itemType != Items.None)
+				{
+					pickup.AssignItem(previousItem);
+					pickup.gameObject.SetActive(true);
+					if (pickup.icon != null)
+						pickup.icon.spriteRenderer.enabled = true;
+				}
 
 				return;
 			}

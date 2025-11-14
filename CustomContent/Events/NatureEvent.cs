@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using BBTimes.CustomComponents;
 using BBTimes.CustomComponents.EventSpecificComponents.NatureEventFlowers;
 using BBTimes.Extensions;
@@ -131,7 +132,7 @@ namespace BBTimes.CustomContent.Events
 		public override void Begin()
 		{
 			base.Begin();
-			spots.ForEach(SpawnRandomFlower);
+			spots.ForEach(spot => SpawnRandomFlower(spot, 0f));
 		}
 
 		public override void End()
@@ -153,14 +154,10 @@ namespace BBTimes.CustomContent.Events
 			FindSpotsForFlowers();
 		}
 
-		public void SpawnRandomFlower(Cell cell)
-		{
-			var newFlower = Instantiate(WeightedSelection<Plant>.ControlledRandomSelection(flowerPres, crng), cell.TileTransform);
-			newFlower.transform.localPosition = Vector3.up * defaultYOffsetForFlowers;
-			newFlower.renderer.transform.localPosition = Vector3.down * 6f;
-			newFlower.Initialize(this, ec, cell, newFlower.renderer.transform.position + Vector3.up * 6);
-			flowers.Add(newFlower);
-		}
+		public void SpawnRandomFlower(Cell cell) =>
+			SpawnRandomFlower(cell, Random.Range(minSpawnCooldown, maxSpawnCooldown));
+		void SpawnRandomFlower(Cell cell, float cooldown) =>
+			StartCoroutine(WaitToSpawnFlower(cooldown, cell));
 
 		public void RemoveFlower(Plant flower) =>
 			flowers.Remove(flower);
@@ -176,6 +173,22 @@ namespace BBTimes.CustomContent.Events
 			});
 		}
 
+		IEnumerator WaitToSpawnFlower(float delay, Cell cell)
+		{
+			while (delay > 0f && active)
+			{
+				delay -= ec.EnvironmentTimeScale * Time.deltaTime;
+				yield return null;
+			}
+			if (!active) yield break; // Cancel if the event is ended
+
+			var newFlower = Instantiate(WeightedSelection<Plant>.ControlledRandomSelection(flowerPres, crng), cell.TileTransform);
+			newFlower.transform.localPosition = Vector3.up * defaultYOffsetForFlowers;
+			newFlower.renderer.transform.localPosition = Vector3.down * 6f;
+			newFlower.Initialize(this, ec, cell, newFlower.renderer.transform.position + Vector3.up * 6);
+			flowers.Add(newFlower);
+		}
+
 		[SerializeField]
 		WeightedSelection<Plant>[] flowerPres;
 
@@ -184,6 +197,9 @@ namespace BBTimes.CustomContent.Events
 
 		[SerializeField]
 		internal float defaultYOffsetForFlowers = 3.15f;
+
+		[SerializeField]
+		internal float minSpawnCooldown = 2.5f, maxSpawnCooldown = 7f;
 
 		readonly List<Plant> flowers = [];
 		List<Cell> spots;
