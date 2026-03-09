@@ -81,7 +81,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 			bool explorerMode = Singleton<CoreGameManager>.Instance.currentMode == Mode.Free;
 			__instance.Ec.AddTimeScale(new(0f, 1f, 0f)); // make sure to... well, pause the environment smh
 
-			var elevator = __instance.Ec.elevators.FirstOrDefault(x => x.IsOpen);
+			var elevator = __instance.Ec.Elevators.FirstOrDefault(x => x.GateIsOpen);
 			if (!elevator) // failsafe
 				return true;
 			var cam = new GameObject("CameraView").AddComponent<Camera>();
