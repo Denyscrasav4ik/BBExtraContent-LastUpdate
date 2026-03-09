@@ -903,7 +903,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 				float maxCooldown = fireCooldown;
 				var cs = ___ec.AllTilesNoGarbage(false, true);
 
-				foreach (var elevator in ___ec.elevators) // Fire shouldn't spawn in the elevators' entrances
+				foreach (var elevator in ___ec.Elevators) // Fire shouldn't spawn in the elevators' entrances
 				{
 					cs.Remove(elevator.Door.aTile);
 					cs.Remove(___ec.CellFromPosition(elevator.Door.aTile.position + elevator.Door.direction.PerpendicularList()[0].ToIntVector2()));
