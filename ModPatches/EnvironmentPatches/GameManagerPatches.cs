@@ -773,16 +773,20 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 		static void FixMusicSpeed() =>
 			Singleton<MusicManager>.Instance.SetSpeed(1f);
 
-		// ******* Base Game Manager *******
+		// ******* Elevator *******
 
-		[HarmonyPatch(typeof(BaseGameManager), "ElevatorClosed")]
+		[HarmonyPatch(typeof(Elevator), "SetState")]
 		[HarmonyPostfix]
-		private static void REDAnimation(Elevator elevator, BaseGameManager __instance, int ___elevatorsClosed, EnvironmentController ___ec)
+		private static void REDAnimation(Elevator elevator, BaseGameManager __instance, EnvironmentController ___ec)
 		{
-			if (___ec.timeOut || __instance.levelObject == null || __instance.GetType() != typeof(MainGameManager) || Singleton<CoreGameManager>.Instance.currentMode == Mode.Free) // MainGameManager expected
+            int elvCount = ___ec.ElevatorManager.Elevators.Count;
+
+            int closedElvCount = ___ec.ElevatorManager.Elevators.Count((Elevator elevator) => elevator.CurrentState == ElevatorState.Closed);
+
+            if (___ec.timeOut || __instance.levelObject == null || __instance.GetType() != typeof(MainGameManager) || Singleton<CoreGameManager>.Instance.currentMode == Mode.Free) // MainGameManager expected
 				return;
 
-			if (___elevatorsClosed == 1)
+			if (closedElvCount == 1)
 			{
 				Shader.SetGlobalColor("_SkyboxColor", Color.red);
 				// Workaround for factory
@@ -802,7 +806,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 					Singleton<MusicManager>.Instance.QueueFile(chaos0, true);
 				return;
 			}
-			if (___elevatorsClosed == 2)
+			if (closedElvCount == 2)
 			{
 				___ec.SetTimeLimit(9999f);
 
@@ -824,7 +828,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 			if (!__instance.levelObject.finalLevel)
 				return;
 
-			if (___elevatorsClosed == 3)
+			if (closedElvCount == 3)
 			{
 				___ec.GetComponent<EnvironmentControllerData>()?.OngoingEvents.ForEach(x => { if (x != null) ___ec.StopCoroutine(x); }); // Disable active/about to activate events
 

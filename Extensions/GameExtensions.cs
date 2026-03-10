@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using BBTimes.CustomComponents;
+﻿using BBTimes.CustomComponents;
 using BBTimes.CustomContent.NPCs;
 using BBTimes.Manager;
 using HarmonyLib;
@@ -9,6 +6,10 @@ using MTM101BaldAPI;
 using MTM101BaldAPI.Registers;
 using PixelInternalAPI.Classes;
 using PixelInternalAPI.Extensions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -54,7 +55,8 @@ namespace BBTimes.Extensions
 			return particleSystem;
 		}
 		static Ray ray = new();
-		public static void Explode(
+
+        public static void Explode(
 			this Transform transform,
 			float explosionRadius,
 			LayerMask collisionLayer,
@@ -635,6 +637,22 @@ namespace BBTimes.Extensions
 			}
 		}
 
-		const int defaultDetentionNoise = 95;
+		// modified qop code
+
+        // Token: 0x06000020 RID: 32 RVA: 0x000023B1 File Offset: 0x000005B1
+        public static int GetElevatorsCount(this EnvironmentController ec)
+        {
+            return ec.ElevatorManager.Elevators.Count;
+        }
+
+        // Token: 0x06000021 RID: 33 RVA: 0x000023C3 File Offset: 0x000005C3
+        public static int GetClosedElevatorsCount(this EnvironmentController ec)
+        {
+            return ec.ElevatorManager.Elevators.Count((Elevator elevator) => elevator.CurrentState == ElevatorState.Closed);
+        }
+
+        //public static ElevatorState state;
+
+        const int defaultDetentionNoise = 95;
 	}
 }
