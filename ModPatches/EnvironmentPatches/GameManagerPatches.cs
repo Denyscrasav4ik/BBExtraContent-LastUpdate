@@ -781,7 +781,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 		{
             int elvCount = ___ec.ElevatorManager.Elevators.Count;
 
-            int closedElvCount = ___ec.ElevatorManager.Elevators.Count((Elevator elv) => elv.CurrentState == ElevatorState.Closed);
+            int closedElvCount = ___ec.ElevatorManager.Elevators.Count((elevator) => elevator.CurrentState == ElevatorState.Closed);
 
             if (___ec.timeOut || __instance.levelObject == null || __instance.GetType() != typeof(MainGameManager) || Singleton<CoreGameManager>.Instance.currentMode == Mode.Free) // MainGameManager expected
 				return;
