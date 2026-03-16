@@ -41,6 +41,7 @@ namespace BBTimes.Manager
 			// Update the all notebooks notification
 			GenericExtensions.FindResourceObjects<MainGameManager>().Do(man => man.allNotebooksNotification = man.name.StartsWith("Lvl2763_") ? soundCRAZY : sound); // hopefully the name pattern stays this way for enternity lol
 
+/*
 			// Level Final Mode
 			AudioMixerGroup group = GenericExtensions.FindResourceObjectByName<AudioMixerGroup>("Effects");
 			var sObj = ScriptableObject.CreateInstance<LoopingSoundObject>();
@@ -69,5 +70,6 @@ namespace BBTimes.Manager
 
 
 		}
+*/
 	}
 }
