@@ -47,6 +47,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
 		// -------------------------
 
+/*
 		[HarmonyPatch("AllNotebooks")]
 		[HarmonyPostfix]
 		private static void BaldiAngerPhase(MainGameManager __instance)
@@ -766,6 +767,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
 			return false;
 		}
+*/
 
 		// Time Out patch here because it's related to below
 		[HarmonyPatch(typeof(TimeOut), "Begin")]
@@ -775,6 +777,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
 		// ******* Elevator *******
 
+/*
 		[HarmonyPatch(typeof(Elevator), "SetState")]
 		[HarmonyPostfix]
 		private static void REDAnimation(Elevator elevator, BaseGameManager __instance, EnvironmentController ___ec)
@@ -898,6 +901,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
 
 			}
+*/
 
 
 
