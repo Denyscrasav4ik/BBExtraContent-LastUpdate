@@ -269,54 +269,6 @@ namespace BBTimes.Manager
 			Cactungus.AddHittableItem(item.itemType);
 			ResourceManager.AddWeightedItemToCrazyMachine(new() { selection = item, weight = 75 });
 
-			// Water Bottle
-			item = new ItemBuilder(plug.Info)
-				.SetItemComponent<ITM_WaterBottle>()
-				.SetGeneratorCost(20)
-				.SetShopPrice(200)
-				.SetNameAndDescription("WBottle_Name", "WBottle_Desc")
-				.SetMeta(ItemFlags.MultipleUse | ItemFlags.Persists, [DRINKTAG])
-				.Build("WaterBottle");
-			//CreatorExtensions.CreateItem<ITM_WaterBottle, CustomItemData>("WaterBottle", "WBottle_Name", "WBottle_Desc", 155, 20).AddMeta(plug, ItemFlags.MultipleUse | ItemFlags.Persists).value;
-			floorDatas[F2].Items.Add(new(item, 15));
-			floorDatas[F3].Items.Add(new(item, 25));
-			floorDatas[END].Items.Add(new(item, 15));
-			floorDatas[F4].Items.Add(new(item, 5));
-			floorDatas[F5].Items.Add(new(item, 5));
-			floorDatas[F1].ShopItems.Add(new() { selection = item, weight = 25 });
-			floorDatas[F2].ShopItems.Add(new() { selection = item, weight = 35 });
-			floorDatas[F3].ShopItems.Add(new() { selection = item, weight = 45 });
-			floorDatas[F4].ShopItems.Add(new() { selection = item, weight = 15 });
-			floorDatas[F5].ShopItems.Add(new() { selection = item, weight = 15 });
-			floorDatas[END].ShopItems.Add(new() { selection = item, weight = 25 });
-			ResourceManager.AddWeightedItemToCrazyMachine(new() { selection = item, weight = 75 });
-
-			// Empty Bottle
-			var newItem = item.DuplicateItem("EBottle_Name", true, newItemEnumString: "EmptyWaterBottle");
-			newItem.descKey = "EBottle_Desc";
-			((ITM_WaterBottle)newItem.item).waterBottle = item;
-
-			var iconSprs = CreatorExtensions.GetAllItemSpritesFrom("EmptyBottle");
-			newItem.itemSpriteLarge = iconSprs[1];
-			newItem.itemSpriteSmall = iconSprs[0];
-			newItem.value = 18;
-			newItem.price = 100;
-
-			((ITM_WaterBottle)item.item).emptyBottle = newItem;
-
-			// Empty Bottle added to the Generator
-			item = newItem;
-
-			floorDatas[F1].Items.Add(new(item, 50));
-			floorDatas[F2].Items.Add(new(item, 45));
-			floorDatas[F3].Items.Add(new(item, 55));
-			floorDatas[END].Items.Add(new(item, 25));
-			floorDatas[F1].ShopItems.Add(new() { selection = item, weight = 45 });
-			floorDatas[F2].ShopItems.Add(new() { selection = item, weight = 75 });
-			floorDatas[F3].ShopItems.Add(new() { selection = item, weight = 55 });
-			floorDatas[END].ShopItems.Add(new() { selection = item, weight = 44 });
-			ResourceManager.AddWeightedItemToCrazyMachine(new() { selection = item, weight = 105 });
-
 			// Pogostick
 			item = new ItemBuilder(plug.Info)
 				.SetItemComponent<ITM_Pogostick>()

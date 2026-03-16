@@ -148,7 +148,7 @@ namespace BBTimes
 			disableOutside = Config.Bind(ENV_SETTINGS, "Disable the outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should slightly increase performance BUT will also change the seed layouts in the game.");
 			disableHighCeilings = Config.Bind(ENV_SETTINGS, "Disable high ceilings", false, "Setting this \"true\" will completely disable the high ceilings from existing in pre-made levels (that includes the ones made with the Level Editor).");
 			enableBigRooms = Config.Bind(ENV_SETTINGS, "Enable big rooms", false, "Setting this \"true\" will add the rest of the layouts Times also comes with. WARNING: These layouts completely unbalance the game, making it a lot harder than the usual.");
-			disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable schoolhouse escape", false, "Setting this to \"true\" will disable entirely the schoolhouse escape sequence (the only exception is for the red sequence).");
+			//disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable schoolhouse escape", false, "Setting this to \"true\" will disable entirely the schoolhouse escape sequence (the only exception is for the red sequence).");
 
 			forceChristmasMode = Config.Bind(SPECIAL_SETTINGS, "Force enable christmas special", false, "Setting this to \"true\" will force the christmas special to be enabled.");
 			forceBaldiMarch31Day = Config.Bind(SPECIAL_SETTINGS, "Force enable March 31 special", false, "Setting this to \"true\" will force the March 31 special to be enabled.");

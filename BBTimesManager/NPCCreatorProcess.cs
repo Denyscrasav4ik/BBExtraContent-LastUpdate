@@ -204,25 +204,6 @@ namespace BBTimes.Manager
 			floorDatas[F2].NPCs.Add(new(npc, 35));
 			floorDatas[END].NPCs.Add(new(npc, 35));
 
-			// Superintendent Jr.
-			npc = new NPCBuilder<SuperIntendentJr>(plug.Info)
-				.SetMinMaxAudioDistance(40f, 180f)
-				.AddSpawnableRoomCategories(RoomCategory.Faculty, RoomCategory.Office)
-				.SetEnum("Superintendentjr")
-				.SetName("Superintendentjr")
-				.SetMetaName("PST_Spj_Name")
-				.AddTrigger()
-				.AddLooker()
-				.SetMetaTags([FACULTY_TAG])
-				.SetMaxSightDistance(155)
-				.Build()
-				.SetupNPCData("SuperintendentJr", "PST_Spj_Name", "PST_Spj_Desc", -1f);
-
-			npc.Navigator.SetRoomAvoidance(false);
-			npc.looker.layerMask = LayerStorage.principalLookerMask;
-			floorDatas[F2].NPCs.Add(new(npc, 25));
-			floorDatas[END].NPCs.Add(new(npc, 65));
-
 			// Leapy
 			npc = new NPCBuilder<Leapy>(plug.Info)
 				.SetMinMaxAudioDistance(25f, 100f)
