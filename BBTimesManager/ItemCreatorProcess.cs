@@ -1030,11 +1030,11 @@ namespace BBTimes.Manager
 			ResourceManager.AddWeightedItemToCrazyMachine(new() { selection = item, weight = 15 });
 
 			// Dirty Cleaning Cloth
-			newItem = item.DuplicateItem("DirtyCleaningCloth_Name", true, "DirtyCleaningCloth");
+			var newItem = item.DuplicateItem("DirtyCleaningCloth_Name", true, "DirtyCleaningCloth");
 			newItem.descKey = "DirtyCleaningCloth_Desc";
 			((ITM_CleaningCloth)newItem.item).cleanClothItem = item;
 			((ITM_CleaningCloth)item.item).dirtyClothItem = newItem;
-			iconSprs = CreatorExtensions.GetAllItemSpritesFrom("DirtyCleaningCloth");
+			var iconSprs = CreatorExtensions.GetAllItemSpritesFrom("DirtyCleaningCloth");
 			newItem.itemSpriteLarge = iconSprs[1];
 			newItem.itemSpriteSmall = iconSprs[0];
 

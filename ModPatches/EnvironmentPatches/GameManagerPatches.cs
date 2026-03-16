@@ -904,7 +904,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 */
 
 
-
+		/*
 			IEnumerator SpawnFires()
 			{
 				float cooldown = fireCooldown;
@@ -940,6 +940,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 			}
 
 		}
+		*/
 
 		static IEnumerator DangerousAngryBaldiAnimation(EnvironmentController ec, Baldi baldi) // Yeah, made the main IEnumerator, then passed through DeepSeek R1 to add random animations to the camera because it's hellish to code that manually
 		{
