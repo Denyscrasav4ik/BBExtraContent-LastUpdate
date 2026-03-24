@@ -181,7 +181,7 @@ namespace BBTimes.CustomContent.CustomItems
 			StartCoroutine(GravitytLoop());
 		}
 
-		public void EntityTriggerEnter(Collider other, bool validCollision)
+		public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!validCollision || hasHit || !other.isTrigger || other.gameObject == owner || !other.TryGetComponent<Entity>(out var e))
 				return;
@@ -190,8 +190,8 @@ namespace BBTimes.CustomContent.CustomItems
 			StartCoroutine(Hit(e));
 		}
 
-		public void EntityTriggerStay(Collider other, bool validCollision) { }
-		public void EntityTriggerExit(Collider other, bool validCollision)
+		public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision) { }
+		public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (validCollision && other.gameObject == owner)
 				owner = null;

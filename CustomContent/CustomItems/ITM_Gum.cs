@@ -75,7 +75,7 @@ namespace BBTimes.CustomContent.CustomItems
 		void HitSomething(RaycastHit hit) { } // Easy way to patch the gum when hitting a wall (BB+ Animations lol)
 #pragma warning restore IDE0060
 
-		public void EntityTriggerEnter(Collider other, bool validCollision)
+		public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!validCollision || other.gameObject == owner || !flying) return;
 
@@ -103,8 +103,8 @@ namespace BBTimes.CustomContent.CustomItems
 			}
 		}
 
-		public void EntityTriggerStay(Collider other, bool validCollision) { }
-		public void EntityTriggerExit(Collider other, bool validCollision) { }
+		public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision) { }
+		public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision) { }
 
 		private IEnumerator Timer(Entity target)
 		{

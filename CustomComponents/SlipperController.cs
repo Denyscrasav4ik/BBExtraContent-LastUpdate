@@ -173,9 +173,9 @@ public class SlipperEffector : MonoBehaviour, IEntityTrigger
 		Destroy(gameObject);
 	}
 
-	public void EntityTriggerEnter(Collider other, bool validCollision) { }
-	public void EntityTriggerStay(Collider other, bool validCollision) { }
-	public void EntityTriggerExit(Collider other, bool validCollision)
+	public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision) { }
+	public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision) { }
+	public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision)
 	{
 		if (other.transform == targetEntity.transform)
 			transform.position = targetEntity.transform.position; // Make sure to always be there

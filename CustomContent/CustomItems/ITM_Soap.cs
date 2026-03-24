@@ -52,7 +52,7 @@ namespace BBTimes.CustomContent.CustomItems
 			return true;
 		}
 
-		public void EntityTriggerEnter(Collider other, bool validCollision)
+		public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!validCollision || !canHitEntities) return;
 
@@ -70,7 +70,7 @@ namespace BBTimes.CustomContent.CustomItems
 				}
 			}
 		}
-		public void EntityTriggerExit(Collider other, bool validCollision)
+		public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (validCollision && target && target.gameObject == other.gameObject)
 			{
@@ -80,7 +80,7 @@ namespace BBTimes.CustomContent.CustomItems
 				canHitEntities = false;
 			}
 		}
-		public void EntityTriggerStay(Collider other, bool validCollision)
+		public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!canCarry) return;
 

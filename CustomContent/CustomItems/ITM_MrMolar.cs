@@ -219,15 +219,15 @@ namespace BBTimes.CustomContent.CustomItems
 			}
 		}
 
-		public void EntityTriggerEnter(Collider other, bool validCollision) { }
+		public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision) { }
 
-		public void EntityTriggerExit(Collider other, bool validCollision)
+		public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (validCollision && owner == other.gameObject)
 				owner = null;
 		}
 
-		public void EntityTriggerStay(Collider other, bool validCollision)
+		public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!validCollision || biting || !active && owner == other.gameObject) return;
 

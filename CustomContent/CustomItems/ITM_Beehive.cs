@@ -102,7 +102,7 @@ namespace BBTimes.CustomContent.CustomItems
 				renderer.transform.localPosition = Random.insideUnitSphere;
 		}
 
-		public void EntityTriggerEnter(Collider other, bool validCollision)
+		public void EntityTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (!validCollision || hasHit || other.gameObject == target) return;
 			bool isnpc = other.CompareTag("NPC");
@@ -126,10 +126,10 @@ namespace BBTimes.CustomContent.CustomItems
 			}
 
 		}
-		public void EntityTriggerStay(Collider other, bool validCollision)
+		public void EntityTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
 		}
-		public void EntityTriggerExit(Collider other, bool validCollision)
+		public void EntityTriggerExit(Entity otherEntity, Collider other, bool validCollision)
 		{
 			if (validCollision && other.gameObject == target)
 				target = null;

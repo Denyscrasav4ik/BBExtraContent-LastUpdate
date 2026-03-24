@@ -153,9 +153,9 @@ namespace BBTimes.CustomContent.Misc
 
 		}
 
-		public override void OnStateTriggerStay(Collider other, bool validCollision)
+		public override void OnStateTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
-			base.OnStateTriggerStay(other, validCollision);
+			base.OnStateTriggerStay(otherEntity, other, validCollision);
 			if (other.gameObject == target.gameObject)
 			{
 				if (validCollision)
