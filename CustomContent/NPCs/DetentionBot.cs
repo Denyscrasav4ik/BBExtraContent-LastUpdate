@@ -314,9 +314,9 @@ namespace BBTimes.CustomContent.NPCs
 				navPm.UpdatePosition(troubleMaker.transform.position);
 		}
 
-		public override void OnStateTriggerStay(Collider other, bool validCollision)
+		public override void OnStateTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
-			base.OnStateTriggerStay(other, validCollision);
+			base.OnStateTriggerStay(otherEntity, other, validCollision);
 			if (other.gameObject == troubleMaker.gameObject)
 				bot.behaviorStateMachine.ChangeState(new DetentionBot_CarryEntity(bot, troubleMaker.Entity, !validCollision, npc: troubleMaker));
 		}

@@ -957,9 +957,9 @@ namespace BBTimes.CustomContent.NPCs
 			ChangeNavigationState(new NavigationState_WanderRandom(dr, 0));
 		}
 
-		public override void OnStateTriggerEnter(Collider other, bool validCollision)
+		public override void OnStateTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
-			base.OnStateTriggerEnter(other, validCollision);
+			base.OnStateTriggerEnter(otherEntity, other, validCollision);
 			if (other.isTrigger && validCollision && other.CompareTag("NPC"))
 			{
 				var e = other.GetComponent<Entity>();
@@ -968,9 +968,9 @@ namespace BBTimes.CustomContent.NPCs
 			}
 		}
 
-		public override void OnStateTriggerStay(Collider other, bool validCollision)
+		public override void OnStateTriggerStay(Entity otherEntity, Collider other, bool validCollision)
 		{
-			base.OnStateTriggerStay(other, validCollision);
+			base.OnStateTriggerStay(otherEntity, other, validCollision);
 			if (other.isTrigger && other.CompareTag("Player"))
 			{
 				var pm = other.GetComponent<PlayerManager>();
@@ -1115,9 +1115,9 @@ namespace BBTimes.CustomContent.NPCs
 			state.UpdatePosition(pm.transform.position);
 		}
 
-		public override void OnStateTriggerEnter(Collider other, bool validCollision)
+		public override void OnStateTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
 		{
-			base.OnStateTriggerEnter(other, validCollision);
+			base.OnStateTriggerEnter(otherEntity, other, validCollision);
 			if (other.isTrigger)
 			{
 				if (other.CompareTag("Player"))
