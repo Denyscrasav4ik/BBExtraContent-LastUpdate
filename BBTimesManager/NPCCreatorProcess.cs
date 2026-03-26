@@ -307,23 +307,6 @@ namespace BBTimes.Manager
 			floorDatas[F3].NPCs.Add(new(npc, 23));
 			floorDatas[END].NPCs.Add(new(npc, 44));
 
-			// Camera Stand
-			npc = new NPCBuilder<CameraStand>(plug.Info)
-				.SetMinMaxAudioDistance(30f, 110f)
-				.AddSpawnableRoomCategories(RoomCategory.Hall)
-				.SetEnum("Camerastand")
-				.SetMetaName("PST_CamSt_Name")
-				.SetName("CameraStand")
-				.AddLooker()
-				.SetMetaTags([NEITHER_TAG])
-				.AddTrigger()
-				.Build()
-				.SetupNPCData("CameraStand", "PST_CamSt_Name", "PST_CamSt_Desc", -0.75f);
-
-			npc.looker.layerMask = LayerStorage.principalLookerMask;
-			floorDatas[F2].NPCs.Add(new(npc, 35));
-			floorDatas[END].NPCs.Add(new(npc, 66));
-
 			// Cactungus
 			npc = new NPCBuilder<Cactungus>(plug.Info)
 				.SetMinMaxAudioDistance(30f, 100f)
@@ -600,25 +583,6 @@ namespace BBTimes.Manager
 
 			floorDatas[F2].NPCs.Add(new(npc, 55));
 			floorDatas[END].NPCs.Add(new(npc, 32));
-
-			// Everett Treewood
-			npc = new NPCBuilder<EverettTreewood>(plug.Info)
-				.SetMinMaxAudioDistance(45f, 135f)
-				.SetEnum("EverettTreewood")
-				.SetMetaName("PST_EverettTree_Name")
-				.SetName("EverettTreewood")
-				.SetMetaTags([NEITHER_TAG, Storage.ChristmasSpecial_TimesTag])
-				.AddTrigger()
-				.SetForcedSubtitleColor(new(0f, 0.5f, 0.16796875f))
-				.AddLooker()
-				.SetMaxSightDistance(100f)
-				.Build()
-				.SetupNPCData("EverettTreewood", "PST_EverettTree_Name", "PST_EverettTree_Desc", -0.5f);
-
-			npc.looker.layerMask = LayerStorage.principalLookerMask;
-
-			floorDatas[F2].NPCs.Add(new(npc, 10));
-			floorDatas[END].NPCs.Add(new(npc, 35));
 
 			// Mr. Kreye
 			npc = new NPCBuilder<MrKreye>(plug.Info)

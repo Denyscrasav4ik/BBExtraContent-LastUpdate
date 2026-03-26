@@ -30,9 +30,9 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 		public const string TimesPrefix = "times_";
 		// NPCs
 		static readonly string[] allNpcs = [
-			"ZeroPrize", "Adverto", "Bubbly", "Camerastand",
+			"ZeroPrize", "Adverto", "Bubbly",
 				"CheeseMan", "CoolMop", "DetentionBot", "Dribble",
-				"EverettTreewood", "Faker", "Glubotrony",
+				"Faker", "Glubotrony",
 				"HappyHolidays", "InkArtist", "PuddingFan",
 				"Leapy", "Magicalstudent", "Mopliss",
 				"MrKreye", "Cactungus", "NoseMan", "OfficeChair",
