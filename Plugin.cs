@@ -963,7 +963,7 @@ namespace BBTimes
 
 		public const string PLUGIN_GUID = "pixelguy.pixelmodding.baldiplus.bbextracontent";
 
-		public const string PLUGIN_NAME = "Times Revived";
+		public const string PLUGIN_NAME = "BB+ Extra Content";
 	}
 
 	// Some cheats
