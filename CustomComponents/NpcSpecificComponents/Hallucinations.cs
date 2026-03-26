@@ -8,13 +8,14 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 {
 	public class Hallucinations : MonoBehaviour
 	{
-		Watcher watcher;
+		//Watcher watcher;
 		DijkstraMap map;
 
+		/*
 		public void AttachToPlayer(PlayerManager pm, Watcher watcher)
 		{
 			if (initialized) return;
-			this.watcher = watcher;
+			//this.watcher = watcher;
 			target = pm;
 			ec = pm.ec;
 			initialized = true;
@@ -26,6 +27,7 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			activeHallucinations.Add(new(this, pm));
 			mainCoroutine = StartCoroutine(Hallucinating());
 		}
+		*/
 
 		IEnumerator Hallucinating()
 		{
@@ -84,8 +86,8 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 			if (other.isTrigger && other.CompareTag("Player") && other.gameObject == target.gameObject)
 			{
 				// Cumulative Fog
-				watcher.CreateOrIncreaseFog();
-				watcher.SetTimeToWatcherEffect(effectCooldown);
+				//watcher.CreateOrIncreaseFog();
+				//watcher.SetTimeToWatcherEffect(effectCooldown);
 
 				if (!target.pc.reachExtensions.Contains(reachExt))
 					target.pc.reachExtensions.Add(reachExt);
@@ -134,7 +136,7 @@ namespace BBTimes.CustomComponents.NpcSpecificComponents
 		{
 			if (isDespawning)
 			{
-				watcher.DecrementFog();
+				//watcher.DecrementFog();
 				target?.pc.reachExtensions.Remove(reachExt);
 			}
 		}
