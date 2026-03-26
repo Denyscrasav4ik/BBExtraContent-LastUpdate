@@ -55,7 +55,7 @@ namespace BBTimes
         return Chainloader.PluginInfos.Values.Any(p =>
             p.Instance != null &&
             p.Instance.GetType().Namespace != null &&
-            p.Instance.GetType().Namespace.Contains("Ukrainization"));
+            p.Instance.GetType().Namespace.Contains(Storage.guid_Ukrainization));
     }
 		IEnumerator SetupFinal()
 		{
