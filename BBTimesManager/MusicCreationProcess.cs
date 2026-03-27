@@ -48,7 +48,16 @@ namespace BBTimes.Manager
             };
 
             GenericExtensions.FindResourceObjects<MainGameManager>().Do(man =>
-                man.allNotebooksNotification = man.name.StartsWith("Lvl99999_") ? soundFinal : soundNormal);
+            {
+                if (man.levelObject != null && man.levelObject.finalLevel)
+                {
+                    man.allNotebooksNotification = MainGameManagerPatches.angryBal;
+                }
+                else
+                {
+                    man.allNotebooksNotification = soundNormal;
+                }
+            });
 
             var loop0 = ScriptableObject.CreateInstance<LoopingSoundObject>();
             loop0.clips = new AudioClip[] { AssetLoader.AudioClipFromFile(Path.Combine(MiscPath, AudioFolder, "Quiet_noise_loop.wav")) };
