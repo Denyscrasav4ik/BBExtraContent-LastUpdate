@@ -366,4 +366,3 @@ FodyWeavers.xsd
 # Project itself
 BBTimes.csproj
 global.json
-Assembly-CSharp.dll
