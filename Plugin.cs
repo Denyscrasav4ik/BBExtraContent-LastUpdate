@@ -48,7 +48,7 @@ namespace BBTimes
     // [BepInDependency("Rad.cmr.baldiplus.arcaderenovations", BepInDependency.DependencyFlags.SoftDependency)]
 
 
-    [BepInPlugin(ModInfo.PLUGIN_GUID, ModInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+    [BepInPlugin(ModInfo.PLUGIN_GUID, ModInfo.PLUGIN_NAME, ModInfo.PLUGIN_VERSION)]
     public class BasePlugin : BaseUnityPlugin
     {
         bool IsUkrainizationLoaded()
@@ -964,6 +964,8 @@ namespace BBTimes
         public const string PLUGIN_GUID = "pixelguy.pixelmodding.baldiplus.bbextracontent";
 
         public const string PLUGIN_NAME = "BB+ Extra Content";
+
+        public const string PLUGIN_VERSION = "1.4";
     }
 
     // Some cheats
