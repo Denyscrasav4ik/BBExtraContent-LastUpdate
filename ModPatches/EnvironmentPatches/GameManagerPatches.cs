@@ -65,11 +65,14 @@ namespace BBTimes.ModPatches.EnvironmentPatches
             if (!__instance.levelObject.finalLevel || !___allNotebooksFound || BBTimesManager.plug.disableRedEndingCutscene.Value) return true;
 
             bool explorerMode = Singleton<CoreGameManager>.Instance.currentMode == Mode.Free;
-            __instance.Ec.AddTimeScale(new(0f, 1f, 0f));
 
-            var elevator = __instance.Ec.Elevators.FirstOrDefault(x => x.GateIsOpen);
+            // FIX: Find the elevator that is currently finishing the level
+            var elevator = __instance.Ec.Elevators.FirstOrDefault(x => x.CurrentState == ElevatorState.FinishingLevel)
+                           ?? __instance.Ec.Elevators.FirstOrDefault(x => x.GateIsOpen);
+
             if (!elevator) return true;
 
+            __instance.Ec.AddTimeScale(new(0f, 1f, 0f));
             var cam = new GameObject("CameraView").AddComponent<Camera>();
             cam.gameObject.AddComponent<CullAffector>();
             var player = Singleton<CoreGameManager>.Instance.GetPlayer(0);
@@ -104,7 +107,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
             Vector3 elvCenterPos = elevator.Door.bTile.CenterWorldPosition;
             Vector3 elvFrontPos = elevator.Door.aTile.CenterWorldPosition;
             Vector3 frontOfElevatorPos = __instance.Ec.CellFromPosition(elevator.Door.aTile.position + elevatorDir.ToIntVector2()).CenterWorldPosition;
-            frontOfElevatorPos.y = explorerMode ? 3.9f : schoolBaldi.spriteRenderer[0].transform.position.y;
+            frontOfElevatorPos.y = explorerMode ? 3.9f : (schoolBaldi ? schoolBaldi.spriteRenderer[0].transform.position.y : 0);
 
             var baldi = Object.Instantiate(placeholderBaldi);
             if (!explorerMode) baldi.sprite = normalBaldiSprite;
@@ -128,7 +131,6 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 float[] times = new float[maxIndex], deltas = new float[maxIndex], maxTs = new float[maxIndex];
                 int finishedTimes = 0;
                 float bobFrequency = 0f, bobMagnitude = 0f;
-                Vector3 bobOffset = Vector3.zero;
 
                 cam.transform.position = elvFrontPos + elevatorDir.ToVector3() * 1.75f;
                 cam.transform.rotation = elevatorFacingDir.ToRotation();
@@ -182,15 +184,14 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 if (!explorerMode && slapSound) Singleton<CoreGameManager>.Instance.audMan.PlaySingle(slapSound);
                 yield return new WaitForSecondsRealtime(ENTRANCE_TO_ELEVATOR_NOTICE_DELAY);
 
-                bobFrequency = 1.5f; bobMagnitude = 0.015f;
                 Cell[] cellsToSpawnFire = [
-                    __instance.Ec.CellFromPosition(__instance.Ec.CellFromPosition(frontOfElevatorPos).position + elevatorDir.PerpendicularList()[0].ToIntVector2()),
-                    __instance.Ec.CellFromPosition(__instance.Ec.CellFromPosition(frontOfElevatorPos).position + elevatorDir.PerpendicularList()[1].ToIntVector2()),
-                    __instance.Ec.CellFromPosition(el.Door.aTile.position + elevatorDir.PerpendicularList()[0].ToIntVector2()),
-                    __instance.Ec.CellFromPosition(el.Door.aTile.position + elevatorDir.PerpendicularList()[1].ToIntVector2()),
+                    man.Ec.CellFromPosition(man.Ec.CellFromPosition(frontOfElevatorPos).position + elevatorDir.PerpendicularList()[0].ToIntVector2()),
+                    man.Ec.CellFromPosition(man.Ec.CellFromPosition(frontOfElevatorPos).position + elevatorDir.PerpendicularList()[1].ToIntVector2()),
+                    man.Ec.CellFromPosition(el.Door.aTile.position + elevatorDir.PerpendicularList()[0].ToIntVector2()),
+                    man.Ec.CellFromPosition(el.Door.aTile.position + elevatorDir.PerpendicularList()[1].ToIntVector2()),
                 ];
 
-                for (int amount = 0; amount < 4; amount++) { foreach (var cell_f in cellsToSpawnFire) AddFire(cell_f, __instance.Ec, 1f); }
+                for (int amount = 0; amount < 4; amount++) { foreach (var cell_f in cellsToSpawnFire) AddFire(cell_f, man.Ec, 1f); }
 
                 rotStart = cam.transform.rotation; rotEnd = Quaternion.Euler(0f, elevatorFacingDir.ToDegrees(), 0f);
                 for (int i = 0; i < maxIndex; i++) { times[i] = 0f; deltas[i] = 0f; }
@@ -290,7 +291,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
                 cam.transform.position = startPos;
                 el.audMan.PlaySingle(bal_explosionOutside);
-                __instance.StartCoroutine(TriggerExplosions());
+                man.StartCoroutine(TriggerExplosions());
 
             explorerModeSkip:
                 yield return new WaitForSecondsRealtime(POST_ENCOUNTER_DELAY * (explorerMode ? 2.25f : 0.25f));
@@ -351,21 +352,20 @@ namespace BBTimes.ModPatches.EnvironmentPatches
         [HarmonyPostfix]
         static void FixMusicSpeed() => Singleton<MusicManager>.Instance.SetSpeed(1f);
 
-        // ******* Elevator *******
-
         [HarmonyPatch(typeof(Elevator), "SetState")]
         [HarmonyPostfix]
-        private static void REDAnimation(Elevator __instance, EnvironmentController ___ec) // FIXED: __instance must be Elevator
+        private static void REDAnimation(Elevator __instance, EnvironmentController ___ec)
         {
-            // Fetch manager from Singleton inside the method
             var manager = Singleton<BaseGameManager>.Instance;
-
-            int closedElvCount = ___ec.ElevatorManager.Elevators.Count((e) => e.CurrentState == ElevatorState.Closed);
-
             if (___ec.timeOut || manager.levelObject == null || manager is not MainGameManager || Singleton<CoreGameManager>.Instance.currentMode == Mode.Free)
                 return;
 
-            if (closedElvCount == 1)
+            if (!manager.AllNotebooksFound) return;
+
+            int brokenCount = ___ec.ElevatorManager.Elevators.Count(e => e.CurrentState == ElevatorState.OutOfOrder);
+            bool isFinishing = __instance.CurrentState == ElevatorState.FinishingLevel;
+
+            if (brokenCount == 1 && __instance.CurrentState == ElevatorState.OutOfOrder)
             {
                 Shader.SetGlobalColor("_SkyboxColor", Color.red);
                 var levelbox = Object.FindObjectOfType<Structure_LevelBox>();
@@ -377,14 +377,14 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                             meshRenderer.material.SetColor("_TextureColor", Color.red);
                     }
                 }
-
                 Singleton<MusicManager>.Instance.SetSpeed(0.1f);
                 manager.StartCoroutine(___ec.LightChanger(___ec.AllExistentCells(), 0.2f));
                 if (manager.levelObject.finalLevel)
                     Singleton<MusicManager>.Instance.QueueFile(chaos0, true);
                 return;
             }
-            if (closedElvCount == 2)
+
+            if (brokenCount == 2 && __instance.CurrentState == ElevatorState.OutOfOrder)
             {
                 ___ec.SetTimeLimit(9999f);
                 Singleton<MusicManager>.Instance.StopFile();
@@ -395,55 +395,60 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 return;
             }
 
-            if (!manager.levelObject.finalLevel) return;
+            if (!manager.levelObject.finalLevel || !isFinishing) return;
 
-            if (closedElvCount == 3)
+            ___ec.GetComponent<EnvironmentControllerData>()?.OngoingEvents.ForEach(x => { if (x != null) ___ec.StopCoroutine(x); });
+            for (int i = 0; i < ___ec.CurrentEventTypes.Count; i++)
             {
-                ___ec.GetComponent<EnvironmentControllerData>()?.OngoingEvents.ForEach(x => { if (x != null) ___ec.StopCoroutine(x); });
-                for (int i = 0; i < ___ec.CurrentEventTypes.Count; i++)
-                {
-                    var v2 = ___ec.GetEvent(___ec.CurrentEventTypes[i]);
-                    if (v2.Active) v2.EndEarlier();
-                }
-
-                foreach (var c in ___ec.AllExistentCells()) { c.permanentLight = true; ___ec.GenerateLight(c, Color.red, 1, true); c.SetPower(true); }
-
-                var gate = __instance.transform.Find("Gate");
-                if (gate != null && gateTextures != null && gateTextures.Length >= 3)
-                {
-                    gate.transform.Find("Gate (1)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[0];
-                    gate.transform.Find("Gate (0)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[1];
-                    gate.transform.Find("Gate (2)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[2];
-                }
-
-                Singleton<MusicManager>.Instance.QueueFile(chaos2, true);
-                if (!Singleton<PlayerFileManager>.Instance.reduceFlashing) { ___ec.standardDarkLevel = new Color(0.2f, 0f, 0f); ___ec.FlickerLights(true); }
-                for (int i = 0; i < Singleton<MusicManager>.Instance.MidiPlayer.Channels.Length; i++) Singleton<MusicManager>.Instance.MidiPlayer.MPTK_ChannelEnableSet(i, false);
-
-                Baldi baldiToFollow = null;
-                for (int i = 0; i < ___ec.Npcs.Count; i++)
-                {
-                    var npc = ___ec.Npcs[i];
-                    try
-                    {
-                        if (npc is Baldi bald) { ___ec.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f)); if (npc.Character == Character.Baldi) baldiToFollow = bald; continue; }
-                        npc.Despawn(); i--;
-                    }
-                    catch { Object.Destroy(npc.gameObject); ___ec.Npcs.RemoveAt(i--); }
-                }
-                ___ec.StartCoroutine(SpawnFires());
-                if (baldiToFollow) ___ec.StartCoroutine(DangerousAngryBaldiAnimation(___ec, baldiToFollow));
+                var v2 = ___ec.GetEvent(___ec.CurrentEventTypes[i]);
+                if (v2.Active) v2.EndEarlier();
             }
 
-            IEnumerator SpawnFires()
+            foreach (var c in ___ec.AllExistentCells()) { c.permanentLight = true; ___ec.GenerateLight(c, Color.red, 1, true); c.SetPower(true); }
+
+            var gate = __instance.transform.Find("Gate");
+            if (gate != null && gateTextures != null && gateTextures.Length >= 3)
+            {
+                gate.transform.Find("Gate (1)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[0];
+                gate.transform.Find("Gate (0)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[1];
+                gate.transform.Find("Gate (2)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[2];
+            }
+
+            Singleton<MusicManager>.Instance.QueueFile(chaos2, true);
+            if (!Singleton<PlayerFileManager>.Instance.reduceFlashing) { ___ec.standardDarkLevel = new Color(0.2f, 0f, 0f); ___ec.FlickerLights(true); }
+            for (int i = 0; i < Singleton<MusicManager>.Instance.MidiPlayer.Channels.Length; i++) Singleton<MusicManager>.Instance.MidiPlayer.MPTK_ChannelEnableSet(i, false);
+
+            Baldi baldiToFollow = null;
+            for (int i = 0; i < ___ec.Npcs.Count; i++)
+            {
+                var npc = ___ec.Npcs[i];
+                try
+                {
+                    if (npc is Baldi bald) { ___ec.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f)); if (npc.Character == Character.Baldi) baldiToFollow = bald; continue; }
+                    npc.Despawn(); i--;
+                }
+                catch { Object.Destroy(npc.gameObject); ___ec.Npcs.RemoveAt(i--); }
+            }
+            ___ec.StartCoroutine(SpawnFires(___ec));
+            if (baldiToFollow) ___ec.StartCoroutine(DangerousAngryBaldiAnimation(___ec, baldiToFollow));
+
+            IEnumerator SpawnFires(EnvironmentController ec)
             {
                 float cooldown = fireCooldown, maxCooldown = fireCooldown;
-                var cs = ___ec.AllTilesNoGarbage(false, true);
-                foreach (var el in ___ec.Elevators) { cs.Remove(el.Door.aTile); cs.Remove(___ec.CellFromPosition(el.Door.aTile.position + el.Door.direction.PerpendicularList()[0].ToIntVector2())); cs.Remove(___ec.CellFromPosition(el.Door.aTile.position + el.Door.direction.PerpendicularList()[1].ToIntVector2())); }
+                var cs = ec.AllTilesNoGarbage(false, true);
+                foreach (var el in ec.Elevators) { cs.Remove(el.Door.aTile); }
                 while (cs.Count != 0)
                 {
-                    cooldown -= Time.deltaTime * ___ec.EnvironmentTimeScale;
-                    if (cooldown <= 0f) { var c = Random.Range(0, cs.Count); maxCooldown = Mathf.Max(0.03f, maxCooldown - ___ec.EnvironmentTimeScale * 1.2f); cooldown += maxCooldown; AddFire(cs[c], ___ec); cs.RemoveAt(c); }
+                    // FIX: Use Time.deltaTime (unscaled by EnvironmentTimeScale) so fires spawn even during the "time freeze" animation
+                    cooldown -= Time.deltaTime;
+                    if (cooldown <= 0f)
+                    {
+                        var c = Random.Range(0, cs.Count);
+                        maxCooldown = Mathf.Max(0.03f, maxCooldown - 0.05f);
+                        cooldown += maxCooldown;
+                        AddFire(cs[c], ec);
+                        cs.RemoveAt(c);
+                    }
                     yield return null;
                 }
             }
@@ -491,15 +496,12 @@ namespace BBTimes.ModPatches.EnvironmentPatches
         }
 
         const float fireCooldown = 3f;
-        internal static LoopingSoundObject chaos0;
-        internal static LoopingSoundObject chaos1;
-        internal static LoopingSoundObject chaos2;
-        internal static SoundObject angryBal;
+        internal static LoopingSoundObject chaos0, chaos1, chaos2;
+        internal static SoundObject angryBal, bal_bangDoor, bal_explosionOutside;
         internal static GameObject fire;
         internal static Texture2D[] gateTextures = new Texture2D[3];
         internal static SpriteRenderer placeholderBaldi;
         internal static Sprite cardboardBaldi;
-        internal static SoundObject bal_bangDoor, bal_explosionOutside;
         internal static Sprite[] angryBaldiAnimation;
     }
 
