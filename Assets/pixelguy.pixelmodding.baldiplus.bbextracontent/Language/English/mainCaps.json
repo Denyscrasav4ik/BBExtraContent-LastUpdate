@@ -4,6 +4,10 @@
       "key": "Men_TimesMainMenu_Name",
       "value": "BBP in Extra Content Main Menu"
     },
+    {
+      "key": "BBTimes_ModInfo",
+      "value": "BBExtraContent: V1.4\nMade by:\nEkremTheStickman\nDenysCrasav4ik\n\nOriginal by: PixelGuy"
+    },
     { "key": "Vfx_VentGasLeak", "value": "*Gas Leaking*" },
     { "key": "Vfx_GumSplash", "value": "*SPLASH!*" },
     { "key": "Vfx_WindowHit", "value": "*Hit*" },

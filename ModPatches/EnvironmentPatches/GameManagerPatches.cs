@@ -66,8 +66,9 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
             bool explorerMode = Singleton<CoreGameManager>.Instance.currentMode == Mode.Free;
 
-            var elevator = __instance.Ec.Elevators.FirstOrDefault(x => x.CurrentState == ElevatorState.FinishingLevel)
-                           ?? __instance.Ec.Elevators.FirstOrDefault(x => x.GateIsOpen);
+            var elevatorsInScene = Object.FindObjectsOfType<Elevator>();
+            var elevator = elevatorsInScene.FirstOrDefault(x => x.CurrentState == ElevatorState.FinishingLevel)
+                           ?? elevatorsInScene.FirstOrDefault(x => x.GateIsOpen);
 
             if (!elevator) return true;
 
@@ -350,6 +351,18 @@ namespace BBTimes.ModPatches.EnvironmentPatches
         [HarmonyPatch(typeof(TimeOut), "Begin")]
         [HarmonyPostfix]
         static void FixMusicSpeed() => Singleton<MusicManager>.Instance.SetSpeed(1f);
+
+        [HarmonyPatch(typeof(Elevator), "SetState")]
+        [HarmonyPrefix]
+        private static bool PreventDoorCloseOnFinish(ElevatorState state, ref Cell ___lightCell)
+        {
+            if (state == ElevatorState.FinishingLevel)
+            {
+                if (___lightCell != null) ___lightCell.SetLight(true);
+                return false;
+            }
+            return true;
+        }
 
         [HarmonyPatch(typeof(Elevator), "SetState")]
         [HarmonyPostfix]

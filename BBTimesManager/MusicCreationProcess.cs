@@ -13,11 +13,14 @@ namespace BBTimes.Manager
 {
     internal static partial class BBTimesManager
     {
+        internal static SoundObject soundNormal;
+        internal static SoundObject soundFinal;
+
         static void GetMusics()
         {
             AudioMixerGroup effectGroup = GenericExtensions.FindResourceObjectByName<AudioMixerGroup>("Effects");
 
-            var soundNormal = ObjectCreators.CreateSoundObject(
+            soundNormal = ObjectCreators.CreateSoundObject(
                 AssetLoader.AudioClipFromFile(Path.Combine(MiscPath, AudioFolder, "BAL_AllNotebooksNormal.wav")),
                 "Vfx_BAL_CongratsNormal_0",
                 SoundType.Effect, Color.green);
@@ -32,7 +35,7 @@ namespace BBTimes.Manager
                 new() { key = "Vfx_BAL_AllNotebooks_5", time = 14.602f}
             };
 
-            var soundFinal = ObjectCreators.CreateSoundObject(
+            soundFinal = ObjectCreators.CreateSoundObject(
                 AssetLoader.AudioClipFromFile(Path.Combine(MiscPath, AudioFolder, "BAL_AllNotebooksFinal.wav")),
                 "Vfx_BAL_CongratsNormal_0",
                 SoundType.Effect, Color.green);
@@ -47,20 +50,10 @@ namespace BBTimes.Manager
                 new() { key = "Vfx_BAL_AllNotebooks_5", time = 14.382f}
             };
 
-            GenericExtensions.FindResourceObjects<MainGameManager>().Do(man =>
-            {
-                if (man.levelObject != null && man.levelObject.finalLevel)
-                {
-                    man.allNotebooksNotification = MainGameManagerPatches.angryBal;
-                }
-                else
-                {
-                    man.allNotebooksNotification = soundNormal;
-                }
-            });
-
             var loop0 = ScriptableObject.CreateInstance<LoopingSoundObject>();
-            loop0.clips = new AudioClip[] { AssetLoader.AudioClipFromFile(Path.Combine(MiscPath, AudioFolder, "Quiet_noise_loop.wav")) };
+            loop0.clips = new AudioClip[] {
+                AssetLoader.AudioClipFromFile(Path.Combine(MiscPath, AudioFolder, "Quiet_noise_loop.wav"))
+            };
             loop0.mixer = effectGroup;
             MainGameManagerPatches.chaos0 = loop0;
 
@@ -92,6 +85,27 @@ namespace BBTimes.Manager
                 new() { key = "Vfx_BAL_ANGRY_4", time = 1.113f },
                 new() { key = "Vfx_BAL_ANGRY_5", time = 1.738f }
             };
+        }
+    }
+
+    [HarmonyPatch(typeof(MainGameManager), "AllNotebooks")]
+    internal class MGM_AssignNotebookAudio
+    {
+        static void Prefix(MainGameManager __instance)
+        {
+            if (__instance == null)
+                return;
+
+            var level = __instance.levelObject;
+
+            if (level != null && level.finalLevel)
+            {
+                __instance.allNotebooksNotification = BBTimesManager.soundFinal;
+            }
+            else
+            {
+                __instance.allNotebooksNotification = BBTimesManager.soundNormal;
+            }
         }
     }
 }
