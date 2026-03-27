@@ -1478,6 +1478,22 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:MTM101BaldAPI.ObjectCreation.BaseGameManagerBuilder`1.SetLevelFinishDelay(System.Single)">
+            <summary>
+            Sets the delay from when the level is completed to when it is actually completed.
+            Defaults to 1 second.
+            </summary>
+            <param name="delay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MTM101BaldAPI.ObjectCreation.BaseGameManagerBuilder`1.SetAutomaticMapCompletion(System.Boolean)">
+            <summary>
+            Sets if the map should complete automatically.
+            Defaults to false.
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
         <member name="M:MTM101BaldAPI.ObjectCreation.BaseGameManagerBuilder`1.SetLevelNumber(System.Int32)">
             <summary>
             Sets the level number for this GameManager.
