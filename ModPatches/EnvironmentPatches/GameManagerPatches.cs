@@ -62,11 +62,10 @@ namespace BBTimes.ModPatches.EnvironmentPatches
         [HarmonyPrefix]
         static bool PlayCutscene(MainGameManager __instance, bool ___allNotebooksFound)
         {
-            if (!__instance.levelObject.finalLevel || !___allNotebooksFound || BBTimesManager.plug.disableRedEndingCutscene.Value) return true;
+            if (__instance.levelObject == null || !__instance.levelObject.finalLevel || !___allNotebooksFound || BBTimesManager.plug.disableRedEndingCutscene.Value) return true;
 
             bool explorerMode = Singleton<CoreGameManager>.Instance.currentMode == Mode.Free;
 
-            // FIX: Find the elevator that is currently finishing the level
             var elevator = __instance.Ec.Elevators.FirstOrDefault(x => x.CurrentState == ElevatorState.FinishingLevel)
                            ?? __instance.Ec.Elevators.FirstOrDefault(x => x.GateIsOpen);
 
@@ -363,7 +362,6 @@ namespace BBTimes.ModPatches.EnvironmentPatches
             if (!manager.AllNotebooksFound) return;
 
             int brokenCount = ___ec.ElevatorManager.Elevators.Count(e => e.CurrentState == ElevatorState.OutOfOrder);
-            bool isFinishing = __instance.CurrentState == ElevatorState.FinishingLevel;
 
             if (brokenCount == 1 && __instance.CurrentState == ElevatorState.OutOfOrder)
             {
@@ -395,62 +393,62 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 return;
             }
 
-            if (!manager.levelObject.finalLevel || !isFinishing) return;
-
-            ___ec.GetComponent<EnvironmentControllerData>()?.OngoingEvents.ForEach(x => { if (x != null) ___ec.StopCoroutine(x); });
-            for (int i = 0; i < ___ec.CurrentEventTypes.Count; i++)
+            if (brokenCount == 3 && __instance.CurrentState == ElevatorState.OutOfOrder && manager.levelObject.finalLevel)
             {
-                var v2 = ___ec.GetEvent(___ec.CurrentEventTypes[i]);
-                if (v2.Active) v2.EndEarlier();
-            }
-
-            foreach (var c in ___ec.AllExistentCells()) { c.permanentLight = true; ___ec.GenerateLight(c, Color.red, 1, true); c.SetPower(true); }
-
-            var gate = __instance.transform.Find("Gate");
-            if (gate != null && gateTextures != null && gateTextures.Length >= 3)
-            {
-                gate.transform.Find("Gate (1)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[0];
-                gate.transform.Find("Gate (0)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[1];
-                gate.transform.Find("Gate (2)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[2];
-            }
-
-            Singleton<MusicManager>.Instance.QueueFile(chaos2, true);
-            if (!Singleton<PlayerFileManager>.Instance.reduceFlashing) { ___ec.standardDarkLevel = new Color(0.2f, 0f, 0f); ___ec.FlickerLights(true); }
-            for (int i = 0; i < Singleton<MusicManager>.Instance.MidiPlayer.Channels.Length; i++) Singleton<MusicManager>.Instance.MidiPlayer.MPTK_ChannelEnableSet(i, false);
-
-            Baldi baldiToFollow = null;
-            for (int i = 0; i < ___ec.Npcs.Count; i++)
-            {
-                var npc = ___ec.Npcs[i];
-                try
+                ___ec.GetComponent<EnvironmentControllerData>()?.OngoingEvents.ForEach(x => { if (x != null) ___ec.StopCoroutine(x); });
+                for (int i = 0; i < ___ec.CurrentEventTypes.Count; i++)
                 {
-                    if (npc is Baldi bald) { ___ec.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f)); if (npc.Character == Character.Baldi) baldiToFollow = bald; continue; }
-                    npc.Despawn(); i--;
+                    var v2 = ___ec.GetEvent(___ec.CurrentEventTypes[i]);
+                    if (v2.Active) v2.EndEarlier();
                 }
-                catch { Object.Destroy(npc.gameObject); ___ec.Npcs.RemoveAt(i--); }
-            }
-            ___ec.StartCoroutine(SpawnFires(___ec));
-            if (baldiToFollow) ___ec.StartCoroutine(DangerousAngryBaldiAnimation(___ec, baldiToFollow));
 
-            IEnumerator SpawnFires(EnvironmentController ec)
-            {
-                float cooldown = fireCooldown, maxCooldown = fireCooldown;
-                var cs = ec.AllTilesNoGarbage(false, true);
-                foreach (var el in ec.Elevators) { cs.Remove(el.Door.aTile); }
-                while (cs.Count != 0)
+                foreach (var c in ___ec.AllExistentCells()) { c.permanentLight = true; ___ec.GenerateLight(c, Color.red, 1, true); c.SetPower(true); }
+
+                var gate = __instance.transform.Find("Gate");
+                if (gate != null && gateTextures != null && gateTextures.Length >= 3)
                 {
-                    // FIX: Use Time.deltaTime (unscaled by EnvironmentTimeScale) so fires spawn even during the "time freeze" animation
-                    cooldown -= Time.deltaTime;
-                    if (cooldown <= 0f)
+                    gate.transform.Find("Gate (1)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[0];
+                    gate.transform.Find("Gate (0)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[1];
+                    gate.transform.Find("Gate (2)").GetComponent<MeshRenderer>().material.mainTexture = gateTextures[2];
+                }
+
+                Singleton<MusicManager>.Instance.QueueFile(chaos2, true);
+                if (!Singleton<PlayerFileManager>.Instance.reduceFlashing) { ___ec.standardDarkLevel = new Color(0.2f, 0f, 0f); ___ec.FlickerLights(true); }
+                for (int i = 0; i < Singleton<MusicManager>.Instance.MidiPlayer.Channels.Length; i++) Singleton<MusicManager>.Instance.MidiPlayer.MPTK_ChannelEnableSet(i, false);
+
+                Baldi baldiToFollow = null;
+                for (int i = 0; i < ___ec.Npcs.Count; i++)
+                {
+                    var npc = ___ec.Npcs[i];
+                    try
                     {
-                        var c = Random.Range(0, cs.Count);
-                        maxCooldown = Mathf.Max(0.03f, maxCooldown - 0.05f);
-                        cooldown += maxCooldown;
-                        AddFire(cs[c], ec);
-                        cs.RemoveAt(c);
+                        if (npc is Baldi bald) { ___ec.StartCoroutine(GameExtensions.InfiniteAnger(bald, 0.6f)); if (npc.Character == Character.Baldi) baldiToFollow = bald; continue; }
+                        npc.Despawn(); i--;
                     }
-                    yield return null;
+                    catch { Object.Destroy(npc.gameObject); ___ec.Npcs.RemoveAt(i--); }
                 }
+                ___ec.StartCoroutine(SpawnFires(___ec));
+                if (baldiToFollow) ___ec.StartCoroutine(DangerousAngryBaldiAnimation(___ec, baldiToFollow));
+            }
+        }
+
+        static IEnumerator SpawnFires(EnvironmentController ec)
+        {
+            float cooldown = fireCooldown, maxCooldown = fireCooldown;
+            var cs = ec.AllTilesNoGarbage(false, true);
+            foreach (var el in ec.Elevators) { cs.Remove(el.Door.aTile); }
+            while (cs.Count != 0)
+            {
+                cooldown -= Time.deltaTime;
+                if (cooldown <= 0f)
+                {
+                    var c = Random.Range(0, cs.Count);
+                    maxCooldown = Mathf.Max(0.03f, maxCooldown - 0.05f);
+                    cooldown += maxCooldown;
+                    AddFire(cs[c], ec);
+                    cs.RemoveAt(c);
+                }
+                yield return null;
             }
         }
 
