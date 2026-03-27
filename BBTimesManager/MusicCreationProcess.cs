@@ -26,13 +26,13 @@ namespace BBTimes.Manager
                 SoundType.Effect, Color.green);
 
             soundNormal.additionalKeys = new SubtitleTimedKey[] {
-                new() { key = "Vfx_BAL_CongratsNormal_1", time = 2.17f},
-                new() { key = "Vfx_BAL_AllNotebooks_3", time = 4.89f},
+                new() { key = "Vfx_BAL_CongratsNormal_1", time = 2.24f},
+                new() { key = "Vfx_BAL_AllNotebooks_3", time = 5.468f},
                 new() { key = "Vfx_BAL_AllNotebooks_4", time = 8.201f},
-                new() { key = ".", time = 11.337f},
-                new() { key = "..", time = 12.78f},
-                new() { key = "...", time = 14.061f},
-                new() { key = "Vfx_BAL_AllNotebooks_5", time = 14.602f}
+                new() { key = ".", time = 12.4f},
+                new() { key = "..", time = 13.748f},
+                new() { key = "...", time = 14.987f},
+                new() { key = "Vfx_BAL_AllNotebooks_5", time = 15.429f}
             };
 
             soundFinal = ObjectCreators.CreateSoundObject(
@@ -41,13 +41,13 @@ namespace BBTimes.Manager
                 SoundType.Effect, Color.green);
 
             soundFinal.additionalKeys = new SubtitleTimedKey[] {
-                new() { key = "Vfx_BAL_CongratsNormal_1", time = 2.17f},
-                new() { key = "Vfx_BAL_AllNotebooks_3", time = 4.89f},
-                new() { key = "Vfx_BAL_CongratsAngry_0", time = 7.233f},
+                new() { key = "Vfx_BAL_CongratsNormal_1", time = 2.24f},
+                new() { key = "Vfx_BAL_AllNotebooks_3", time = 5.468f},
+                new() { key = "Vfx_BAL_CongratsAngry_0", time = 7.946f},
                 new() { key = ".", time = 12.653f},
-                new() { key = "..", time = 13.5f},
-                new() { key = "...", time = 14.302f},
-                new() { key = "Vfx_BAL_AllNotebooks_5", time = 14.382f}
+                new() { key = "..", time = 13.453f},
+                new() { key = "...", time = 14f},
+                new() { key = "Vfx_BAL_AllNotebooks_5", time = 14.701f}
             };
 
             var loop0 = ScriptableObject.CreateInstance<LoopingSoundObject>();

@@ -14,7 +14,10 @@
     { "key": "Vfx_Bal_WOW", "value": "*WOOOOOOOOOW*" },
     { "key": "Vfx_Curtain_Slide", "value": "*Slide*" },
     { "key": "Vfx_BAL_CongratsNormal_0", "value": "Congratulations!" },
-    { "key": "Vfx_BAL_CongratsNormal_1", "value": "You found all notebooks!" },
+    {
+      "key": "Vfx_BAL_CongratsNormal_1",
+      "value": "You found all the notebooks!"
+    },
     {
       "key": "Vfx_BAL_CongratsAngry_0",
       "value": "GET OUT WHILE YOU STILL CAAAAAAAAN!"
