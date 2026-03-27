@@ -120,12 +120,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             EditorInterface.AddObjectVisual("bathStall", man.Get<GameObject>("editorPrefab_bathStall"), true);
             EditorInterface.AddObjectVisual("bathDoor", man.Get<GameObject>("editorPrefab_bathDoor"), true);
             EditorInterface.AddObjectVisual("sink", man.Get<GameObject>("editorPrefab_sink"), true);
-            EditorInterface.AddObjectVisual("Toilet", man.Get<GameObject>("editorPrefab_Toilet"), true);
-            EditorInterface.AddObjectVisual("BasketHoop", man.Get<GameObject>("editorPrefab_BasketHoop"), true);
-            EditorInterface.AddObjectVisualWithCustomSphereCollider("BasketballPile", man.Get<GameObject>("editorPrefab_BasketballPile"), 2f, Vector3.zero);
-            EditorInterface.AddObjectVisual("GrandStand", man.Get<GameObject>("editorPrefab_GrandStand"), true);
-            EditorInterface.AddObjectVisual("BasketMachine", man.Get<GameObject>("editorPrefab_BasketMachine"), true);
-            EditorInterface.AddObjectVisualWithCustomSphereCollider("BasketBallBigLine", man.Get<GameObject>("editorPrefab_BasketBallBigLine"), 2.5f, Vector3.zero);
             EditorInterface.AddObjectVisual("FancyComputerTable", man.Get<GameObject>("editorPrefab_FancyComputerTable"), true);
             EditorInterface.AddObjectVisualWithCustomSphereCollider("ComputerBillboard", man.Get<GameObject>("editorPrefab_ComputerBillboard"), 1f, Vector3.zero);
             EditorInterface.AddObjectVisualWithCustomBoxCollider("StraightRunLine", man.Get<GameObject>("editorPrefab_StraightRunLine"), new(4.9f, 1f, 4.9f), Vector3.zero);
