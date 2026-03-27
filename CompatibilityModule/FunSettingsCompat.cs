@@ -36,14 +36,6 @@ namespace BBTimes.CompatibilityModule
 				coolMop.maxWait = 1f;
 				return;
 			}
-
-			if (npc is Mopliss mopliss)
-			{
-				mopliss.speed = 125f;
-				mopliss.minWait = 1f;
-				mopliss.maxWait = 1f;
-				return;
-			}
 		}
 
 		[HarmonyTargetMethod]

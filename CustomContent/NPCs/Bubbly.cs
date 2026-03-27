@@ -60,7 +60,7 @@ namespace BBTimes.CustomContent.NPCs
 			bubPre = bubble;
 		}
 		public void SetupPrefabPost() =>
-			audRefill = ((Mopliss)BBTimesManager.man.Get<NPC>("NPC_Mopliss")).audRefill; // Same refill noise
+		audRefill = this.GetSoundNoSub("Bubbly_Refill.wav", SoundType.Voice);
 
 
 		const float pixs = 21f;

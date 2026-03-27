@@ -922,7 +922,6 @@ namespace BBTimes.Manager
             AddAssetsToNpc<GottaSweep>(room);
             AddAssetsToNpc<ZeroPrize>([new() { selection = sweepCloset, weight = 100 }, .. room]);
             AddAssetsToNpc<CoolMop>([new() { selection = sweepCloset, weight = 100 }, .. room]);
-            AddAssetsToNpc<Mopliss>([new() { selection = sweepCloset, weight = 100 }, .. room]);
             AddAssetsToNpc<VacuumCleaner>([new() { selection = sweepCloset, weight = 100 }, .. room]);
 
             // ------------------------------------------------------------------------------------------

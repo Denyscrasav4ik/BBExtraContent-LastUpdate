@@ -467,23 +467,6 @@ namespace BBTimes.Manager
             floorDatas[F2].NPCs.Add(new(npc, 25));
             floorDatas[END].NPCs.Add(new(npc, 45));
 
-            // Mopliss
-            npc = new NPCBuilder<Mopliss>(plug.Info)
-                .SetMinMaxAudioDistance(35f, 120f)
-                .SetEnum("Mopliss")
-                .AddSpawnableRoomCategories(RoomCategory.Hall)
-                .SetMetaName("PST_MOPLISS_Name")
-                .SetName("Mopliss")
-                .SetMetaTags([FACULTY_TAG])
-                .IgnorePlayerOnSpawn()
-                .AddTrigger()
-                .Build()
-                .SetupNPCData("Mopliss", "PST_MOPLISS_Name", "PST_MOPLISS_Desc", -0.75f)
-                .MarkAsReplacement(20, Character.Sweep);
-
-            floorDatas[F2].NPCs.Add(new(npc, 65));
-            floorDatas[END].NPCs.Add(new(npc, 45));
-
             // Nose
             npc = new NPCBuilder<NoseMan>(plug.Info)
                 .SetMinMaxAudioDistance(30f, 100f)

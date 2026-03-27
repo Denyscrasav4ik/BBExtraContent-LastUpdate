@@ -34,7 +34,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 "CheeseMan", "CoolMop", "DetentionBot",
                 "Faker", "Glubotrony",
                 "HappyHolidays", "InkArtist", "PuddingFan",
-                "Leapy", "Magicalstudent", "Mopliss",
+                "Leapy", "Magicalstudent",
                 "MrKreye", "Cactungus", "NoseMan", "OfficeChair",
                 "PencilBoy", "Phawillow", "Pran",
                 "Pix", "Quiker", "Rollingbot", "SerOran",
@@ -157,7 +157,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_TrueLorePaper", man.Get<GameObject>("editorPrefab_Times_TrueLorePaper"), 1f, Vector3.zero);
             EditorInterface.AddObjectVisual("Times_GeneratorLever", man.Get<GameObject>("editorPrefab_Times_GeneratorLever"), true);
             for (int i = 1; i <= 6; i++)
-                 EditorInterface.AddObjectVisual($"Times_ContainedBaldi_F{i}", man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), true);
+                EditorInterface.AddObjectVisual($"Times_ContainedBaldi_F{i}", man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), true);
             ReplaceEditorBasicObject(TimesPrefix + "SecretButton", EditorInterface.AddObjectVisual(TimesPrefix + "SecretButton", man.Get<GameObject>("editorPrefab_SecretButton"), true));
 
             // NPCs
