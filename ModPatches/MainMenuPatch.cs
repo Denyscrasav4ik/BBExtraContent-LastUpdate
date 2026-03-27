@@ -3,6 +3,8 @@ using HarmonyLib;
 using TMPro;
 using Ukrainization;
 using UnityEngine;
+using BBTimes;
+using BepInEx.Bootstrap;
 
 namespace BBTimes.ModPatches
 {
@@ -20,7 +22,7 @@ namespace BBTimes.ModPatches
         {
             if (rootTransform == null) return;
 
-            Transform? templateTransform = rootTransform.Find("Reminder");
+            Transform templateTransform = rootTransform.Find("Reminder");
             if (templateTransform == null) return;
 
             if (rootTransform.Find("ModInfoExtra") != null) return;
@@ -45,17 +47,18 @@ namespace BBTimes.ModPatches
                 textComponent.alignment = TextAlignmentOptions.Right;
                 textComponent.isRightToLeftText = false;
 
-                Ukrainization.TextLocalizer existingLocalizer =
-                    textComponent.gameObject.GetComponent<Ukrainization.TextLocalizer>();
+                bool isUkrainizationInstalled = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
 
-                if (existingLocalizer != null)
+                if (isUkrainizationInstalled)
                 {
-                    GameObject.Destroy(existingLocalizer);
+                    var existingLocalizer = textComponent.gameObject.GetComponent<Ukrainization.TextLocalizer>();
+                    if (existingLocalizer != null)
+                    {
+                        Object.Destroy(existingLocalizer);
+                    }
                 }
 
-                TextLocalizer localizer =
-                    textComponent.gameObject.AddComponent<TextLocalizer>();
-
+                TextLocalizer localizer = textComponent.gameObject.AddComponent<TextLocalizer>();
                 localizer.key = "BBTimes_ModInfo";
                 localizer.GetLocalizedText(localizer.key);
             }
