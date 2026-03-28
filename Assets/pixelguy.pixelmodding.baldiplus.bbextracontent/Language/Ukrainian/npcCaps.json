@@ -50,7 +50,7 @@
     { "key": "PST_MGS_Name", "value": "Магічний Учень" },
     {
       "key": "PST_MGS_Desc",
-      "value": "«Я кажу „абракадабра“, і ось моє закляття затримання! Я не знаю правил, тому затримання отримують усі!»"
+      "value": "«Я кажу „абракадабра“, і ось моє закляття покарання! Я не знаю правил, тому покарання отримують усі!»"
     },
     { "key": "Vfx_MGS_Magic", "value": "*Магія*" },
     { "key": "Vfx_MGS_PrepMagic", "value": "*Підготовка магії*" },
@@ -446,10 +446,10 @@
     },
     { "key": "Vfx_CheeseMan_Watch2", "value": "Гей! Що... ну і нехай." },
     { "key": "Vfx_CheeseMan_Watch3", "value": "Ти просто ХАМ!" },
-    { "key": "PST_DetentionBot_Name", "value": "Бот Затримання" },
+    { "key": "PST_DetentionBot_Name", "value": "Бот Покарання" },
     {
       "key": "PST_DetentionBot_Desc",
-      "value": "Робот, здатний відправляти людей на затримання! Він не володіє магією, але тягне цілком непогано."
+      "value": "Робот, здатний відправляти людей в покарання! Він не володіє магією, але тягне цілком непогано."
     },
     { "key": "Vfx_DetentionBot_Whistle", "value": "*Роботизований свист*" },
     {
@@ -458,11 +458,11 @@
     },
     {
       "key": "Vfx_DetentionBot_CarryTroubleMaker",
-      "value": "ТРАНСПОРТУЮ ПОРУШНИКА НА ЗАТРИМАННЯ."
+      "value": "ТРАНСПОРТУЮ ПОРУШНИКА В ПОКАРАННЯ."
     },
     {
       "key": "Vfx_DetentionBot_LoseTroubleMaker_1",
-      "value": "ВИЯВЛЕНО ОПІР ЗАТРИМАННЮ."
+      "value": "ВИЯВЛЕНО ОПІР ПОКАРАННЮ."
     },
     {
       "key": "Vfx_DetentionBot_LoseTroubleMaker_2",

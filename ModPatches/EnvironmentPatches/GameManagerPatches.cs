@@ -397,7 +397,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
             if (brokenCount == 2 && __instance.CurrentState == ElevatorState.OutOfOrder)
             {
-                ___ec.SetTimeLimit(9999f);
+                manager.StartCoroutine(BreakTheTimer(___ec));
                 Singleton<MusicManager>.Instance.StopFile();
                 Singleton<MusicManager>.Instance.QueueFile(chaos1, true);
                 Singleton<MusicManager>.Instance.MidiPlayer.MPTK_Transpose = Random.Range(-24, -12);
@@ -442,6 +442,20 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 }
                 ___ec.StartCoroutine(SpawnFires(___ec));
                 if (baldiToFollow) ___ec.StartCoroutine(DangerousAngryBaldiAnimation(___ec, baldiToFollow));
+            }
+        }
+
+        static IEnumerator BreakTheTimer(EnvironmentController ec)
+        {
+            while (ec != null)
+            {
+                float newTime = (ec.timeLimit > 10f) ? 5f : 9999f;
+
+                ec.SetTimeLimit(newTime);
+
+                ec.timeOut = false;
+
+                yield return new WaitForSeconds(1f);
             }
         }
 
