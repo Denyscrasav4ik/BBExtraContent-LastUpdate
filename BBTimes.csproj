@@ -66,9 +66,6 @@
     <Reference Include="PlusStudioLevelLoader">
       <HintPath>References\PlusStudioLevelLoader.dll</HintPath>
     </Reference>
-    <Reference Include="Ukrainization">
-      <HintPath>References\Ukrainization.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
