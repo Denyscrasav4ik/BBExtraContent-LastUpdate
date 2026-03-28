@@ -318,7 +318,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             containers.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
             containers.Add("BasketballArea", new TextureContainer("dirtyGrayFloor", "SaloonWall", "Ceiling"));
             containers.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
-            containers.Add("DribbleRoom", new TextureContainer("dribbleRoomFloor", "SaloonWall", "Ceiling"));
             containers.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
             containers.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
             containers.Add("FocusRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));

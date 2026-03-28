@@ -226,11 +226,6 @@ internal static partial class BBTimesManager
                     weightedAssets[i].selection.wallTex = ToLowContrast(weightedAssets[i].selection.wallTex);
                     weightedAssets[i].selection.florTex = ToLowContrast(weightedAssets[i].selection.florTex);
                     LowContrastTransform(weightedAssets[i].selection.lightPre);
-                    if (weightedAssets[i].selection.roomFunctionContainer && weightedAssets[i].selection.roomFunctionContainer.TryGetComponent<HighCeilingRoomFunction>(out var highCeil))
-                    {
-                        highCeil.customCeiling = ToLowContrast(highCeil.customCeiling);
-                        LowContrastTextures(highCeil.customWallProximityToCeil);
-                    }
 
                     List<Transform> allTransforms = [
                         .. weightedAssets[i].selection.basicObjects.Select(obj => obj.prefab),

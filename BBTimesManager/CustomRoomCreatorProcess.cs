@@ -903,7 +903,6 @@ namespace BBTimes.Manager
 
             if (room.Count != 0)
             {
-                room[0].selection.AddRoomFunctionToContainer<HighCeilingRoomFunction>().ceilingHeight = 1;
                 room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Closet", "sweepSad.png"))])];
             }
 
@@ -1063,12 +1062,7 @@ namespace BBTimes.Manager
             room[0].selection.AddRoomFunctionToContainer<RuleFreeZone>();
             room[0].selection.AddRoomFunctionToContainer<CoverRoomFunction>().coverage = (CellCoverage)~0; // Reverse of 0
 
-            var highCeil = room[0].selection.AddRoomFunctionToContainer<HighCeilingRoomFunction>();
-            highCeil.ceilingHeight = 2;
-            highCeil.usesSingleCustomWall = true;
             var tex = TextureExtensions.CreateSolidTexture(1, 1, new(0.12156f, 0.12156f, 0.478431f));
-            highCeil.customWallProximityToCeil = [tex];
-            highCeil.customCeiling = tex;
 
             var ambience = room[0].selection.AddRoomFunctionToContainer<AmbienceRoomFunction>();
             ambience.source = room[0].selection.roomFunctionContainer.gameObject.CreateAudioSource(35, 125);

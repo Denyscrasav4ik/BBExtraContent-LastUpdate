@@ -139,7 +139,7 @@ namespace BBTimes
         public static void PostSetup(AssetManager man) { } // This is gonna be used by other mods to patch after the BBTimesManager is done with the crap
 
         internal ConfigEntry<bool>
-        disableOutside, disableHighCeilings, disableRedEndingCutscene,
+        disableOutside, disableRedEndingCutscene,
         enableBigRooms, enableReplacementNPCsAsNormalOnes, enableYoutuberMode, forceChristmasMode, forceBaldiMarch31Day, disableArcadeRennovationsSupport, disableSchoolhouseEscape, enableUnbalancedLegacyMode;
         internal List<string> disabledCharacters = [], disabledItems = [], disabledEvents = [], disabledBuilders = [], disableNaturalObject = [];
         // internal bool HasInfiniteFloors => Chainloader.PluginInfos.ContainsKey("mtm101.rulerp.baldiplus.endlessfloors") ||
@@ -155,7 +155,6 @@ namespace BBTimes
                 SPECIAL_SETTINGS = "Holidays Settings";
 
             disableOutside = Config.Bind(ENV_SETTINGS, "Disable the outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should slightly increase performance BUT will also change the seed layouts in the game.");
-            disableHighCeilings = Config.Bind(ENV_SETTINGS, "Disable high ceilings", false, "Setting this \"true\" will completely disable the high ceilings from existing in pre-made levels (that includes the ones made with the Level Editor).");
             enableBigRooms = Config.Bind(ENV_SETTINGS, "Enable big rooms", false, "Setting this \"true\" will add the rest of the layouts Times also comes with. WARNING: These layouts completely unbalance the game, making it a lot harder than the usual.");
             disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable schoolhouse escape", false, "Setting this to \"true\" will disable entirely the schoolhouse escape sequence");
 
@@ -891,10 +890,6 @@ namespace BBTimes
             plug.disabledEvents.ForEach(x => tags.Add($"Times_DisabledEventTag_{x}"));
             plug.disabledItems.ForEach(x => tags.Add($"Times_DisabledItemTag_{x}"));
 
-
-            if (plug.disableHighCeilings.Value)
-                tags.Add("Times_Config_DisableHighCeilingsFunction");
-
             if (plug.enableBigRooms.Value)
                 tags.Add("Times_Config_EnableBigRoomsMode");
 
@@ -940,7 +935,6 @@ namespace BBTimes
 
                 tags[i] = tags[i] switch
                 {
-                    "Times_Config_DisableHighCeilingsFunction" => "Disabled Highceilings for Special Rooms",
                     "Times_Config_EnableBigRoomsMode" => "Enabled big room layouts",
                     "Times_Config_ReplacementDisable" => "Character replacement feature disabled",
                     "Times_Config_YoutuberMode" => "Youtube Mode enabled",

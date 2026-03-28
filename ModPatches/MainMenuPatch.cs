@@ -46,35 +46,58 @@ namespace BBTimes.ModPatches
                 textComponent.alignment = TextAlignmentOptions.Right;
                 textComponent.isRightToLeftText = false;
 
-                TryApplyUkrainization(textComponent);
+                TryApplyLocalization(textComponent);
             }
         }
 
-        private static void TryApplyUkrainization(TextMeshProUGUI textComponent)
+        private static void TryApplyLocalization(TextMeshProUGUI textComponent)
         {
-            bool isInstalled = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
-            if (!isInstalled) return;
+            GameObject go = textComponent.gameObject;
+
+            bool hasUkrainization = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
+
+            if (hasUkrainization)
+            {
+                try
+                {
+                    Type ukrType = Type.GetType("Ukrainization.TextLocalizer, Ukrainization");
+                    if (ukrType != null)
+                    {
+                        var existing = go.GetComponent(ukrType);
+                        if (existing != null)
+                            UnityEngine.Object.Destroy(existing);
+
+                        var localizer = go.AddComponent(ukrType);
+
+                        var keyField = ukrType.GetField("key");
+                        keyField?.SetValue(localizer, "BBTimes_ModInfo");
+
+                        var apply = ukrType.GetMethod("ApplyLocalization");
+                        apply?.Invoke(localizer, null);
+
+                        return;
+                    }
+                }
+                catch { }
+            }
 
             try
             {
-                Type localizerType = Type.GetType("Ukrainization.TextLocalizer, Ukrainization");
-                if (localizerType == null) return;
+                Type baseType = typeof(TextLocalizer);
 
-                var existing = textComponent.gameObject.GetComponent(localizerType);
+                var existing = go.GetComponent(baseType);
                 if (existing != null)
-                {
                     UnityEngine.Object.Destroy(existing);
-                }
 
-                var localizer = textComponent.gameObject.AddComponent(localizerType);
+                var localizer = go.AddComponent<TextLocalizer>();
 
-                var keyField = localizerType.GetField("key");
-                keyField?.SetValue(localizer, "BBTimes_ModInfo");
+                localizer.key = "BBTimes_ModInfo";
+                localizer.encrypted = false;
+                localizer.onlySetIfBlank = false;
 
-                var method = localizerType.GetMethod("GetLocalizedText");
-                method?.Invoke(localizer, new object[] { "BBTimes_ModInfo" });
+                localizer.GetLocalizedText(localizer.key);
             }
-            catch (Exception e) { }
+            catch { }
         }
     }
 }
