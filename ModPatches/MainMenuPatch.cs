@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using HarmonyLib;
 using TMPro;
-using Ukrainization;
 using UnityEngine;
 using BBTimes.Plugin;
 using BepInEx.Bootstrap;
@@ -47,21 +46,35 @@ namespace BBTimes.ModPatches
                 textComponent.alignment = TextAlignmentOptions.Right;
                 textComponent.isRightToLeftText = false;
 
-                bool isUkrainizationInstalled = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
+                TryApplyUkrainization(textComponent);
+            }
+        }
 
-                if (isUkrainizationInstalled)
+        private static void TryApplyUkrainization(TextMeshProUGUI textComponent)
+        {
+            bool isInstalled = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
+            if (!isInstalled) return;
+
+            try
+            {
+                Type localizerType = Type.GetType("Ukrainization.TextLocalizer, Ukrainization");
+                if (localizerType == null) return;
+
+                var existing = textComponent.gameObject.GetComponent(localizerType);
+                if (existing != null)
                 {
-                    var existingLocalizer = textComponent.gameObject.GetComponent<Ukrainization.TextLocalizer>();
-                    if (existingLocalizer != null)
-                    {
-                        Object.Destroy(existingLocalizer);
-                    }
+                    UnityEngine.Object.Destroy(existing);
                 }
 
-                TextLocalizer localizer = textComponent.gameObject.AddComponent<TextLocalizer>();
-                localizer.key = "BBTimes_ModInfo";
-                localizer.GetLocalizedText(localizer.key);
+                var localizer = textComponent.gameObject.AddComponent(localizerType);
+
+                var keyField = localizerType.GetField("key");
+                keyField?.SetValue(localizer, "BBTimes_ModInfo");
+
+                var method = localizerType.GetMethod("GetLocalizedText");
+                method?.Invoke(localizer, new object[] { "BBTimes_ModInfo" });
             }
+            catch (Exception e) { }
         }
     }
 }
