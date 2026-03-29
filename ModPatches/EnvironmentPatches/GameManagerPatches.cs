@@ -361,7 +361,8 @@ namespace BBTimes.ModPatches.EnvironmentPatches
             if (state == ElevatorState.FinishingLevel &&
                 manager != null &&
                 manager.levelObject != null &&
-                manager.levelObject.finalLevel)
+                manager.levelObject.finalLevel &&
+                !BBTimesManager.plug.disableRedEndingCutscene.Value)
             {
                 if (___lightCell != null)
                     ___lightCell.SetLight(true);
