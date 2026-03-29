@@ -1,3 +1,5 @@
-## Baldi's Basics Plus Extra Content
+# Baldi's Basics Plus in Extra Content
 
-Port of the Baldi's Basics Times BB+ mod to the up-to-date version.
+## 📝 Functionality
+
+Too much to write-out, but basically, this is a port of PixelGuy's Baldi's Basics Times mod.
