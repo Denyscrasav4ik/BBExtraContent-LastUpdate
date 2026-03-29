@@ -354,13 +354,21 @@ namespace BBTimes.ModPatches.EnvironmentPatches
 
         [HarmonyPatch(typeof(Elevator), "SetState")]
         [HarmonyPrefix]
-        private static bool PreventDoorCloseOnFinish(ElevatorState state, ref Cell ___lightCell)
+        private static bool PreventDoorCloseOnFinish(Elevator __instance, ElevatorState state, ref Cell ___lightCell)
         {
-            if (state == ElevatorState.FinishingLevel)
+            var manager = Singleton<BaseGameManager>.Instance;
+
+            if (state == ElevatorState.FinishingLevel &&
+                manager != null &&
+                manager.levelObject != null &&
+                manager.levelObject.finalLevel)
             {
-                if (___lightCell != null) ___lightCell.SetLight(true);
+                if (___lightCell != null)
+                    ___lightCell.SetLight(true);
+
                 return false;
             }
+
             return true;
         }
 
@@ -506,7 +514,7 @@ namespace BBTimes.ModPatches.EnvironmentPatches
                 animatedBaldi.sprite = angryBaldiAnimation[Mathf.FloorToInt(frame)]; yield return null;
             }
             float punchTimer = 0f; while (punchTimer < 0.2f) { punchTimer += Time.deltaTime; cam.transform.position += cam.transform.forward * 75f * Time.deltaTime; cam.fieldOfView += Time.deltaTime * 120f; yield return null; }
-            ec.RemoveTimeScale(timeScaleMod); baldiEntity.SetVisible(true); Object.Destroy(cam.gameObject);
+            ec.RemoveTimeScale(timeScaleMod); baldiEntity.SetVisible(true); Object.Destroy(animatedBaldi.gameObject); Object.Destroy(cam.gameObject);
             for (int i = 0; i < Singleton<CoreGameManager>.Instance.setPlayers; i++) Singleton<CoreGameManager>.Instance.GetCamera(i).GetCustomCam().ResetSlideFOVAnimation(mod, 10f, framerate);
             static float EaseInOutQuad(float t) => t < 0.5f ? 2 * t * t : 1 - (Mathf.Pow((-2 * t) + 2, 2) / 2);
         }
