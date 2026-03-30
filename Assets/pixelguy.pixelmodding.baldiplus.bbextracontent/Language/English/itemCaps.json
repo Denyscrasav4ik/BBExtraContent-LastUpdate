@@ -1,149 +1,318 @@
-{"items":[
-	{"key":"PRS_Name","value":"Party Present"},
-	{"key":"PRS_Desc","value":"Party Present\nIt's a mystery box, what could be inside of it?\nNobody knows! It's definitely gonna give you a surprise!"},
-	{"key":"Vfx_PRS_Unbox","value":"*Unboxing*"},
-	{"key":"HAM_Name","value":"Dangerous Hammer"},
-	{"key":"HAM_Desc","value":"Dangerous Hammer\nUse it responsibly, it's just way more dangerous than it looks!\nBe careful to not break any windows or squish people with it!"},
-	{"key":"Hardhat_Name","value":"Hard Hat"},
-	{"key":"Hardhat_Desc","value":"Hard Hat\nDealing with PRESSING (down) situations? Use this! It'll protect your head from being squished.\nIsn't that such a cool invention?!"},
-	{"key":"BEL_Name","value":"Bell"},
-	{"key":"BEL_Desc","value":"Bell\nSomeone took the bell out of the alarm clock!\nLeave it on the ground to alarm Baldi once someone steps over it!\nSuch a funny prank!"},
-	{"key":"Vfx_BEL_Ring","value":"*Ringing*"},
-	{"key":"GPS_Name","value":"Global Position Displayer"},
-	{"key":"GPS_Desc","value":"Global Position Displayer\nThis handy device is connected to EVERYONE!\nIt'll connect to your map and show everyone's locations!\nThough, we can't pay for its connection forever."},
-	{"key":"Vfx_GPS_Beep","value":"*Beep*"},
-	{"key":"PC_Name","value":"Pencil"},
-	{"key":"PC_Desc","value":"Pencil\nA normal pencil for normal uses, it is still prohibited to stab people in the halls.\nBut it does freeze them, just aim correctly...\ndon't tell that to Principal!"},
-	{"key":"SD_Name","value":"Screwdriver"},
-	{"key":"SD_Desc","value":"Screwdriver\nVery useful for <b>machines</b>! So many uses! See a machine, or, even a robot?\nJust use it on em'!"},
-	{"key":"Vfx_SD_screw","value":"*Screwing*"},
-	{"key":"BT_Name","value":"Bear Trap"},
-	{"key":"BT_Desc","value":"Bear Trap\nSomeone took this from Baldi's camping gear, it's dangerous!\nLeave it on the ground to catch somebody.\nJust don't step on it, you wouldn't like to be stuck!"},
-	{"key":"Vfx_BT_catch","value":"*CLANG!*"},
-	{"key":"GUM_Name","value":"Gum"},
-	{"key":"GUM_Desc","value":"Gum\nBeans sometimes drop his secret weapon, so why not sell it here?\nIt's quite sticky!"},
-	{"key":"Vfx_GUM_spit","value":"*SPIT*"},
-	{"key":"SPP_Name","value":"Speed Potion"},
-	{"key":"SPP_Desc","value":"Speed Potion\nA special potion being one of the most basic inventions by Baldi!\nJust drink it and run as far as you can!\nDon't dose past two!"},
-	{"key":"BSED_Name","value":"Baldi's Super Energy Drink"},
-	{"key":"BSED_Desc","value":"Baldi's Super Energy Drink\nThe first BSODA competitor, made by Baldi himself.\nTry it out, and you'll regenerate stamina faster and lose less!\nIt's a double advantage!"},
-	{"key":"gquarter_Name3","value":"Golden Quarter (3)"},
-	{"key":"gquarter_Name2","value":"Golden Quarter (2)"},
-	{"key":"gquarter_Name1","value":"Golden Quarter (1)"},
-	{"key":"gquarter_Desc","value":"Golden Quarter\nThis SHINIER golden quarter made by Baldi will grant you three shiny quarters,\neach use is a quarter to your pocket!\nUse it wisely!"},
-	{"key":"EBottle_Name","value":"Empty Bottle"},
-	{"key":"EBottle_Desc","value":"Empty Bottle\nThis bottle isn't useful now,\nbut maybe you could fill it up with water from a fountain to MAKE it useful!"},
-	{"key":"WBottle_Name","value":"Water Bottle"},
-	{"key":"WBottle_Desc","value":"Water Bottle\nStored water that'll energize you up!\nYou can always refill it again with the fountain!"},
-	{"key":"HDP_Name","value":"Headache Pill"},
-	{"key":"HDP_Desc","value":"Headache Pill\nHave you suffered from headache upon being blinded or seeing hallucinations?\nWell not to worry, this instant pill will cure your suffering!"},
-	{"key":"HDP_Swallow","value":"*Swallowing*"},
-	{"key":"BB_Name","value":"Basketball"},
-	{"key":"BB_Desc","value":"Basketball\nAn ordinary ball, but bounces a lot!\nBe careful to not hit someone with it, you're not a bully, are you?"},
-	{"key":"BB_Hit","value":"*HIT*"},
-	{"key":"BB_Bong","value":"*Bong*"},
-	{"key":"POGST_Name3","value":"Pogostick (3)"},
-	{"key":"POGST_Name2","value":"Pogostick (2)"},
-	{"key":"POGST_Name1","value":"Pogostick (1)"},
-	{"key":"POGST_Desc","value":"Pogostick\nAvoid people by jumping over them.\nYou can jump from head to head easily, squishing everybody in the way!\nYou can boing around with ease. Boing! Boing!"},
-	{"key":"POGST_Boing","value":"*Boing*"},
-	{"key":"HotChoc_Name","value":"Hot Chocolate"},
-	{"key":"HotChoc_Desc","value":"Hot Chocolate\nThis delicious chocolate is always hot and so will heat you during <b>freezing</b> periods.\nMakes you lose less stamina, but you will take longer to gain it again."},
-	{"key":"InvCon_Name","value":"Invisibility Remote Control"},
-	{"key":"InvCon_Desc","value":"Invisibility Remote Control\nThis remote makes you invisible!\nAnything can still interact with you, but won't see you!\nHow amazing!"},
-	{"key":"InvCon_Active","value":"*Remote turning on*"},
-	{"key":"InvCon_Deactive","value":"*Remote turning off*"},
-	{"key":"CherryBsoda_Name","value":"Cherry BSODA"},
-	{"key":"CherryBsoda_Desc","value":"Cherry BSODA\nA strong modified version of the Bsoda, with a good taste of cherry!\nIt's even able of bouncing off the walls!"},
-	{"key":"Soap_Name","value":"Soap Bar"},
-	{"key":"Soap_Desc","value":"Soap Bar\nThis is a lot more slippery than a Nana Peel!\nJust throw it in the floor and let it slip by itself!\nBe careful to not let it carry you around!"},
-	{"key":"Coal_Name","value":"Dirty Coal"},
-	{"key":"BlowDrier_Name","value":"Blow Drier"},
-	{"key":"BlowDrier_Desc","value":"Blow Drier\nNeed quick speed? Use the Blow Drier!\nThis item launches you backwards at incredible speeds, and should not be underestimated!"},
-	{"key":"ComicLargTrum_Name","value":"Comically Large Trumpet"},
-	{"key":"ComicLargTrum_Desc","value":"Comically Large Trumpet\nWanted to get someone to stop annoying you? Just blow this!\nIt's so loud it'll blow them away! It's not overkill at all!"},
-	{"key":"Vfx_ComicLargTrum_Blow","value":"<i>*LOUD HORN*</i>"},
-	{"key":"Vfx_ComicLargTrum_Inhale","value":"<i>*Inhaling*</i>"},
-	{"key":"StrMag_Name","value":"Strong Magnet"},
-	{"key":"StrMag_Desc","value":"Strong Magnet\nA strong smart magnet designed specifically to pull everything except the one who threw it!\nIt lasts 10 seconds."},
-	{"key":"ThrTelep_Name","value":"Throwable Teleporter"},
-	{"key":"ThrTelep_Desc","value":"Throwable Teleporter\nFeeling like someone is following you? Well, not to worry!\nYou can throw this thing to send them away from you!"},
-	{"key":"SugZestyBar_Name","value":"Sugar Flavored Zesty Bar"},
-	{"key":"SugZestyBar_Desc","value":"Sugar Flavored Zesty Bar\nMix up a sugary bar with more sugar, and there you go!\nThis gives you 400% more stamina for a short period!\n... And also cuts your stamina in half due to low sugar level, but for a short period too!"},
-	{"key":"RotCheese_Name","value":"Rotten Cheese"},
-	{"key":"RotCheese_Desc","value":"Rotten Cheese\nWhere did this came from?! Get it out of here! It's too smelly!\nEveryone's gonna run away from this if they see it on the floor!"},
-	{"key":"Vfx_RotCheese_Place","value":"*Rotten Splash*"},
-	{"key":"SoapBub_Name3","value":"Soap Bubbles (3)"},
-	{"key":"SoapBub_Name2","value":"Soap Bubbles (2)"},
-	{"key":"SoapBub_Name1","value":"Soap Bubbles (1)"},
-	{"key":"SoapBub_Desc","value":"Soap Bubbles\nEver wanted to blow your own strong bubbles?\nYou can do it through this item!\nJust blow it and let it carry anyone around!"},
-	{"key":"GSoda_Name","value":"Grape BSODA"},
-	{"key":"GSoda_Desc","value":"Grape BSODA\nA <i>dynamic</i> modified version of the Bsoda, with a good taste of grape!\nFor each person being pushed by this, its speed is decreased by half!"},
-	{"key":"Beehive_Name","value":"Beehive"},
-	{"key":"Beehive_Desc","value":"<i>There's a sign near the beehive entrance. You read it:</i>\nHello fellow human! I BEE-lieve we can be useful in dangerous situations. Do you feel threatened?\nJust throw this <b>Beehive</b>! We are the BEE-st in our BEE-nfesive job!"},
-	{"key":"Beehive_Sting","value":"*Stung*"},
-	{"key":"Beehive_bee","value":"*Angry buzzing*"},
-	{"key":"Supercam_Name","value":"Super Camera"},
-	{"key":"Supercam_Desc","value":"Super Camera\nA very powerful camera, it can shoot photos up to ∞x∞ resolution!\nIt even guarantees that everyone in the photo will be immediately frozen.\nFor a perfect shoot, stunning is the best solution!"},
-	{"key":"Pickupgun_Name","value":"Sticky Gun"},
-	{"key":"Pickupgun_Desc","value":"Sticky Gun\nHave you ever dreamed of picking up anything from far away?\nNow you can do that with this powerful sticky gun!\nThat includes items and notebooks!"},
-	{"key":"Toiletpaper_Name","value":"Toilet Paper"},
-	{"key":"Toiletpaper_Desc","value":"Toilet Paper\nJust an ordinary toilet paper, but with some unique powers.\nThrow it at someone and let it bounce off, might let them stuck for a while."},
-	{"key":"UglyPicture_Name","value":"Picture"},
-	{"key":"UglyPicture_Desc","value":"Picture\nA picture taken by Camera Stand. Surely not a bad one :)"},
-	{"key":"UglyPicture_reaction","value":"You couldn't stare at that ugly picture..."},
-	{"key":"Crumpledpaper_Name","value":"Crumpled Paper"},
-	{"key":"Crumpledpaper_Desc","value":"Crumpled Paper\nIn the depths of such thin object, a very ugly image can be seen...\nEither way, just throw it at somebody to stall them for a while."},
-	{"key":"Sfx_Crumpledpaper_crumpling","value":"*Crumpling paper*"},
-	{"key":"FidgetSpinner_Name","value":"Fidget Spinner"},
-	{"key":"FidgetSpinner_Desc","value":"Fidget Spinner\nEver wanted to get somewhere, but you're too lazy?\n Well just break psychics! This \"trendy\" fidget won't act as small as it seems!"},
-	{"key":"FryingPan_Name","value":"Frying Pan"},
-	{"key":"FryingPan_Desc","value":"Frying Pan\nNeeds self-defense?\nUse this frying pan to push any problems to your side <b><i>- literally</i></b>."},
-	{"key":"ElectricalGel_Name","value":"Electrical Gel"},
-	{"key":"ElectricalGel_Desc","value":"Electrical Gel\nA recreation of Rollbot's efficient electricity, but inside a single bottle with <b>electrical gel</b>.\nThrow it at a hallway to slow down anyone who passes through."},
-	{"key":"DoorStopper_Name","value":"Door Stopper"},
-	{"key":"DoorStopper_Desc","value":"Door Stopper\nDo you want to keep a door open for some time? Use this!"},
-	{"key":"StormInABag_Name","value":"Storm in a Bag"},
-	{"key":"StormInABag_Desc","value":"Storm in a Bag\nWith this bag of unknown origin, you can summon a mini storm!\nIt'll zap <b>EVERYTHING</b> nearby!"},
-	{"key":"SmallTimesKey_Name","value":"Baldi's Secret Key"},
-	{"key":"SmallTimesKey_Desc","value":"Baldi's Secret Key\nBaldi left this... Rumor has it, this'll open up a secret lab!\nFor an ending..."},
-	{"key":"MrMolar_Name","value":"Mr. Molar"},
-	{"key":"MrMolar_Desc","value":"Mr. Molar\nA cheap toy, each winding is a stronger bite!\nJust don't let it bite you!"},
-	{"key":"Vfx_MrMolar_Active","value":"*Running*"},
-	{"key":"Vfx_MrMolar_Bite","value":"*CHOMP*"},
-	{"key":"CleaningCloth_Name","value":"Cleaning Cloth"},
-	{"key":"CleaningCloth_Desc","value":"Cleaning Cloth\nA cheap cloth with the special power of sucking any ink or dirty chalk!\nWhen it gets dirty, you can always wash it again in a <b>Water Fountain!</b>"},
-	{"key":"DirtyCleaningCloth_Name","value":"Dirty Cleaning Cloth"},
-	{"key":"DirtyCleaningCloth_Desc","value":"Dirty Cleaning Cloth\nLooks like it got all dirty!\nYou can always wash it in a <b>Water Fountain!</b>"},
-	{"key":"Vfx_CleaningCloth_Clean","value":"*Cleaning*"},
-	{"key":"BaldiYearbook_Name","value":"Baldi's Yearbook"},
-    {"key":"BaldiYearbook_Desc","value":"Baldi's Yearbook\nDon't you remember someone from the schoolhouse?\nThis yearbook might give you a quick mind refresh!\nYou'll always find one in the Principal's Office."},
-    {"key":"BaldiYearbook_PageDisplay_Label","value":"Pages"},
-    {"key":"BaldiYearbook_PageDisplay_Missing","value":"Looks like this character is missing from our collection! I wonder if this one joined the schoolhouse later than the rest..."},
-    {"key":"ChillyChilli_Name","value":"Chilly Chilli"},
-    {"key":"ChillyChilli_Desc","value":"Chilly Chilli\nThis Chillie is chilly!\nEat one and you’ll start to breath cold, refreshing breeze like some kind of yeti, with a great minty after-taste!"},
-	{"key":"ComicallyLargeJello_Name","value":"Comically Large Jello"},
-    {"key":"ComicallyLargeJello_Desc","value":"Comically Large Jello\nThis Jello is so big you can't even take a proper bite!\nIt could dangerously swallow you into it!"},
-	{"key":"Vfx_ComicallyLargeJello_Throw","value":"*JELLO WHOOSH*"},
-	{"key":"Vfx_ComicallyLargeJello_Land","value":"*PLATE NOISES*"},
-	{"key":"Sketchbook_Name","value":"Sketchbook"},
-    {"key":"Sketchbook_Desc","value":"Sketchbook\nSome kid dropped their super personal notebook. It has the magical power of summoning crudely drawn characters!\nThey'll like to help you by fighting other people!"},
-	{"key":"Vfx_SketchBook_Drawing","value":"*Drawing*"},
-	{"key":"Vfx_SketchBook_FightNoise","value":"*Cartoony fight*"},
-	{"key":"FireworkRocket_Name","value":"Firework Rocket"},
-    {"key":"FireworkRocket_Desc","value":"Firework Rocket\nLaunch yourself forward with a super propulsion!\nOver time, it gains a lot of speed, but you might lose control quickly!\nBe careful to not hit any wall!"},
-    {"key":"Slingshot_Name3","value":"(3) Slingshot"},
-    {"key":"Slingshot_Name2","value":"(2) Slingshot"},
-    {"key":"Slingshot_Name1","value":"(1) Slingshot"},
-    {"key":"Slingshot_Desc","value":"Slingshot\nThis is very useful for self-defense!\nHold it for a few seconds to hit someone from a far distance,"},
-    {"key":"Vfx_Slingshot_Shoot","value":"*KA-CHOT*"},
-	{"key":"GoodGrades_Name","value":"Good Grades"},
-    {"key":"GoodGrades_Desc","value":"Good Grades\nA flawless exam that makes Baldi proud of you!\nHe never checks who answered it, so he'll just praise blindly at whoever is nearby!"},
-    {"key":"Vfx_GoodGrades_Die","value":"*Paper Crumpling*"},
-	{"key":"AAAHTomato_Name","value":"AAAAHH Tomato"},
-    {"key":"AAAHTomato_Desc","value":"AAAAHH Tomato\nA living tomato that loves to be alive!\nSurely nothing could possibly harm him if he was left on the floor...\nPrincipal won't like if he hypothetically suffered any damage..."},
-    {"key":"Vfx_AAAHTomato_Scream","value":"<b>AAAAH! AAAAH! AAAH! AAAH!</b>"},
-    {"key":"IceSkates_Name","value":"Ice Skates"},
-    {"key":"IceSkates_Desc","value":"Ice Skates\nThis powerful skates can not only glide over ice, but on every floor material that exists!\nIt's a bit hard to control, but you'll get used to it."}
-
-]}
+{
+  "items": [
+    { "key": "PRS_Name", "value": "Party Present" },
+    {
+      "key": "PRS_Desc",
+      "value": "Party Present\nIt's a mystery box, what could be inside of it?\nNobody knows! It's definitely gonna give you a surprise!"
+    },
+    { "key": "Vfx_PRS_Unbox", "value": "*Unboxing*" },
+    { "key": "HAM_Name", "value": "Dangerous Hammer" },
+    {
+      "key": "HAM_Desc",
+      "value": "Dangerous Hammer\nUse it responsibly, it's just way more dangerous than it looks!\nBe careful to not break any windows or squish people with it!"
+    },
+    { "key": "Hardhat_Name", "value": "Hard Hat" },
+    {
+      "key": "Hardhat_Desc",
+      "value": "Hard Hat\nDealing with PRESSING (down) situations? Use this! It'll protect your head from being squished.\nIsn't that such a cool invention?!"
+    },
+    { "key": "BEL_Name", "value": "Bell" },
+    {
+      "key": "BEL_Desc",
+      "value": "Bell\nSomeone took the bell out of the alarm clock!\nLeave it on the ground to alarm Baldi once someone steps over it!\nSuch a funny prank!"
+    },
+    { "key": "Vfx_BEL_Ring", "value": "*Ringing*" },
+    { "key": "GPS_Name", "value": "Global Position Displayer" },
+    {
+      "key": "GPS_Desc",
+      "value": "Global Position Displayer\nThis handy device is connected to EVERYONE!\nIt'll connect to your map and show everyone's locations!\nThough, we can't pay for its connection forever."
+    },
+    { "key": "Vfx_GPS_Beep", "value": "*Beep*" },
+    { "key": "PC_Name", "value": "Pencil" },
+    {
+      "key": "PC_Desc",
+      "value": "Pencil\nA normal pencil for normal uses, it is still prohibited to stab people in the halls.\nBut it does freeze them, just aim correctly...\ndon't tell that to Principal!"
+    },
+    { "key": "SD_Name", "value": "Screwdriver" },
+    {
+      "key": "SD_Desc",
+      "value": "Screwdriver\nVery useful for <b>machines</b>! So many uses! See a machine, or, even a robot?\nJust use it on em'!"
+    },
+    { "key": "Vfx_SD_screw", "value": "*Screwing*" },
+    { "key": "BT_Name", "value": "Bear Trap" },
+    {
+      "key": "BT_Desc",
+      "value": "Bear Trap\nSomeone took this from Baldi's camping gear, it's dangerous!\nLeave it on the ground to catch somebody.\nJust don't step on it, you wouldn't like to be stuck!"
+    },
+    { "key": "Vfx_BT_catch", "value": "*CLANG!*" },
+    { "key": "GUM_Name", "value": "Gum" },
+    {
+      "key": "GUM_Desc",
+      "value": "Gum\nBeans sometimes drop his secret weapon, so why not sell it here?\nIt's quite sticky!"
+    },
+    { "key": "Vfx_GUM_spit", "value": "*SPIT*" },
+    { "key": "SPP_Name", "value": "Speed Potion" },
+    {
+      "key": "SPP_Desc",
+      "value": "Speed Potion\nA special potion being one of the most basic inventions by Baldi!\nJust drink it and run as far as you can!\nDon't dose past two!"
+    },
+    { "key": "BSED_Name", "value": "Baldi's Super Energy Drink" },
+    {
+      "key": "BSED_Desc",
+      "value": "Baldi's Super Energy Drink\nThe first BSODA competitor, made by Baldi himself.\nTry it out, and you'll regenerate stamina faster and lose less!\nIt's a double advantage!"
+    },
+    { "key": "gquarter_Name3", "value": "Golden Quarter (3)" },
+    { "key": "gquarter_Name2", "value": "Golden Quarter (2)" },
+    { "key": "gquarter_Name1", "value": "Golden Quarter (1)" },
+    {
+      "key": "gquarter_Desc",
+      "value": "Golden Quarter\nThis SHINIER golden quarter made by Baldi will grant you three shiny quarters,\neach use is a quarter to your pocket!\nUse it wisely!"
+    },
+    { "key": "EBottle_Name", "value": "Empty Bottle" },
+    {
+      "key": "EBottle_Desc",
+      "value": "Empty Bottle\nThis bottle isn't useful now,\nbut maybe you could fill it up with water from a fountain to MAKE it useful!"
+    },
+    { "key": "WBottle_Name", "value": "Water Bottle" },
+    {
+      "key": "WBottle_Desc",
+      "value": "Water Bottle\nStored water that'll energize you up!\nYou can always refill it again with the fountain!"
+    },
+    { "key": "HDP_Name", "value": "Headache Pill" },
+    {
+      "key": "HDP_Desc",
+      "value": "Headache Pill\nHave you suffered from headache upon being blinded?\nWell not to worry, this instant pill will cure your suffering!"
+    },
+    { "key": "HDP_Swallow", "value": "*Swallowing*" },
+    { "key": "BB_Name", "value": "Basketball" },
+    {
+      "key": "BB_Desc",
+      "value": "Basketball\nAn ordinary ball, but bounces a lot!\nBe careful to not hit someone with it, you're not a bully, are you?"
+    },
+    { "key": "BB_Hit", "value": "*HIT*" },
+    { "key": "BB_Bong", "value": "*Bong*" },
+    { "key": "POGST_Name3", "value": "Pogostick (3)" },
+    { "key": "POGST_Name2", "value": "Pogostick (2)" },
+    { "key": "POGST_Name1", "value": "Pogostick (1)" },
+    {
+      "key": "POGST_Desc",
+      "value": "Pogostick\nAvoid people by jumping over them.\nYou can jump from head to head easily, squishing everybody in the way!\nYou can boing around with ease. Boing! Boing!"
+    },
+    { "key": "POGST_Boing", "value": "*Boing*" },
+    { "key": "HotChoc_Name", "value": "Hot Chocolate" },
+    {
+      "key": "HotChoc_Desc",
+      "value": "Hot Chocolate\nThis delicious chocolate is always hot and so will heat you during <b>freezing</b> periods.\nMakes you lose less stamina, but you will take longer to gain it again."
+    },
+    { "key": "InvCon_Name", "value": "Invisibility Remote Control" },
+    {
+      "key": "InvCon_Desc",
+      "value": "Invisibility Remote Control\nThis remote makes you invisible!\nAnything can still interact with you, but won't see you!\nHow amazing!"
+    },
+    { "key": "InvCon_Active", "value": "*Remote turning on*" },
+    { "key": "InvCon_Deactive", "value": "*Remote turning off*" },
+    { "key": "CherryBsoda_Name", "value": "Cherry BSODA" },
+    {
+      "key": "CherryBsoda_Desc",
+      "value": "Cherry BSODA\nA strong modified version of the Bsoda, with a good taste of cherry!\nIt's even able of bouncing off the walls!"
+    },
+    { "key": "Soap_Name", "value": "Soap Bar" },
+    {
+      "key": "Soap_Desc",
+      "value": "Soap Bar\nThis is a lot more slippery than a Nana Peel!\nJust throw it in the floor and let it slip by itself!\nBe careful to not let it carry you around!"
+    },
+    { "key": "Coal_Name", "value": "Dirty Coal" },
+    { "key": "BlowDrier_Name", "value": "Blow Drier" },
+    {
+      "key": "BlowDrier_Desc",
+      "value": "Blow Drier\nNeed quick speed? Use the Blow Drier!\nThis item launches you backwards at incredible speeds, and should not be underestimated!"
+    },
+    { "key": "ComicLargTrum_Name", "value": "Comically Large Trumpet" },
+    {
+      "key": "ComicLargTrum_Desc",
+      "value": "Comically Large Trumpet\nWanted to get someone to stop annoying you? Just blow this!\nIt's so loud it'll blow them away! It's not overkill at all!"
+    },
+    { "key": "Vfx_ComicLargTrum_Blow", "value": "<i>*LOUD HORN*</i>" },
+    { "key": "Vfx_ComicLargTrum_Inhale", "value": "<i>*Inhaling*</i>" },
+    { "key": "StrMag_Name", "value": "Strong Magnet" },
+    {
+      "key": "StrMag_Desc",
+      "value": "Strong Magnet\nA strong smart magnet designed specifically to pull everything except the one who threw it!\nIt lasts 10 seconds."
+    },
+    { "key": "ThrTelep_Name", "value": "Throwable Teleporter" },
+    {
+      "key": "ThrTelep_Desc",
+      "value": "Throwable Teleporter\nFeeling like someone is following you? Well, not to worry!\nYou can throw this thing to send them away from you!"
+    },
+    { "key": "SugZestyBar_Name", "value": "Sugar Flavored Zesty Bar" },
+    {
+      "key": "SugZestyBar_Desc",
+      "value": "Sugar Flavored Zesty Bar\nMix up a sugary bar with more sugar, and there you go!\nThis gives you 400% more stamina for a short period!\n... And also cuts your stamina in half due to low sugar level, but for a short period too!"
+    },
+    { "key": "RotCheese_Name", "value": "Rotten Cheese" },
+    {
+      "key": "RotCheese_Desc",
+      "value": "Rotten Cheese\nWhere did this came from?! Get it out of here! It's too smelly!\nEveryone's gonna run away from this if they see it on the floor!"
+    },
+    { "key": "Vfx_RotCheese_Place", "value": "*Rotten Splash*" },
+    { "key": "SoapBub_Name3", "value": "Soap Bubbles (3)" },
+    { "key": "SoapBub_Name2", "value": "Soap Bubbles (2)" },
+    { "key": "SoapBub_Name1", "value": "Soap Bubbles (1)" },
+    {
+      "key": "SoapBub_Desc",
+      "value": "Soap Bubbles\nEver wanted to blow your own strong bubbles?\nYou can do it through this item!\nJust blow it and let it carry anyone around!"
+    },
+    { "key": "GSoda_Name", "value": "Grape BSODA" },
+    {
+      "key": "GSoda_Desc",
+      "value": "Grape BSODA\nA <i>dynamic</i> modified version of the Bsoda, with a good taste of grape!\nFor each person being pushed by this, its speed is decreased by half!"
+    },
+    { "key": "Beehive_Name", "value": "Beehive" },
+    {
+      "key": "Beehive_Desc",
+      "value": "<i>There's a sign near the beehive entrance. You read it:</i>\nHello fellow human! I BEE-lieve we can be useful in dangerous situations. Do you feel threatened?\nJust throw this <b>Beehive</b>! We are the BEE-st in our BEE-nfesive job!"
+    },
+    { "key": "Beehive_Sting", "value": "*Stung*" },
+    { "key": "Beehive_bee", "value": "*Angry buzzing*" },
+    { "key": "Supercam_Name", "value": "Super Camera" },
+    {
+      "key": "Supercam_Desc",
+      "value": "Super Camera\nA very powerful camera, it can shoot photos up to ∞x∞ resolution!\nIt even guarantees that everyone in the photo will be immediately frozen.\nFor a perfect shoot, stunning is the best solution!"
+    },
+    { "key": "Pickupgun_Name", "value": "Sticky Gun" },
+    {
+      "key": "Pickupgun_Desc",
+      "value": "Sticky Gun\nHave you ever dreamed of picking up anything from far away?\nNow you can do that with this powerful sticky gun!\nThat includes items and notebooks!"
+    },
+    { "key": "Toiletpaper_Name", "value": "Toilet Paper" },
+    {
+      "key": "Toiletpaper_Desc",
+      "value": "Toilet Paper\nJust an ordinary toilet paper, but with some unique powers.\nThrow it at someone and let it bounce off, might let them stuck for a while."
+    },
+    { "key": "UglyPicture_Name", "value": "Picture" },
+    {
+      "key": "UglyPicture_Desc",
+      "value": "Picture\nA picture taken by Camera Stand. Surely not a bad one :)"
+    },
+    {
+      "key": "UglyPicture_reaction",
+      "value": "You couldn't stare at that ugly picture..."
+    },
+    { "key": "Crumpledpaper_Name", "value": "Crumpled Paper" },
+    {
+      "key": "Crumpledpaper_Desc",
+      "value": "Crumpled Paper\nIn the depths of such thin object, a very ugly image can be seen...\nEither way, just throw it at somebody to stall them for a while."
+    },
+    { "key": "Sfx_Crumpledpaper_crumpling", "value": "*Crumpling paper*" },
+    { "key": "FidgetSpinner_Name", "value": "Fidget Spinner" },
+    {
+      "key": "FidgetSpinner_Desc",
+      "value": "Fidget Spinner\nEver wanted to get somewhere, but you're too lazy?\n Well just break psychics! This \"trendy\" fidget won't act as small as it seems!"
+    },
+    { "key": "FryingPan_Name", "value": "Frying Pan" },
+    {
+      "key": "FryingPan_Desc",
+      "value": "Frying Pan\nNeeds self-defense?\nUse this frying pan to push any problems to your side <b><i>- literally</i></b>."
+    },
+    { "key": "ElectricalGel_Name", "value": "Electrical Gel" },
+    {
+      "key": "ElectricalGel_Desc",
+      "value": "Electrical Gel\nA recreation of Rollbot's efficient electricity, but inside a single bottle with <b>electrical gel</b>.\nThrow it at a hallway to slow down anyone who passes through."
+    },
+    { "key": "DoorStopper_Name", "value": "Door Stopper" },
+    {
+      "key": "DoorStopper_Desc",
+      "value": "Door Stopper\nDo you want to keep a door open for some time? Use this!"
+    },
+    { "key": "StormInABag_Name", "value": "Storm in a Bag" },
+    {
+      "key": "StormInABag_Desc",
+      "value": "Storm in a Bag\nWith this bag of unknown origin, you can summon a mini storm!\nIt'll zap <b>EVERYTHING</b> nearby!"
+    },
+    { "key": "SmallTimesKey_Name", "value": "Baldi's Secret Key" },
+    {
+      "key": "SmallTimesKey_Desc",
+      "value": "Baldi's Secret Key\nBaldi left this... Rumor has it, this'll open up a secret lab!\nFor an ending..."
+    },
+    { "key": "MrMolar_Name", "value": "Mr. Molar" },
+    {
+      "key": "MrMolar_Desc",
+      "value": "Mr. Molar\nA cheap toy, each winding is a stronger bite!\nJust don't let it bite you!"
+    },
+    { "key": "Vfx_MrMolar_Active", "value": "*Running*" },
+    { "key": "Vfx_MrMolar_Bite", "value": "*CHOMP*" },
+    { "key": "CleaningCloth_Name", "value": "Cleaning Cloth" },
+    {
+      "key": "CleaningCloth_Desc",
+      "value": "Cleaning Cloth\nA cheap cloth with the special power of sucking any ink or dirty chalk!\nWhen it gets dirty, you can always wash it again in a <b>Water Fountain!</b>"
+    },
+    { "key": "DirtyCleaningCloth_Name", "value": "Dirty Cleaning Cloth" },
+    {
+      "key": "DirtyCleaningCloth_Desc",
+      "value": "Dirty Cleaning Cloth\nLooks like it got all dirty!\nYou can always wash it in a <b>Water Fountain!</b>"
+    },
+    { "key": "Vfx_CleaningCloth_Clean", "value": "*Cleaning*" },
+    { "key": "BaldiYearbook_Name", "value": "Baldi's Yearbook" },
+    {
+      "key": "BaldiYearbook_Desc",
+      "value": "Baldi's Yearbook\nDon't you remember someone from the schoolhouse?\nThis yearbook might give you a quick mind refresh!\nYou'll always find one in the Principal's Office."
+    },
+    { "key": "BaldiYearbook_PageDisplay_Label", "value": "Pages" },
+    {
+      "key": "BaldiYearbook_PageDisplay_Missing",
+      "value": "Looks like this character is missing from our collection! I wonder if this one joined the schoolhouse later than the rest..."
+    },
+    { "key": "ChillyChilli_Name", "value": "Chilly Chilli" },
+    {
+      "key": "ChillyChilli_Desc",
+      "value": "Chilly Chilli\nThis Chillie is chilly!\nEat one and you’ll start to breath cold, refreshing breeze like some kind of yeti, with a great minty after-taste!"
+    },
+    { "key": "ComicallyLargeJello_Name", "value": "Comically Large Jello" },
+    {
+      "key": "ComicallyLargeJello_Desc",
+      "value": "Comically Large Jello\nThis Jello is so big you can't even take a proper bite!\nIt could dangerously swallow you into it!"
+    },
+    { "key": "Vfx_ComicallyLargeJello_Throw", "value": "*JELLO WHOOSH*" },
+    { "key": "Vfx_ComicallyLargeJello_Land", "value": "*PLATE NOISES*" },
+    { "key": "Sketchbook_Name", "value": "Sketchbook" },
+    {
+      "key": "Sketchbook_Desc",
+      "value": "Sketchbook\nSome kid dropped their super personal notebook. It has the magical power of summoning crudely drawn characters!\nThey'll like to help you by fighting other people!"
+    },
+    { "key": "Vfx_SketchBook_Drawing", "value": "*Drawing*" },
+    { "key": "Vfx_SketchBook_FightNoise", "value": "*Cartoony fight*" },
+    { "key": "FireworkRocket_Name", "value": "Firework Rocket" },
+    {
+      "key": "FireworkRocket_Desc",
+      "value": "Firework Rocket\nLaunch yourself forward with a super propulsion!\nOver time, it gains a lot of speed, but you might lose control quickly!\nBe careful to not hit any wall!"
+    },
+    { "key": "Slingshot_Name3", "value": "(3) Slingshot" },
+    { "key": "Slingshot_Name2", "value": "(2) Slingshot" },
+    { "key": "Slingshot_Name1", "value": "(1) Slingshot" },
+    {
+      "key": "Slingshot_Desc",
+      "value": "Slingshot\nThis is very useful for self-defense!\nHold it for a few seconds to hit someone from a far distance,"
+    },
+    { "key": "Vfx_Slingshot_Shoot", "value": "*KA-CHOT*" },
+    { "key": "GoodGrades_Name", "value": "Good Grades" },
+    {
+      "key": "GoodGrades_Desc",
+      "value": "Good Grades\nA flawless exam that makes Baldi proud of you!\nHe never checks who answered it, so he'll just praise blindly at whoever is nearby!"
+    },
+    { "key": "Vfx_GoodGrades_Die", "value": "*Paper Crumpling*" },
+    { "key": "AAAHTomato_Name", "value": "AAAAHH Tomato" },
+    {
+      "key": "AAAHTomato_Desc",
+      "value": "AAAAHH Tomato\nA living tomato that loves to be alive!\nSurely nothing could possibly harm him if he was left on the floor...\nPrincipal won't like if he hypothetically suffered any damage..."
+    },
+    {
+      "key": "Vfx_AAAHTomato_Scream",
+      "value": "<b>AAAAH! AAAAH! AAAH! AAAH!</b>"
+    },
+    { "key": "IceSkates_Name", "value": "Ice Skates" },
+    {
+      "key": "IceSkates_Desc",
+      "value": "Ice Skates\nThis powerful skates can not only glide over ice, but on every floor material that exists!\nIt's a bit hard to control, but you'll get used to it."
+    }
+  ]
+}

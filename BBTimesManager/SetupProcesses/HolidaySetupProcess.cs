@@ -187,13 +187,6 @@ internal static partial class BBTimesManager
             }
             LowContrastRoomWeights(levelObject.potentialSpecialRooms);
 
-            void LowContrastTextures(Texture2D[] weightedTextures)
-            {
-                if (weightedTextures != null)
-                    for (int i = 0; i < weightedTextures.Length; i++)
-                        weightedTextures[i] = ToLowContrast(weightedTextures[i]);
-            }
-
             void LowContrastWeights(WeightedTexture2D[] weightedTextures)
             {
                 if (weightedTextures != null)

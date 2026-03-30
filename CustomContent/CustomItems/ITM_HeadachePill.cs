@@ -10,24 +10,15 @@ namespace BBTimes.CustomContent.CustomItems
 	{
 		public void SetupPrefab() =>
 			audSwallow = this.GetSound("swallow.wav", "HDP_Swallow", SoundType.Effect, Color.white);
-		
+
 		public void SetupPrefabPost() { }
 
 		public string Name { get; set; } public string Category => "items";
-		
+
 		public ItemObject ItmObj { get; set; }
 		public override bool Use(PlayerManager pm)
 		{
 			bool flag = false;
-
-			for (int i = 0; i < Hallucinations.activeHallucinations.Count; i++)
-			{
-				if (Hallucinations.activeHallucinations[i].Value == pm)
-				{
-					Hallucinations.activeHallucinations[i--].Key.Despawn();
-					flag = true;
-				}
-			}
 
 			for (int i = 0; i < Adverto.affectedPlayers.Count; i++)
 			{
