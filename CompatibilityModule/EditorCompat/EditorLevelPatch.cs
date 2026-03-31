@@ -443,7 +443,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 new("TimesItemDescriptor", false, 5f), new("SnowyPlaygroundTree", false), new("SnowPile", false),
                 new("Shovel_ForSnowPile", false, 0.1f), new("MysteryTresentMaker", false), new("MetalFence", true),
                 new("SecretBread", false), new("TimesKitchenSteak", false), new("JoeSign", false)
-
             };
             for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesGenericOutsideFlower_" + i, false));
             for (int i = 1; i <= 4; i++) objectTools.Add(new("TimesGenericCornerLamp_" + i, false));
