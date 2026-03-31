@@ -30,14 +30,20 @@ namespace BBTimes.ModPatches
             modInfo.name = "ModInfoExtra";
             modInfo.transform.SetSiblingIndex(15);
 
+            var button = modInfo.GetComponent<StandardMenuButton>();
+            if (button != null)
+            {
+                UnityEngine.Object.Destroy(button);
+            }
+
             RectTransform rectTransform = modInfo.GetComponent<RectTransform>();
             if (rectTransform != null)
             {
                 rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
                 rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
                 rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                rectTransform.anchoredPosition = new Vector2(90f, -90f);
-                rectTransform.sizeDelta = new Vector2(300f, 50f);
+                rectTransform.anchoredPosition = new Vector2(165f, -90f);
+                rectTransform.sizeDelta = new Vector2(150f, 50f);
             }
 
             TextMeshProUGUI textComponent = modInfo.GetComponent<TextMeshProUGUI>();
