@@ -215,45 +215,52 @@ internal static partial class BBTimesManager
 
                 for (int i = 0; i < weightedAssets.Length; i++)
                 {
-                    weightedAssets[i].selection.ceilTex = ToLowContrast(weightedAssets[i].selection.ceilTex);
-                    weightedAssets[i].selection.wallTex = ToLowContrast(weightedAssets[i].selection.wallTex);
-                    weightedAssets[i].selection.florTex = ToLowContrast(weightedAssets[i].selection.florTex);
-                    LowContrastTransform(weightedAssets[i].selection.lightPre);
+                    var asset = weightedAssets[i];
+                    if (asset == null || asset.selection == null)
+                        continue;
 
-                    List<Transform> allTransforms = [
-                        .. weightedAssets[i].selection.basicObjects.Select(obj => obj.prefab),
-                        .. weightedAssets[i].selection.basicSwaps.Select(obj => obj.prefabToSwap)];
+                    var sel = asset.selection;
 
-                    if (weightedAssets[i].selection.hasActivity && weightedAssets[i].selection.activity != null)
-                        allTransforms.Add(weightedAssets[i].selection.activity.prefab.transform);
+                    sel.ceilTex = ToLowContrast(sel.ceilTex);
+                    sel.wallTex = ToLowContrast(sel.wallTex);
+                    sel.florTex = ToLowContrast(sel.florTex);
+
+                    LowContrastTransform(sel.lightPre);
+
+                    List<Transform> allTransforms = new();
+
+                    if (sel.basicObjects != null)
+                        allTransforms.AddRange(sel.basicObjects.Where(o => o != null && o.prefab != null).Select(o => o.prefab));
+
+                    if (sel.basicSwaps != null)
+                        allTransforms.AddRange(sel.basicSwaps.Where(o => o != null && o.prefabToSwap != null).Select(o => o.prefabToSwap));
+
+                    if (sel.hasActivity && sel.activity?.prefab != null)
+                        allTransforms.Add(sel.activity.prefab.transform);
 
                     foreach (var obj in allTransforms)
                     {
-                        // Skip if we've already processed this prefab
-                        if (obj && processedPrefabs.Contains(obj.gameObject))
+                        if (!obj || processedPrefabs.Contains(obj.gameObject))
                             continue;
 
-                        // Mark this prefab as processed
-                        if (obj)
-                            processedPrefabs.Add(obj.gameObject);
+                        processedPrefabs.Add(obj.gameObject);
 
-                        // Process mesh renderers
                         foreach (var mesh in obj.GetComponentsInChildren<MeshRenderer>())
                             UpdateTexturesFromMaterialArray(mesh.materials);
 
-                        // Process sprite renderers
                         foreach (var sprRend in obj.GetComponentsInChildren<SpriteRenderer>())
                         {
-                            if (contrastedSprites.Contains(sprRend.sprite))
+                            if (sprRend.sprite == null || contrastedSprites.Contains(sprRend.sprite))
                                 continue;
 
                             var originalSprite = sprRend.sprite;
-                            // Get the sprite's rect in the original texture
                             var rect = originalSprite.rect;
+
                             var pivot = new Vector2(
                                 originalSprite.pivot.x / rect.width,
                                 originalSprite.pivot.y / rect.height
                             );
+
                             if (!originalSprite.texture.isReadable)
                             {
                                 sprRend.sprite = Sprite.Create(
@@ -267,8 +274,9 @@ internal static partial class BBTimesManager
                             }
                             else
                             {
-                                ToLowContrast(sprRend.sprite.texture);
+                                ToLowContrast(originalSprite.texture);
                             }
+
                             contrastedSprites.Add(sprRend.sprite);
                         }
                     }
