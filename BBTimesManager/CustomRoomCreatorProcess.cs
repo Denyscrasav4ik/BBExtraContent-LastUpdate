@@ -1022,8 +1022,10 @@ namespace BBTimes.Manager
             var transforms = new Transform[exclamations.Length];
             for (int i = 0; i < transforms.Length; i++)
             {
-                transforms[i] = ObjectCreationExtensions.CreateSpriteBillboard(exclamations[i]).transform;
-                transforms[i].gameObject.ConvertToPrefab(true);
+                var exclBillboard = ObjectCreationExtensions.CreateSpriteBillboard(exclamations[i]).transform;
+                exclBillboard.name = "TimesExclamation_" + (i + 1);
+                exclBillboard.gameObject.AddObjectToEditor();
+                transforms[i] = exclBillboard;
             }
 
             room[0].selection.AddRoomFunctionToContainer<EnvironmentObjectSpawner>().randomTransforms = transforms;

@@ -105,6 +105,17 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 LevelStudioPlugin.Instance.skyboxSprites.Add(skybox, GetSprite($"UI/Skybox_{skybox}", $"UI/skybox_{skybox}"));
                 LevelStudioPlugin.Instance.selectableSkyboxes.Add(skybox);
             }
+            // Hacky thing to automatically generate Exclamation UI sprites from the sprite sheet
+            string exclPath = Path.Combine(BasePlugin.ModPath, "rooms", "SuperMystery", "exclamations.png");
+            if (File.Exists(exclPath))
+            {
+                var exclSprites = TextureExtensions.LoadSpriteSheet(4, 2, 25f, exclPath);
+
+                for (int i = 0; i < exclSprites.Length; i++)
+                {
+                    _editorAssetMan.Add($"UI/Object_TimesExclamation_{i + 1}", exclSprites[i]);
+                }
+            }
         }
 
         private static void InitializeVisuals(AssetManager man)
@@ -143,6 +154,10 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesGenericOutsideFlower_" + i, man.Get<GameObject>("editorPrefab_TimesGenericOutsideFlower_" + i), 1.5f, Vector3.zero);
             for (int i = 1; i <= 4; i++)
                 EditorInterface.AddObjectVisual("TimesGenericCornerLamp_" + i, man.Get<GameObject>("editorPrefab_TimesGenericCornerLamp_" + i), true);
+            for (int i = 1; i <= 8; i++)
+            {
+                EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesExclamation_" + i, man.Get<GameObject>("editorPrefab_TimesExclamation_" + i), 1.5f, Vector3.zero);
+            }
 
             // SECRET ENDING OBJECTS
             EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_SecretBaldi", man.Get<GameObject>("editorPrefab_Times_SecretBaldi"), 2f, Vector3.zero);
@@ -428,9 +443,11 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 new("TimesItemDescriptor", false, 5f), new("SnowyPlaygroundTree", false), new("SnowPile", false),
                 new("Shovel_ForSnowPile", false, 0.1f), new("MysteryTresentMaker", false), new("MetalFence", true),
                 new("SecretBread", false), new("TimesKitchenSteak", false), new("JoeSign", false)
+
             };
             for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesGenericOutsideFlower_" + i, false));
             for (int i = 1; i <= 4; i++) objectTools.Add(new("TimesGenericCornerLamp_" + i, false));
+            for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesExclamation_" + i, false));
 
             objectTools.Add(new("Times_SecretBaldi", true, 5f));
             objectTools.Add(new("Times_InvisibleWall", true, 5f));

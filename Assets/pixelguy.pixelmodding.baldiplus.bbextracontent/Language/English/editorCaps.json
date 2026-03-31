@@ -1,314 +1,1152 @@
-{"items": [
+{
+  "items": [
+    {
+      "key": "Ed_GlobalStructure_times_OutsideBox_Title",
+      "value": "Outside Box"
+    },
+    {
+      "key": "Ed_GlobalStructure_times_OutsideBox_Desc",
+      "value": "A whole outside generated <i>literally</i> outside the school, with circular windows."
+    },
 
-	{"key":"Ed_GlobalStructure_times_OutsideBox_Title","value":"Outside Box"},
-	{"key":"Ed_GlobalStructure_times_OutsideBox_Desc","value":"A whole outside generated <i>literally</i> outside the school, with circular windows."},
-	
-	{"key":"Ed_Tool_light_Times_HangingLongLight_Title","value":"Hanging Long Light"},
-	{"key":"Ed_Tool_light_Times_HangingLongLight_Desc","value":"A variation of the hanging light that usually appears in Bathrooms."},
+    {
+      "key": "Ed_Tool_light_Times_HangingLongLight_Title",
+      "value": "Hanging Long Light"
+    },
+    {
+      "key": "Ed_Tool_light_Times_HangingLongLight_Desc",
+      "value": "A variation of the hanging light that usually appears in Bathrooms."
+    },
 
-	{"key":"Ed_Tool_structure_times_SuperFan_Title","value":"Super Fan"},
-	{"key":"Ed_Tool_structure_times_SuperFan_Desc","value":"Mark a spot for a Super Fan to spawn in a direction in order to use the Super Fans event."},
-	{"key":"Ed_Tool_structure_times_EventMachine_Title","value":"Event Machine"},
-	{"key":"Ed_Tool_structure_times_EventMachine_Desc","value":"Add an Event Machine that stops an event when a screwdriver is used on it."},
-	
-	
-	{"key":"Ed_Tool_door_times_SmallDoor_Title","value":"Small Door"},
-	{"key":"Ed_Tool_door_times_SmallDoor_Desc","value":"A door where small people can go through."},
-	{"key":"Ed_Tool_window_times_MetalWindow_Title","value":"Metal Window"},
-	{"key":"Ed_Tool_window_times_MetalWindow_Desc","value":"A metal window that, even though it is not a door, it can be opened by screwdrivers!"},
-	{"key":"Ed_Tool_window_times_ClassicWindow_Title","value":"Classic Window"},
-	{"key":"Ed_Tool_window_times_ClassicWindow_Desc","value":"We've seen this somewhere in a classic version of this game..."},
-	{"key":"Ed_Tool_window_times_RoundWindow_Title","value":"Round Window"},
-	{"key":"Ed_Tool_window_times_RoundWindow_Desc","value":"A completely unbreakable window. Usually, you'd see these facing the outside of the school."},
-	
-	
-	{"key":"Ed_Tool_structure_times_squisher_Title","value":"Squisher"},
-	{"key":"Ed_Tool_structure_times_squisher_Desc","value":"A machine that squishes people automatically."},
-	{"key":"Ed_Tool_structure_times_squisher_button_Title","value":"Squisher with Button"},
-	{"key":"Ed_Tool_structure_times_squisher_button_Desc","value":"A machine that squishes people automatically (with button to force squishing)."},
-	{"key":"Ed_Tool_structure_times_securitycameras_Title","value":"Security Camera"},
-	{"key":"Ed_Tool_structure_times_securitycameras_Desc","value":"They automatically trigger when a rule breaker is, well, breaking the rules on its watch."},
-	{"key":"Ed_Tool_structure_times_trapdoor_random_Title","value":"Random Trapdoor"},
-	{"key":"Ed_Tool_structure_times_trapdoor_random_Desc","value":"Add Trapdoors that let you into random places."},
-	{"key":"Ed_Tool_structure_times_trapdoor_linked_Title","value":"Linked Trapdoor"},
-	{"key":"Ed_Tool_structure_times_trapdoor_linked_Desc","value":"Add Trapdoors that are linked to each other."},
-	{"key":"Ed_Tool_structure_times_notebookmachine_Title","value":"Notebook Machine"},
-	{"key":"Ed_Tool_structure_times_notebookmachine_Desc","value":"Insert this inside a notebook tile to make it battery-powered."},
-	{"key":"Ed_Tool_structure_times_itemalarm_Title","value":"Item Alarm"},
-	{"key":"Ed_Tool_structure_times_itemalarm_Desc","value":"Insert this inside an item cell to make it trigger when the item is collected."},
-	{"key":"Ed_Tool_structure_times_duct_place_Title","value":"Duct"},
-	{"key":"Ed_Tool_structure_times_duct_place_Desc","value":"It'll pass infinitely hot gas through its connected ducts."},
-	{"key":"Ed_Tool_structure_times_duct_connect_Title","value":"Duct (Connect)"},
-	{"key":"Ed_Tool_structure_times_duct_connect_Desc","value":"Select a Duct to connect to another Duct; that way, you create a net of them."},
-	{"key":"Ed_Tool_structure_times_SecretButton_Title","value":"The Lab Button"},
-	{"key":"Ed_Tool_structure_times_SecretButton_Desc","value":"What is this?"},
-	
-	
-	{"key":"Ed_Tool_room_Bathroom_Title","value":"Bathroom"},
-	{"key":"Ed_Tool_room_Bathroom_Desc","value":"A room with toilets, sinks, and stalls. Some NPCs may enter here for no apparent reason."},
-	{"key":"Ed_Tool_room_AbandonedRoom_Title","value":"Abandoned Room"},
-	{"key":"Ed_Tool_room_AbandonedRoom_Desc","value":"An old, dusty room that hasn't been used in years. It may hide mysterious secrets."},
-	{"key":"Ed_Tool_room_ComputerRoom_Title","value":"Computer Room"},
-	{"key":"Ed_Tool_room_ComputerRoom_Desc","value":"Filled with computers and screens. A perfect spot for nerds and hackers alike."},
-	{"key":"Ed_Tool_room_DribbleRoom_Title","value":"Coach Dribble's Small Gym"},
-	{"key":"Ed_Tool_room_DribbleRoom_Desc","value":"A sporty room with basketball hoops and court lines for practicing your dribbles!"},
-	{"key":"Ed_Tool_room_Kitchen_Title","value":"Kitchen "},
-	{"key":"Ed_Tool_room_Kitchen_Desc","value":"Where Chef Joe cooks up his famous dishes! Watch out for flying pans."},
-	{"key":"Ed_Tool_room_SuperMystery_Title","value":"Super Mystery Room"},
-	{"key":"Ed_Tool_room_SuperMystery_Desc","value":"An advanced version of the Mystery Room, colored red and even stranger!"},
-	{"key":"Ed_Tool_room_FocusRoom_Title","value":"Focus Room"},
-	{"key":"Ed_Tool_room_FocusRoom_Desc","value":"A quiet area where students can focus without interruptions. Or so they think."},
-	{"key":"Ed_Tool_room_ExibitionRoom_Title","value":"Exhibition Room"},
-	{"key":"Ed_Tool_room_ExibitionRoom_Desc","value":"A room full of curiosities and objects on display. Don’t touch anything shiny!"},
-	{"key":"Ed_Tool_room_SnowyPlayground_Title","value":"Snowy Playground"},
-	{"key":"Ed_Tool_room_SnowyPlayground_Desc","value":"A snowy version of the classic outside!"},
-	{"key":"Ed_Tool_room_IceRink_Title","value":"Ice Rink"},
-	{"key":"Ed_Tool_room_IceRink_Desc","value":"An icy place to slide on and fall on water holes."},
-	{"key":"Ed_Tool_room_Forest_Title","value":"Forest Area"},
-	{"key":"Ed_Tool_room_Forest_Desc","value":"A forest place to remind that the old Field Trip and make everything dark on sight!"},
-	{"key":"Ed_Tool_room_BasketballArea_Title","value":"Basket Ball Court"},
-	{"key":"Ed_Tool_room_BasketballArea_Desc","value":"A very tall court where you can put basketball machines!"},
-	
-	
-	{"key":"Ed_Tool_bulkobject_fullStall_Title","value":"Full stall"},
-	{"key":"Ed_Tool_bulkobject_fullStall_Desc","value":"Insert a full stall for your bathroom, it's way easier with this tool."},
-	
-	
-	{"key":"Ed_Tool_item_times_Hammer_Desc","value":"Used to break walls, destroy barriers, or fix something... maybe."},
-	{"key":"Ed_Tool_item_times_Present_Desc","value":"Gives a random item when opened! Just hope it’s not coal."},
-	{"key":"Ed_Tool_item_times_Gum_Desc","value":"Sticky gum! You can throw it to slow NPCs or make a mess."},
-	{"key":"Ed_Tool_item_times_Bell_Desc","value":"Ring it to attract nearby NPCs or get Baldi’s attention!"},
-	{"key":"Ed_Tool_item_times_Headachepill_Desc","value":"Temporarily removes dizziness effects. Take responsibly."},
-	{"key":"Ed_Tool_item_times_Gps_Desc","value":"Shows everyone's current position on the map."},
-	{"key":"Ed_Tool_item_times_GoldenQuarter_Desc","value":"A shiny golden version of the quarter. Worth more? Not really."},
-	{"key":"Ed_Tool_item_times_BSED_Desc","value":"Drink this and your stamina will be supercharged."},
-	{"key":"Ed_Tool_item_times_SpeedPotion_Desc","value":"Increases your speed for a short time."},
-	{"key":"Ed_Tool_item_times_Pencil_Desc","value":"Can be used to... stab things."},
-	{"key":"Ed_Tool_item_times_WaterBottle_Desc","value":"Restores full stamina when drunk."},
-	{"key":"Ed_Tool_item_times_EmptyWaterBottle_Desc","value":"Can be used to be filled up."},
-	{"key":"Ed_Tool_item_times_Pogostick_Desc","value":"Jump endlessly! Great for skipping and bouncing over everyone!."},
-	{"key":"Ed_Tool_item_times_Beartrap_Desc","value":"Stops anything that steps on it. Including you."},
-	{"key":"Ed_Tool_item_times_Basketball_Desc","value":"Can be thrown to bounce and hit things around."},
-	{"key":"Ed_Tool_item_times_HotChocolate_Desc","value":"Restores stamina and warms you up in cold events."},
-	{"key":"Ed_Tool_item_times_InvRemControl_Desc","value":"Remote control that toggles certain interactable objects."},
-	{"key":"Ed_Tool_item_times_Screwdriver_Desc","value":"Used for unscrewing vents or tampering with machines."},
-	{"key":"Ed_Tool_item_times_Hardhat_Desc","value":"Protects you from falling objects or Baldi’s ruler swings!"},
-	{"key":"Ed_Tool_item_times_TimesIcon_Desc","value":"A collectible symbol of TIME itself! Or just decoration."},
-	{"key":"Ed_Tool_item_times_CherryBsoda_Desc","value":"A cherry-flavored BSODA. Same push power, better taste."},
-	{"key":"Ed_Tool_item_times_Soap_Desc","value":"Slippery soap! Drops that make others slip and fall."},
-	{"key":"Ed_Tool_item_times_Coal_Desc","value":"Useless... unless you find a furnace."},
-	{"key":"Ed_Tool_item_times_DivisionPoint_Desc","value":"A mysterious item used to divide something. Or nothing."},
-	{"key":"Ed_Tool_item_times_BlowDrier_Desc","value":"Blows strong air to push light objects or dry wet ones."},
-	{"key":"Ed_Tool_item_times_ComicallyLargeTrumpet_Desc","value":"Makes a loud honk that startles everyone nearby."},
-	{"key":"Ed_Tool_item_times_Magnet_Desc","value":"Attracts metallic objects or items from a distance."},
-	{"key":"Ed_Tool_item_times_ThrowableTeleporter_Desc","value":"Throw it to instantly teleport to where it lands."},
-	{"key":"Ed_Tool_item_times_SugarFlavorZestyBar_Desc","value":"A sugary variant of the Zesty Bar! Restores 300% stamina."},
-	{"key":"Ed_Tool_item_times_RottenCheese_Desc","value":"Smells terrible... maybe you can use it to distract someone."},
-	{"key":"Ed_Tool_item_times_SoapBubbles_Desc","value":"Slippery soap! Drops that make others slip and fall."},
-	{"key":"Ed_Tool_item_times_GSoda_Desc","value":"A Grape variant of BSODA that the more people get in, the more it slwos down."},
-	{"key":"Ed_Tool_item_times_Beehive_Desc","value":"Releases bees when used! Maybe don’t shake it."},
-	{"key":"Ed_Tool_item_times_SuperCamera_Desc","value":"A super camera flash that stuns NPCs for a few seconds."},
-	{"key":"Ed_Tool_item_times_GrabGun_Desc","value":"Lets you grab distant objects or pull yourself forward."},
-	{"key":"Ed_Tool_item_times_ToiletPaper_Desc","value":"Essential in the Bathroom. Can also be thrown against people!"},
-	{"key":"Ed_Tool_item_times_CrumpledPaper_Desc","value":"Crumpled paper that can be thrown as a small distraction."},
-	{"key":"Ed_Tool_item_times_UglyPicture_Desc","value":"A terrible photo that makes anyone who sees it uncomfortable."},
-	{"key":"Ed_Tool_item_times_FidgetSpinner_Desc","value":"Spin to win! Or fly away aimlessly"},
-	{"key":"Ed_Tool_item_times_FryingPan_Desc","value":"Can be used to bonk people."},
-	{"key":"Ed_Tool_item_times_ElectricalGel_Desc","value":"Conducts electricity. Great for short-circuiting the floor (duh)."},
-	{"key":"Ed_Tool_item_times_DoorStopper_Desc","value":"Keeps a door open. Simple yet effective!"},
-	{"key":"Ed_Tool_item_times_StormInABag_Desc","value":"Releases a mini thunderstorm when opened!"},
-	{"key":"Ed_Tool_item_times_ChocolateYTP_Desc","value":"Chocolate that gives you YTPs too."},
-	{"key":"Ed_Tool_item_times_WaterYTP_Desc","value":"A YTP that fills up your stamina."},
-	{"key":"Ed_Tool_item_times_SmallTimesKey_Desc","value":"Worth 9999999 YTPs."},
-	{"key":"Ed_Tool_item_times_MrMolar_Desc","value":"A giant tooth. Ew. Might have special use agaisnt everyone."},
-	{"key":"Ed_Tool_item_times_CleaningCloth_Desc","value":"Can clean dirty objects or items."},
-	{"key":"Ed_Tool_item_times_DirtyCleaningCloth_Desc","value":"Can clean dirty objects or items."},
-	{"key":"Ed_Tool_item_times_BaldiYearbook_Desc","value":"Baldi’s personal yearbook! Might contain secrets."},
-	{"key":"Ed_Tool_item_times_ChillyChilli_Desc","value":"Cools you down and reduces fire effects."},
-	{"key":"Ed_Tool_item_times_ComicallyLargeJello_Desc","value":"A huge, bouncy jello that jiggles and can trap NPCs."},
-	{"key":"Ed_Tool_item_times_Sketchbook_Desc","value":"Contains doodles and secrets from Baldi’s school."},
-	{"key":"Ed_Tool_item_times_FireworkRocket_Desc","value":"Launch it to cause a loud explosion and scare everyone!"},
-	{"key":"Ed_Tool_item_times_Slingshot_Desc","value":"Shoots small items forward at high speed."},
-	{"key":"Ed_Tool_item_times_GoodGrades_Desc","value":"Makes Baldi happy for a short while. Keep it up!"},
-	{"key":"Ed_Tool_item_times_AAAHTomato_Desc","value":"A screaming tomato. Why does it scream?"},
-	{"key":"Ed_Tool_item_times_IceSkates_Desc","value":"Lets you glide on icy floors like a pro!"},
-	
-	
-	{"key":"Ed_Tool_object_bathStall_Title","value":"Bath Stall"},
-	{"key":"Ed_Tool_object_bathStall_Desc","value":"A bathroom stall. Provides privacy and maybe a hiding spot."},
-	{"key":"Ed_Tool_object_bathDoor_Title","value":"Bath Door"},
-	{"key":"Ed_Tool_object_bathDoor_Desc","value":"A bathroom door. Opens and closes like a regular one."},
-	{"key":"Ed_Tool_object_sink_Title","value":"Sink"},
-	{"key":"Ed_Tool_object_sink_Desc","value":"Wash your hands here! Hygiene is important."},
-	{"key":"Ed_Tool_object_Toilet_Title","value":"Toilet"},
-	{"key":"Ed_Tool_object_Toilet_Desc","value":"Flush it for fun. Nothing else happens... right?"},
-	{"key":"Ed_Tool_object_BasketHoop_Title","value":"Basket Hoop"},
-	{"key":"Ed_Tool_object_BasketHoop_Desc","value":"Basketball hoop! Combine with basketballs for fun!"},
-	{"key":"Ed_Tool_object_BasketballPile_Title","value":"Basketball Pile"},
-	{"key":"Ed_Tool_object_BasketballPile_Desc","value":"Can be thrown to bounce and hit things around."},
-	{"key":"Ed_Tool_object_GrandStand_Title","value":"Grand Stand"},
-	{"key":"Ed_Tool_object_GrandStand_Desc","value":"A stand where fans can cheer from! If there were any..."},
-	{"key":"Ed_Tool_object_BasketMachine_Title","value":"Basket Machine"},
-	{"key":"Ed_Tool_object_BasketMachine_Desc","value":"Throw a bunch of basketballs by itself."},
-	{"key":"Ed_Tool_object_BasketBallBigLine_Title","value":"Big Court Line"},
-	{"key":"Ed_Tool_object_BasketBallBigLine_Desc","value":"Marks the edge of a basketball court."},
-	{"key":"Ed_Tool_object_FancyComputerTable_Title","value":"Fancy Computer Table"},
-	{"key":"Ed_Tool_object_FancyComputerTable_Desc","value":"A sleek, modern table for computers."},
-	{"key":"Ed_Tool_object_ComputerBillboard_Title","value":"Computer Billboard"},
-	{"key":"Ed_Tool_object_ComputerBillboard_Desc","value":"Displays computer-related advertisements or images (SOON)."},
-	{"key":"Ed_Tool_object_StraightRunLine_Title","value":"Straight Run Line"},
-	{"key":"Ed_Tool_object_StraightRunLine_Desc","value":"A straight track line for running courses."},
-	{"key":"Ed_Tool_object_CurvedRunLine_Title","value":"Curved Run Line"},
-	{"key":"Ed_Tool_object_CurvedRunLine_Desc","value":"A curved line for track fields or decorations."},
-	{"key":"Ed_Tool_object_Foresttree_Title","value":"Forest Tree"},
-	{"key":"Ed_Tool_object_Foresttree_Desc","value":"A tall forest tree. Common in forest areas."},
-	{"key":"Ed_Tool_object_Campfire_Title","value":"Campfire"},
-	{"key":"Ed_Tool_object_Campfire_Desc","value":"A warm fire pit for outdoor gatherings."},
-	{"key":"Ed_Tool_object_Beartrap_Title","value":"Beartrap"},
-	{"key":"Ed_Tool_object_Beartrap_Desc","value":"Stops anything that steps on it. Including you."},
-	{"key":"Ed_Tool_object_KitchenCabinet_Title","value":"Kitchen Cabinet"},
-	{"key":"Ed_Tool_object_KitchenCabinet_Desc","value":"Where Chef Joe cooks up his famous dishes!"},
-	{"key":"Ed_Tool_object_JoeChef_Title","value":"Chef Joe"},
-	{"key":"Ed_Tool_object_JoeChef_Desc","value":"It’s Joe! He’s the chef in the kitchen, always busy."},
-	{"key":"Ed_Tool_object_FocusedStudent_Title","value":"Focused Student"},
-	{"key":"Ed_Tool_object_FocusedStudent_Desc","value":"A student so focused they won’t move until disturbed."},
-	{"key":"Ed_Tool_object_ComputerTeleporter_Title","value":"Teleporter"},
-	{"key":"Ed_Tool_object_ComputerTeleporter_Desc","value":"A teleporter device that sends you to another random teleporter device."},
-	{"key":"Ed_Tool_object_DustShroom_Title","value":"Dust Shroom"},
-	{"key":"Ed_Tool_object_DustShroom_Desc","value":"A mushroom that emits dust when touched."},
-	{"key":"Ed_Tool_object_SensitiveVase_Title","value":"Sensitive Vase"},
-	{"key":"Ed_Tool_object_SensitiveVase_Desc","value":"Breaks if anyone runs nearby! Handle with care."},
-	{"key":"Ed_Tool_object_TimesItemDescriptor_Title","value":"Item Descriptor"},
-	{"key":"Ed_Tool_object_TimesItemDescriptor_Desc","value":"Displays the description of Times-themed items."},
-	{"key":"Ed_Tool_object_SnowyPlaygroundTree_Title","value":"Snowy Playground Tree"},
-	{"key":"Ed_Tool_object_SnowyPlaygroundTree_Desc","value":"A snow-covered tree found in winter playgrounds."},
-	{"key":"Ed_Tool_object_SnowPile_Title","value":"Snow Pile"},
-	{"key":"Ed_Tool_object_SnowPile_Desc","value":"A pile of snow that may hide items."},
-	{"key":"Ed_Tool_object_Shovel_ForSnowPile_Title","value":"Snow Shovel"},
-	{"key":"Ed_Tool_object_Shovel_ForSnowPile_Desc","value":"A shovel that uncovers snow piles."},
-	{"key":"Ed_Tool_object_MysteryTresentMaker_Title","value":"Mystery Tresent Maker 101"},
-	{"key":"Ed_Tool_object_MysteryTresentMaker_Desc","value":"Produces random mysterious presents!"},
-	{"key":"Ed_Tool_object_MetalFence_Title","value":"Metal Fence"},
-	{"key":"Ed_Tool_object_MetalFence_Desc","value":"A metallic fence for outdoor zones."},
-	{"key":"Ed_Tool_object_SecretBread_Title","value":"Secret Bread"},
-	{"key":"Ed_Tool_object_SecretBread_Desc","value":"A mysterious loaf of bread hidden for unknown reasons."},
-	{"key":"Ed_Tool_object_TimesKitchenSteak_Title","value":"Kitchen Steak"},
-	{"key":"Ed_Tool_object_TimesKitchenSteak_Desc","value":"A delicious [uneteable] steak."},
-	{"key":"Ed_Tool_object_JoeSign_Title","value":"Joe Sign"},
-	{"key":"Ed_Tool_object_JoeSign_Desc","value":"A sign with Joe’s face on it. Promotes his restaurant."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_1_Title","value":"Outside Flower #1"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_1_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_2_Title","value":"Outside Flower #2"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_2_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_3_Title","value":"Outside Flower #3"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_3_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_4_Title","value":"Outside Flower #4"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_4_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_5_Title","value":"Outside Flower #5"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_5_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_6_Title","value":"Outside Flower #6"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_6_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_7_Title","value":"Outside Flower #7"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_7_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_8_Title","value":"Outside Flower #8"},
-	{"key":"Ed_Tool_object_TimesGenericOutsideFlower_8_Desc","value":"A simple decorative flower found outside."},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_1_Title","value":"Corner Lamp #1"},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_1_Desc","value":"A lamp that fits neatly into room corners."},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_2_Title","value":"Corner Lamp #2"},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_2_Desc","value":"A lamp that fits neatly into room corners."},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_3_Title","value":"Corner Lamp #3"},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_3_Desc","value":"A lamp that fits neatly into room corners."},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_4_Title","value":"Corner Lamp #4"},
-	{"key":"Ed_Tool_object_TimesGenericCornerLamp_4_Desc","value":"A lamp that fits neatly into room corners."},
-	
-	
-	{"key":"Ed_RandomEvent_times_Principalout","value":"Principal Out\nPrincipal will be redirected to an office and completely ignore any rule break or punishments."},
-	{"key":"Ed_RandomEvent_times_FrozenEvent","value":"Frozen Event\nThe whole school goes into a <b>cold</b> state. Everybody struggles to move, and there are obstacles in the way."},
-	{"key":"Ed_RandomEvent_times_CurtainsClosed","value":"Curtains Closed\nThe new technological noise-blocking curtains are closed in the hallways. You cannot hear the other side!"},
-	{"key":"Ed_RandomEvent_times_SkateboardDay","value":"Skateboard Day\nEveryone start rolling down with skateboards. Your movement definitely won't be the best, but it's cool."},
-	{"key":"Ed_RandomEvent_times_Earthquake","value":"Earthquake\nEverybody goes shaking like dancing due to the <i>obvious</i> earthquake."},
-	{"key":"Ed_RandomEvent_times_SuperFans","value":"Super Fans\nSuper Fans are toggled on and they act as fixed Cloudy Copters: with a refreshing air."},
-	{"key":"Ed_RandomEvent_times_LightningEvent","value":"Lighting Event\nA storm makes the whole school go gray. Lighting may struck some places, making it harder to move."},
-	{"key":"Ed_RandomEvent_times_SuperMysteryRoom","value":"Super Mystery Room\nAn <b>enhanced Mystery Room</b> event. Nothing new aside from being red."},
-	{"key":"Ed_RandomEvent_times_HologramPast","value":"Hologram Past\nA bunch of \"hologram\" clones appears in everybody's position, making everything more confusing."},
-	{"key":"Ed_RandomEvent_times_NatureEvent","value":"Nature Event\nA bunch of grass appear everywhere and flowers come outside to affect veryone around."},
-	
-	{"key":"Ed_Poster_Title_times_OfficeChair_PRIPoster","value":"Office Chair's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_OfficeChair_PRIPoster","value":"Office Chair's poster in the office."},
-	{"key":"Ed_Poster_Title_times_HappyHolidays_PRIPoster","value":"Happy Holidays' Office Poster"},
-	{"key":"Ed_Poster_Desc_times_HappyHolidays_PRIPoster","value":"Happy Holidays' poster in the office."},
-	{"key":"Ed_Poster_Title_times_Superintendent_PRIPoster","value":"SI's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Superintendent_PRIPoster","value":"Superintendent's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Stunly_PRIPoster","value":"Stunly's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Stunly_PRIPoster","value":"Stunly's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Pix_PRIPoster","value":"Pix's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Pix_PRIPoster","value":"Pix's poster in the office."},
-	{"key":"Ed_Poster_Title_times_ZeroPrize_PRIPoster","value":"0thPrize's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_ZeroPrize_PRIPoster","value":"0thPrize's poster in the office."},
-	{"key":"Ed_Poster_Title_times_PencilBoy_PRIPoster","value":"Pencil Boy's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_PencilBoy_PRIPoster","value":"Pencil Boy's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Rollingbot_PRIPoster","value":"Rolling Bot's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Rollingbot_PRIPoster","value":"Rolling Bot's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Watcher_PRIPoster","value":"Watcher's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Watcher_PRIPoster","value":"Watcher's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Magicalstudent_PRIPoster","value":"MGS's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Magicalstudent_PRIPoster","value":"Magical Student's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Superintendentjr_PRIPoster","value":"SPJ's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Superintendentjr_PRIPoster","value":"Superintendent JR's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Leapy_PRIPoster","value":"Leapy's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Leapy_PRIPoster","value":"Leapy's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Glubotrony_PRIPoster","value":"Glubotrony's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Glubotrony_PRIPoster","value":"Glubotrony's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Dribble_PRIPoster","value":"CD's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Dribble_PRIPoster","value":"Coach Dribble's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Bubbly_PRIPoster","value":"Bubbly's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Bubbly_PRIPoster","value":"Bubbly's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Phawillow_PRIPoster","value":"Phawillow's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Phawillow_PRIPoster","value":"Phawillow's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Faker_PRIPoster","value":"Faker's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Faker_PRIPoster","value":"Faker's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Camerastand_PRIPoster","value":"CS' Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Camerastand_PRIPoster","value":"Camera Stand's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Cactungus_PRIPoster","value":"Cactungus's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Cactungus_PRIPoster","value":"Cactungus's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Penny_PRIPoster","value":"Penny's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Penny_PRIPoster","value":"Penny's poster in the office."},
-	{"key":"Ed_Poster_Title_times_SerOran_PRIPoster","value":"Ser Oran's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_SerOran_PRIPoster","value":"Ser Oran's poster in the office."},
-	{"key":"Ed_Poster_Title_times_CoolMop_PRIPoster","value":"Cool Mop's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_CoolMop_PRIPoster","value":"Cool Mop's poster in the office."},
-	{"key":"Ed_Poster_Title_times_InkArtist_PRIPoster","value":"Ink Artist's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_InkArtist_PRIPoster","value":"Ink Artist's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Quiker_PRIPoster","value":"Quiker's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Quiker_PRIPoster","value":"Quiker's poster in the office."},
-	{"key":"Ed_Poster_Title_times_PuddingFan_PRIPoster","value":"Pudding Fan's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_PuddingFan_PRIPoster","value":"Pudding Fan's poster in the office."},
-	{"key":"Ed_Poster_Title_times_ZapZap_PRIPoster","value":"ZapZap's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_ZapZap_PRIPoster","value":"ZapZap's poster in the office."},
-	{"key":"Ed_Poster_Title_times_CheeseMan_PRIPoster","value":"CheeseMan's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_CheeseMan_PRIPoster","value":"CheeseMan's poster in the office."},
-	{"key":"Ed_Poster_Title_times_DetentionBot_PRIPoster","value":"Detention Bot's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_DetentionBot_PRIPoster","value":"Detention Bot's poster in the office."},
-	{"key":"Ed_Poster_Title_times_ScienceTeacher_PRIPoster","value":"ST's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_ScienceTeacher_PRIPoster","value":"Science Teacher's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Adverto_PRIPoster","value":"Adverto's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Adverto_PRIPoster","value":"Adverto's poster in the office."},
-	{"key":"Ed_Poster_Title_times_VacuumCleaner_PRIPoster","value":"VC's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_VacuumCleaner_PRIPoster","value":"Vacuum Cleaner's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Mopliss_PRIPoster","value":"Mopliss' Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Mopliss_PRIPoster","value":"Mopliss' poster in the office."},
-	{"key":"Ed_Poster_Title_times_NoseMan_PRIPoster","value":"Nose Man's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_NoseMan_PRIPoster","value":"Nose Man's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Mimicry_PRIPoster","value":"Mimicry's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Mimicry_PRIPoster","value":"Mimicry's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Pran_PRIPoster","value":"Pran's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Pran_PRIPoster","value":"Pran's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Winterry_PRIPoster","value":"Winterry's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Winterry_PRIPoster","value":"Winterry's poster in the office."},
-	{"key":"Ed_Poster_Title_times_Snowfolke_PRIPoster","value":"Snowfolke's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_Snowfolke_PRIPoster","value":"Snowfolke's poster in the office."},
-	{"key":"Ed_Poster_Title_times_EverettTreewood_PRIPoster","value":"ET's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_EverettTreewood_PRIPoster","value":"Everett Treewood's poster in the office."},
-	{"key":"Ed_Poster_Title_times_MrKreye_PRIPoster","value":"Mr. Kreye's Office Poster"},
-	{"key":"Ed_Poster_Desc_times_MrKreye_PRIPoster","value":"Mr. Kreye's poster in the office."}
-]}
+    { "key": "Ed_Tool_structure_times_SuperFan_Title", "value": "Super Fan" },
+    {
+      "key": "Ed_Tool_structure_times_SuperFan_Desc",
+      "value": "Mark a spot for a Super Fan to spawn in a direction in order to use the Super Fans event."
+    },
+    {
+      "key": "Ed_Tool_structure_times_EventMachine_Title",
+      "value": "Event Machine"
+    },
+    {
+      "key": "Ed_Tool_structure_times_EventMachine_Desc",
+      "value": "Add an Event Machine that stops an event when a screwdriver is used on it."
+    },
+
+    { "key": "Ed_Tool_door_times_SmallDoor_Title", "value": "Small Door" },
+    {
+      "key": "Ed_Tool_door_times_SmallDoor_Desc",
+      "value": "A door where small people can go through."
+    },
+    {
+      "key": "Ed_Tool_window_times_MetalWindow_Title",
+      "value": "Metal Window"
+    },
+    {
+      "key": "Ed_Tool_window_times_MetalWindow_Desc",
+      "value": "A metal window that, even though it is not a door, it can be opened by screwdrivers!"
+    },
+    {
+      "key": "Ed_Tool_window_times_ClassicWindow_Title",
+      "value": "Classic Window"
+    },
+    {
+      "key": "Ed_Tool_window_times_ClassicWindow_Desc",
+      "value": "We've seen this somewhere in a classic version of this game..."
+    },
+    {
+      "key": "Ed_Tool_window_times_RoundWindow_Title",
+      "value": "Round Window"
+    },
+    {
+      "key": "Ed_Tool_window_times_RoundWindow_Desc",
+      "value": "A completely unbreakable window. Usually, you'd see these facing the outside of the school."
+    },
+
+    { "key": "Ed_Tool_structure_times_squisher_Title", "value": "Squisher" },
+    {
+      "key": "Ed_Tool_structure_times_squisher_Desc",
+      "value": "A machine that squishes people automatically."
+    },
+    {
+      "key": "Ed_Tool_structure_times_squisher_button_Title",
+      "value": "Squisher with Button"
+    },
+    {
+      "key": "Ed_Tool_structure_times_squisher_button_Desc",
+      "value": "A machine that squishes people automatically (with button to force squishing)."
+    },
+    {
+      "key": "Ed_Tool_structure_times_securitycameras_Title",
+      "value": "Security Camera"
+    },
+    {
+      "key": "Ed_Tool_structure_times_securitycameras_Desc",
+      "value": "They automatically trigger when a rule breaker is, well, breaking the rules on its watch."
+    },
+    {
+      "key": "Ed_Tool_structure_times_trapdoor_random_Title",
+      "value": "Random Trapdoor"
+    },
+    {
+      "key": "Ed_Tool_structure_times_trapdoor_random_Desc",
+      "value": "Add Trapdoors that let you into random places."
+    },
+    {
+      "key": "Ed_Tool_structure_times_trapdoor_linked_Title",
+      "value": "Linked Trapdoor"
+    },
+    {
+      "key": "Ed_Tool_structure_times_trapdoor_linked_Desc",
+      "value": "Add Trapdoors that are linked to each other."
+    },
+    {
+      "key": "Ed_Tool_structure_times_notebookmachine_Title",
+      "value": "Notebook Machine"
+    },
+    {
+      "key": "Ed_Tool_structure_times_notebookmachine_Desc",
+      "value": "Insert this inside a notebook tile to make it battery-powered."
+    },
+    { "key": "Ed_Tool_structure_times_itemalarm_Title", "value": "Item Alarm" },
+    {
+      "key": "Ed_Tool_structure_times_itemalarm_Desc",
+      "value": "Insert this inside an item cell to make it trigger when the item is collected."
+    },
+    { "key": "Ed_Tool_structure_times_duct_place_Title", "value": "Duct" },
+    {
+      "key": "Ed_Tool_structure_times_duct_place_Desc",
+      "value": "It'll pass infinitely hot gas through its connected ducts."
+    },
+    {
+      "key": "Ed_Tool_structure_times_duct_connect_Title",
+      "value": "Duct (Connect)"
+    },
+    {
+      "key": "Ed_Tool_structure_times_duct_connect_Desc",
+      "value": "Select a Duct to connect to another Duct; that way, you create a net of them."
+    },
+    {
+      "key": "Ed_Tool_structure_times_SecretButton_Title",
+      "value": "The Lab Button"
+    },
+    {
+      "key": "Ed_Tool_structure_times_SecretButton_Desc",
+      "value": "What is this?"
+    },
+
+    { "key": "Ed_Tool_room_Bathroom_Title", "value": "Bathroom" },
+    {
+      "key": "Ed_Tool_room_Bathroom_Desc",
+      "value": "A room with toilets, sinks, and stalls. Some NPCs may enter here for no apparent reason."
+    },
+    { "key": "Ed_Tool_room_AbandonedRoom_Title", "value": "Abandoned Room" },
+    {
+      "key": "Ed_Tool_room_AbandonedRoom_Desc",
+      "value": "An old, dusty room that hasn't been used in years. It may hide mysterious secrets."
+    },
+    { "key": "Ed_Tool_room_ComputerRoom_Title", "value": "Computer Room" },
+    {
+      "key": "Ed_Tool_room_ComputerRoom_Desc",
+      "value": "Filled with computers and screens. A perfect spot for nerds and hackers alike."
+    },
+    {
+      "key": "Ed_Tool_room_DribbleRoom_Title",
+      "value": "Coach Dribble's Small Gym"
+    },
+    {
+      "key": "Ed_Tool_room_DribbleRoom_Desc",
+      "value": "A sporty room with basketball hoops and court lines for practicing your dribbles!"
+    },
+    { "key": "Ed_Tool_room_Kitchen_Title", "value": "Kitchen " },
+    {
+      "key": "Ed_Tool_room_Kitchen_Desc",
+      "value": "Where Chef Joe cooks up his famous dishes! Watch out for flying pans."
+    },
+    { "key": "Ed_Tool_room_SuperMystery_Title", "value": "Super Mystery Room" },
+    {
+      "key": "Ed_Tool_room_SuperMystery_Desc",
+      "value": "An advanced version of the Mystery Room, colored red and even stranger!"
+    },
+    { "key": "Ed_Tool_room_FocusRoom_Title", "value": "Focus Room" },
+    {
+      "key": "Ed_Tool_room_FocusRoom_Desc",
+      "value": "A quiet area where students can focus without interruptions. Or so they think."
+    },
+    { "key": "Ed_Tool_room_ExibitionRoom_Title", "value": "Exhibition Room" },
+    {
+      "key": "Ed_Tool_room_ExibitionRoom_Desc",
+      "value": "A room full of curiosities and objects on display. Don’t touch anything shiny!"
+    },
+    {
+      "key": "Ed_Tool_room_SnowyPlayground_Title",
+      "value": "Snowy Playground"
+    },
+    {
+      "key": "Ed_Tool_room_SnowyPlayground_Desc",
+      "value": "A snowy version of the classic outside!"
+    },
+    { "key": "Ed_Tool_room_IceRink_Title", "value": "Ice Rink" },
+    {
+      "key": "Ed_Tool_room_IceRink_Desc",
+      "value": "An icy place to slide on and fall on water holes."
+    },
+    { "key": "Ed_Tool_room_Forest_Title", "value": "Forest Area" },
+    {
+      "key": "Ed_Tool_room_Forest_Desc",
+      "value": "A forest place to remind that the old Field Trip and make everything dark on sight!"
+    },
+    {
+      "key": "Ed_Tool_room_BasketballArea_Title",
+      "value": "Basket Ball Court"
+    },
+    {
+      "key": "Ed_Tool_room_BasketballArea_Desc",
+      "value": "A very tall court where you can put basketball machines!"
+    },
+
+    { "key": "Ed_Tool_bulkobject_fullStall_Title", "value": "Full stall" },
+    {
+      "key": "Ed_Tool_bulkobject_fullStall_Desc",
+      "value": "Insert a full stall for your bathroom, it's way easier with this tool."
+    },
+
+    {
+      "key": "Ed_Tool_item_times_Hammer_Desc",
+      "value": "Used to break walls, destroy barriers, or fix something... maybe."
+    },
+    {
+      "key": "Ed_Tool_item_times_Present_Desc",
+      "value": "Gives a random item when opened! Just hope it’s not coal."
+    },
+    {
+      "key": "Ed_Tool_item_times_Gum_Desc",
+      "value": "Sticky gum! You can throw it to slow NPCs or make a mess."
+    },
+    {
+      "key": "Ed_Tool_item_times_Bell_Desc",
+      "value": "Ring it to attract nearby NPCs or get Baldi’s attention!"
+    },
+    {
+      "key": "Ed_Tool_item_times_Headachepill_Desc",
+      "value": "Temporarily removes dizziness effects. Take responsibly."
+    },
+    {
+      "key": "Ed_Tool_item_times_Gps_Desc",
+      "value": "Shows everyone's current position on the map."
+    },
+    {
+      "key": "Ed_Tool_item_times_GoldenQuarter_Desc",
+      "value": "A shiny golden version of the quarter. Worth more? Not really."
+    },
+    {
+      "key": "Ed_Tool_item_times_BSED_Desc",
+      "value": "Drink this and your stamina will be supercharged."
+    },
+    {
+      "key": "Ed_Tool_item_times_SpeedPotion_Desc",
+      "value": "Increases your speed for a short time."
+    },
+    {
+      "key": "Ed_Tool_item_times_Pencil_Desc",
+      "value": "Can be used to... stab things."
+    },
+    {
+      "key": "Ed_Tool_item_times_WaterBottle_Desc",
+      "value": "Restores full stamina when drunk."
+    },
+    {
+      "key": "Ed_Tool_item_times_EmptyWaterBottle_Desc",
+      "value": "Can be used to be filled up."
+    },
+    {
+      "key": "Ed_Tool_item_times_Pogostick_Desc",
+      "value": "Jump endlessly! Great for skipping and bouncing over everyone!."
+    },
+    {
+      "key": "Ed_Tool_item_times_Beartrap_Desc",
+      "value": "Stops anything that steps on it. Including you."
+    },
+    {
+      "key": "Ed_Tool_item_times_Basketball_Desc",
+      "value": "Can be thrown to bounce and hit things around."
+    },
+    {
+      "key": "Ed_Tool_item_times_HotChocolate_Desc",
+      "value": "Restores stamina and warms you up in cold events."
+    },
+    {
+      "key": "Ed_Tool_item_times_InvRemControl_Desc",
+      "value": "Remote control that toggles certain interactable objects."
+    },
+    {
+      "key": "Ed_Tool_item_times_Screwdriver_Desc",
+      "value": "Used for unscrewing vents or tampering with machines."
+    },
+    {
+      "key": "Ed_Tool_item_times_Hardhat_Desc",
+      "value": "Protects you from falling objects or Baldi’s ruler swings!"
+    },
+    {
+      "key": "Ed_Tool_item_times_TimesIcon_Desc",
+      "value": "A collectible symbol of TIME itself! Or just decoration."
+    },
+    {
+      "key": "Ed_Tool_item_times_CherryBsoda_Desc",
+      "value": "A cherry-flavored BSODA. Same push power, better taste."
+    },
+    {
+      "key": "Ed_Tool_item_times_Soap_Desc",
+      "value": "Slippery soap! Drops that make others slip and fall."
+    },
+    {
+      "key": "Ed_Tool_item_times_Coal_Desc",
+      "value": "Useless... unless you find a furnace."
+    },
+    {
+      "key": "Ed_Tool_item_times_DivisionPoint_Desc",
+      "value": "A mysterious item used to divide something. Or nothing."
+    },
+    {
+      "key": "Ed_Tool_item_times_BlowDrier_Desc",
+      "value": "Blows strong air to push light objects or dry wet ones."
+    },
+    {
+      "key": "Ed_Tool_item_times_ComicallyLargeTrumpet_Desc",
+      "value": "Makes a loud honk that startles everyone nearby."
+    },
+    {
+      "key": "Ed_Tool_item_times_Magnet_Desc",
+      "value": "Attracts metallic objects or items from a distance."
+    },
+    {
+      "key": "Ed_Tool_item_times_ThrowableTeleporter_Desc",
+      "value": "Throw it to instantly teleport to where it lands."
+    },
+    {
+      "key": "Ed_Tool_item_times_SugarFlavorZestyBar_Desc",
+      "value": "A sugary variant of the Zesty Bar! Restores 300% stamina."
+    },
+    {
+      "key": "Ed_Tool_item_times_RottenCheese_Desc",
+      "value": "Smells terrible... maybe you can use it to distract someone."
+    },
+    {
+      "key": "Ed_Tool_item_times_SoapBubbles_Desc",
+      "value": "Slippery soap! Drops that make others slip and fall."
+    },
+    {
+      "key": "Ed_Tool_item_times_GSoda_Desc",
+      "value": "A Grape variant of BSODA that the more people get in, the more it slwos down."
+    },
+    {
+      "key": "Ed_Tool_item_times_Beehive_Desc",
+      "value": "Releases bees when used! Maybe don’t shake it."
+    },
+    {
+      "key": "Ed_Tool_item_times_SuperCamera_Desc",
+      "value": "A super camera flash that stuns NPCs for a few seconds."
+    },
+    {
+      "key": "Ed_Tool_item_times_GrabGun_Desc",
+      "value": "Lets you grab distant objects or pull yourself forward."
+    },
+    {
+      "key": "Ed_Tool_item_times_ToiletPaper_Desc",
+      "value": "Essential in the Bathroom. Can also be thrown against people!"
+    },
+    {
+      "key": "Ed_Tool_item_times_CrumpledPaper_Desc",
+      "value": "Crumpled paper that can be thrown as a small distraction."
+    },
+    {
+      "key": "Ed_Tool_item_times_UglyPicture_Desc",
+      "value": "A terrible photo that makes anyone who sees it uncomfortable."
+    },
+    {
+      "key": "Ed_Tool_item_times_FidgetSpinner_Desc",
+      "value": "Spin to win! Or fly away aimlessly"
+    },
+    {
+      "key": "Ed_Tool_item_times_FryingPan_Desc",
+      "value": "Can be used to bonk people."
+    },
+    {
+      "key": "Ed_Tool_item_times_ElectricalGel_Desc",
+      "value": "Conducts electricity. Great for short-circuiting the floor (duh)."
+    },
+    {
+      "key": "Ed_Tool_item_times_DoorStopper_Desc",
+      "value": "Keeps a door open. Simple yet effective!"
+    },
+    {
+      "key": "Ed_Tool_item_times_StormInABag_Desc",
+      "value": "Releases a mini thunderstorm when opened!"
+    },
+    {
+      "key": "Ed_Tool_item_times_ChocolateYTP_Desc",
+      "value": "Chocolate that gives you YTPs too."
+    },
+    {
+      "key": "Ed_Tool_item_times_WaterYTP_Desc",
+      "value": "A YTP that fills up your stamina."
+    },
+    {
+      "key": "Ed_Tool_item_times_SmallTimesKey_Desc",
+      "value": "Worth 9999999 YTPs."
+    },
+    {
+      "key": "Ed_Tool_item_times_MrMolar_Desc",
+      "value": "A giant tooth. Ew. Might have special use agaisnt everyone."
+    },
+    {
+      "key": "Ed_Tool_item_times_CleaningCloth_Desc",
+      "value": "Can clean dirty objects or items."
+    },
+    {
+      "key": "Ed_Tool_item_times_DirtyCleaningCloth_Desc",
+      "value": "Can clean dirty objects or items."
+    },
+    {
+      "key": "Ed_Tool_item_times_BaldiYearbook_Desc",
+      "value": "Baldi’s personal yearbook! Might contain secrets."
+    },
+    {
+      "key": "Ed_Tool_item_times_ChillyChilli_Desc",
+      "value": "Cools you down and reduces fire effects."
+    },
+    {
+      "key": "Ed_Tool_item_times_ComicallyLargeJello_Desc",
+      "value": "A huge, bouncy jello that jiggles and can trap NPCs."
+    },
+    {
+      "key": "Ed_Tool_item_times_Sketchbook_Desc",
+      "value": "Contains doodles and secrets from Baldi’s school."
+    },
+    {
+      "key": "Ed_Tool_item_times_FireworkRocket_Desc",
+      "value": "Launch it to cause a loud explosion and scare everyone!"
+    },
+    {
+      "key": "Ed_Tool_item_times_Slingshot_Desc",
+      "value": "Shoots small items forward at high speed."
+    },
+    {
+      "key": "Ed_Tool_item_times_GoodGrades_Desc",
+      "value": "Makes Baldi happy for a short while. Keep it up!"
+    },
+    {
+      "key": "Ed_Tool_item_times_AAAHTomato_Desc",
+      "value": "A screaming tomato. Why does it scream?"
+    },
+    {
+      "key": "Ed_Tool_item_times_IceSkates_Desc",
+      "value": "Lets you glide on icy floors like a pro!"
+    },
+
+    { "key": "Ed_Tool_object_bathStall_Title", "value": "Bath Stall" },
+    {
+      "key": "Ed_Tool_object_bathStall_Desc",
+      "value": "A bathroom stall. Provides privacy and maybe a hiding spot."
+    },
+    { "key": "Ed_Tool_object_bathDoor_Title", "value": "Bath Door" },
+    {
+      "key": "Ed_Tool_object_bathDoor_Desc",
+      "value": "A bathroom door. Opens and closes like a regular one."
+    },
+    { "key": "Ed_Tool_object_sink_Title", "value": "Sink" },
+    {
+      "key": "Ed_Tool_object_sink_Desc",
+      "value": "Wash your hands here! Hygiene is important."
+    },
+    { "key": "Ed_Tool_object_Toilet_Title", "value": "Toilet" },
+    {
+      "key": "Ed_Tool_object_Toilet_Desc",
+      "value": "Flush it for fun. Nothing else happens... right?"
+    },
+    { "key": "Ed_Tool_object_BasketHoop_Title", "value": "Basket Hoop" },
+    {
+      "key": "Ed_Tool_object_BasketHoop_Desc",
+      "value": "Basketball hoop! Combine with basketballs for fun!"
+    },
+    {
+      "key": "Ed_Tool_object_BasketballPile_Title",
+      "value": "Basketball Pile"
+    },
+    {
+      "key": "Ed_Tool_object_BasketballPile_Desc",
+      "value": "Can be thrown to bounce and hit things around."
+    },
+    { "key": "Ed_Tool_object_GrandStand_Title", "value": "Grand Stand" },
+    {
+      "key": "Ed_Tool_object_GrandStand_Desc",
+      "value": "A stand where fans can cheer from! If there were any..."
+    },
+    { "key": "Ed_Tool_object_BasketMachine_Title", "value": "Basket Machine" },
+    {
+      "key": "Ed_Tool_object_BasketMachine_Desc",
+      "value": "Throw a bunch of basketballs by itself."
+    },
+    {
+      "key": "Ed_Tool_object_BasketBallBigLine_Title",
+      "value": "Big Court Line"
+    },
+    {
+      "key": "Ed_Tool_object_BasketBallBigLine_Desc",
+      "value": "Marks the edge of a basketball court."
+    },
+    {
+      "key": "Ed_Tool_object_FancyComputerTable_Title",
+      "value": "Fancy Computer Table"
+    },
+    {
+      "key": "Ed_Tool_object_FancyComputerTable_Desc",
+      "value": "A sleek, modern table for computers."
+    },
+    {
+      "key": "Ed_Tool_object_ComputerBillboard_Title",
+      "value": "Computer Billboard"
+    },
+    {
+      "key": "Ed_Tool_object_ComputerBillboard_Desc",
+      "value": "Displays computer-related advertisements or images (SOON)."
+    },
+    {
+      "key": "Ed_Tool_object_StraightRunLine_Title",
+      "value": "Straight Run Line"
+    },
+    {
+      "key": "Ed_Tool_object_StraightRunLine_Desc",
+      "value": "A straight track line for running courses."
+    },
+    { "key": "Ed_Tool_object_CurvedRunLine_Title", "value": "Curved Run Line" },
+    {
+      "key": "Ed_Tool_object_CurvedRunLine_Desc",
+      "value": "A curved line for track fields or decorations."
+    },
+    { "key": "Ed_Tool_object_Foresttree_Title", "value": "Forest Tree" },
+    {
+      "key": "Ed_Tool_object_Foresttree_Desc",
+      "value": "A tall forest tree. Common in forest areas."
+    },
+    { "key": "Ed_Tool_object_Campfire_Title", "value": "Campfire" },
+    {
+      "key": "Ed_Tool_object_Campfire_Desc",
+      "value": "A warm fire pit for outdoor gatherings."
+    },
+    { "key": "Ed_Tool_object_Beartrap_Title", "value": "Beartrap" },
+    {
+      "key": "Ed_Tool_object_Beartrap_Desc",
+      "value": "Stops anything that steps on it. Including you."
+    },
+    {
+      "key": "Ed_Tool_object_KitchenCabinet_Title",
+      "value": "Kitchen Cabinet"
+    },
+    {
+      "key": "Ed_Tool_object_KitchenCabinet_Desc",
+      "value": "Where Chef Joe cooks up his famous dishes!"
+    },
+    { "key": "Ed_Tool_object_JoeChef_Title", "value": "Chef Joe" },
+    {
+      "key": "Ed_Tool_object_JoeChef_Desc",
+      "value": "It’s Joe! He’s the chef in the kitchen, always busy."
+    },
+    {
+      "key": "Ed_Tool_object_FocusedStudent_Title",
+      "value": "Focused Student"
+    },
+    {
+      "key": "Ed_Tool_object_FocusedStudent_Desc",
+      "value": "A student so focused they won’t move until disturbed."
+    },
+    { "key": "Ed_Tool_object_ComputerTeleporter_Title", "value": "Teleporter" },
+    {
+      "key": "Ed_Tool_object_ComputerTeleporter_Desc",
+      "value": "A teleporter device that sends you to another random teleporter device."
+    },
+    { "key": "Ed_Tool_object_DustShroom_Title", "value": "Dust Shroom" },
+    {
+      "key": "Ed_Tool_object_DustShroom_Desc",
+      "value": "A mushroom that emits dust when touched."
+    },
+    { "key": "Ed_Tool_object_SensitiveVase_Title", "value": "Sensitive Vase" },
+    {
+      "key": "Ed_Tool_object_SensitiveVase_Desc",
+      "value": "Breaks if anyone runs nearby! Handle with care."
+    },
+    {
+      "key": "Ed_Tool_object_TimesItemDescriptor_Title",
+      "value": "Item Descriptor"
+    },
+    {
+      "key": "Ed_Tool_object_TimesItemDescriptor_Desc",
+      "value": "Displays the description of Times-themed items."
+    },
+    {
+      "key": "Ed_Tool_object_SnowyPlaygroundTree_Title",
+      "value": "Snowy Playground Tree"
+    },
+    {
+      "key": "Ed_Tool_object_SnowyPlaygroundTree_Desc",
+      "value": "A snow-covered tree found in winter playgrounds."
+    },
+    { "key": "Ed_Tool_object_SnowPile_Title", "value": "Snow Pile" },
+    {
+      "key": "Ed_Tool_object_SnowPile_Desc",
+      "value": "A pile of snow that may hide items."
+    },
+    {
+      "key": "Ed_Tool_object_Shovel_ForSnowPile_Title",
+      "value": "Snow Shovel"
+    },
+    {
+      "key": "Ed_Tool_object_Shovel_ForSnowPile_Desc",
+      "value": "A shovel that uncovers snow piles."
+    },
+    {
+      "key": "Ed_Tool_object_MysteryTresentMaker_Title",
+      "value": "Mystery Tresent Maker 101"
+    },
+    {
+      "key": "Ed_Tool_object_MysteryTresentMaker_Desc",
+      "value": "Produces random mysterious presents!"
+    },
+    { "key": "Ed_Tool_object_MetalFence_Title", "value": "Metal Fence" },
+    {
+      "key": "Ed_Tool_object_MetalFence_Desc",
+      "value": "A metallic fence for outdoor zones."
+    },
+    { "key": "Ed_Tool_object_SecretBread_Title", "value": "Secret Bread" },
+    {
+      "key": "Ed_Tool_object_SecretBread_Desc",
+      "value": "A mysterious loaf of bread hidden for unknown reasons."
+    },
+    {
+      "key": "Ed_Tool_object_TimesKitchenSteak_Title",
+      "value": "Kitchen Steak"
+    },
+    {
+      "key": "Ed_Tool_object_TimesKitchenSteak_Desc",
+      "value": "A delicious [uneteable] steak."
+    },
+    { "key": "Ed_Tool_object_JoeSign_Title", "value": "Joe Sign" },
+    {
+      "key": "Ed_Tool_object_JoeSign_Desc",
+      "value": "A sign with Joe’s face on it. Promotes his restaurant."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_1_Title",
+      "value": "Outside Flower #1"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_1_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_2_Title",
+      "value": "Outside Flower #2"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_2_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_3_Title",
+      "value": "Outside Flower #3"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_3_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_4_Title",
+      "value": "Outside Flower #4"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_4_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_5_Title",
+      "value": "Outside Flower #5"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_5_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_6_Title",
+      "value": "Outside Flower #6"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_6_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_7_Title",
+      "value": "Outside Flower #7"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_7_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_8_Title",
+      "value": "Outside Flower #8"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericOutsideFlower_8_Desc",
+      "value": "A simple decorative flower found outside."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_1_Title",
+      "value": "Corner Lamp #1"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_1_Desc",
+      "value": "A lamp that fits neatly into room corners."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_2_Title",
+      "value": "Corner Lamp #2"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_2_Desc",
+      "value": "A lamp that fits neatly into room corners."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_3_Title",
+      "value": "Corner Lamp #3"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_3_Desc",
+      "value": "A lamp that fits neatly into room corners."
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_4_Title",
+      "value": "Corner Lamp #4"
+    },
+    {
+      "key": "Ed_Tool_object_TimesGenericCornerLamp_4_Desc",
+      "value": "A lamp that fits neatly into room corners."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_1_Title",
+      "value": "Exclamation #1"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_1_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_2_Title",
+      "value": "Exclamation #2"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_2_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_3_Title",
+      "value": "Exclamation #3"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_3_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_4_Title",
+      "value": "Exclamation #4"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_4_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_5_Title",
+      "value": "Exclamation #5"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_5_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_6_Title",
+      "value": "Exclamation #6"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_6_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_7_Title",
+      "value": "Exclamation #7"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_7_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_8_Title",
+      "value": "Exclamation #8"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_8_Desc",
+      "value": "An exclamation mark that floats above the ground."
+    },
+
+    {
+      "key": "Ed_RandomEvent_times_Principalout",
+      "value": "Principal Out\nPrincipal will be redirected to an office and completely ignore any rule break or punishments."
+    },
+    {
+      "key": "Ed_RandomEvent_times_FrozenEvent",
+      "value": "Frozen Event\nThe whole school goes into a <b>cold</b> state. Everybody struggles to move, and there are obstacles in the way."
+    },
+    {
+      "key": "Ed_RandomEvent_times_CurtainsClosed",
+      "value": "Curtains Closed\nThe new technological noise-blocking curtains are closed in the hallways. You cannot hear the other side!"
+    },
+    {
+      "key": "Ed_RandomEvent_times_SkateboardDay",
+      "value": "Skateboard Day\nEveryone start rolling down with skateboards. Your movement definitely won't be the best, but it's cool."
+    },
+    {
+      "key": "Ed_RandomEvent_times_Earthquake",
+      "value": "Earthquake\nEverybody goes shaking like dancing due to the <i>obvious</i> earthquake."
+    },
+    {
+      "key": "Ed_RandomEvent_times_SuperFans",
+      "value": "Super Fans\nSuper Fans are toggled on and they act as fixed Cloudy Copters: with a refreshing air."
+    },
+    {
+      "key": "Ed_RandomEvent_times_LightningEvent",
+      "value": "Lighting Event\nA storm makes the whole school go gray. Lighting may struck some places, making it harder to move."
+    },
+    {
+      "key": "Ed_RandomEvent_times_SuperMysteryRoom",
+      "value": "Super Mystery Room\nAn <b>enhanced Mystery Room</b> event. Nothing new aside from being red."
+    },
+    {
+      "key": "Ed_RandomEvent_times_HologramPast",
+      "value": "Hologram Past\nA bunch of \"hologram\" clones appears in everybody's position, making everything more confusing."
+    },
+    {
+      "key": "Ed_RandomEvent_times_NatureEvent",
+      "value": "Nature Event\nA bunch of grass appear everywhere and flowers come outside to affect veryone around."
+    },
+
+    {
+      "key": "Ed_Poster_Title_times_OfficeChair_PRIPoster",
+      "value": "Office Chair's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_OfficeChair_PRIPoster",
+      "value": "Office Chair's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_HappyHolidays_PRIPoster",
+      "value": "Happy Holidays' Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_HappyHolidays_PRIPoster",
+      "value": "Happy Holidays' poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Superintendent_PRIPoster",
+      "value": "SI's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Superintendent_PRIPoster",
+      "value": "Superintendent's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Stunly_PRIPoster",
+      "value": "Stunly's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Stunly_PRIPoster",
+      "value": "Stunly's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Pix_PRIPoster",
+      "value": "Pix's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Pix_PRIPoster",
+      "value": "Pix's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_ZeroPrize_PRIPoster",
+      "value": "0thPrize's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_ZeroPrize_PRIPoster",
+      "value": "0thPrize's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_PencilBoy_PRIPoster",
+      "value": "Pencil Boy's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_PencilBoy_PRIPoster",
+      "value": "Pencil Boy's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Rollingbot_PRIPoster",
+      "value": "Rolling Bot's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Rollingbot_PRIPoster",
+      "value": "Rolling Bot's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Watcher_PRIPoster",
+      "value": "Watcher's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Watcher_PRIPoster",
+      "value": "Watcher's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Magicalstudent_PRIPoster",
+      "value": "MGS's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Magicalstudent_PRIPoster",
+      "value": "Magical Student's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Superintendentjr_PRIPoster",
+      "value": "SPJ's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Superintendentjr_PRIPoster",
+      "value": "Superintendent JR's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Leapy_PRIPoster",
+      "value": "Leapy's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Leapy_PRIPoster",
+      "value": "Leapy's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Glubotrony_PRIPoster",
+      "value": "Glubotrony's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Glubotrony_PRIPoster",
+      "value": "Glubotrony's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Dribble_PRIPoster",
+      "value": "CD's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Dribble_PRIPoster",
+      "value": "Coach Dribble's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Bubbly_PRIPoster",
+      "value": "Bubbly's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Bubbly_PRIPoster",
+      "value": "Bubbly's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Phawillow_PRIPoster",
+      "value": "Phawillow's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Phawillow_PRIPoster",
+      "value": "Phawillow's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Faker_PRIPoster",
+      "value": "Faker's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Faker_PRIPoster",
+      "value": "Faker's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Camerastand_PRIPoster",
+      "value": "CS' Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Camerastand_PRIPoster",
+      "value": "Camera Stand's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Cactungus_PRIPoster",
+      "value": "Cactungus's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Cactungus_PRIPoster",
+      "value": "Cactungus's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Penny_PRIPoster",
+      "value": "Penny's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Penny_PRIPoster",
+      "value": "Penny's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_SerOran_PRIPoster",
+      "value": "Ser Oran's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_SerOran_PRIPoster",
+      "value": "Ser Oran's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_CoolMop_PRIPoster",
+      "value": "Cool Mop's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_CoolMop_PRIPoster",
+      "value": "Cool Mop's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_InkArtist_PRIPoster",
+      "value": "Ink Artist's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_InkArtist_PRIPoster",
+      "value": "Ink Artist's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Quiker_PRIPoster",
+      "value": "Quiker's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Quiker_PRIPoster",
+      "value": "Quiker's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_PuddingFan_PRIPoster",
+      "value": "Pudding Fan's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_PuddingFan_PRIPoster",
+      "value": "Pudding Fan's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_ZapZap_PRIPoster",
+      "value": "ZapZap's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_ZapZap_PRIPoster",
+      "value": "ZapZap's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_CheeseMan_PRIPoster",
+      "value": "CheeseMan's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_CheeseMan_PRIPoster",
+      "value": "CheeseMan's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_DetentionBot_PRIPoster",
+      "value": "Detention Bot's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_DetentionBot_PRIPoster",
+      "value": "Detention Bot's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_ScienceTeacher_PRIPoster",
+      "value": "ST's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_ScienceTeacher_PRIPoster",
+      "value": "Science Teacher's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Adverto_PRIPoster",
+      "value": "Adverto's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Adverto_PRIPoster",
+      "value": "Adverto's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_VacuumCleaner_PRIPoster",
+      "value": "VC's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_VacuumCleaner_PRIPoster",
+      "value": "Vacuum Cleaner's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Mopliss_PRIPoster",
+      "value": "Mopliss' Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Mopliss_PRIPoster",
+      "value": "Mopliss' poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_NoseMan_PRIPoster",
+      "value": "Nose Man's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_NoseMan_PRIPoster",
+      "value": "Nose Man's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Mimicry_PRIPoster",
+      "value": "Mimicry's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Mimicry_PRIPoster",
+      "value": "Mimicry's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Pran_PRIPoster",
+      "value": "Pran's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Pran_PRIPoster",
+      "value": "Pran's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Winterry_PRIPoster",
+      "value": "Winterry's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Winterry_PRIPoster",
+      "value": "Winterry's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_Snowfolke_PRIPoster",
+      "value": "Snowfolke's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_Snowfolke_PRIPoster",
+      "value": "Snowfolke's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_EverettTreewood_PRIPoster",
+      "value": "ET's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_EverettTreewood_PRIPoster",
+      "value": "Everett Treewood's poster in the office."
+    },
+    {
+      "key": "Ed_Poster_Title_times_MrKreye_PRIPoster",
+      "value": "Mr. Kreye's Office Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_times_MrKreye_PRIPoster",
+      "value": "Mr. Kreye's poster in the office."
+    }
+  ]
+}

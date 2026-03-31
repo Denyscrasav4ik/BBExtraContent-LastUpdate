@@ -745,6 +745,70 @@
       "key": "Ed_Tool_object_TimesGenericCornerLamp_4_Desc",
       "value": "Лампа, яка акуратно вписується в кути кімнати."
     },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_1_Title",
+      "value": "Знак Оклику #1"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_1_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_2_Title",
+      "value": "Знак Оклику #2"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_2_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_3_Title",
+      "value": "Знак Оклику #3"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_3_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_4_Title",
+      "value": "Знак Оклику #4"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_4_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_5_Title",
+      "value": "Знак Оклику #5"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_5_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_6_Title",
+      "value": "Знак Оклику #6"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_6_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_7_Title",
+      "value": "Знак Оклику #7"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_7_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_8_Title",
+      "value": "Знак Оклику #8"
+    },
+    {
+      "key": "Ed_Tool_object_TimesExclamation_8_Desc",
+      "value": "Знак оклику, який літає над землею."
+    },
 
     {
       "key": "Ed_RandomEvent_times_Principalout",
