@@ -209,6 +209,13 @@ internal static partial class BBTimesManager
                     UpdateTexturesFromMaterialArray(mat.materials);
             }
 
+            void LowContrastTextures(Texture2D[] weightedTextures)
+            {
+                if (weightedTextures != null)
+                    for (int i = 0; i < weightedTextures.Length; i++)
+                        weightedTextures[i] = ToLowContrast(weightedTextures[i]);
+            }
+
             void LowContrastRoomWeights(WeightedRoomAsset[] weightedAssets)
             {
                 if (weightedAssets == null) return;
@@ -224,6 +231,12 @@ internal static partial class BBTimesManager
                     sel.ceilTex = ToLowContrast(sel.ceilTex);
                     sel.wallTex = ToLowContrast(sel.wallTex);
                     sel.florTex = ToLowContrast(sel.florTex);
+
+                    if (sel.roomFunctionContainer && sel.roomFunctionContainer.TryGetComponent<HighCeilingRoomFunction>(out var highCeil))
+                    {
+                        highCeil.customCeiling = ToLowContrast(highCeil.customCeiling);
+                        LowContrastTextures(highCeil.customWallProximityToCeil);
+                    }
 
                     LowContrastTransform(sel.lightPre);
 

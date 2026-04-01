@@ -58,6 +58,15 @@ namespace BBTimes.Manager
                     officeItemFuncs.ForEach(func => func.itemToSpawn = yearBook.value);
             }
 
+            // High ceiling function
+            if (TryAddFunctionToEveryRoom(LibraryPrefix, out HighCeilingRoomFunction highCeil))
+            {
+                highCeil.targetTransformNamePrefix = "Bookshelf";
+                highCeil.targetTransformOffset = 9f;
+                highCeil.customLight = man.Get<GameObject>("prefab_libraryHangingLight").transform;
+                highCeil.usesSingleCustomWall = true;
+                highCeil.customWallProximityToCeil = [AssetLoader.TextureFromFile(GetRoomAsset("Library", GetAssetName("libraryWallSheet.png")))];
+            }
             // -------------------- DUST SHROOM CREATION ----------------------------
 
             WeightedTransform[] transforms = [.. man.Get<List<WeightedTransform>>("prefabs_cornerLamps")];

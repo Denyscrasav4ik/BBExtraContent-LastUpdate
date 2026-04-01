@@ -38,14 +38,6 @@ namespace BBTimes.Manager
 
             MainGameManagerPatches.fire = fire.gameObject;
 
-            // Elevator exit signs
-            //GenericExtensions.FindResourceObjects<Elevator>().Do((x) =>
-            //{
-            //	var exit = Object.Instantiate(GenericExtensions.FindResourceObjectByName<RendererContainer>("Decor_ExitSign"));
-            //	exit.transform.SetParent(x.transform);
-            //	exit.transform.localPosition = x.transform.forward * LayerStorage.TileBaseOffset + Vector3.up * 10f;
-            //});
-
             // Hanging light for library
             man.Add("prefab_libraryHangingLight", ObjectCreationExtensions.CreateSpriteBillboard(AssetLoader.SpriteFromTexture2D(GenericExtensions.FindResourceObjectByName<Texture2D>("StandardHangingLight"), 25f))
                 .AddSpriteHolder(out _, 18.1f).gameObject.SetAsPrefab(true));
