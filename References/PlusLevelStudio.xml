@@ -684,6 +684,11 @@
             The sprite for this tool in the editor.
             </summary>
         </member>
+        <member name="F:PlusLevelStudio.Editor.EditorTool.frameOverride">
+            <summary>
+            The override for the frame
+            </summary>
+        </member>
         <member name="M:PlusLevelStudio.Editor.EditorTool.Begin">
             <summary>
             Called when the tool is selected/picked up
@@ -831,6 +836,11 @@
         <member name="F:PlusLevelStudio.Editor.SelectorState.Object">
             <summary>
             An object is selected. Show the 3D rotation handles and the settings.
+            </summary>
+        </member>
+        <member name="F:PlusLevelStudio.Editor.SelectorState.SubTile">
+            <summary>
+            A subtile is selected. Show the 3x3 selection box
             </summary>
         </member>
         <member name="F:PlusLevelStudio.Editor.SelectorState.Settings">
