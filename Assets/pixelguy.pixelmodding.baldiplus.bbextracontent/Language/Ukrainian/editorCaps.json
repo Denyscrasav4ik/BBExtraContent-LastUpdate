@@ -811,6 +811,87 @@
     },
 
     {
+      "key": "Ed_Poster_Title_WallClock",
+      "value": "Настінний Годинник"
+    },
+    {
+      "key": "Ed_Poster_Desc_WallClock",
+      "value": "Годинник... на стіні."
+    },
+    {
+      "key": "Ed_Poster_PST_Title_Wallbell",
+      "value": "Шкільний Дзвінок"
+    },
+    {
+      "key": "Ed_Poster_PST_Desc_Wallbell",
+      "value": "Безцільний дзвіночок, який знаходиться на стіні."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_Mirror",
+      "value": "Дзеркало"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_Mirror",
+      "value": "Відображення не включене!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_AbandonedRoomTut",
+      "value": "Плакат Покинутої Кімнати"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_AbandonedRoomTut",
+      "value": "Дізнайся про покинуту кімнату!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_ComputerRoom",
+      "value": "Плакат Комп'ютерної Кімнати"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_ComputerRoom",
+      "value": "Правила використання комп'ютерної кімнати."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_SweepPoster",
+      "value": "Плакат Метіння"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_SweepPoster",
+      "value": "Не кради шкільне принаддя!"
+    },
+    {
+      "key": "Ed_Poster_Title_Chk_Act_FocusedStudent",
+      "value": "Дошка Сфокусованого Студента"
+    },
+    {
+      "key": "Ed_Poster_Desc_Chk_Act_FocusedStudent",
+      "value": "Не заважай їм!"
+    },
+    {
+      "key": "Ed_Poster_Title_Chk_Act_SensibleVases",
+      "value": "Дошка Чутливий Ваз"
+    },
+    {
+      "key": "Ed_Poster_Desc_Chk_Act_SensibleVases",
+      "value": "Вони дуже крихкі!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_CafeteriaRules",
+      "value": "Правила Кафетерії"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_CafeteriaRules",
+      "value": "Правила в кафетерії."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_FoodAllergy",
+      "value": "Плакат Алергій На Їжу"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_FoodAllergy",
+      "value": "Не приносіть ці страви!"
+    },
+
+    {
       "key": "Ed_RandomEvent_times_Principalout",
       "value": "Директор Вийшов\nДиректора буде перенаправлено до кабінету, і він повністю ігноруватиме будь-які порушення правил чи покарання."
     },

@@ -27,6 +27,9 @@ using PixelInternalAPI.Components;
 using PixelInternalAPI.Extensions;
 using PlusStudioLevelFormat;
 using PlusStudioLevelLoader;
+using PlusLevelStudio;
+using PlusLevelStudio.Editor;
+using PlusLevelStudio.Editor.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -738,11 +741,13 @@ namespace BBTimes.Manager
 
             Superintendent.AddAllowedRoom(sets.category);
 
-
             room = GetAllAssets(GetRoomAsset("Bathroom"), 45, 25, mapBg: AssetLoader.TextureFromFile(GetRoomAsset("Bathroom", "MapBG_Bathroom.png")));
+            var mirrorPoster = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Bathroom", "mirror.png"))]);
+            mirrorPoster.name = "PST_Mirror";
+            mirrorPoster.AddPosterToEditor();
             var fun = room[0].selection.AddRoomFunctionToContainer<PosterAsideFromObject>();
             fun.targetPrefabName = "sink";
-            fun.posterPre = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Bathroom", "mirror.png"))]);
+            fun.posterPre = mirrorPoster;
 
             var cover = room[0].selection.AddRoomFunctionToContainer<CoverRoomFunction>();
             cover.hardCover = true;
@@ -815,7 +820,10 @@ namespace BBTimes.Manager
 
             room = GetAllAssets(GetRoomAsset("AbandonedRoom"), 250, 45, mapBg: AssetLoader.TextureFromFile(GetRoomAsset("AbandonedRoom", "MapBG_AbandonedRoom.png")));
             room[0].selection.AddRoomFunctionToContainer<ShowItemsInTheEnd>();
-            room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("AbandonedRoom", "abandonedRoomTut.png"))])];
+            var abandonedPoster = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("AbandonedRoom", "abandonedRoomTut.png"))]);
+            abandonedPoster.name = "PST_AbandonedRoomTut";
+            abandonedPoster.AddPosterToEditor();
+            room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [abandonedPoster];
             room.ForEach(x => x.selection.posterChance = 0f);
             sets.container = room[0].selection.roomFunctionContainer;
 
@@ -847,7 +855,10 @@ namespace BBTimes.Manager
 
 
             room = GetAllAssets(GetRoomAsset("ComputerRoom"), 75, 50, mapBg: AssetLoader.TextureFromFile(GetRoomAsset("ComputerRoom", "MapBG_Computer.png")));
-            room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("ComputerRoom", "ComputerPoster.png"))])];
+            var computerPoster = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("ComputerRoom", "ComputerPoster.png"))]);
+            computerPoster.name = "PST_ComputerRoom";
+            computerPoster.AddPosterToEditor();
+            room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [computerPoster];
             room[0].selection.AddRoomFunctionToContainer<EventMachineSpawner>().machinePre = evMac;
 
             sets.container = room[0].selection.roomFunctionContainer;
@@ -904,7 +915,10 @@ namespace BBTimes.Manager
             if (room.Count != 0)
             {
                 room[0].selection.AddRoomFunctionToContainer<HighCeilingRoomFunction>().ceilingHeight = 1;
-                room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Closet", "sweepSad.png"))])];
+                var sweepPoster = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Closet", "sweepSad.png"))]);
+                sweepPoster.name = "PST_SweepPoster";
+                sweepPoster.AddPosterToEditor();
+                room[0].selection.AddRoomFunctionToContainer<RandomPosterFunction>().posters = [sweepPoster];
             }
 
             room.ForEach(x =>
@@ -1346,6 +1360,8 @@ namespace BBTimes.Manager
                 posterClone.textData[1].textKey = descKey;
                 posterClone.name = $"Chk_Act_{activityName}";
 
+                posterClone.AddPosterToEditor();
+
                 asset.AddRoomFunctionToContainer<ChalkboardBuilderFunction>().chalkBoards = [new() { selection = posterClone, weight = 100 }];
             }
 
@@ -1614,6 +1630,18 @@ namespace BBTimes.Manager
         {
             LevelLoaderPlugin.Instance.roomTextureAliases.Add(name, tex);
             man.Add(name, tex);
+        }
+
+        static PosterObject AddPosterToEditor(this PosterObject obj)
+        {
+            LevelLoaderPlugin.Instance.posterAliases.Add(obj.name, obj);
+
+            EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanillaCompliant) =>
+            {
+                EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool(obj.name));
+            });
+
+            return obj;
         }
 
         static void AddObjectToEditor(this GameObject obj, string key = null)

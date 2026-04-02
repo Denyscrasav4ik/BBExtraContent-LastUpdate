@@ -796,6 +796,87 @@
     },
 
     {
+      "key": "Ed_Poster_Title_WallClock",
+      "value": "Wall Clock"
+    },
+    {
+      "key": "Ed_Poster_Desc_WallClock",
+      "value": "A clock... on a wall."
+    },
+    {
+      "key": "Ed_Poster_PST_Title_Wallbell",
+      "value": "School Bell"
+    },
+    {
+      "key": "Ed_Poster_PST_Desc_Wallbell",
+      "value": "A bell that serves no purpose, but is on a wall."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_Mirror",
+      "value": "Mirror"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_Mirror",
+      "value": "Reflections not included!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_AbandonedRoomTut",
+      "value": "Abandoned Room Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_AbandonedRoomTut",
+      "value": "Learn about the abandoned room!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_ComputerRoom",
+      "value": "Computer Room Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_ComputerRoom",
+      "value": "Rules when using the computer room."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_SweepPoster",
+      "value": "Sweep Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_SweepPoster",
+      "value": "Don't steal the school supplies!"
+    },
+    {
+      "key": "Ed_Poster_Title_Chk_Act_FocusedStudent",
+      "value": "Focused Student Chalkboard"
+    },
+    {
+      "key": "Ed_Poster_Desc_Chk_Act_FocusedStudent",
+      "value": "Refrain from disturbing them!"
+    },
+    {
+      "key": "Ed_Poster_Title_Chk_Act_SensibleVases",
+      "value": "Sensible Vases Chalkboard"
+    },
+    {
+      "key": "Ed_Poster_Desc_Chk_Act_SensibleVases",
+      "value": "Those are very fragile!"
+    },
+    {
+      "key": "Ed_Poster_Title_PST_CafeteriaRules",
+      "value": "Cafeteria Rules Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_CafeteriaRules",
+      "value": "Rules in the cafeteria."
+    },
+    {
+      "key": "Ed_Poster_Title_PST_FoodAllergy",
+      "value": "Food Allergy Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_PST_FoodAllergy",
+      "value": "Don't bring these foods!"
+    },
+
+    {
       "key": "Ed_RandomEvent_times_Principalout",
       "value": "Principal Out\nPrincipal will be redirected to an office and completely ignore any rule break or punishments."
     },

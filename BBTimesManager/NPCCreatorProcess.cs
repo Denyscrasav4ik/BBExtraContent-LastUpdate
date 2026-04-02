@@ -46,7 +46,6 @@ namespace BBTimes.Manager
             floorDatas[F1].NPCs.Add(new(npc, Storage.IsBaldiFirstReleaseDate ? 99999 : 100));
             floorDatas[END].NPCs.Add(new(npc, Storage.IsBaldiFirstReleaseDate ? 99999 : 90));
 
-
             // Superintendent
             npc = new NPCBuilder<Superintendent>(plug.Info)
                 .SetMinMaxAudioDistance(25f, 120f)

@@ -99,12 +99,13 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 _editorAssetMan.Add("UI/ITM_" + itmEnum, icon);
             }
 
-            // *** Skyboxes ***
+            // Skyboxes
             foreach (var skybox in allSkyboxes)
             {
                 LevelStudioPlugin.Instance.skyboxSprites.Add(skybox, GetSprite($"UI/Skybox_{skybox}", $"UI/skybox_{skybox}"));
                 LevelStudioPlugin.Instance.selectableSkyboxes.Add(skybox);
             }
+
             // Hacky thing to automatically generate Exclamation UI sprites from the sprite sheet
             string exclPath = Path.Combine(BasePlugin.ModPath, "rooms", "SuperMystery", "exclamations.png");
             if (File.Exists(exclPath))

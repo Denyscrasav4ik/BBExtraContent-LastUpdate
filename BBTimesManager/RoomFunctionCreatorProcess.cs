@@ -13,6 +13,11 @@ using MTM101BaldAPI.Registers;
 using PixelInternalAPI.Classes;
 using PixelInternalAPI.Extensions;
 using UnityEngine;
+using PlusStudioLevelFormat;
+using PlusStudioLevelLoader;
+using PlusLevelStudio;
+using PlusLevelStudio.Editor;
+using PlusLevelStudio.Editor.Tools;
 
 namespace BBTimes.Manager
 {
@@ -45,10 +50,25 @@ namespace BBTimes.Manager
             if (TryAddFunctionToEveryRoom(RoomCategory.Office, out posterFuncs))
                 posterFuncs.ForEach(posterFuncAssignment);
 
+            var cafeteriaRules = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Cafeteria", "CafeteriaRules.png"))]);
+            cafeteriaRules.name = "PST_CafeteriaRules";
+            LevelLoaderPlugin.Instance.posterAliases.Add(cafeteriaRules.name, cafeteriaRules);
+            EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanillaCompliant) =>
+            {
+                EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool(cafeteriaRules.name));
+            });
+
+            var foodAllergy = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Cafeteria", "food_allergy_.png"))]);
+            foodAllergy.name = "PST_FoodAllergy";
+            LevelLoaderPlugin.Instance.posterAliases.Add(foodAllergy.name, foodAllergy);
+            EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanillaCompliant) =>
+            {
+                EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool(foodAllergy.name));
+            });
+
             if (TryAddFunctionToEveryRoom(CafeteriaPrefix, out RandomPosterFunction posterFunc))
             {
-                posterFunc.posters = [ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Cafeteria", "CafeteriaRules.png"))]),
-                    ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(GetRoomAsset("Cafeteria", "food_allergy_.png"))])];
+                posterFunc.posters = [cafeteriaRules, foodAllergy];
             }
 
             if (TryAddFunctionToEveryRoom<RandomItemSpawnFunction>(RoomCategory.Office, out var officeItemFuncs))
