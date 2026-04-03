@@ -11,8 +11,6 @@ namespace BBTimes.CustomComponents.SecretEndingComponents
         public override void BeginPlay()
         {
             base.BeginPlay();
-            SaveManager.Instance.secretEnding = true;
-            SaveManager.Instance.SaveNow(BBTimesManager.plug);
             Singleton<CoreGameManager>.Instance.disablePause = true;
             audMan.maintainLoop = true;
             audMan.SetLoop(true);
@@ -94,6 +92,9 @@ namespace BBTimes.CustomComponents.SecretEndingComponents
                 delay -= Time.deltaTime;
                 yield return null;
             }
+
+            SaveManager.Instance.secretEnding = true;
+            SaveManager.Instance.SaveNow(BBTimesManager.plug);
 
             if (Singleton<ElevatorScreen>.Instance)
                 Destroy(Singleton<ElevatorScreen>.Instance.gameObject);

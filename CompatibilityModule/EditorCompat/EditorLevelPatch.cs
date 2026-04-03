@@ -326,23 +326,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             LevelStudioPlugin.Instance.structureTypes.Add(TimesPrefix + "OutsideBox", typeof(OutsideBoxLocation)); // It does nothing, so it's a good stub
         }
 
-        /// <summary>
-        /// Adds custom room default textures to the editor's dictionary.
-        /// </summary>
-        private static void InitializeDefaultTextures(Dictionary<string, TextureContainer> containers)
-        {
-            containers.Add("Bathroom", new TextureContainer("bathFloor", "bathWall", "bathCeil"));
-            containers.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
-            containers.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
-            containers.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
-            containers.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
-            containers.Add("FocusRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
-            containers.Add("SuperMystery", new TextureContainer("redCeil", "redWall", "redFloor"));
-            containers.Add("ExibitionRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
-            containers.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
-            containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
-        }
-
         static void InitializeOtherTextures()
         {
             // Add the general school textures
@@ -371,6 +354,25 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds custom room default textures to the editor's dictionary.
+        /// </summary>
+        private static void InitializeDefaultTextures(Dictionary<string, TextureContainer> containers)
+        {
+            containers.Add("Bathroom", new TextureContainer("bathFloor", "bathWall", "bathCeil"));
+            containers.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
+            containers.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
+            containers.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
+            containers.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
+            containers.Add("FocusRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
+            containers.Add("SuperMystery", new TextureContainer("redCeil", "redWall", "redFloor"));
+            containers.Add("ExibitionRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
+            containers.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
+            containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
+            if (SaveManager.Instance.secretEnding)
+                containers.Add("SecretTimesButtonRoom", new TextureContainer(Path.Combine(BBTimesManager.SecretEndingPath, "secretLabFloor.png"), Path.Combine(BBTimesManager.SecretEndingPath, "secretLabWall.png"), Path.Combine(BBTimesManager.SecretEndingPath, "secretLabCeiling.png")));
         }
 
 
@@ -405,11 +407,19 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             }
 
             // Add Room tools
-            string[] roomNames =
-            [
+            List<string> roomList = new List<string>
+            {
                 "Bathroom", "AbandonedRoom", "ComputerRoom", "Forest", "Kitchen",
                 "FocusRoom", "SuperMystery", "ExibitionRoom", "SnowyPlayground", "IceRink"
-            ];
+            };
+
+            if (SaveManager.Instance.secretEnding)
+            {
+                roomList.Add("SecretTimesButtonRoom");
+            }
+
+            string[] roomNames = roomList.ToArray();
+
             foreach (var room in roomNames)
                 EditorInterfaceModes.AddToolToCategory(mode, "rooms", new RoomTool(room, GetSprite($"UI/Floor_{room}", $"UI/floor_{room}")));
 

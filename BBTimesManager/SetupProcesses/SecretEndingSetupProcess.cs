@@ -21,6 +21,9 @@ namespace BBTimes.Manager
 {
     internal static partial class BBTimesManager
     {
+        internal static StandardDoorMats MetalDoorMats;
+        internal static StandardDoor MetalDoorPrefab;
+
         public static void SetupPreAssetsForSecretEnding()
         {
             // ** Secret Button **
@@ -40,27 +43,71 @@ namespace BBTimes.Manager
             secButPre.sprReadyToPress = sprs[1];
 
             // Secret Button Room
-            // Load RBPL file
+            MetalDoorMats = ObjectCreators.CreateDoorDataObject(
+                "TimesSecretLabMetalDoor",
+                AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "smallMetalDoorOpen.png")),
+                AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "smallMetalDoorClosed.png"))
+            );
+
+            var doorTextureMask = AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "metalDoorMask.png"));
+            MetalDoorMats.open.SetTexture("_Mask", doorTextureMask);
+            MetalDoorMats.shut.SetTexture("_Mask", doorTextureMask);
+
+            var baseDoor = GenericExtensions.FindResourceObject<StandardDoor>();
+            MetalDoorPrefab = UnityEngine.Object.Instantiate(baseDoor);
+            MetalDoorPrefab.name = "Times_MetalDoor";
+
+            MetalDoorPrefab.audDoorShut = ObjectCreators.CreateSoundObject(
+                AssetLoader.AudioClipFromFile(Path.Combine(SecretEndingPath, "metalDoorShut.wav")),
+                "Sfx_MetalDoor_Shut",
+                SoundType.Effect,
+                Color.white
+            );
+
+            MetalDoorPrefab.audDoorOpen = ObjectCreators.CreateSoundObject(
+                AssetLoader.AudioClipFromFile(Path.Combine(SecretEndingPath, "metalDoorOpen.wav")),
+                "Sfx_MetalDoor_Open",
+                SoundType.Effect,
+                Color.white
+            );
+
+            // Load RBPL
             using (BinaryReader reader = new(File.OpenRead(Path.Combine(SecretEndingPath, "TheSecretRoom.rbpl"))))
             {
                 var secretButtonRoom = LevelImporter.CreateRoomAsset(BaldiRoomAsset.Read(reader));
                 secretButtonRoom.name = "SecretTimesButtonRoom";
                 secretButtonRoom.keepTextures = true;
-                secretButtonRoom.roomFunctionContainer = new GameObject(secretButtonRoom.name + "_Container").AddComponent<RoomFunctionContainer>();
-                secretButtonRoom.roomFunctionContainer.functions = []; // Initializes the functions bruh
+
+                secretButtonRoom.doorMats = MetalDoorMats;
+
+                secretButtonRoom.roomFunctionContainer = new GameObject(secretButtonRoom.name + "_Container")
+                    .AddComponent<RoomFunctionContainer>();
+
+                secretButtonRoom.roomFunctionContainer.functions = new System.Collections.Generic.List<RoomFunction>();
                 secretButtonRoom.roomFunctionContainer.gameObject.ConvertToPrefab(true);
 
-                // Cover room func
+                if (!LevelLoaderPlugin.Instance.roomSettings.ContainsKey(secretButtonRoom.name))
+                {
+                    var settings = new RoomSettings(
+                        EnumExtensions.ExtendEnum<RoomCategory>(secretButtonRoom.name),
+                        RoomType.Room,
+                        Color.gray,
+                        MetalDoorMats
+                    );
+
+                    LevelLoaderPlugin.Instance.roomSettings.Add(secretButtonRoom.name, settings);
+                }
+
                 var secretCover = secretButtonRoom.AddRoomFunctionToContainer<CoverRoomFunction>();
                 secretCover.hardCover = true;
-                secretCover.coverage = CellCoverage.North | CellCoverage.East | CellCoverage.South | CellCoverage.West | CellCoverage.Down | CellCoverage.Up | CellCoverage.Center;
+                secretCover.coverage =
+                    CellCoverage.North | CellCoverage.East | CellCoverage.South |
+                    CellCoverage.West | CellCoverage.Down | CellCoverage.Up | CellCoverage.Center;
 
-                // Other room funcs
                 secretButtonRoom.AddRoomFunctionToContainer<FacultyTrigger>();
 
-                // Locked room func
                 var lockedRef = GenericExtensions.FindResourceObject<LockedRoomFunction>();
-                var secretLockedRoomFunc = secretButtonRoom.AddRoomFunctionToContainer<LockedRoomFunction>(); // Yup!
+                var secretLockedRoomFunc = secretButtonRoom.AddRoomFunctionToContainer<LockedRoomFunction>();
                 secretLockedRoomFunc.key = lockedRef.key;
                 secretLockedRoomFunc.lockPrefab = lockedRef.lockPrefab;
 
@@ -70,7 +117,7 @@ namespace BBTimes.Manager
                         name = "TimesSecretRoom",
                         stickToHallChance = 1f,
                         light = [man.Get<WeightedTransform>("WeightedLightTransform")],
-                        wallTexture = [new() { selection = secretButtonRoom.wallTex, weight = 100 }], // Required because the generator can't check for array length
+                        wallTexture = [new() { selection = secretButtonRoom.wallTex, weight = 100 }],
                         ceilingTexture = [new() { selection = secretButtonRoom.ceilTex, weight = 100 }],
                         floorTexture = [new() { selection = secretButtonRoom.florTex, weight = 100 }],
                         potentialRooms = [new() { selection = secretButtonRoom, weight = 100 }],

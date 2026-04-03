@@ -215,6 +215,14 @@
       "key": "Ed_Tool_room_BasketballArea_Desc",
       "value": "Дуже високий майданчик, де можна ставити баскетбольні автомати!"
     },
+    {
+      "key": "Ed_Tool_room_SecretTimesButtonRoom_Title",
+      "value": "Секретна Кімната"
+    },
+    {
+      "key": "Ed_Tool_room_SecretTimesButtonRoom_Desc",
+      "value": "Окрім дуже крутої двері, вона нічим не відрізняється від вашого шкільного кабінету!"
+    },
 
     { "key": "Ed_Tool_bulkobject_fullStall_Title", "value": "Повна кабінка" },
     {

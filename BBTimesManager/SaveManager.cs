@@ -25,10 +25,11 @@ namespace BBTimes.Manager
 
         private void SaveLoad(bool isSave, string path)
         {
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             string filePath = Path.Combine(path, FILE_NAME);
             string key = "BBTimes_" + PlayerFileManager.Instance.fileName;
 
-            BBTimesData data;
+            BBTimesData data = new BBTimesData();
 
             if (File.Exists(filePath))
             {
@@ -38,20 +39,15 @@ namespace BBTimes.Manager
                     string json = RijndaelEncryption.Decrypt(encrypted, key);
                     data = JsonUtility.FromJson<BBTimesData>(json);
                 }
-                catch
+                catch (Exception e)
                 {
-                    data = new BBTimesData();
+                    Debug.LogWarning("BBTimes: Failed to load secret data, creating new record. " + e.Message);
                 }
-            }
-            else
-            {
-                data = new BBTimesData();
             }
 
             if (isSave)
             {
                 data.secretEnding = secretEnding;
-
                 string json = JsonUtility.ToJson(data);
                 string encrypted = RijndaelEncryption.Encrypt(json, key);
                 File.WriteAllText(filePath, encrypted);

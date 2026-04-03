@@ -41,8 +41,6 @@ namespace BBTimes.Manager
         {
             yield return 14 + (EditorExists ? 1 : 0);
 
-            yield return "Creating data...";
-            SaveManager.Instance.Register(plug);
             yield return "Loading assets...";
             GameExtensions.TryRunMethod(SetAssets);
             yield return "Loading Secret Ending Pre-Assets...";

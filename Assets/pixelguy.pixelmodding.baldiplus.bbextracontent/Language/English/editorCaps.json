@@ -203,6 +203,14 @@
       "key": "Ed_Tool_room_BasketballArea_Desc",
       "value": "A very tall court where you can put basketball machines!"
     },
+    {
+      "key": "Ed_Tool_room_SecretTimesButtonRoom_Title",
+      "value": "Secret Room"
+    },
+    {
+      "key": "Ed_Tool_room_SecretTimesButtonRoom_Desc",
+      "value": "Besides having a very cool door, it's nothing different from your average classroom!"
+    },
 
     { "key": "Ed_Tool_bulkobject_fullStall_Title", "value": "Full stall" },
     {

@@ -172,6 +172,7 @@ namespace BBTimes
             harmony.PatchAllConditionals();
 
             ModdedSaveGame.AddSaveHandler(new TimesHandler(Info, this));
+            SaveManager.Instance.Register(this);
 
             _modPath = AssetLoader.GetModPath(this);
 
