@@ -137,7 +137,7 @@
     },
     {
       "key": "Ed_Tool_structure_times_SecretButton_Desc",
-      "value": "Що це таке?"
+      "value": "Кнопка щоб потрапти до секретної лабораторії Балді.\n Декоративна."
     },
 
     { "key": "Ed_Tool_room_Bathroom_Title", "value": "Ванна Кімната" },
@@ -809,6 +809,134 @@
       "key": "Ed_Tool_object_TimesExclamation_8_Desc",
       "value": "Знак оклику, який літає над землею."
     },
+    {
+      "key": "Ed_Tool_object_Times_SecretBaldi_Title",
+      "value": "Секретний Балді"
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretBaldi_Desc",
+      "value": "Він робить щось зловісне..."
+    },
+    {
+      "key": "Ed_Tool_object_Times_InvisibleWall_Title",
+      "value": "Невидима Стіна"
+    },
+    {
+      "key": "Ed_Tool_object_Times_InvisibleWall_Desc",
+      "value": "Це стіна... Це невидима стіна."
+    },
+    {
+      "key": "Ed_Tool_object_Times_CanBeDisabledInvisibleWall_Title",
+      "value": "Вимикаючася Невидима Стіна"
+    },
+    {
+      "key": "Ed_Tool_object_Times_CanBeDisabledInvisibleWall_Desc",
+      "value": "Невидима стіна, яку можна вимкнути... якось."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ScrewingInvisibleWall_Title",
+      "value": "Пригвинчина Невидима Стіна"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ScrewingInvisibleWall_Desc",
+      "value": "Невидима стіна, яку можна розгвинтити з допомогою Викрутки."
+    },
+    {
+      "key": "Ed_Tool_object_Times_KeyLockedInvisibleWall_Title",
+      "value": "Зачинена Невидима Стіна"
+    },
+    {
+      "key": "Ed_Tool_object_Times_KeyLockedInvisibleWall_Desc",
+      "value": "Невидима стіна, яку можна відчинити з допомогою Ключів Директора."
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretGenerator_Title",
+      "value": "Генератор Рівнів"
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretGenerator_Desc",
+      "value": "Один та єдиний, генератор рівнів.\n<size=5>(можливість генерувати рівні не включено)"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorCylinder_Title",
+      "value": "Циліндр Генератора"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorCylinder_Desc",
+      "value": "Декоратичний циліндр, який зазвичай виходить з генератора."
+    },
+    {
+      "key": "Ed_Tool_object_Times_theYAYComputer_Title",
+      "value": "Комп'ютер Балді"
+    },
+    {
+      "key": "Ed_Tool_object_Times_theYAYComputer_Desc",
+      "value": "Комп'ютер Балді, який показує поверх УРА."
+    },
+    {
+      "key": "Ed_Tool_object_Times_TrueLorePaper_Title",
+      "value": "Папірецб Зі Справжнім Лорем"
+    },
+    {
+      "key": "Ed_Tool_object_Times_TrueLorePaper_Desc",
+      "value": "Він тримає лор."
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorLever_Title",
+      "value": "Важіль Генератора"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorLever_Desc",
+      "value": "Важіль, який *би ввімкнув генератор.\n<size=5>*Насправді, це лише декорація, але може бути розгвинчена."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F1_Title",
+      "value": "Стриманий Балді #1"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F1_Desc",
+      "value": "Капсула, що тримає клона Балді."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F2_Title",
+      "value": "Стриманий Балді #2"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F2_Desc",
+      "value": "Капсула, що тримає клона Балді."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F3_Title",
+      "value": "Стриманий Балді #3"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F3_Desc",
+      "value": "Капсула, що тримає клона Балді."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F4_Title",
+      "value": "Стриманий Балді #4"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F4_Desc",
+      "value": "Капсула, що тримає клона Балді."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F5_Title",
+      "value": "Стриманий Балді #5"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F5_Desc",
+      "value": "Капсула, що тримає клона Балді."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F6_Title",
+      "value": "Стриманий Балді #■"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F6_Desc",
+      "value": "Капсула, що тримає клона... Зажди, куди він подівся?"
+    },
 
     {
       "key": "Ed_Poster_Title_WallClock",
@@ -868,7 +996,7 @@
     },
     {
       "key": "Ed_Poster_Title_Chk_Act_SensibleVases",
-      "value": "Дошка Чутливий Ваз"
+      "value": "Дошка Чутливих Ваз"
     },
     {
       "key": "Ed_Poster_Desc_Chk_Act_SensibleVases",
@@ -889,6 +1017,46 @@
     {
       "key": "Ed_Poster_Desc_PST_FoodAllergy",
       "value": "Не приносіть ці страви!"
+    },
+    {
+      "key": "Ed_Poster_Title_liveTubeMakeUpPoster",
+      "value": "Плакат Системи Труб Життя"
+    },
+    {
+      "key": "Ed_Poster_Desc_liveTubeMakeUpPoster",
+      "value": "Завдання: зберегіти веселий досвід перероджуючи гравця."
+    },
+    {
+      "key": "Ed_Poster_Title_levelGenMakeUpPoster",
+      "value": "Плакат Системи Генератора Рівнів"
+    },
+    {
+      "key": "Ed_Poster_Desc_levelGenMakeUpPoster",
+      "value": "Завдання: генерувати рівні (зроблені за-вчасно чи випадкові)."
+    },
+    {
+      "key": "Ed_Poster_Title_chk_funFormulaPoster",
+      "value": "Дошка Формули Веселощів"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_funFormulaPoster",
+      "value": "Формула Веселощів: менше перемог -> більше спроб -> більше веселощів!"
+    },
+    {
+      "key": "Ed_Poster_Title_chk_theNoWinFormulaPoster",
+      "value": "Дошка Формули Без Перемог"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_theNoWinFormulaPoster",
+      "value": "Більше червоного світла, більше перешкод = менше перемог!"
+    },
+    {
+      "key": "Ed_Poster_Title_chk_noRealWinPoster",
+      "value": "Дошка Немає Справжньої Перемоги"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_noRealWinPoster",
+      "value": "ТУТ НЕМАЄ СПРАВЖНЬОЇ ПЕРЕМОГИ."
     },
 
     {

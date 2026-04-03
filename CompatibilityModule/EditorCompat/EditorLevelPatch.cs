@@ -17,6 +17,7 @@ using PlusLevelStudio;
 using PlusLevelStudio.Editor;
 using PlusLevelStudio.Editor.Tools;
 using PlusStudioLevelFormat;
+using PlusStudioLevelLoader;
 using TMPro;
 using UnityEngine;
 
@@ -156,24 +157,25 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             for (int i = 1; i <= 4; i++)
                 EditorInterface.AddObjectVisual("TimesGenericCornerLamp_" + i, man.Get<GameObject>("editorPrefab_TimesGenericCornerLamp_" + i), true);
             for (int i = 1; i <= 8; i++)
-            {
                 EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesExclamation_" + i, man.Get<GameObject>("editorPrefab_TimesExclamation_" + i), 1.5f, Vector3.zero);
-            }
 
             // SECRET ENDING OBJECTS
-            EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_SecretBaldi", man.Get<GameObject>("editorPrefab_Times_SecretBaldi"), 2f, Vector3.zero);
-            EditorInterface.AddObjectVisual("Times_InvisibleWall", man.Get<GameObject>("editorPrefab_Times_InvisibleWall"), true);
-            EditorInterface.AddObjectVisual("Times_CanBeDisabledInvisibleWall", man.Get<GameObject>("editorPrefab_Times_CanBeDisabledInvisibleWall"), true);
-            EditorInterface.AddObjectVisual("Times_ScrewingInvisibleWall", man.Get<GameObject>("editorPrefab_Times_ScrewingInvisibleWall"), true);
-            EditorInterface.AddObjectVisual("Times_KeyLockedInvisibleWall", man.Get<GameObject>("editorPrefab_Times_KeyLockedInvisibleWall"), true);
-            EditorInterface.AddObjectVisual("Times_SecretGenerator", man.Get<GameObject>("editorPrefab_Times_SecretGenerator"), true);
-            EditorInterface.AddObjectVisual("Times_GeneratorCylinder", man.Get<GameObject>("editorPrefab_Times_GeneratorCylinder"), true);
-            EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_theYAYComputer", man.Get<GameObject>("editorPrefab_Times_theYAYComputer"), 1f, Vector3.zero);
-            EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_TrueLorePaper", man.Get<GameObject>("editorPrefab_Times_TrueLorePaper"), 1f, Vector3.zero);
-            EditorInterface.AddObjectVisual("Times_GeneratorLever", man.Get<GameObject>("editorPrefab_Times_GeneratorLever"), true);
-            for (int i = 1; i <= 6; i++)
-                EditorInterface.AddObjectVisual($"Times_ContainedBaldi_F{i}", man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), true);
-            ReplaceEditorBasicObject(TimesPrefix + "SecretButton", EditorInterface.AddObjectVisual(TimesPrefix + "SecretButton", man.Get<GameObject>("editorPrefab_SecretButton"), true));
+            if (SaveManager.Instance.secretEnding)
+            {
+                EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_SecretBaldi", man.Get<GameObject>("editorPrefab_Times_SecretBaldi"), 2f, Vector3.zero);
+                EditorInterface.AddObjectVisual("Times_InvisibleWall", man.Get<GameObject>("editorPrefab_Times_InvisibleWall"), true);
+                EditorInterface.AddObjectVisual("Times_CanBeDisabledInvisibleWall", man.Get<GameObject>("editorPrefab_Times_CanBeDisabledInvisibleWall"), true);
+                EditorInterface.AddObjectVisual("Times_ScrewingInvisibleWall", man.Get<GameObject>("editorPrefab_Times_ScrewingInvisibleWall"), true);
+                EditorInterface.AddObjectVisual("Times_KeyLockedInvisibleWall", man.Get<GameObject>("editorPrefab_Times_KeyLockedInvisibleWall"), true);
+                EditorInterface.AddObjectVisual("Times_SecretGenerator", man.Get<GameObject>("editorPrefab_Times_SecretGenerator"), true);
+                EditorInterface.AddObjectVisual("Times_GeneratorCylinder", man.Get<GameObject>("editorPrefab_Times_GeneratorCylinder"), true);
+                EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_theYAYComputer", man.Get<GameObject>("editorPrefab_Times_theYAYComputer"), 1f, Vector3.zero);
+                EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_TrueLorePaper", man.Get<GameObject>("editorPrefab_Times_TrueLorePaper"), 1f, Vector3.zero);
+                EditorInterface.AddObjectVisual("Times_GeneratorLever", man.Get<GameObject>("editorPrefab_Times_GeneratorLever"), true);
+                for (int i = 1; i <= 6; i++)
+                    EditorInterface.AddObjectVisual($"Times_ContainedBaldi_F{i}", man.Get<GameObject>($"editorPrefab_Times_ContainedBaldi_F{i}"), true);
+                ReplaceEditorBasicObject(TimesPrefix + "SecretButton", EditorInterface.AddObjectVisual(TimesPrefix + "SecretButton", man.Get<GameObject>("editorPrefab_SecretButton"), true));
+            }
 
             // NPCs
             foreach (var npcName in allNpcs)
@@ -331,7 +333,6 @@ namespace BBTimes.CompatibilityModule.EditorCompat
         {
             containers.Add("Bathroom", new TextureContainer("bathFloor", "bathWall", "bathCeil"));
             containers.Add("AbandonedRoom", new TextureContainer("BlueCarpet", "moldWall", "Ceiling"));
-            containers.Add("BasketballArea", new TextureContainer("dirtyGrayFloor", "SaloonWall", "Ceiling"));
             containers.Add("ComputerRoom", new TextureContainer("computerRoomFloor", "computerRoomWall", "computerRoomCeiling"));
             containers.Add("Forest", new TextureContainer("Grass", "forestWall", "None"));
             containers.Add("Kitchen", new TextureContainer("kitchenFloor", "Wall", "Ceiling"));
@@ -342,8 +343,35 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
         }
 
-        static void InitializeOtherTextures() =>
+        static void InitializeOtherTextures()
+        {
+            // Add the general school textures
             LevelStudioPlugin.Instance.selectableTextures.AddRange(BBTimesManager.man.Get<List<string>>("TimesSchoolTextures"));
+
+            if (SaveManager.Instance.secretEnding)
+            {
+                string[] secretPaths = new string[]
+                {
+                    Path.Combine(BBTimesManager.SecretEndingPath, "secretLabCeiling.png"),
+                    Path.Combine(BBTimesManager.SecretEndingPath, "secretLabWall.png"),
+                    Path.Combine(BBTimesManager.SecretEndingPath, "secretLabFloor.png")
+                };
+
+                foreach (string path in secretPaths)
+                {
+                    if (File.Exists(path))
+                    {
+                        if (!LevelLoaderPlugin.Instance.roomTextureAliases.ContainsKey(path))
+                        {
+                            Texture2D tex = AssetLoader.TextureFromFile(path);
+                            LevelLoaderPlugin.Instance.roomTextureAliases.Add(path, tex);
+                        }
+
+                        LevelStudioPlugin.Instance.selectableTextures.Add(path);
+                    }
+                }
+            }
+        }
 
 
         /// <summary>
@@ -449,19 +477,26 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             for (int i = 1; i <= 4; i++) objectTools.Add(new("TimesGenericCornerLamp_" + i, false));
             for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesExclamation_" + i, false));
 
-            objectTools.Add(new("Times_SecretBaldi", true, 5f));
-            objectTools.Add(new("Times_InvisibleWall", true, 5f));
-            objectTools.Add(new("Times_CanBeDisabledInvisibleWall", true, 5f));
-            objectTools.Add(new("Times_ScrewingInvisibleWall", true, 5f));
-            objectTools.Add(new("Times_KeyLockedInvisibleWall", true, 5f));
-            objectTools.Add(new("Times_SecretGenerator", true, 5f));
-            objectTools.Add(new("Times_GeneratorCylinder", true, 5f));
-            objectTools.Add(new("Times_theYAYComputer", true, 5f));
-            objectTools.Add(new("Times_TrueLorePaper", true, 5f));
-            objectTools.Add(new("Times_GeneratorLever", true, 5f));
-            for (int i = 1; i <= 6; i++)
-                objectTools.Add(new($"Times_ContainedBaldi_F{i}", true, 5f));
-            EditorInterfaceModes.AddToolToCategory(mode, "objects", new StructureOnWallPlacementTool(TimesPrefix + "SecretButton", null));
+            // SECRET ENDING OBJECTS
+            if (SaveManager.Instance.secretEnding)
+            {
+                objectTools.Add(new("Times_SecretBaldi", true, 5f));
+                objectTools.Add(new("Times_InvisibleWall", true, 5f));
+                objectTools.Add(new("Times_CanBeDisabledInvisibleWall", true, 5f));
+                objectTools.Add(new("Times_ScrewingInvisibleWall", true, 5f));
+                objectTools.Add(new("Times_KeyLockedInvisibleWall", true, 5f));
+                objectTools.Add(new("Times_SecretGenerator", true, 5f));
+                objectTools.Add(new("Times_GeneratorCylinder", true, 5f));
+                objectTools.Add(new("Times_theYAYComputer", true, 5f));
+                objectTools.Add(new("Times_TrueLorePaper", true, 5f));
+                objectTools.Add(new("Times_GeneratorLever", true, 5f));
+                for (int i = 1; i <= 6; i++)
+                    objectTools.Add(new($"Times_ContainedBaldi_F{i}", true, 5f));
+                EditorInterfaceModes.AddToolToCategory(mode, "objects", new StructureOnWallPlacementTool(
+                    TimesPrefix + "SecretButton",
+                    GetSprite("UI/Object_Times_SecretButton", "UI/object_Times_SecretButton")
+                ));
+            }
 
             foreach (var pair in objectTools)
             {
@@ -565,7 +600,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
 
                 if (foundMysteryDoor)
                 {
-                    ByteVector2 outBytePos = outPos.ToByte();
+                    ByteVector2 outBytePos = PlusLevelStudio.EditorExtensions.ToByte(outPos);
                     __result.doors.RemoveAll(door => door.position == outBytePos && door.direction == (PlusDirection)outDir);
                     __result.doors.Add(new DoorInfo
                     {

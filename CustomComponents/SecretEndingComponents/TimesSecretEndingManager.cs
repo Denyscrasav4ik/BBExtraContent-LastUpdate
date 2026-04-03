@@ -1,120 +1,124 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using BBTimes.Manager;
+using MTM101BaldAPI.SaveSystem;
 
 namespace BBTimes.CustomComponents.SecretEndingComponents
 {
-	internal class TimesSecretEndingManager : BaseGameManager
-	{
-		public override void BeginPlay()
-		{
-			base.BeginPlay();
-			Singleton<CoreGameManager>.Instance.disablePause = true;
-			audMan.maintainLoop = true;
-			audMan.SetLoop(true);
-			audMan.QueueAudio(audHummmmm);
-		}
+    internal class TimesSecretEndingManager : BaseGameManager
+    {
+        public override void BeginPlay()
+        {
+            base.BeginPlay();
+            SaveManager.Instance.secretEnding = true;
+            SaveManager.Instance.SaveNow(BBTimesManager.plug);
+            Singleton<CoreGameManager>.Instance.disablePause = true;
+            audMan.maintainLoop = true;
+            audMan.SetLoop(true);
+            audMan.QueueAudio(audHummmmm);
+        }
 
-		public override void Initialize()
-		{
-			if (Singleton<CoreGameManager>.Instance.currentMode == Mode.Free) // NUU UHU UH
-			{
-				Destroy(Singleton<ElevatorScreen>.Instance.gameObject);
-				Singleton<CoreGameManager>.Instance.Quit();
-				Destroy(gameObject);
-				return;
-			}
-			
-			Singleton<CoreGameManager>.Instance.SpawnPlayers(ec);
-			Singleton<CoreGameManager>.Instance.SaveEnabled = false;
-			Singleton<CoreGameManager>.Instance.readyToStart = true;
+        public override void Initialize()
+        {
+            if (Singleton<CoreGameManager>.Instance.currentMode == Mode.Free) // NUU UHU UH
+            {
+                Destroy(Singleton<ElevatorScreen>.Instance.gameObject);
+                Singleton<CoreGameManager>.Instance.Quit();
+                Destroy(gameObject);
+                return;
+            }
 
-			Singleton<CoreGameManager>.Instance.ResetCameras();
-			Singleton<CoreGameManager>.Instance.ResetShaders();
-			Singleton<CoreGameManager>.Instance.GetHud(0).SetNotebookDisplay(false);
+            Singleton<CoreGameManager>.Instance.SpawnPlayers(ec);
+            Singleton<CoreGameManager>.Instance.SaveEnabled = false;
+            Singleton<CoreGameManager>.Instance.readyToStart = true;
 
-			Shader.SetGlobalColor("_SkyboxColor", Color.black);
+            Singleton<CoreGameManager>.Instance.ResetCameras();
+            Singleton<CoreGameManager>.Instance.ResetShaders();
+            Singleton<CoreGameManager>.Instance.GetHud(0).SetNotebookDisplay(false);
 
-			for (int i = 0; i < Singleton<CoreGameManager>.Instance.setPlayers; i++)
-				Singleton<CoreGameManager>.Instance.GetPlayer(i).itm.ClearItems();
-		}
-		public override void CallSpecialManagerFunction(int val, GameObject source)
-		{
-			if (val != 0 || startedTheEnd) return; // There will be no other but one call
+            Shader.SetGlobalColor("_SkyboxColor", Color.black);
 
-			startedTheEnd = true;
-			StartCoroutine(StopPlayerFromListening());
-		}
+            for (int i = 0; i < Singleton<CoreGameManager>.Instance.setPlayers; i++)
+                Singleton<CoreGameManager>.Instance.GetPlayer(i).itm.ClearItems();
+        }
+        public override void CallSpecialManagerFunction(int val, GameObject source)
+        {
+            if (val != 0 || startedTheEnd) return; // There will be no other but one call
 
-		IEnumerator StopPlayerFromListening()
-		{
-			canvas.gameObject.SetActive(true);
-			canvas.worldCamera = Singleton<CoreGameManager>.Instance.GetCamera(0).canvasCam;
+            startedTheEnd = true;
+            StartCoroutine(StopPlayerFromListening());
+        }
 
-			Singleton<CoreGameManager>.Instance.GetHud(0).Hide(true); // No hud anymore
-			Singleton<CoreGameManager>.Instance.GetPlayer(0).plm.Entity.SetFrozen(true);
-			Singleton<CoreGameManager>.Instance.GetCamera(0).SetControllable(false);
-			Singleton<CoreGameManager>.Instance.GetPlayer(0).transform.position = new(999f, 5f, 999f); // Far away from any audio manager
+        IEnumerator StopPlayerFromListening()
+        {
+            canvas.gameObject.SetActive(true);
+            canvas.worldCamera = Singleton<CoreGameManager>.Instance.GetCamera(0).canvasCam;
 
-			Singleton<CoreGameManager>.Instance.audMan.FlushQueue(true);
-			audMan.FlushQueue(true);
-			Singleton<CoreGameManager>.Instance.audMan.PlaySingle(audSlap);
-			Singleton<CoreGameManager>.Instance.audMan.PlaySingle(
-				WeightedSoundObject.RandomSelection(audLoseSounds) // Buzz noises
-				);
+            Singleton<CoreGameManager>.Instance.GetHud(0).Hide(true); // No hud anymore
+            Singleton<CoreGameManager>.Instance.GetPlayer(0).plm.Entity.SetFrozen(true);
+            Singleton<CoreGameManager>.Instance.GetCamera(0).SetControllable(false);
+            Singleton<CoreGameManager>.Instance.GetPlayer(0).transform.position = new(999f, 5f, 999f); // Far away from any audio manager
 
-			float delay = 1f; // For jumpscare delay
-			while (delay > 0f)
-			{
-				delay -= Time.deltaTime;
-				yield return null;
-			}
+            Singleton<CoreGameManager>.Instance.audMan.FlushQueue(true);
+            audMan.FlushQueue(true);
+            Singleton<CoreGameManager>.Instance.audMan.PlaySingle(audSlap);
+            Singleton<CoreGameManager>.Instance.audMan.PlaySingle(
+                WeightedSoundObject.RandomSelection(audLoseSounds) // Buzz noises
+                );
 
-			
-			Singleton<CoreGameManager>.Instance.audMan.FlushQueue(true);
+            float delay = 1f; // For jumpscare delay
+            while (delay > 0f)
+            {
+                delay -= Time.deltaTime;
+                yield return null;
+            }
 
-			delay = 2f; // Normal delay
-			while (delay > 0f)
-			{
-				delay -= Time.deltaTime;
-				yield return null;
-			}
 
-			Singleton<CoreGameManager>.Instance.audMan.PlaySingle(audSeeYaSoon);
+            Singleton<CoreGameManager>.Instance.audMan.FlushQueue(true);
 
-			activeImage.sprite = timesScreen;
+            delay = 2f; // Normal delay
+            while (delay > 0f)
+            {
+                delay -= Time.deltaTime;
+                yield return null;
+            }
 
-			delay = 5f;
-			while (delay > 0f)
-			{
-				delay -= Time.deltaTime;
-				yield return null;
-			}
+            Singleton<CoreGameManager>.Instance.audMan.PlaySingle(audSeeYaSoon);
 
-			if (Singleton<ElevatorScreen>.Instance)
-				Destroy(Singleton<ElevatorScreen>.Instance.gameObject);
-			Singleton<CoreGameManager>.Instance.Quit();
-			Destroy(gameObject);
-		}
+            activeImage.sprite = timesScreen;
 
-		[SerializeField]
-		internal SoundObject audSlap, audSeeYaSoon, audHummmmm;
+            delay = 5f;
+            while (delay > 0f)
+            {
+                delay -= Time.deltaTime;
+                yield return null;
+            }
 
-		[SerializeField]
-		internal WeightedSoundObject[] audLoseSounds;
+            if (Singleton<ElevatorScreen>.Instance)
+                Destroy(Singleton<ElevatorScreen>.Instance.gameObject);
+            Singleton<CoreGameManager>.Instance.Quit();
+            Destroy(gameObject);
+        }
 
-		[SerializeField]
-		internal Canvas canvas;
+        [SerializeField]
+        internal SoundObject audSlap, audSeeYaSoon, audHummmmm;
 
-		[SerializeField]
-		internal Image activeImage;
+        [SerializeField]
+        internal WeightedSoundObject[] audLoseSounds;
 
-		[SerializeField]
-		internal Sprite timesScreen;
+        [SerializeField]
+        internal Canvas canvas;
 
-		[SerializeField]
-		internal AudioManager audMan;
+        [SerializeField]
+        internal Image activeImage;
 
-		bool startedTheEnd = false;
-	}
+        [SerializeField]
+        internal Sprite timesScreen;
+
+        [SerializeField]
+        internal AudioManager audMan;
+
+        bool startedTheEnd = false;
+    }
 }

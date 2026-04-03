@@ -131,7 +131,7 @@
     },
     {
       "key": "Ed_Tool_structure_times_SecretButton_Desc",
-      "value": "What is this?"
+      "value": "A button to get into Baldi's secret lab.\n Decorative."
     },
 
     { "key": "Ed_Tool_room_Bathroom_Title", "value": "Bathroom" },
@@ -794,6 +794,134 @@
       "key": "Ed_Tool_object_TimesExclamation_8_Desc",
       "value": "An exclamation mark that floats above the ground."
     },
+    {
+      "key": "Ed_Tool_object_Times_SecretBaldi_Title",
+      "value": "Secret Baldi"
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretBaldi_Desc",
+      "value": "He's doing something sinister..."
+    },
+    {
+      "key": "Ed_Tool_object_Times_InvisibleWall_Title",
+      "value": "Invisible Wall"
+    },
+    {
+      "key": "Ed_Tool_object_Times_InvisibleWall_Desc",
+      "value": "It's a wall... It's an invisible wall."
+    },
+    {
+      "key": "Ed_Tool_object_Times_CanBeDisabledInvisibleWall_Title",
+      "value": "Can-Be-Disabled Invisible Wall"
+    },
+    {
+      "key": "Ed_Tool_object_Times_CanBeDisabledInvisibleWall_Desc",
+      "value": "An invisible wall, that can be disabled... somehow."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ScrewingInvisibleWall_Title",
+      "value": "Screwing Invisible Wall"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ScrewingInvisibleWall_Desc",
+      "value": "An invisible wall, that can be unscrewed with a Screwdriver."
+    },
+    {
+      "key": "Ed_Tool_object_Times_KeyLockedInvisibleWall_Title",
+      "value": "Key-Locked Invisible Wall"
+    },
+    {
+      "key": "Ed_Tool_object_Times_KeyLockedInvisibleWall_Desc",
+      "value": "An invisible wall, that can be unlocked with Principal's Keys."
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretGenerator_Title",
+      "value": "Level Generator"
+    },
+    {
+      "key": "Ed_Tool_object_Times_SecretGenerator_Desc",
+      "value": "The one and only, level generator.\n<size=5>(level-generating capabilities not included)"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorCylinder_Title",
+      "value": "Generator Cylinder"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorCylinder_Desc",
+      "value": "A decorative cylinder, that is usually stemming from the generator."
+    },
+    {
+      "key": "Ed_Tool_object_Times_theYAYComputer_Title",
+      "value": "Baldi's Computer"
+    },
+    {
+      "key": "Ed_Tool_object_Times_theYAYComputer_Desc",
+      "value": "A computer that shows the YAY floor."
+    },
+    {
+      "key": "Ed_Tool_object_Times_TrueLorePaper_Title",
+      "value": "True Lore Paper"
+    },
+    {
+      "key": "Ed_Tool_object_Times_TrueLorePaper_Desc",
+      "value": "It contains lore."
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorLever_Title",
+      "value": "Generator Lever"
+    },
+    {
+      "key": "Ed_Tool_object_Times_GeneratorLever_Desc",
+      "value": "A lever, that *would power the generator.\n<size=5>*Actually, it's just decorative, but can be unscrewed."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F1_Title",
+      "value": "Contained Baldi #1"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F1_Desc",
+      "value": "A capsule, that contains a clone of Baldi."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F2_Title",
+      "value": "Contained Baldi #2"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F2_Desc",
+      "value": "A capsule, that contains a clone of Baldi."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F3_Title",
+      "value": "Contained Baldi #3"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F3_Desc",
+      "value": "A capsule, that contains a clone of Baldi."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F4_Title",
+      "value": "Contained Baldi #4"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F4_Desc",
+      "value": "A capsule, that contains a clone of Baldi."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F5_Title",
+      "value": "Contained Baldi #5"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F5_Desc",
+      "value": "A capsule, that contains a clone of Baldi."
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F6_Title",
+      "value": "Contained Baldi #■"
+    },
+    {
+      "key": "Ed_Tool_object_Times_ContainedBaldi_F6_Desc",
+      "value": "A capsule, that contains... Wait, where did he go?"
+    },
 
     {
       "key": "Ed_Poster_Title_WallClock",
@@ -874,6 +1002,46 @@
     {
       "key": "Ed_Poster_Desc_PST_FoodAllergy",
       "value": "Don't bring these foods!"
+    },
+    {
+      "key": "Ed_Poster_Title_liveTubeMakeUpPoster",
+      "value": "Life Tube Implementation Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_liveTubeMakeUpPoster",
+      "value": "Objective: keep a fun experience by reviving the player."
+    },
+    {
+      "key": "Ed_Poster_Title_levelGenMakeUpPoster",
+      "value": "Level Generation Implementation Poster"
+    },
+    {
+      "key": "Ed_Poster_Desc_levelGenMakeUpPoster",
+      "value": "Objective: generate levels (pre-made or random)."
+    },
+    {
+      "key": "Ed_Poster_Title_chk_funFormulaPoster",
+      "value": "Fun Formula Chalkboard"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_funFormulaPoster",
+      "value": "Fun Formula: less wins -> more tries -> more fun!"
+    },
+    {
+      "key": "Ed_Poster_Title_chk_theNoWinFormulaPoster",
+      "value": "The No-Win Formula Chalkboard"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_theNoWinFormulaPoster",
+      "value": "More red lights, more obstacles = less wins!"
+    },
+    {
+      "key": "Ed_Poster_Title_chk_noRealWinPoster",
+      "value": "No Real Win Chalkboard"
+    },
+    {
+      "key": "Ed_Poster_Desc_chk_noRealWinPoster",
+      "value": "THERE'S NO REAL WIN."
     },
 
     {
