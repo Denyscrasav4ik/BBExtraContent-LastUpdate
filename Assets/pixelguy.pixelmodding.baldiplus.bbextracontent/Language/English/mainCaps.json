@@ -120,7 +120,7 @@
     },
     {
       "key": "BBTimes_Settings_Misc_Secrets_Desc",
-      "value": "If True, the objects from the Secret Ending will added to the Level Studio,\nregardless of whether you unlocked them or not."
+      "value": "If True, the objects from the Secret Ending will added to the Level Studio,\nregardless of whether you unlocked them or not\n<color=red>(Requires restart)."
     },
     {
       "key": "BBTimes_Settings_Holidays_Christmas_Name",

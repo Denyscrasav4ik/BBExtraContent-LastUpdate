@@ -169,7 +169,7 @@ namespace BBTimes
             disableArcadeRennovationsSupport = Config.Bind(MISC_SETTINGS, "Disable Arcade Rennovations Support", false, "Setting this to \"true\" disable any checks for arcade rennovations. This can be useful for RNG Floors, if you\'re having any issues.");
             disableRedEndingCutscene = Config.Bind(MISC_SETTINGS, "Disable Red Ending Cutscene", false, "If True, the cutscene played at the end of the game will be completely disabled.");
             enableUnbalancedLegacyMode = Config.Bind(MISC_SETTINGS, "Enable Unbalanced Legacy Mode", false, "If True, the old Times\' floor changes will be brought up back and make the game considerably unbalanced.");
-            forceEnableSecretObjects = Config.Bind(MISC_SETTINGS, "Force Enable Secret Objects", false, "If True, the objects from the Secret Ending will added to the Level Studio, regardless of whether you unlocked them or not.");
+            forceEnableSecretObjects = Config.Bind(MISC_SETTINGS, "Force Enable Secret Objects", false, "If True, the objects from the Secret Ending will added to the Level Studio, regardless of whether you unlocked them or not (Requires restart).");
 
             MTM101BaldAPI.OptionsAPI.CustomOptionsCore.OnMenuInitialize += (menu, handler) =>
             {

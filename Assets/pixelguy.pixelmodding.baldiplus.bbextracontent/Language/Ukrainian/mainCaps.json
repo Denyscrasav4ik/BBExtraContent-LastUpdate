@@ -120,7 +120,7 @@
     },
     {
       "key": "BBTimes_Settings_Misc_Secrets_Desc",
-      "value": "Якщо «так», об’єкти з секретного фіналу будуть додані до Level Studio,\nнезалежно від того, чи розблокували ви їх."
+      "value": "Якщо «так», об’єкти з секретного фіналу будуть додані до Level Studio,\nнезалежно від того, чи розблокували ви їх\n<color=red>(Потребує перезапуск)."
     },
     {
       "key": "BBTimes_Settings_Holidays_Christmas_Name",
