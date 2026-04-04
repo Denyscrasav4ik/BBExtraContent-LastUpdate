@@ -6,8 +6,163 @@
     },
     {
       "key": "BBTimes_ModInfo",
-      "value": "BBExtraContent: V1.4.3\nЗроблено:\nEkremTheStickman\nDenysCrasav4ik\n\nОригінал: PixelGuy"
+      "value": "BBExtraContent: V1.4.3.1\nЗроблено:\nEkremTheStickman\nDenysCrasav4ik\n\nОригінал: PixelGuy"
     },
+
+    {
+      "key": "BBTimes_Settings_ScrollInstruction",
+      "value": "Використовуйте коліщатко миші щоб прокручувати"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Environment",
+      "value": "Навколишнє Середовище"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Miscellaneous",
+      "value": "Інше"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Holidays",
+      "value": "Свята"
+    },
+    {
+      "key": "BBTimes_Settings_Category_NPC Settings",
+      "value": "НІПи"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Item Settings",
+      "value": "Предмети"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Random Event Settings",
+      "value": "Випадкові Події"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Structure Settings",
+      "value": "Структури"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Naturally Spawning Objects Settings",
+      "value": "Природньо Створені Об'єкти"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Special Room Settings",
+      "value": "Особливі Кімнати"
+    },
+
+    {
+      "key": "BBTimes_Settings_Env_Outside_Name",
+      "value": "Вимкнути Вулицю"
+    },
+    {
+      "key": "BBTimes_Settings_Env_Outside_Desc",
+      "value": "Якщо встановити «так», видимість вулиці в грі буде повністю вимкнено.\nЦе має трохи підвищити продуктивність,\n<color=red>АЛЕ також змінить сіди генерації у грі."
+    },
+    {
+      "key": "BBTimes_Settings_Env_BigRooms_Name",
+      "value": "Увімкнути Великі Кімнати"
+    },
+    {
+      "key": "BBTimes_Settings_Env_BigRooms_Desc",
+      "value": "Якщо встановити «так», буде додано решту макетів кімнат, які постачаються з Множенням.\n<color=red>УВАГА: Ці макети повністю порушують баланс гри,\nроблячи її значно складнішою, ніж зазвичай."
+    },
+    {
+      "key": "BBTimes_Settings_Env_Escape_Name",
+      "value": "Вимкнути Втечу Зі Школи"
+    },
+    {
+      "key": "BBTimes_Settings_Env_Escape_Desc",
+      "value": "Якщо встановити «так», частина втечі зі школи буде повністю вимкнено."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Youtuber_Name",
+      "value": "Увімкнути Режим Ютубера"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Youtuber_Desc",
+      "value": "Хочете легко отримати ексклюзивний контент? Встановіть значення «так»,\nі *все* матиме вагу 9999."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Replacements_Name",
+      "value": "Вимкнути Функцію Заміни"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Replacements_Desc",
+      "value": "Якщо встановити «так», замінні НІПи з’являтимуться як звичайні НІПи,\nщо в деяких момнетах значно ускладнить гру."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Arcade_Name",
+      "value": "Вимкнути Підтримку Arcade Renovations"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Arcade_Desc",
+      "value": "Якщо встановити «так», будь-які перевірки Arcade Renovations будуть вимкнені.\nЦе може бути корисно для RNG Floors, якщо у вас виникають проблеми."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Cutscene_Name",
+      "value": "Вимкнути Фінальну Кат-Сцену"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Cutscene_Desc",
+      "value": "Якщо «так», кат-сцена в кінці гри буде повністю вимкнена."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Legacy_Name",
+      "value": "Увімкнути Незбалансований Класичний Режим"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Legacy_Desc",
+      "value": "Якщо «так», старі зміни поверхів з Множення будуть повернуті,\nщо зробить гру значно незбалансованою."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Secrets_Name",
+      "value": "Примусово Увімкнути Секретні Об'єкти"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Secrets_Desc",
+      "value": "Якщо «так», об’єкти з секретного фіналу будуть додані до Level Studio,\nнезалежно від того, чи розблокували ви їх."
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_Christmas_Name",
+      "value": "Примусово Увімкнути Особливу Різдвяну Подію"
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_Christmas_Desc",
+      "value": "Якщо встановити «так», буде примусово ввімкнено Різдвяну подію."
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_March31_Name",
+      "value": "Примусово Увімкнути Особливу Подію 31 Березня"
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_March31_Desc",
+      "value": "Якщо встановити «так», буде примусово ввімкнено подія до 31 березня."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_NPC_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Item_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Event_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Structure_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Object_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Room_Desc",
+      "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
+    },
+
     { "key": "Vfx_VentGasLeak", "value": "*Витік газу*" },
     { "key": "Vfx_GumSplash", "value": "*ПЛЮХ!*" },
     { "key": "Vfx_WindowHit", "value": "*Удар*" },

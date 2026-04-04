@@ -51,6 +51,8 @@ namespace BBTimes
     [BepInPlugin(ModInfo.PLUGIN_GUID, ModInfo.PLUGIN_NAME, ModInfo.PLUGIN_VERSION)]
     public class BasePlugin : BaseUnityPlugin
     {
+        public static BasePlugin Instance { get; private set; }
+
         bool IsUkrainizationLoaded()
         {
             return Chainloader.PluginInfos.Values.Any(p =>
@@ -140,13 +142,14 @@ namespace BBTimes
 
         internal ConfigEntry<bool>
         disableOutside, disableRedEndingCutscene,
-        enableBigRooms, enableReplacementNPCsAsNormalOnes, enableYoutuberMode, forceChristmasMode, forceBaldiMarch31Day, disableArcadeRennovationsSupport, disableSchoolhouseEscape, enableUnbalancedLegacyMode;
+        enableBigRooms, enableReplacementNPCsAsNormalOnes, enableYoutuberMode, forceChristmasMode, forceBaldiMarch31Day, disableArcadeRennovationsSupport, disableSchoolhouseEscape, enableUnbalancedLegacyMode, forceEnableSecretObjects;
         internal List<string> disabledCharacters = [], disabledItems = [], disabledEvents = [], disabledBuilders = [], disableNaturalObject = [];
         // internal bool HasInfiniteFloors => Chainloader.PluginInfos.ContainsKey("mtm101.rulerp.baldiplus.endlessfloors") ||
         //	Chainloader.PluginInfos.ContainsKey("Rad.cmr.baldiplus.arcaderenovations");
 
         private void Awake()
         {
+            Instance = this;
             BBTimesManager.plug = this;
 
             const string
@@ -154,19 +157,24 @@ namespace BBTimes
                 MISC_SETTINGS = "Miscellaneous Settings",
                 SPECIAL_SETTINGS = "Holidays Settings";
 
-            disableOutside = Config.Bind(ENV_SETTINGS, "Disable the outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should slightly increase performance BUT will also change the seed layouts in the game.");
-            enableBigRooms = Config.Bind(ENV_SETTINGS, "Enable big rooms", false, "Setting this \"true\" will add the rest of the layouts Times also comes with. WARNING: These layouts completely unbalance the game, making it a lot harder than the usual.");
-            disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable schoolhouse escape", false, "Setting this to \"true\" will disable entirely the schoolhouse escape sequence");
+            disableOutside = Config.Bind(ENV_SETTINGS, "Disable The Outside", false, "Setting this \"true\" will completely disable the outside seen in-game. This should slightly increase performance BUT will also change the seed layouts in the game.");
+            enableBigRooms = Config.Bind(ENV_SETTINGS, "Enable Big Rooms", false, "Setting this \"true\" will add the rest of the layouts Times also comes with. WARNING: These layouts completely unbalance the game, making it a lot harder than the usual.");
+            disableSchoolhouseEscape = Config.Bind(ENV_SETTINGS, "Disable Schoolhouse Escape", false, "Setting this to \"true\" will entirely disable the schoolhouse escape sequence.");
 
-            forceChristmasMode = Config.Bind(SPECIAL_SETTINGS, "Force enable christmas special", false, "Setting this to \"true\" will force the christmas special to be enabled.");
-            forceBaldiMarch31Day = Config.Bind(SPECIAL_SETTINGS, "Force enable March 31 special", false, "Setting this to \"true\" will force the March 31 special to be enabled.");
+            forceChristmasMode = Config.Bind(SPECIAL_SETTINGS, "Force Enable Christmas Special", false, "Setting this to \"true\" will force the christmas special to be enabled.");
+            forceBaldiMarch31Day = Config.Bind(SPECIAL_SETTINGS, "Force Enable March 31 Special", false, "Setting this to \"true\" will force the March 31 special to be enabled.");
 
-            enableYoutuberMode = Config.Bind(MISC_SETTINGS, "Enable youtuber mode", false, "Wanna get some exclusive content easily? Set this to \"true\" on and *everything* will have the weight of 9999.");
-            enableReplacementNPCsAsNormalOnes = Config.Bind(MISC_SETTINGS, "Disable replacement feature", false, "Setting this \"true\" will allow replacement npcs to spawn as normal npcs instead, making the game considerably harder in some ways.");
-            disableArcadeRennovationsSupport = Config.Bind(MISC_SETTINGS, "Disable arcade rennovations support", false, "Setting this to \"true\" disable any checks for arcade rennovations. This can be useful for RNG Floors, if you\'re having any issues.");
-            disableRedEndingCutscene = Config.Bind(MISC_SETTINGS, "Disable the final cutscene", false, "If True, the cutscene played in the red sequence will be totally disabled.");
+            enableYoutuberMode = Config.Bind(MISC_SETTINGS, "Enable Youtuber Mode", false, "Wanna get some exclusive content easily? Set this to \"true\" and *everything* will have the weight of 9999.");
+            enableReplacementNPCsAsNormalOnes = Config.Bind(MISC_SETTINGS, "Disable Replacement Feature", false, "Setting this \"true\" will allow replacement npcs to spawn as normal npcs instead, making the game considerably harder in some ways.");
+            disableArcadeRennovationsSupport = Config.Bind(MISC_SETTINGS, "Disable Arcade Rennovations Support", false, "Setting this to \"true\" disable any checks for arcade rennovations. This can be useful for RNG Floors, if you\'re having any issues.");
+            disableRedEndingCutscene = Config.Bind(MISC_SETTINGS, "Disable Red Ending Cutscene", false, "If True, the cutscene played at the end of the game will be completely disabled.");
             enableUnbalancedLegacyMode = Config.Bind(MISC_SETTINGS, "Enable Unbalanced Legacy Mode", false, "If True, the old Times\' floor changes will be brought up back and make the game considerably unbalanced.");
+            forceEnableSecretObjects = Config.Bind(MISC_SETTINGS, "Force Enable Secret Objects", false, "If True, the objects from the Secret Ending will added to the Level Studio, regardless of whether you unlocked them or not.");
 
+            MTM101BaldAPI.OptionsAPI.CustomOptionsCore.OnMenuInitialize += (menu, handler) =>
+            {
+                handler.AddCategory<BBTimesOptionsCategory>("BB+iEC");
+            };
 
             Harmony harmony = new(ModInfo.PLUGIN_GUID);
             harmony.PatchAllConditionals();
@@ -960,6 +968,6 @@ namespace BBTimes
 
         public const string PLUGIN_NAME = "BB+ Extra Content";
 
-        public const string PLUGIN_VERSION = "1.4.3";
+        public const string PLUGIN_VERSION = "1.4.3.1";
     }
 }

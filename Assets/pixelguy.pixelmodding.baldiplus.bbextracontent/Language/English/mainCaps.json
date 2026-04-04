@@ -6,8 +6,163 @@
     },
     {
       "key": "BBTimes_ModInfo",
-      "value": "BBExtraContent: V1.4.3\nMade by:\nEkremTheStickman\nDenysCrasav4ik\n\nOriginal by: PixelGuy"
+      "value": "BBExtraContent: V1.4.3.1\nMade by:\nEkremTheStickman\nDenysCrasav4ik\n\nOriginal by: PixelGuy"
     },
+
+    {
+      "key": "BBTimes_Settings_ScrollInstruction",
+      "value": "Use the scroll wheel to scroll"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Environment",
+      "value": "Environment"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Miscellaneous",
+      "value": "Miscellaneous"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Holidays",
+      "value": "Holidays"
+    },
+    {
+      "key": "BBTimes_Settings_Category_NPC Settings",
+      "value": "NPCs"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Item Settings",
+      "value": "Items"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Random Event Settings",
+      "value": "Random Events"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Structure Settings",
+      "value": "Structures"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Naturally Spawning Object Settings",
+      "value": "Naturally Spawning Objects"
+    },
+    {
+      "key": "BBTimes_Settings_Category_Special Room Settings",
+      "value": "Special Rooms"
+    },
+
+    {
+      "key": "BBTimes_Settings_Env_Outside_Name",
+      "value": "Disable The Outside"
+    },
+    {
+      "key": "BBTimes_Settings_Env_Outside_Desc",
+      "value": "Setting this \"true\" will completely disable the outside seen in-game.\nThis should slightly increase performance\n<color=red>BUT will also change the seed layouts in the game."
+    },
+    {
+      "key": "BBTimes_Settings_Env_BigRooms_Name",
+      "value": "Enable Big Rooms"
+    },
+    {
+      "key": "BBTimes_Settings_Env_BigRooms_Desc",
+      "value": "Setting this \"true\" will add the rest of the layouts Times also comes with.\n<color=red>WARNING: These layouts completely unbalance the game,\nmaking it a lot harder than the usual."
+    },
+    {
+      "key": "BBTimes_Settings_Env_Escape_Name",
+      "value": "Disable Schoolhouse Escape"
+    },
+    {
+      "key": "BBTimes_Settings_Env_Escape_Desc",
+      "value": "Setting this to \"true\" will entirely disable the schoolhouse escape sequence."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Youtuber_Name",
+      "value": "Enable Youtuber Mode"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Youtuber_Desc",
+      "value": "Wanna get some exclusive content easily? Set this to \"true\"\nand *everything* will have the weight of 9999."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Replacements_Name",
+      "value": "Disable Replacement Feature"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Replacements_Desc",
+      "value": "Setting this to \"true\" will allow replacement npcs to spawn as normal npcs instead,\nmaking the game considerably harder in some ways."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Arcade_Name",
+      "value": "Disable Arcade Renovations Support"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Arcade_Desc",
+      "value": "Setting this to \"true\" disable any checks for arcade rennovations.\nThis can be useful for RNG Floors, if you're having any issues."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Cutscene_Name",
+      "value": "Disable The Final Cutscene"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Cutscene_Desc",
+      "value": "If True, the cutscene played at the end of the game will be completely disabled."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Legacy_Name",
+      "value": "Enable Unbalanced Legacy Mode"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Legacy_Desc",
+      "value": "If True, the old Times' floor changes will be brought up back\nand make the game considerably unbalanced."
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Secrets_Name",
+      "value": "Force Enable Secret Objects"
+    },
+    {
+      "key": "BBTimes_Settings_Misc_Secrets_Desc",
+      "value": "If True, the objects from the Secret Ending will added to the Level Studio,\nregardless of whether you unlocked them or not."
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_Christmas_Name",
+      "value": "Force Enable Christmas Special"
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_Christmas_Desc",
+      "value": "Setting this to \"true\" will force the christmas special to be enabled."
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_March31_Name",
+      "value": "Force Enable March 31 Special"
+    },
+    {
+      "key": "BBTimes_Settings_Holidays_March31_Desc",
+      "value": "Setting this to \"true\" will force the March 31 special to be enabled."
+    },
+    {
+      "key": "BBTimes_Settings_Generic_NPC_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Item_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Event_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Structure_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Object_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+    {
+      "key": "BBTimes_Settings_Generic_Room_Desc",
+      "value": "If set to true,\n{0} will be included in the maps made by the Level Generator\n(eg. Hide and Seek)"
+    },
+
     { "key": "Vfx_VentGasLeak", "value": "*Gas Leaking*" },
     { "key": "Vfx_GumSplash", "value": "*SPLASH!*" },
     { "key": "Vfx_WindowHit", "value": "*Hit*" },

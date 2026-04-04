@@ -160,7 +160,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesExclamation_" + i, man.Get<GameObject>("editorPrefab_TimesExclamation_" + i), 1.5f, Vector3.zero);
 
             // SECRET ENDING OBJECTS
-            if (SaveManager.Instance.secretEnding)
+            if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
             {
                 EditorInterface.AddObjectVisualWithCustomSphereCollider("Times_SecretBaldi", man.Get<GameObject>("editorPrefab_Times_SecretBaldi"), 2f, Vector3.zero);
                 EditorInterface.AddObjectVisual("Times_InvisibleWall", man.Get<GameObject>("editorPrefab_Times_InvisibleWall"), true);
@@ -331,7 +331,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             // Add the general school textures
             LevelStudioPlugin.Instance.selectableTextures.AddRange(BBTimesManager.man.Get<List<string>>("TimesSchoolTextures"));
 
-            if (SaveManager.Instance.secretEnding)
+            if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
             {
                 string[] secretPaths = new string[]
                 {
@@ -371,7 +371,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             containers.Add("ExibitionRoom", new TextureContainer("BlueCarpet", "Wall", "Ceiling"));
             containers.Add("SnowyPlayground", new TextureContainer("snowyPlaygroundFloor", "Fence", "None"));
             containers.Add("IceRink", new TextureContainer("IceRinkFloor", "IceRinkWall", "None"));
-            if (SaveManager.Instance.secretEnding)
+            if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 containers.Add("SecretTimesButtonRoom", new TextureContainer(Path.Combine(BBTimesManager.SecretEndingPath, "secretLabFloor.png"), Path.Combine(BBTimesManager.SecretEndingPath, "secretLabWall.png"), Path.Combine(BBTimesManager.SecretEndingPath, "secretLabCeiling.png")));
         }
 
@@ -413,7 +413,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 "FocusRoom", "SuperMystery", "ExibitionRoom", "SnowyPlayground", "IceRink"
             };
 
-            if (SaveManager.Instance.secretEnding)
+            if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
             {
                 roomList.Add("SecretTimesButtonRoom");
             }
@@ -488,7 +488,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesExclamation_" + i, false));
 
             // SECRET ENDING OBJECTS
-            if (SaveManager.Instance.secretEnding)
+            if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
             {
                 objectTools.Add(new("Times_SecretBaldi", true, 5f));
                 objectTools.Add(new("Times_InvisibleWall", true, 5f));

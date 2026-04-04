@@ -360,7 +360,7 @@ namespace BBTimes.Manager
                 // --- Add posters to the secret ending room and the editor ---
                 var p1 = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "liveTubeMakeUp.png"))]);
 
-                if (SaveManager.Instance.secretEnding)
+                if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 {
                     LevelLoaderPlugin.Instance.posterAliases.Add(p1.name, p1);
                     EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanilla) =>
@@ -373,7 +373,7 @@ namespace BBTimes.Manager
 
                 var p2 = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "levelGenMakeUp.png"))]);
 
-                if (SaveManager.Instance.secretEnding)
+                if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 {
                     LevelLoaderPlugin.Instance.posterAliases.Add(p2.name, p2);
                     EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanilla) =>
@@ -387,7 +387,7 @@ namespace BBTimes.Manager
 
                 var p3 = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "chk_funFormula.png"))]);
 
-                if (SaveManager.Instance.secretEnding)
+                if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 {
                     LevelLoaderPlugin.Instance.posterAliases.Add(p3.name, p3);
                     EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanilla) =>
@@ -401,7 +401,7 @@ namespace BBTimes.Manager
 
                 var p4 = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "chk_theNoWinFormula.png"))]);
 
-                if (SaveManager.Instance.secretEnding)
+                if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 {
                     LevelLoaderPlugin.Instance.posterAliases.Add(p4.name, p4);
                     EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanilla) =>
@@ -415,7 +415,7 @@ namespace BBTimes.Manager
 
                 var p5 = ObjectCreators.CreatePosterObject([AssetLoader.TextureFromFile(Path.Combine(SecretEndingPath, "chk_noRealWin.png"))]);
 
-                if (SaveManager.Instance.secretEnding)
+                if (SaveManager.Instance.secretEnding || BBTimesManager.plug.forceEnableSecretObjects.Value)
                 {
                     LevelLoaderPlugin.Instance.posterAliases.Add(p5.name, p5);
                     EditorInterfaceModes.AddModeCallback((EditorMode mode, bool vanilla) =>

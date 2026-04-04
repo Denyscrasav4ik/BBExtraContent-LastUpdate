@@ -233,6 +233,12 @@ namespace BBTimes.Manager
             basePlane.GetComponent<MeshRenderer>().material = GenericExtensions.FindResourceObjectByName<Material>("TileBase_Alpha");
             man.Add("TransparentPlaneTemplate", basePlane);
 
+            // Arrows
+            man.Add("ArrowLeftUnhigh", GenericExtensions.FindResourceObjectByName<Sprite>("MenuArrowSheet_0"));
+            man.Add("ArrowRightUnhigh", GenericExtensions.FindResourceObjectByName<Sprite>("MenuArrowSheet_1"));
+            man.Add("ArrowLeftHigh", GenericExtensions.FindResourceObjectByName<Sprite>("MenuArrowSheet_2"));
+            man.Add("ArrowRightHigh", GenericExtensions.FindResourceObjectByName<Sprite>("MenuArrowSheet_3"));
+
             // Grass texture
             man.Add("Tex_Grass", GenericExtensions.FindResourceObjectByName<Texture2D>("Grass"));
 
