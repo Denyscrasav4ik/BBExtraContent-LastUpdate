@@ -49,11 +49,6 @@ namespace BBTimes.Manager
             {
                 categoryPages[i].SetActive(i == 0);
             }
-
-            CreateApplyButton(() =>
-            {
-                BasePlugin.Instance.Config.Save();
-            });
         }
 
         private void ChangePage(int direction)
