@@ -840,7 +840,7 @@ namespace BBTimes.Manager
             };
             floorDatas[F3].RoomAssets.Add(new(group));
 
-            AddCategoryForNPCToSpawn(sets.category, typeof(TickTock), typeof(Phawillow));
+            AddCategoryForNPCToSpawn(sets.category, typeof(Phawillow));
             addAsBreakerRoom(sets.category);
 
             // ------------------------------------------------------------------------------------------
