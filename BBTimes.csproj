@@ -1,16 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyName>BBExtraContent</AssemblyName>
     <Description>Mod for BB+ that adds in a bunch of content. Formerly known as Times Revived</Description>
-    <Version>1.4.3.1</Version>
+    <Version>1.4.3.2</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;Cheat</Configurations>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-
     <OutputPath>Build\</OutputPath>
   </PropertyGroup>
 
@@ -66,16 +65,20 @@
     <Reference Include="PlusStudioLevelLoader">
       <HintPath>References\PlusStudioLevelLoader.dll</HintPath>
     </Reference>
-  </ItemGroup>
+
+  <Target Name="CleanOutput" AfterTargets="Build">
+    <ItemGroup>
+      <ExtraFiles Include="$(TargetDir)*.dll" Exclude="$(TargetDir)BBExtraContent.dll" />
+      <ExtraFiles Include="$(TargetDir)*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(ExtraFiles)" />
+  </Target>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="netstandard">
-      <HintPath>References\netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="NewPlusDecorations">
       <HintPath>References\NewPlusDecorations.dll</HintPath>
     </Reference>

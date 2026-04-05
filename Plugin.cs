@@ -60,6 +60,7 @@ namespace BBTimes
                 p.Instance.GetType().Namespace != null &&
                 p.Instance.GetType().Namespace.Contains(Storage.guid_Ukrainization));
         }
+
         IEnumerator SetupFinal()
         {
             yield return 3
@@ -189,20 +190,12 @@ namespace BBTimes
             {
                 string ukrPath = Path.Combine(ModPath, "Language", "Ukrainian");
                 if (Directory.Exists(ukrPath))
-                {
-                    Logger.LogInfo("Ukrainization detected! Loading Ukrainian localization...");
                     AssetLoader.LoadLocalizationFolder(ukrPath, Language.English);
-                }
                 else
-                {
-                    Logger.LogWarning("Ukrainization detected, but Ukrainian folder not found. Falling back to English.");
                     AssetLoader.LoadLocalizationFolder(Path.Combine(ModPath, "Language", "English"), Language.English);
-                }
             }
             else
-            {
                 AssetLoader.LoadLocalizationFolder(Path.Combine(ModPath, "Language", "English"), Language.English);
-            }
 
 #if KOFI
 			MTM101BaldiDevAPI.AddWarningScreen(
@@ -968,6 +961,6 @@ namespace BBTimes
 
         public const string PLUGIN_NAME = "BB+ Extra Content";
 
-        public const string PLUGIN_VERSION = "1.4.3.1";
+        public const string PLUGIN_VERSION = "1.4.3.2";
     }
 }

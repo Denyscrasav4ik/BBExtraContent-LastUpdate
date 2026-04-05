@@ -5,106 +5,106 @@ using UnityEngine;
 
 namespace BBTimes.Plugin
 {
-	public static class Storage
-	// This storage will contain all global variables that are gonna be disabled by any mod that requires them to be disabled (REMINDER: NOT SETTINGS, THESE ARE STORED IN THE PLUGIN CLASS)
-	// Plus, this storage will contain other global variables that are used by the mod for miscellaneous purposes
-	{
-		public static bool HasCrispyPlus => Chainloader.PluginInfos.ContainsKey("mtm101.rulerp.baldiplus.crispyplus");
+    public static class Storage
+    // This storage will contain all global variables that are gonna be disabled by any mod that requires them to be disabled (REMINDER: NOT SETTINGS, THESE ARE STORED IN THE PLUGIN CLASS)
+    // Plus, this storage will contain other global variables that are used by the mod for miscellaneous purposes
+    {
+        public static bool HasCrispyPlus => Chainloader.PluginInfos.ContainsKey("mtm101.rulerp.baldiplus.crispyplus");
 
-		public static bool IsChristmas
-		{
-			get
-			{
-				if (BBTimesManager.plug.forceChristmasMode.Value)
-					return true;
+        public static bool IsChristmas
+        {
+            get
+            {
+                if (BBTimesManager.plug.forceChristmasMode.Value)
+                    return true;
 
-				if (isChristmas.DecisionMade)
-					return isChristmas.Value;
+                if (isChristmas.DecisionMade)
+                    return isChristmas.Value;
 
-				var now = DateTime.Now;
+                var now = DateTime.Now;
 
-				var minDate = new DateTime(now.Year, 12, 1);
-				var maxDate = new DateTime(now.Year, 12, 31);
+                var minDate = new DateTime(now.Year, 12, 1);
+                var maxDate = new DateTime(now.Year, 12, 31);
 
-				isChristmas.Value = now >= minDate && now <= maxDate;
+                isChristmas.Value = now >= minDate && now <= maxDate;
 
-				return isChristmas.Value;
-			}
-		}
+                return isChristmas.Value;
+            }
+        }
 
-		public static bool IsBaldiFirstReleaseDate
-		{
-			get
-			{
-				if (BBTimesManager.plug.forceBaldiMarch31Day.Value)
-					return true;
-				if (isMarch31.DecisionMade)
-					return isMarch31.Value;
+        public static bool IsBaldiFirstReleaseDate
+        {
+            get
+            {
+                if (BBTimesManager.plug.forceBaldiMarch31Day.Value)
+                    return true;
+                if (isMarch31.DecisionMade)
+                    return isMarch31.Value;
 
-				var now = DateTime.Now;
-				isMarch31.Value = now.Day == 31 && now.Month == 3;
-				return isMarch31.Value; // March 31
-			}
-		}
+                var now = DateTime.Now;
+                isMarch31.Value = now.Day == 31 && now.Month == 3;
+                return isMarch31.Value; // March 31
+            }
+        }
 
-		// Holiday booleans to be stored once
-		static HolidayPinner isChristmas = new(), isMarch31 = new();
-		private struct HolidayPinner()
-		{
-			public readonly bool DecisionMade => _decisionMade;
-			public bool Value
-			{
-				readonly get => _value;
-				set
-				{
-					if (_decisionMade) return;
-					_decisionMade = true;
-					_value = value;
-				}
-			}
-			private bool _value = false, _decisionMade;
-		}
+        // Holiday booleans to be stored once
+        static HolidayPinner isChristmas = new(), isMarch31 = new();
+        private struct HolidayPinner()
+        {
+            public readonly bool DecisionMade => _decisionMade;
+            public bool Value
+            {
+                readonly get => _value;
+                set
+                {
+                    if (_decisionMade) return;
+                    _decisionMade = true;
+                    _value = value;
+                }
+            }
+            private bool _value = false, _decisionMade;
+        }
 
-		// ------------------- Constant Strings ---------------------
+        // ------------------- Constant Strings ---------------------
 
-		public const string
-		HOTCHOCOLATE_ATTR_TAG = "hotchocolateactive",
-		HARDHAT_ATTR_TAG = "protectedhead",
-		ATTR_FREEZE_STAMINA_UPDATE_TAG = "disableStaminaUpdate",
-		ATTR_FREEZE_PLAYER_MOVEMENT_TAG = "disablePlayerMovement",
-		ATTR_STOP_PLAYER_MOVEMENT_RUN_TAG = "disablePlayerRunning",
-		TAG_CHEFJOE_SELECTFOOD = "Times_ChefJoeFood",
-		FOOD_TAG = "food",
-		DRINK_TAG = "drink";
-		public const string ChristmasSpecial_TimesTag = "Times_SpecialTags_ChristmasSpecial";
+        public const string
+        HOTCHOCOLATE_ATTR_TAG = "hotchocolateactive",
+        HARDHAT_ATTR_TAG = "protectedhead",
+        ATTR_FREEZE_STAMINA_UPDATE_TAG = "disableStaminaUpdate",
+        ATTR_FREEZE_PLAYER_MOVEMENT_TAG = "disablePlayerMovement",
+        ATTR_STOP_PLAYER_MOVEMENT_RUN_TAG = "disablePlayerRunning",
+        TAG_CHEFJOE_SELECTFOOD = "Times_ChefJoeFood",
+        FOOD_TAG = "food",
+        DRINK_TAG = "drink";
+        public const string ChristmasSpecial_TimesTag = "Times_SpecialTags_ChristmasSpecial";
 
-		public const string
-		SPRITESTANDARD_LIGHTGUIDE = "Texture2D_0ebe02d67a8a4acb8705243366af66aa",
-		SPRITESTANDARD_LIGHTMAP = "_LightMap";
+        public const string
+        SPRITESTANDARD_LIGHTGUIDE = "Texture2D_0ebe02d67a8a4acb8705243366af66aa",
+        SPRITESTANDARD_LIGHTMAP = "_LightMap";
 
-		// -------------------- GUIDs ------------------
-		public const string
-		guid_Advanced = "mrsasha5.baldi.basics.plus.advanced",
-		guid_LevelStudio = "mtm101.rulerp.baldiplus.levelstudio",
-		guid_LevelLoader = "mtm101.rulerp.baldiplus.levelstudioloader",
-		guid_HookTweaks = "pixelguy.pixelmodding.baldiplus.grapplinghooktweaks",
-		guid_CustomMusics = "pixelguy.pixelmodding.baldiplus.custommusics",
-		guid_CustomVendingMachines = "pixelguy.pixelmodding.baldiplus.customvendingmachines",
-		guid_CustomPosters = "io.github.uncertainluei.baldiplus.customposters",
-		guid_Mtm101API = "mtm101.rulerp.bbplus.baldidevapi",
-		guid_PixelIntAPI = "pixelguy.pixelmodding.baldiplus.pixelinternalapi",
-		guid_ExtraFunSettings = "rost.moment.baldiplus.funsettings",
-		guid_AnimationsPlus = "pixelguy.pixelmodding.baldiplus.newanimations",
-		guid_DecorationsPlus = "pixelguy.pixelmodding.baldiplus.newdecors",
-		guid_CustomMainMenusAPI = "pixelguy.pixelmodding.baldiplus.custommainmenusapi",
-		guid_Ukrainization = "Ukrainization";
+        // -------------------- GUIDs ------------------
+        public const string
+        guid_Advanced = "mrsasha5.baldi.basics.plus.advanced",
+        guid_LevelStudio = "mtm101.rulerp.baldiplus.levelstudio",
+        guid_LevelLoader = "mtm101.rulerp.baldiplus.levelstudioloader",
+        guid_HookTweaks = "pixelguy.pixelmodding.baldiplus.grapplinghooktweaks",
+        guid_CustomMusics = "pixelguy.pixelmodding.baldiplus.custommusics",
+        guid_CustomVendingMachines = "pixelguy.pixelmodding.baldiplus.customvendingmachines",
+        guid_CustomPosters = "io.github.uncertainluei.baldiplus.customposters",
+        guid_Mtm101API = "mtm101.rulerp.bbplus.baldidevapi",
+        guid_PixelIntAPI = "pixelguy.pixelmodding.baldiplus.pixelinternalapi",
+        guid_ExtraFunSettings = "rost.moment.baldiplus.funsettings",
+        guid_AnimationsPlus = "pixelguy.pixelmodding.baldiplus.newanimations",
+        guid_DecorationsPlus = "pixelguy.pixelmodding.baldiplus.newdecors",
+        guid_CustomMainMenusAPI = "pixelguy.pixelmodding.baldiplus.custommainmenusapi",
+        guid_Ukrainization = "Ukrainization";
 
-		// ------------------- Constant Floats ---------------------
-		public const float GaugeSprite_PixelsPerUnit = 1f;
+        // ------------------- Constant Floats ---------------------
+        public const float GaugeSprite_PixelsPerUnit = 1f;
 
-		// ------------------- Readonly Vector2s ---------------------
-		public static readonly Vector2 Const_RefScreenSize = new(480f, 360f);
-	}
+        // ------------------- Readonly Vector2s ---------------------
+        public static readonly Vector2 Const_RefScreenSize = new(480f, 360f);
+    }
 
 
 }
