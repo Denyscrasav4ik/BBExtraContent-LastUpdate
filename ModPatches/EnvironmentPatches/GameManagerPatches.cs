@@ -520,13 +520,16 @@ namespace BBTimes.ModPatches.EnvironmentPatches
             static float EaseInOutQuad(float t) => t < 0.5f ? 2 * t * t : 1 - (Mathf.Pow((-2 * t) + 2, 2) / 2);
         }
 
-        static void AddFire(Cell cell, EnvironmentController ec, float smoothness = 5f)
+        private static void AddFire(Cell cell, EnvironmentController ec, float smoothness = 5f)
         {
-            var obj = Object.Instantiate(fire, cell.TileTransform);
-            obj.transform.localScale = Vector3.one * Random.Range(0.6f, 1.5f);
-            obj.transform.position = cell.FloorWorldPosition + new Vector3(Random.Range(-3f, 3f), obj.transform.localScale.y.LinearEquation(4f, 0.28f), Random.Range(-3f, 3f));
-            obj.SetActive(true); cell.AddRenderer(obj.GetComponent<SpriteRenderer>());
-            var f = obj.GetComponent<SchoolFire>(); f.Initialize(ec); Vector3 scale = f.transform.localScale; f.transform.localScale = Vector3.zero; f.StartCoroutine(f.Spawn(scale, smoothness));
+            var obj = Object.Instantiate(fire, cell.FloorWorldPosition, fire.transform.rotation);
+            obj.transform.position += new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
+            obj.SetActive(true);
+            cell.AddRenderer(obj.GetComponent<SpriteRenderer>());
+            var f = obj.GetComponent<SchoolFire>();
+            f.Initialize(ec);
+            f.StartAnimation(f.transform.localScale, smoothness);
+            f.transform.localScale = Vector3.zero;
         }
 
         const float fireCooldown = 3f;

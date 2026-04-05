@@ -803,6 +803,14 @@
       "value": "An exclamation mark that floats above the ground."
     },
     {
+      "key": "Ed_Tool_object_Fire_Title",
+      "value": "Fire"
+    },
+    {
+      "key": "Ed_Tool_object_Fire_Desc",
+      "value": "A fire that will eventually burn the school."
+    },
+    {
       "key": "Ed_Tool_object_Times_SecretBaldi_Title",
       "value": "Secret Baldi"
     },

@@ -153,6 +153,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             EditorInterface.AddObjectVisualWithCustomSphereCollider("SecretBread", man.Get<GameObject>("editorPrefab_SecretBread"), 1f, Vector3.zero);
             EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesKitchenSteak", man.Get<GameObject>("editorPrefab_TimesKitchenSteak"), 1f, Vector3.zero);
             EditorInterface.AddObjectVisualWithCustomSphereCollider("JoeSign", man.Get<GameObject>("editorPrefab_JoeSign"), 2f, Vector3.zero);
+            EditorInterface.AddObjectVisualWithCustomSphereCollider("Fire", man.Get<GameObject>("editorPrefab_Fire"), 2f, Vector3.zero);
             for (int i = 1; i <= 8; i++)
                 EditorInterface.AddObjectVisualWithCustomSphereCollider("TimesGenericOutsideFlower_" + i, man.Get<GameObject>("editorPrefab_TimesGenericOutsideFlower_" + i), 1.5f, Vector3.zero);
             for (int i = 1; i <= 4; i++)
@@ -482,7 +483,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
                 new("ComputerTeleporter", false), new("DustShroom", false), new("SensitiveVase", false, 4.2f),
                 new("TimesItemDescriptor", false, 5f), new("SnowyPlaygroundTree", false), new("SnowPile", false),
                 new("Shovel_ForSnowPile", false, 0.1f), new("MysteryTresentMaker", false), new("MetalFence", true),
-                new("SecretBread", false), new("TimesKitchenSteak", false), new("JoeSign", false)
+                new("SecretBread", false), new("TimesKitchenSteak", false), new("JoeSign", false), new("Fire", false)
             };
             for (int i = 1; i <= 8; i++) objectTools.Add(new("TimesGenericOutsideFlower_" + i, false));
             for (int i = 1; i <= 4; i++) objectTools.Add(new("TimesGenericCornerLamp_" + i, false));

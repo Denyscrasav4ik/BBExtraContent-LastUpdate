@@ -26,16 +26,17 @@ namespace BBTimes.Manager
                 flowers[i].AddObjectToEditor();
             }
             // Fire Object
-            var fire = ObjectCreationExtensions.CreateSpriteBillboard(null);
+            var fireSprites = TextureExtensions.LoadSpriteSheet(2, 1, 15f, MiscPath, TextureFolder, GetAssetName("schoolFire.png"));
+            var fire = ObjectCreationExtensions.CreateSpriteBillboard(fireSprites[0]);
             fire.gameObject.ConvertToPrefab(true);
-            //
             fire.name = "Fire";
-            fire.material.SetTexture(Storage.SPRITESTANDARD_LIGHTMAP, null); // Don't get affected by reddish from schoolhouse
+            fire.material.SetTexture(Storage.SPRITESTANDARD_LIGHTMAP, null);
             var fireAnim = fire.gameObject.AddComponent<SchoolFire>();
-            fireAnim.animation = TextureExtensions.LoadSpriteSheet(2, 1, 15f, MiscPath, TextureFolder, GetAssetName("schoolFire.png"));
+            fireAnim.animation = fireSprites;
             fireAnim.speed = 2f;
             fireAnim.renderers = [fire];
-
+            fire.gameObject.AddObjectToEditor();
+            man.Add("editorPrefab_Fire", fire.gameObject);
             MainGameManagerPatches.fire = fire.gameObject;
 
             // Hanging light for library

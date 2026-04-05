@@ -822,6 +822,14 @@
       "value": "Секретний Балді"
     },
     {
+      "key": "Ed_Tool_object_Fire_Title",
+      "value": "Вогонь"
+    },
+    {
+      "key": "Ed_Tool_object_Fire_Desc",
+      "value": "Вогонь який рано, чи пізно, спалить всю школу."
+    },
+    {
       "key": "Ed_Tool_object_Times_SecretBaldi_Desc",
       "value": "Він робить щось зловісне..."
     },
