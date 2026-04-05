@@ -132,6 +132,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             EditorInterface.AddObjectVisual("bathStall", man.Get<GameObject>("editorPrefab_bathStall"), true);
             EditorInterface.AddObjectVisual("bathDoor", man.Get<GameObject>("editorPrefab_bathDoor"), true);
             EditorInterface.AddObjectVisual("sink", man.Get<GameObject>("editorPrefab_sink"), true);
+            EditorInterface.AddObjectVisual("Toilet", man.Get<GameObject>("editorPrefab_Toilet"), true);
             EditorInterface.AddObjectVisual("FancyComputerTable", man.Get<GameObject>("editorPrefab_FancyComputerTable"), true);
             EditorInterface.AddObjectVisualWithCustomSphereCollider("ComputerBillboard", man.Get<GameObject>("editorPrefab_ComputerBillboard"), 1f, Vector3.zero);
             EditorInterface.AddObjectVisual("Foresttree", man.Get<GameObject>("editorPrefab_Foresttree"), true);

@@ -65,6 +65,7 @@
     <Reference Include="PlusStudioLevelLoader">
       <HintPath>References\PlusStudioLevelLoader.dll</HintPath>
     </Reference>
+  </ItemGroup>
 
   <Target Name="CleanOutput" AfterTargets="Build">
     <ItemGroup>
