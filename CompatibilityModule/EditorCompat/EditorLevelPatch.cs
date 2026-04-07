@@ -36,7 +36,7 @@ namespace BBTimes.CompatibilityModule.EditorCompat
             "HappyHolidays", "InkArtist", "PuddingFan",
             "Leapy", "Magicalstudent",
             "MrKreye", "Cactungus", "NoseMan",
-            "PencilBoy", "Phawillow", "Pran",
+            "PencilBoy", "Phawillow",
             "Pix", "Quiker", "SerOran",
             "ScienceTeacher", "Snowfolke", "Stunly",
             "Superintendent",

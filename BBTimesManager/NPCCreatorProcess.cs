@@ -416,20 +416,6 @@ namespace BBTimes.Manager
 
             floorDatas[F2].NPCs.Add(new(npc, 20));
 
-            // Pran the Dancer
-            npc = new NPCBuilder<PranTheDancer>(plug.Info)
-                .SetMinMaxAudioDistance(30f, 100f)
-                .AddSpawnableRoomCategories(RoomCategory.Hall)
-                .SetEnum("Pran")
-                .SetMetaTags([NEITHER_TAG])
-                .SetMetaName("PST_Pran_Name")
-                .SetName("Pran")
-                .AddTrigger()
-                .Build()
-                .SetupNPCData("Pran", "PST_Pran_Name", "PST_Pran_Desc", 0f);
-            floorDatas[F2].NPCs.Add(new(npc, 45));
-            floorDatas[END].NPCs.Add(new(npc, 15));
-
             // Winterry
             npc = new NPCBuilder<Winterry>(plug.Info)
                 .SetMinMaxAudioDistance(30f, 100f)
