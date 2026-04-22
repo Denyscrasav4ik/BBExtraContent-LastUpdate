@@ -197,13 +197,6 @@ namespace BBTimes
             else
                 AssetLoader.LoadLocalizationFolder(Path.Combine(ModPath, "Language", "English"), Language.English);
 
-#if KOFI
-			MTM101BaldiDevAPI.AddWarningScreen(
-				"<color=#c900d4>Ko-fi Exclusive Build!</color>\nKo-fi members helped make this possible. This Baldi\'s Basics Times build was made exclusively for supporters. Please, don't share it publicly. If you'd like to support future content, visit my Ko-fi page!",
-				false
-			);
-#endif
-
             try
             {
                 CompatibilityInitializer.InitializeOnAwake();
