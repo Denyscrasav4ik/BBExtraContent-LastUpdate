@@ -80,7 +80,7 @@
     },
     {
       "key": "BBTimes_Settings_Misc_Youtuber_Desc",
-      "value": "Хочете легко отримати ексклюзивний контент? Встановіть значення «так»,\nі *все* матиме вагу 9999."
+      "value": "Хочете легко отримати ексклюзивний контент? Встановіть значення «так»,\nі [все[ матиме вагу 9999."
     },
     {
       "key": "BBTimes_Settings_Misc_Replacements_Name",
@@ -163,11 +163,11 @@
       "value": "Якщо встановити «так»,\n{0} буде включено до мап, створених генератором рівнів\n(наприклад, Хованки)."
     },
 
-    { "key": "Vfx_VentGasLeak", "value": "*Витік газу*" },
-    { "key": "Vfx_GumSplash", "value": "*ПЛЮХ!*" },
-    { "key": "Vfx_WindowHit", "value": "*Удар*" },
-    { "key": "Vfx_Bal_WOW", "value": "*ВООООООООУ*" },
-    { "key": "Vfx_Curtain_Slide", "value": "*Зсув*" },
+    { "key": "Vfx_VentGasLeak", "value": "[Витік газу]" },
+    { "key": "Vfx_GumSplash", "value": "[ПЛЮХ!]" },
+    { "key": "Vfx_WindowHit", "value": "[Удар]" },
+    { "key": "Vfx_Bal_WOW", "value": "[ВООООООООУ]" },
+    { "key": "Vfx_Curtain_Slide", "value": "[Зсув]" },
     { "key": "Vfx_BAL_CongratsNormal_0", "value": "Мої вітання!" },
     { "key": "Vfx_BAL_CongratsNormal_1", "value": "Ти знайшов усі зошити!" },
     {
@@ -180,12 +180,12 @@
     { "key": "Vfx_BAL_ANGRY_3", "value": "ЩЕ" },
     { "key": "Vfx_BAL_ANGRY_4", "value": "МОЖЕШ" },
     { "key": "Vfx_BAL_ANGRY_5", "value": "КУРВАААААААААААА!" },
-    { "key": "Vfx_Roblox_drink", "value": "*Хлюп*" },
-    { "key": "Vfx_PC_stab", "value": "*Тик!*" },
-    { "key": "Vfx_Camera_Alarm", "value": "*БІП!*" },
-    { "key": "Vfx_Camera_Switch", "value": "*каБох!*" },
-    { "key": "Vfx_Camera_Spot", "value": "*Боп!*" },
-    { "key": "Vfx_Squish_Running", "value": "*Стискач працює*" },
+    { "key": "Vfx_Roblox_drink", "value": "[Хлюп]" },
+    { "key": "Vfx_PC_stab", "value": "[Тик!]" },
+    { "key": "Vfx_Camera_Alarm", "value": "[БІП!]" },
+    { "key": "Vfx_Camera_Switch", "value": "[каБох!]" },
+    { "key": "Vfx_Camera_Spot", "value": "[Боп!]" },
+    { "key": "Vfx_Squish_Running", "value": "[Стискач працює]" },
     { "key": "Vfx_Joe_Welcome", "value": "Ласкаво просимо!" },
     { "key": "Vfx_Joe_Scream", "value": "АААААААААА!" },
     {
@@ -210,8 +210,8 @@
       "key": "Vfx_BAL_NoEvent1_1",
       "value": "Викрутки занадто небезпечні для дітей!"
     },
-    { "key": "Vfx_CompTel_Working", "value": "*Звуки телепорту*" },
-    { "key": "Vfx_Ska_Noise", "value": "*Ковзани котяться*" },
+    { "key": "Vfx_CompTel_Working", "value": "[Звуки телепорту]" },
+    { "key": "Vfx_Ska_Noise", "value": "[Ковзани котяться]" },
 
     {
       "key": "times_elv_tip1",
@@ -262,12 +262,12 @@
       "value": "Різдвяний спеціальний випуск!"
     },
 
-    { "key": "Vfx_Plant_Grow", "value": "*Росте*" },
-    { "key": "Vfx_Plant_Degrow", "value": "*Зменшується*" },
-    { "key": "Vfx_DustShroom_Deflate", "value": "*Здувається*" },
-    { "key": "Vfx_Vase_Break", "value": "*РОЗБИТТЯ ВАЗИ*" },
-    { "key": "Vfx_ItemAlarm_Alarm", "value": "*ТРИВОГА*" },
-    { "key": "Vfx_PageTurn", "value": "*Звук сторінок*" },
+    { "key": "Vfx_Plant_Grow", "value": "[Росте]" },
+    { "key": "Vfx_Plant_Degrow", "value": "[Зменшується]" },
+    { "key": "Vfx_DustShroom_Deflate", "value": "[Здувається]" },
+    { "key": "Vfx_Vase_Break", "value": "[РОЗБИТТЯ ВАЗИ]" },
+    { "key": "Vfx_ItemAlarm_Alarm", "value": "[ТРИВОГА]" },
+    { "key": "Vfx_PageTurn", "value": "[Звук сторінок]" },
 
     { "key": "PST_ItemDescriptor_NoDescription", "value": "Опис відсутній!" },
     {
@@ -299,6 +299,6 @@
       "value": "Ти отримуєш...\nМОЛОТ У ЛИЦЕ! >:3"
     },
 
-    { "key": "Vfx_Toilet_Flush", "value": "*Змив*" }
+    { "key": "Vfx_Toilet_Flush", "value": "[Змив]" }
   ]
 }

@@ -5,7 +5,7 @@
       "key": "PRS_Desc",
       "value": "Подарунок Для Вечірки\nЦе загадкова коробка, що ж може бути всередині?\nНіхто не знає! Це точно буде сюрприз!"
     },
-    { "key": "Vfx_PRS_Unbox", "value": "*Розпаковування*" },
+    { "key": "Vfx_PRS_Unbox", "value": "[Розпаковування]" },
 
     { "key": "HAM_Name", "value": "Небезпечний Молот" },
     {
@@ -24,14 +24,14 @@
       "key": "BEL_Desc",
       "value": "Дзвінок\nХтось витяг дзвінок із будильника!\nЗалиш його на підлозі, щоб попередити Балді, коли хтось наступить!\nДуже кумедний жарт!"
     },
-    { "key": "Vfx_BEL_Ring", "value": "*Дзенькіт*" },
+    { "key": "Vfx_BEL_Ring", "value": "[Дзенькіт]" },
 
     { "key": "GPS_Name", "value": "Відображувач Позиції" },
     {
       "key": "GPS_Desc",
       "value": "Відображувач Позиції\nЦей корисний пристрій підключений до ВСІХ!\nВін покаже на мапі місцезнаходження кожного!\nАле ми не можемо оплачувати зв'язок вічно."
     },
-    { "key": "Vfx_GPS_Beep", "value": "*Біп*" },
+    { "key": "Vfx_GPS_Beep", "value": "[Біп]" },
 
     { "key": "PC_Name", "value": "Олівець" },
     {
@@ -44,7 +44,7 @@
       "key": "SD_Desc",
       "value": "Викрутка\nДуже корисна для <b>механізмів</b>! Стільки застосувань! Бачиш машину або навіть робота?\nПросто використай її!"
     },
-    { "key": "Vfx_SD_screw", "value": "*Закручування*" },
+    { "key": "Vfx_SD_screw", "value": "[Закручування]" },
 
     { "key": "BT_Name", "value": "Ведмежа Пастка" },
     {
@@ -52,14 +52,14 @@
       "value": "Ведмежа Пастка\nХтось узяв це з туристичного спорядження Балді — це небезпечно!\nЗалиш на підлозі, щоб когось зловити.\nТільки не наступи сам!"
     },
 
-    { "key": "Vfx_BT_catch", "value": "*КЛАНГ!*" },
+    { "key": "Vfx_BT_catch", "value": "[КЛАНГ!]" },
 
     { "key": "GUM_Name", "value": "Жуйка" },
     {
       "key": "GUM_Desc",
       "value": "Жуйка\nБублик іноді губить свою секретну зброю, тож чому б не продавати її тут?\nВона дуже липка!"
     },
-    { "key": "Vfx_GUM_spit", "value": "*ПЛЮХ*" },
+    { "key": "Vfx_GUM_spit", "value": "[ПЛЮХ]" },
 
     { "key": "SPP_Name", "value": "Зілля Швидкості" },
     {
@@ -98,15 +98,15 @@
       "key": "HDP_Desc",
       "value": "Пігулка Від Головного Болю\nМаєш головний біль від сліпоти?\nЦя миттєва пігулка допоможе!"
     },
-    { "key": "HDP_Swallow", "value": "*Ковтання*" },
+    { "key": "HDP_Swallow", "value": "[Ковтання]" },
 
     { "key": "BB_Name", "value": "Баскетбольний М'яч" },
     {
       "key": "BB_Desc",
       "value": "Баскетбольний М'яч\nЗвичайний м'яч, але дуже пружний!\nОбережно, не влуч у когось, ти ж не хуліган?"
     },
-    { "key": "BB_Hit", "value": "*УДАР*" },
-    { "key": "BB_Bong", "value": "*БОНГ*" },
+    { "key": "BB_Hit", "value": "[УДАР]" },
+    { "key": "BB_Bong", "value": "[БОНГ]" },
 
     { "key": "POGST_Name3", "value": "Пого-Стік (3)" },
     { "key": "POGST_Name2", "value": "Пого-Стік (2)" },
@@ -115,7 +115,7 @@
       "key": "POGST_Desc",
       "value": "Пого-Стік\nПерестрибуй через людей.\nМожеш стрибати по головах, розчавлюючи всіх на шляху!\nБоїнг! Боїнг!"
     },
-    { "key": "POGST_Boing", "value": "*БОЇНГ*" },
+    { "key": "POGST_Boing", "value": "[БОЇНГ]" },
 
     { "key": "HotChoc_Name", "value": "Гарячий Шоколад" },
     {
@@ -128,8 +128,8 @@
       "key": "InvCon_Desc",
       "value": "Пульт Невидимості\nРобить тебе невидимим!\nЗ тобою все ще можна взаємодіяти, але тебе не бачать!\nЯк це круто!"
     },
-    { "key": "InvCon_Active", "value": "*Увімкнення Пульта*" },
-    { "key": "InvCon_Deactive", "value": "*Вимкнення Пульта*" },
+    { "key": "InvCon_Active", "value": "[Увімкнення Пульта]" },
+    { "key": "InvCon_Deactive", "value": "[Вимкнення Пульта]" },
 
     { "key": "CherryBsoda_Name", "value": "Вишнева БІ-СОДА" },
     {
@@ -156,8 +156,8 @@
       "key": "ComicLargTrum_Desc",
       "value": "Комічно Велика Труба\nХочеш, щоб хтось перестав тебе дратувати?\nПросто дмухни!\nВона настільки гучна, що відкине їх!"
     },
-    { "key": "Vfx_ComicLargTrum_Blow", "value": "<i>*ДУЖЕ ГУЧНИЙ ГУДОК*</i>" },
-    { "key": "Vfx_ComicLargTrum_Inhale", "value": "<i>*Вдих*</i>" },
+    { "key": "Vfx_ComicLargTrum_Blow", "value": "<i>[ДУЖЕ ГУЧНИЙ ГУДОК]</i>" },
+    { "key": "Vfx_ComicLargTrum_Inhale", "value": "<i>[Вдих]</i>" },
 
     { "key": "StrMag_Name", "value": "Потужний Магніт" },
     {
@@ -182,7 +182,7 @@
       "key": "RotCheese_Desc",
       "value": "Гнилий Сир\nЖахливий запах!\nУсі тікатимуть від нього!"
     },
-    { "key": "Vfx_RotCheese_Place", "value": "*ГНИЛИЙ ПЛЮХ*" },
+    { "key": "Vfx_RotCheese_Place", "value": "[ГНИЛИЙ ПЛЮХ]" },
 
     { "key": "Supercam_Name", "value": "Супер Камера" },
     {
@@ -225,13 +225,13 @@
       "key": "MrMolar_Desc",
       "value": "Містер Моляр\nДешева іграшка.\nЧим більше заводиш — тим сильніше кусає!"
     },
-    { "key": "Vfx_MrMolar_Active", "value": "*Біжить*" },
-    { "key": "Vfx_MrMolar_Bite", "value": "*ХРУСЬ*" },
+    { "key": "Vfx_MrMolar_Active", "value": "[Біжить]" },
+    { "key": "Vfx_MrMolar_Bite", "value": "[ХРУСЬ]" },
 
     { "key": "BaldiYearbook_Name", "value": "Щорічник Балді" },
     {
       "key": "BaldiYearbook_Desc",
-      "value": "Щорічник Балді\nОсвіжає пам’ять про персонажів!"
+      "value": "Щорічник Балді\nОсвіжає пам'ять про персонажів!"
     },
 
     { "key": "IceSkates_Name", "value": "Ковзани" },
@@ -260,8 +260,8 @@
       "key": "Beehive_Desc",
       "value": "<i>Біля входу у вулик є табличка. Ви читаєте її:</i>\nВітаю, людино! Ми ВІРИМО, що можемо бути корисними у небезпечних ситуаціях.\nПочуваєшся в небезпеці?\nПросто кинь цей <b>Вулик</b>! Ми НАЙКРАЩІ у своїй ЗАХИСНІЙ роботі!"
     },
-    { "key": "Beehive_Sting", "value": "*Ужалено*" },
-    { "key": "Beehive_bee", "value": "*Зле дзижчання*" },
+    { "key": "Beehive_Sting", "value": "[Ужалено]" },
+    { "key": "Beehive_bee", "value": "[Зле дзижчання]" },
 
     { "key": "ChillyChilli_Name", "value": "Холодний Перець Чилі" },
     {
@@ -282,22 +282,22 @@
       "key": "DirtyCleaningCloth_Desc",
       "value": "Брудна Серветка Для Чищення\nСхоже, вона стала дуже брудною!\nМожеш помити її у <b>Питному Фонтанчику!</b>"
     },
-    { "key": "Vfx_CleaningCloth_Clean", "value": "*Чищення*" },
+    { "key": "Vfx_CleaningCloth_Clean", "value": "[Чищення]" },
 
     { "key": "ComicallyLargeJello_Name", "value": "Комічно Велике Желе" },
     {
       "key": "ComicallyLargeJello_Desc",
       "value": "Комічно Велике Желе\nЦе желе настільки велике, що його неможливо нормально вкусити!\nВоно може навіть поглинути тебе!"
     },
-    { "key": "Vfx_ComicallyLargeJello_Throw", "value": "*ЖЕЛЕ ВУШ*" },
-    { "key": "Vfx_ComicallyLargeJello_Land", "value": "*ЗВУК ТАРІЛКИ*" },
+    { "key": "Vfx_ComicallyLargeJello_Throw", "value": "[ЖЕЛЕ ВУШ]" },
+    { "key": "Vfx_ComicallyLargeJello_Land", "value": "[ЗВУК ТАРІЛКИ]" },
 
     { "key": "Crumpledpaper_Name", "value": "Зім’ятий Папір" },
     {
       "key": "Crumpledpaper_Desc",
       "value": "Зім’ятий Папір\nУ глибині цього тонкого об'єкта видно дуже потворне зображення...\nУ будь-якому разі, кинь його в когось, щоб затримати на деякий час."
     },
-    { "key": "Sfx_Crumpledpaper_crumpling", "value": "*Зім’яття паперу*" },
+    { "key": "Sfx_Crumpledpaper_crumpling", "value": "[Зім’яття паперу]" },
 
     { "key": "FidgetSpinner_Name", "value": "Фіджет Спінер" },
     {
@@ -322,7 +322,7 @@
       "key": "GoodGrades_Desc",
       "value": "Відмінні Оцінки\nІдеальна робота, яка змушує Балді пишатися!\nВін не перевіряє, хто її написав, тому похвалить будь-кого поруч!"
     },
-    { "key": "Vfx_GoodGrades_Die", "value": "*Зім’яття паперу*" },
+    { "key": "Vfx_GoodGrades_Die", "value": "[Зім’яття паперу]" },
 
     { "key": "Pickupgun_Name", "value": "Липкий Пістолет" },
     {
@@ -335,8 +335,8 @@
       "key": "Sketchbook_Desc",
       "value": "Альбом Для Малювання\nЧийсь особистий зошит із магічною силою!\nВін може створювати намальованих персонажів, які допоможуть тобі!"
     },
-    { "key": "Vfx_SketchBook_Drawing", "value": "*Малювання*" },
-    { "key": "Vfx_SketchBook_FightNoise", "value": "*Мультяшна бійка*" },
+    { "key": "Vfx_SketchBook_Drawing", "value": "[Малювання]" },
+    { "key": "Vfx_SketchBook_FightNoise", "value": "[Мультяшна бійка]" },
 
     { "key": "Slingshot_Name1", "value": "Рогатка (1)" },
     { "key": "Slingshot_Name2", "value": "Рогатка (2)" },
@@ -345,7 +345,7 @@
       "key": "Slingshot_Desc",
       "value": "Рогатка\nДуже корисна для самозахисту!\nЗатримай натяг і вистріли здалеку!"
     },
-    { "key": "Vfx_Slingshot_Shoot", "value": "*КЛАЦЬ-ШУТ*" },
+    { "key": "Vfx_Slingshot_Shoot", "value": "[КЛАЦЬ-ШУТ]" },
 
     { "key": "SoapBub_Name1", "value": "Мильні Бульбашки (1)" },
     { "key": "SoapBub_Name2", "value": "Мильні Бульбашки (2)" },

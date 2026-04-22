@@ -1,336 +1,626 @@
-{"items":[
-	{"key":"Vfx_OFC_Walk","value":"*Office Chair Rolling*"},
-	{"key":"PST_OFC_Name","value":"Office Chair"},
-	{"key":"PST_OFC_Desc","value":"An excelent object, always bringing security for those who need fast transportation!"},
-	{"key":"PST_HapH_Name","value":"Happy Holidays"},
-	{"key":"PST_HapH_Desc","value":"Nothing's more celebratory than this guy! Always celebrating holidays and coming with surprises!"},
-	{"key":"Vfx_HapH_MerryChristmas","value":"Merry Christmas, here's a free item!"},
-	{"key":"Vfx_HapH_Unwrap","value":"*Unwrapping*"},
-	{"key":"Vfx_SI_BaldiHere_1","value":"Hey Baldi!"},
-	{"key":"Vfx_SI_BaldiHere_2","value":"Hey Baldi! (Hey Baldi!)"},
-	{"key":"Vfx_SI_BaldiHere_3","value":"(Hey Baldi!) Over Here!"},
-	{"key":"Vfx_SI_BaldiHere_4","value":"Over Here (Over Here)!"},
-	{"key":"Vfx_SI_Hey_1","value":"Hey!"},
-	{"key":"Vfx_SI_Hey_2","value":"Hey! (Hey!)"},
-	{"key":"PST_SI_Name","value":"Superintendent"},
-	{"key":"PST_SI_Desc","value":"\"No students are safe from <b>our</b> watch, we call the teacher when anyone is outside their classrooms!\""},
-	{"key":"Vfx_PRI_NoPropertyBreak","value":"No breaking school property in the halls!"},
-	{"key":"Vfx_PRI_NoStabbing","value":"No stabbing people with pencils in the halls!"},
-	{"key":"Vfx_PRI_NoUglyStun","value":"No stunning people with ugliness in the halls!"},
-	{"key":"Vfx_PRI_NoLittering","value":"No littering in the halls!"},
-	{"key":"PST_0TH_Name","value":"0th Prize"},
-	{"key":"PST_0TH_Desc","value":"He doesn't like being a replacement for dumb brooms, so he'll make sure to be the <b> very fastest!</b>"},
-	{"key":"Vfx_0TH_WannaSweep","value":"It appears to be time to sweep!"},
-	{"key":"Vfx_0TH_Sweep","value":"I feel I must sweep!"},
-	{"key":"PST_MGS_Name","value":"Magical Student"},
-	{"key":"PST_MGS_Desc","value":"\"I say abracadabra and there goes my detention spell! I don't know the rules, so everyone gets detention!\""},
-	{"key":"Vfx_MGS_Magic","value":"*Magic*"},
-	{"key":"Vfx_MGS_PrepMagic","value":"*Preparing magic*"},
-	{"key":"PST_PB_Name","value":"Pencil Boy"},
-	{"key":"PST_PB_Desc","value":"He found a pencil now he's stabbing people with it, how rude! He doesn't like being stabbed back..."},
-	{"key":"Vfx_PB_Wander1","value":"Uuuugh!"},
-	{"key":"Vfx_PB_Wander2","value":"Grrrrr!"},
-	{"key":"Vfx_PB_Wander3","value":"Aaargh!"},
-	{"key":"Vfx_PB_Spot","value":"*GASP* HA!"},
-	{"key":"Vfx_PB_Catch","value":"HAAHAHAHahahaha!"},
-	{"key":"Vfx_PB_SuperAngry","value":"GRRRRRRRRRRRrrrrrrrrrrr!"},
-	{"key":"PST_Stunly_Name","value":"Stunly"},
-	{"key":"PST_Stunly_Desc","value":"A snail-like person with such ugliness that is enough for a <b>stunning effect</b>, he abuses it to stun anyone!"},
-	{"key":"Vfx_Stunly_Stun","value":"*Stun*"},
-	{"key":"Vfx_Stunly_Laughter","value":"*Laughter*"},
-	{"key":"PST_Leapy_Name","value":"Leapy"},
-	{"key":"PST_Leapy_Desc","value":"Such a happy frog, always leaping and <b>stomping</b> the unfortune ones. It'd say sorry if it knew how to speak!"},
-	{"key":"Vfx_Leapy_Stomp","value":"*Stomping*"},
-	{"key":"Vfx_Leapy_Leap","value":"*Leaping*"},
-	{"key":"PST_Wch_Name","value":"The Watcher"},
-	{"key":"PST_Wch_Desc","value":"It watches the school halls and doesn't like to be watched, <i>ironic</i>. Don't stare for too long, it may spot you."},
-	{"key":"Vfx_Wch_Idle","value":"*Watching*"},
-	{"key":"Vfx_Wch_Teleport","value":"*Warping*"},
-	{"key":"Vfx_Wch_Spawn","value":"*Spawning*"},
-	{"key":"Vfx_Wch_Angered","value":"*Otherwordly noises*"},
-	{"key":"PST_Spj_Name","value":"Superintendent Jr."},
-	{"key":"PST_Spj_Desc","value":"A learner on his journey to become the Principal, by assisting him in reporting rule-breakers! He can get distracted easily."},
-	{"key":"Vfx_Spj_Wander","value":"I wonder who is following the rules. I know I am."},
-	{"key":"Vfx_Spj_Step","value":"*Step*"},
-	{"key":"Vfx_Spj_FoundLong1","value":"The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues."},
-	{"key":"Vfx_Spj_FoundLong2","value":"The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal."},
-	{"key":"Vfx_Spj_FoundLong3","value":"[beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible."},
-	{"key":"Vfx_Spj_FoundLong4","value":"The second time you fail to complete a lap before the sound, your test is..."},
-	{"key":"Vfx_Spj_Found","value":"Principal! I found someone breaking the rules!"},
-	{"key":"PST_Gboy_Name","value":"Glubotrony"},
-	{"key":"PST_Gboy_Desc","value":"One nerdy kid who likes to stick everyone with glue, he even made a controllable glue robot just for himself!"},
-	{"key":"Vfx_Gboy_Walk","value":"*BLAM*"},
-	{"key":"Vfx_Gboy_Mischiveous","value":"HAHAHA! I feel mischievous..."},
-	{"key":"Vfx_Gboy_Situation","value":"Let's make a STICKY situation!"},
-	{"key":"Vfx_Gboy_PrankTime", "value":"It's prankin' time!"},
-	{"key":"Vfx_Gboy_putGlue1","value":"All done!"},
-	{"key":"Vfx_Gboy_putGlue2","value":"There we go."},
-	{"key":"PST_Pix_Name","value":"Pix the Alien"},
-	{"key":"PST_Pix_Desc","value":"A pixelated alien who came from an unknown arcade game, he threatens everyone with his laser gun hand."},
-	{"key":"Vfx_Pix_TarDet","value":"TARGET, DETECTED!"},
-	{"key":"Vfx_Pix_Ez","value":"THAT WAS E-EASY!"},
-	{"key":"Vfx_Pix_MisFail","value":"MISSION FAILED!"},
-	{"key":"Vfx_Pix_Grr","value":"*Grr*"},
-	{"key":"Vfx_Pix_GetYou","value":"I'LL GET YOU NEXT TIME!"},
-	{"key":"Vfx_Pix_Prepare","value":"PREPARE TO GET TOASTED!"},
-	{"key":"Vfx_Pix_Stop1","value":"STOP"},
-	{"key":"Vfx_Pix_Stop2","value":"RIGHT"},
-	{"key":"Vfx_Pix_Stop3","value":"THERE!"},
-	{"key":"Vfx_Pix_MisSuc","value":"MISSION SUCCESSFUL!"},
-	{"key":"Vfx_Pix_Shoot","value":"*PEW*"},
-	{"key":"PST_Rollbot_Name","value":"Rollbot"},
-	{"key":"PST_Rollbot_Desc","value":"A robot able of generating electricity by rolling! But he has to occasionally release it too!"},
-	{"key":"Vfx_Rollbot_Idle1","value":"Need charging? Rollbot is here!"},
-	{"key":"Vfx_Rollbot_Idle2","value":"Rolling, charging, rolling, charging.."},
-	{"key":"Vfx_Rollbot_Warning1","value":"My systems might overheat soon!"},
-	{"key":"Vfx_Rollbot_Warning2","value":"System overheat imminent."},
-	{"key":"Vfx_Rollbot_Warning3","value":"Please stand back, my systems are on edge."},
-	{"key":"Vfx_Rollbot_Error","value":"ERROR 99: SYSTEM OVERHEAT. *triple click* I-I-I-INITIATING BACKUP, RELEASING ENERGY."},
-	{"key":"Vfx_Rollbot_Fix","value":"Thank you for fixing me!"},
-	{"key":"PST_Dribble_Name","value":"Coach Dribble"},
-	{"key":"PST_Dribble_Desc","value":"A good coach who likes to train his students daily. Unfortunately, he has some anger issues."},
-	{"key":"PST_CHK_DRI_LABEL","value":"Basketball Streak:"},
-	{"key":"Vfx_Dribble_Idle1","value":"Who's ready for basketball practice?"},
-	{"key":"Vfx_Dribble_Idle2","value":"It's time for basketball practice!"},
-	{"key":"Vfx_Dribble_Notice1","value":"Hey you! Come here!"},
-	{"key":"Vfx_Dribble_Notice2","value":"You there! Come with me!"},
-	{"key":"Vfx_Dribble_Caught1","value":"You're coming with me to basketball practice!"},
-	{"key":"Vfx_Dribble_Caught2","value":"You're late to basketball practice!"},
-	{"key":"Vfx_Dribble_Clap","value":"*Clap*"},
-	{"key":"Vfx_Dribble_Instructions","value":"I'm going to pass this basketball to you, and you need to catch it!"},
-	{"key":"Vfx_Dribble_Ready","value":"Ready?"},
-	{"key":"Vfx_Dribble_Catch","value":"Catch!"},
-	{"key":"Vfx_Dribble_Praise1","value":"Nice one!"},
-	{"key":"Vfx_Dribble_Praise2","value":"Good job, you did it!"},
-	{"key":"Vfx_Dribble_Dismissed","value":"Practice dismissed."},
-	{"key":"Vfx_Dribble_Disappointed_Intro1","value":"Are you okay?"},
-	{"key":"Vfx_Dribble_Disappointed_Intro2","value":"Are you alright?"},
-	{"key":"Vfx_Dribble_Disappointed_Reassurance","value":"You are? Good!"},
-	{"key":"Vfx_Dribble_Angry1","value":"YOU WERE SUPPOSED TO CATCH IT, NOT DODGE IT!!"},
-	{"key":"Vfx_Dribble_Angry2","value":"THIS IS NOT DODGEBALL!!"},
-	{"key":"Vfx_Dribble_ChaseAngry1","value":"WHERE DO YOU THINK YOU'RE GOING!?"},
-	{"key":"Vfx_Dribble_ChaseAngry2","value":"WHERE ARE YOU RUNNING OFF TO!?"},
-	{"key":"Vfx_Dribble_CaughtAngry1","value":"NOW RUN A LAP AROUND THE SCHOOL!!"},
-	{"key":"Vfx_Dribble_CaughtAngry2","value":"NOW I'LL MAKE YOU SPRINT AROUND THE SCHOOL!!"},
-	{"key":"Vfx_Dribble_Punch1","value":"EXCUSE ME!!"},
-	{"key":"Vfx_Dribble_Punch2","value":"SORRY!!"},
-	{"key":"Vfx_Dribble_TakeBackChase","value":"Hey! Let me take you back to where you were!"},
-	{"key":"Vfx_Dribble_TakeBackChaseFail","value":"Oh, ok then."},
-	{"key":"Vfx_Dribble_OutOfSight","value":"Hey!"},
-	{"key":"PST_Bubbly_Name","value":"Bluble"},
-	{"key":"PST_Bubbly_Desc","value":"A bubble stick that loves making big impressive bubbles, they can even carry anyone around!"},
-	{"key":"Vfx_Bubbly_Fillup","value":"*WOAP*"},
-	{"key":"PST_Phawillow_Name","value":"Phawillow"},
-	{"key":"PST_Phawillow_Desc","value":"A robotic ghost programmed to pick up items and hold them. If you're lucky, you could take the item RIGHT from his hand!"},
-	{"key":"Vfx_Phawillow_Wandering","value":"*<i>Ghosting Noises</i>*"},
-	{"key":"Vfx_Phawillow_Laught","value":"*<i>Ghosting Laughter</i>*"},
-	{"key":"Vfx_Phawillow_Spot","value":"*<i>Ghosting Gasp</i>*"},
-	{"key":"PST_Faker_Name","value":"Faker"},
-	{"key":"PST_Faker_Desc","value":"He can take three forms, and lure students to scare them. He can play the sound of <b>any character</b> in the school."},
-	{"key":"PST_CamSt_Name","value":"Camera Stand"},
-	{"key":"PST_CamSt_Desc","value":"A sentient camera made for the sole purpose of blinding people if they stare at it for more than 1 second. <i>Stunly was here!</i>"},
-	{"key":"Vfx_CamSt_Idle","value":"*Singing*"},
-	{"key":"Vfx_CamSt_Announce1","value":"Say cheese!"},
-	{"key":"Vfx_CamSt_Announce2","value":"Think fast! Chuckle-nuts!"},
-	{"key":"Vfx_CamSt_Announce3","value":"Picture day!"},
-	{"key":"PST_Cactungus_Name","value":"Cactungus"},
-	{"key":"PST_Cactungus_Desc","value":"A result where a student accidentally spilled chemicals into a cactus pot. Do not let this thing hug you!"},
-	{"key":"Vfx_Cactungus_Noise","value":"*Cactus Noises*"},
-	{"key":"PST_PEN_Name","value":"Penny Sciellian"},
-	{"key":"PST_PEN_Desc","value":"A spelling teacher who loves to teach their students with some cool spelling mini games. Just don't leave her during her lesson!"},
-	{"key":"Vfx_Pen_Spell","value":"Spell the word..."},
-	{"key":"Vfx_Pen_AngrySpell","value":"Kids like you deserve a punishment! Now you have to spell..."},
-	{"key":"Vfx_Pen_Warning1","value":"What?! Where are you going?!"},
-	{"key":"Vfx_Pen_Warning2","value":"No! You aren't going anywhere, you brat!"},
-	{"key":"Vfx_Pen_Incorrect1","value":"That is wrong, wrong, WRONG!"},
-	{"key":"Vfx_Pen_Incorrect2","value":"NO! That's incorrect!"},
-	{"key":"Vfx_Pen_Incorrect3","value":"That isn't how you spell it!"},
-	{"key":"Vfx_Pen_Intro1","value":"Hey! It's time for a small quiz!"},
-	{"key":"Vfx_Pen_Intro2","value":"I hope you like bees... 'cuz it's time for a spelling bee!"},
-	{"key":"Vfx_Pen_Intro3","value":"Get ready! 'Cuz it's time to spell!"},
-	{"key":"Vfx_Pen_Win1","value":"Great job! Here's a prize!"},
-	{"key":"Vfx_Pen_Win2","value":"That is correct! Time for a reward!"},
-	{"key":"Vfx_Pen_Win3","value":"Congrats! You deserve this!"},
-	{"key":"PST_Pran_Name","value":"Pran the Dancer"},
-	{"key":"PST_Pran_Desc","value":"This marvelous dancer enjoys dancing an prancing across the halls and likes to spin and twirl with whoever he comes across!"},
-	{"key":"Vfx_Pran_Idle1","value":"MY SPECIAL IS DANCING. DANCING IS MY SPECIAL."},
-	{"key":"Vfx_Pran_Idle2","value":"WHO WANTS TO DANCE WITH ME?"},
-	{"key":"Vfx_Pran_Grab1","value":"DANCE WITH ME!"},
-	{"key":"Vfx_Pran_Grab2","value":"LET'S DANCE DANCE DANCE!"},
-	{"key":"Vfx_Pran_CoolestMusic","value":"*Coolest Music*"},
-	{"key":"Vfx_Pran_LetGo","value":"OFF YOU GO!"},
-	{"key":"PST_Oran_Name","value":"Ser Oran"},
-	{"key":"PST_Oran_Desc","value":"A very hungry orange that loves to eat other's foods. If he wants something, <b>HE WILL GET IT.</b>"},
-	{"key":"Vfx_Oran_Wander1","value":"Do someone want to meet and feed an orange?"},
-	{"key":"Vfx_Oran_Wander2","value":"I'm very hungry!"},
-	{"key":"Vfx_Oran_Wander3","value":"Do someone want to feed me?"},
-	{"key":"Vfx_Oran_Thanks1","value":"This was delicious!"},
-	{"key":"Vfx_Oran_RequireItem","value":"Give me your..."},
-	{"key":"Vfx_Oran_DontWant","value":"NO! I don't want that!"},
-	{"key":"Vfx_Oran_Dirt","value":"*Ahem* You taste like dirt!"},
-	{"key":"Vfx_Oran_Notice1","value":"Did I smell items?"},
-	{"key":"Vfx_Oran_Angry1","value":"I'M STILL HUNGRY!"},
-	{"key":"Vfx_Oran_Angry2","value":"COME BACK! I DON'T WANT TO HURT YOU... MAYBE."},
-	{"key":"Vfx_Oran_Crunch","value":"*Crunch Crunch*"},
-	{"key":"Vfx_Oran_Sucking","value":"*SUCKING AIR*"},
-	{"key":"Vfx_Oran_Item1","value":"First item"},
-	{"key":"Vfx_Oran_Item2","value":"Second item"},
-	{"key":"Vfx_Oran_Item3","value":"Third item"},
-	{"key":"Vfx_Oran_Item4","value":"Fourth item"},
-	{"key":"Vfx_Oran_Item5","value":"Fifth item"},
-	{"key":"Vfx_Oran_Item6","value":"Sixth item"},
-	{"key":"Vfx_Oran_Item7","value":"Seventh item"},
-	{"key":"Vfx_Oran_Item8","value":"Eighth item"},
-	{"key":"Vfx_Oran_Item9","value":"Ninth item"},
-	{"key":"PST_MOP_Name","value":"Cool Mop"},
-	{"key":"PST_MOP_Desc","value":"Gotta sweep got sick, so we got a sick mop! Using water on the floor becomes such a more cooler duty!"},
-	{"key":"Vfx_MOP_StartMop","value":"I'm feelin' like mopping!"},
-	{"key":"Vfx_MOP_Mop","value":"Heheheee! Doing a little mopping!"},
-	{"key":"Vfx_MOP_Mop2","value":"OOH! I really love mopping!"},
-	{"key":"Vfx_MOP_Watering","value":"Careful with the slippery floor!"},
-	{"key":"Vfx_MOP_EndMop","value":"Okay, that's enough mopping!"},
-	{"key":"PST_InkArt_Name","value":"Ink Artist"},
-	{"key":"PST_InkArt_Desc","value":"An ink bottle that loves making art! Make sure not to bump into him, he's so silent he can go by unnoticed!"},
-	{"key":"Vfx_InkArt_Splash","value":"*SPLASH*"},
-	{"key":"PST_TickTock_Name","value":"Tick-Tock"},
-	{"key":"PST_TickTock_Desc","value":"A bit of a sleepyhead. Stays motionless until someone sets him off, he'll make sure to ring at wherever convenient for him"},
-	{"key":"Vfx_TickTock_WanderStart","value":"Gotta go ring somewhere more appropriate."},
-	{"key":"Vfx_TickTock_Ding","value":"DING!"},
-	{"key":"Vfx_TickTock_Ring","value":"*RING*"},
-	{"key":"Vfx_TickTock_GoSleep","value":"Alright, time to go back to resting time."},
-	{"key":"Vfx_TickTock_Sleeping","value":"ZZZZZZZZ"},
-	{"key":"PST_Quiker_Name","value":"Quiker"},
-	{"key":"PST_Quiker_Desc","value":"Lurks through the shadows (made by himself), managing to blind anyone on his way! Scary!!"},
-	{"key":"Vfx_Quiker_Noises","value":"*Noises*"},
-	{"key":"PST_PuddingFan_Name","value":"Pudding Fan"},
-	{"key":"PST_PuddingFan_Desc","value":"This fan is a fan of pudding (only vanilla, though)! It fills rooms with pudding to show how awesome pudding is to everyone."},
-	{"key":"Vfx_PuddingFan_Blow","value":"*Blowing*"},
-	{"key":"PST_ZapZap_Name","value":"Zap-Zap"},
-	{"key":"PST_ZapZap_Desc","value":"This machine was created to... <b>try</b> to help light up the school! Sometimes their energy is unstable, though."},
-	{"key":"Vfx_ZapZap_Activated","value":"ZAP-ZAP! Activated!"},
-	{"key":"Vfx_ZapZap_Deactivate","value":"Time to take a nap- YAYYAYYAYYAY"},
-	{"key":"Vfx_ZapZap_Hacked","value":"ACK! HACK! Aaack. haack."},
-	{"key":"Vfx_ZapZap_KamiCode_Left","value":"Left"},
-	{"key":"Vfx_ZapZap_KamiCode_Right","value":"Right"},
-	{"key":"Vfx_ZapZap_KamiCode_Up","value":"Up"},
-	{"key":"Vfx_ZapZap_KamiCode_Down","value":"Down"},
-	{"key":"Vfx_ZapZap_KamiCode_B","value":"B"},
-	{"key":"Vfx_ZapZap_KamiCode_A","value":"A"},
-	{"key":"Vfx_ZapZap_KamiCode_Start","value":"Start"},
-	{"key":"PST_CheeseMan_Name","value":"Cheese McSwiss"},
-	{"key":"PST_CheeseMan_Desc","value":"A British cheese that enjoys walking down the hallways, he might get distracted by his humming."},
-	{"key":"Vfx_CheeseMan_Hit1","value":"Oh bloody heck!"},
-	{"key":"Vfx_CheeseMan_Hit2","value":"AARGH!"},
-	{"key":"Vfx_CheeseMan_Hit3","value":"OOF!"},
-	{"key":"Vfx_CheeseMan_Hit4","value":"OUCH!"},
-	{"key":"Vfx_CheeseMan_Hit5","value":"Ow, blimey!"},
-	{"key":"Vfx_CheeseMan_AfterHit","value":"Ooooh... my cheesy head..."},
-	{"key":"Vfx_CheeseMan_Hum","value":"*Humming*"},
-	{"key":"Vfx_CheeseMan_YTPs1","value":"Here's some You-Thought-Points, as my apology."},
-	{"key":"Vfx_CheeseMan_YTPs2","value":"As my apology, I'll give you some You-Thought-Points."},
-	{"key":"Vfx_CheeseMan_YTPs3","value":"I think these You-Thought-Points would you help you, lad."},
-	{"key":"Vfx_CheeseMan_YTPs4","value":"It's too dangerous to go alone, lad. Take these You-Thought-Points as my apology!"},
-	{"key":"Vfx_CheeseMan_Sorry1","value":"I'm terribly sorry about that."},
-	{"key":"Vfx_CheeseMan_Sorry2","value":"I'm terribly sorry..."},
-	{"key":"Vfx_CheeseMan_Sorry3","value":"Sorry!"},
-	{"key":"Vfx_CheeseMan_Sorry4","value":"I'm deeply apologized for this."},
-	{"key":"Vfx_CheeseMan_Sorry5","value":"Whoops! My bad!"},
-	{"key":"Vfx_CheeseMan_Watch1","value":"Hey! Watch where you're going next time!"},
-	{"key":"Vfx_CheeseMan_Watch2","value":"Hey! Wha- ... Fine then."},
-	{"key":"Vfx_CheeseMan_Watch3","value":"You are a JERK!"},
-	{"key":"PST_DetentionBot_Name","value":"Detention Bot"},
-	{"key":"PST_DetentionBot_Desc","value":"A robot capable of sending people to detention! It's unable to do magic, but it can drag just fine."},
-	{"key":"Vfx_DetentionBot_Whistle","value":"*Robotic Whistling Tune*"},
-	{"key":"Vfx_DetentionBot_FoundTroubleMaker","value":"TROUBLE MAKER SPOTTED."},
-	{"key":"Vfx_DetentionBot_CarryTroubleMaker","value":"CARRYING TROUBLE MAKER TO DETENTION."},
-	{"key":"Vfx_DetentionBot_LoseTroubleMaker_1","value":"DETENTION RESISTING DETECTED."},
-	{"key":"Vfx_DetentionBot_LoseTroubleMaker_2","value":"LOOKING FOR RULE BREAKER."},
-	{"key":"Vfx_DetentionBot_LectureTroubleMaker_1","value":"PLEASE,"},
-	{"key":"Vfx_DetentionBot_LectureTroubleMaker_2","value":"DO NOT DARE TO BREAK A RULE AGAIN."},
-	{"key":"PST_SciTeacher_Name","value":"Science Teacher"},
-	{"key":"PST_SciTeacher_Desc","value":"A crazy teacher that loves throwing potions at others as an experiment! Expect unexpected effects!"},
-	{"key":"Vfx_SciTeacher_spillComplain1","value":"And I'm getting fired today."},
-	{"key":"Vfx_SciTeacher_spillComplain2","value":"Oh no...Man I can't lose my job, are you kidding me!"},
-	{"key":"Vfx_SciTeacher_findPlayer1","value":"Hey kid, THINK FAST"},
-	{"key":"Vfx_SciTeacher_findPlayer2","value":"You there!"},
-	{"key":"Vfx_SciTeacher_expectingNoSpill","value":"Come on, don't spill this time, come on."},
-	{"key":"Vfx_SciTeacher_walking","value":"*Walking*"},
-	{"key":"Vfx_SciTeacher_spills","value":"*Spilling*"},
-	{"key":"PST_Adverto_Name","value":"Adverto"},
-	{"key":"PST_Adverto_Desc","value":"Don't look at this <i>attracting</i> fella, or else you might get a bit busy with <i>distracting</i> offers!"},
-	{"key":"PST_VacClean_Name","value":"Vacuum Cleaner"},
-	{"key":"PST_VacClean_Desc","value":"Instead of going to the garbage, why not bring it to you? This design is surely efficient! But it can clog up sometimes..."},
-	{"key":"Vfx_VacClean_Clean","value":"*SUCKING AIR*"},
-	{"key":"PST_MOPLISS_Name","value":"Mopliss"},
-	{"key":"PST_MOPLISS_Desc","value":"A friendly mop that likes to be organized, only cleaning up rooms with water. Gotta Sweep approves this!"},
-	{"key":"PST_NOSE_Name","value":"Mr. Nose Man"},
-	{"key":"PST_NOSE_Desc","value":"The best guy you can find for free YTPs! Although he opts for sneaky ways of giving YTPs... uh.. UH.. <b>ATCHOO!</b>"},
-	{"key":"Vfx_NOSE_Attention1","value":"Can you stop ignoring me, please?"},
-	{"key":"Vfx_NOSE_Attention2","value":"Excuse me, my good sir."},
-	{"key":"Vfx_NOSE_Attention3","value":"Hey, I'm talking to you!"},
-	{"key":"Vfx_NOSE_Attention4","value":"I'll wait..."},
-	{"key":"Vfx_NOSE_Attention5","value":"I'm right behind you!"},
-	{"key":"Vfx_NOSE_Attention6","value":"How rude!"},
-	{"key":"Vfx_NOSE_GiveUp1","value":"Holy cow! I'm outta of here!"},
-	{"key":"Vfx_NOSE_GiveUp2","value":"Just forget it!"},
-	{"key":"Vfx_NOSE_PostSneeze","value":"Oh! I'm sorry for that!"},
-	{"key":"Vfx_NOSE_Reward","value":"I just wanted to give you this You-Thought-Points."},
-	{"key":"Vfx_NOSE_Sneeze","value":"*ATCHOO*"},
-	{"key":"PST_Mimi_Name","value":"Mimicry"},
-	{"key":"PST_Mimi_Desc","value":"This little blob loves pretending to be certain thing and waiting for an unsuspecting student to pick them up!"},
-	{"key":"Vfx_Mimi_Laughter","value":"*Blob Laughter*"},
-	{"key":"Vfx_Mimi_Jumpscare","value":"*Blob Noises*"},
-	{"key":"PST_Winterry_Name","value":"Winterry"},
-	{"key":"PST_Winterry_Desc","value":"This sentient pile of snow loves a good snowball fight, impressing everyone with his infinite supply of snowballs!"},
-	{"key":"Vfx_Winterry_Blow","value":"*BLOWING SNOWBALL*"},
-	{"key":"Vfx_Winterry_Spit","value":"*SPITS SNOWBALL*"},
-	{"key":"PST_Snowfolke_Name","value":"Snowfolke"},
-	{"key":"PST_Snowfolke_Desc","value":"This snowy fella likes to spread Christmas cheer all year round, spreading across snowflakes to soothe the spirits!"},
-	{"key":"Vfx_Snowfolke_ThrowSfx","value":"*Ice Noises*"},
-	{"key":"Vfx_Snowfolke_Idle1","value":"I love snow!"},
-	{"key":"Vfx_Snowfolke_Idle2","value":"Who else likes snow?"},
-	{"key":"Vfx_Snowfolke_BeforeThrow1","value":"It's snowin' time!"},
-	{"key":"Vfx_Snowfolke_BeforeThrow2","value":"Better watch out!"},
-	{"key":"Vfx_Snowfolke_Throw","value":"Oops!"},
-	{"key":"Vfx_Snowfolke_Hit","value":"*SNOWFLAKE FREEZE*"},
-	{"key":"PST_EverettTree_Name","value":"Everett Treewood"},
-	{"key":"PST_EverettTree_Desc","value":"A Christmas tree with the spirit of decorating the school! However, no one should break his decorations, or else..!"},
-	{"key":"Vfx_EverettTree_Spit","value":"*SPITS CHRISTMAS BALL*"},
-	{"key":"Vfx_EverettTree_Idle1_0","value":"HOH!"},
-	{"key":"Vfx_EverettTree_Idle1_1","value":"HOH! HOH!"},
-	{"key":"Vfx_EverettTree_Idle1_2","value":"HOH! HOH! HOH!"},
-	{"key":"Vfx_EverettTree_Idle1_3","value":"I am a tree!"},
-	{"key":"Vfx_EverettTree_Idle1_4","value":"A sentient one and a very jolly one!"},
-	{"key":"Vfx_EverettTree_Idle2_0","value":"LA"},
-	{"key":"Vfx_EverettTree_Idle2_1","value":"LAA"},
-	{"key":"Vfx_EverettTree_Idle2_2","value":"LAAA"},
-	{"key":"Vfx_EverettTree_Idle2_3","value":"LAAAAA"},
-	{"key":"Vfx_EverettTree_Idle2_4","value":"LAAAAAA"},
-	{"key":"Vfx_EverettTree_Idle2_5","value":"LAAAAAAA"},
-	{"key":"Vfx_EverettTree_Idle2_6","value":"*Pew*"},
-	{"key":"Vfx_EverettTree_Idle2_7","value":"*Pew* *pew*"},
-	{"key":"Vfx_EverettTree_Idle2_8","value":"*Pew* *Pewreeew*"},
-	{"key":"Vfx_EverettTree_Mad_1","value":"AHA!"},
-	{"key":"Vfx_EverettTree_Mad_2","value":"HOW"},
-	{"key":"Vfx_EverettTree_Mad_3","value":"HOW DARE"},
-	{"key":"Vfx_EverettTree_Mad_4","value":"HOW DARE YOU?!"},
-	{"key":"Vfx_EverettTree_Mad_5","value":"Destroying"},
-	{"key":"Vfx_EverettTree_Mad_6","value":"Destroying my"},
-	{"key":"Vfx_EverettTree_Mad_7","value":"Destroying my DECO"},
-	{"key":"Vfx_EverettTree_Mad_8","value":"Destroying my DECORA"},
-	{"key":"Vfx_EverettTree_Mad_9","value":"Destroying my DECORATION! ;("},
-	{"key":"Vfx_EverettTree_Mad_10","value":"YOU'RE"},
-	{"key":"Vfx_EverettTree_Mad_11","value":"YOU'RE IN BIG"},
-	{"key":"Vfx_EverettTree_Mad_12","value":"YOU'RE IN BIG TROOUBLEEEE!"},
-	{"key":"Vfx_EverettTree_HeavyBreathing","value":"*Heavy Breathing*"},
-	{"key":"Vfx_EverettTree_Spit","value":"You're in big trouble!"},
-	{"key":"Vfx_EverettTree_Decoration","value":"It's time to decorate the school!"},
-	{"key":"Vfx_EverettTree_FinishDecor","value":"Perfect as always!"},
-	{"key":"Vfx_EverettTree_TreeNoises","value":"*Bell noises*"},
-	{"key":"Vfx_EverettTree_DecorBreak","value":"*CHRISTMAS DECORATION BREAKING*"},
-	{"key":"Vfx_EverettTree_AngryAtBrokenDecor_0","value":"*GASP*"},
-	{"key":"Vfx_EverettTree_AngryAtBrokenDecor_1","value":"Someone walked on my decoration!"},
-	{"key":"PST_Kreye_Name","value":"Mr. Kreye"},
-	{"key":"PST_Kreye_Desc","value":"He watches the hallways with his big eye! He may be scary, but he only gives detention... We've guaranteed that."},
-	{"key":"Vfx_Kreye_Grab","value":"*TACH!*"}
-]}
+{
+  "items": [
+    { "key": "Vfx_OFC_Walk", "value": "[Office Chair Rolling]" },
+    { "key": "PST_OFC_Name", "value": "Office Chair" },
+    {
+      "key": "PST_OFC_Desc",
+      "value": "An excelent object, always bringing security for those who need fast transportation!"
+    },
+    { "key": "PST_HapH_Name", "value": "Happy Holidays" },
+    {
+      "key": "PST_HapH_Desc",
+      "value": "Nothing's more celebratory than this guy! Always celebrating holidays and coming with surprises!"
+    },
+    {
+      "key": "Vfx_HapH_MerryChristmas",
+      "value": "Merry Christmas, here's a free item!"
+    },
+    { "key": "Vfx_HapH_Unwrap", "value": "[Unwrapping]" },
+    { "key": "Vfx_SI_BaldiHere_1", "value": "Hey Baldi!" },
+    { "key": "Vfx_SI_BaldiHere_2", "value": "Hey Baldi! (Hey Baldi!)" },
+    { "key": "Vfx_SI_BaldiHere_3", "value": "(Hey Baldi!) Over Here!" },
+    { "key": "Vfx_SI_BaldiHere_4", "value": "Over Here (Over Here)!" },
+    { "key": "Vfx_SI_Hey_1", "value": "Hey!" },
+    { "key": "Vfx_SI_Hey_2", "value": "Hey! (Hey!)" },
+    { "key": "PST_SI_Name", "value": "Superintendent" },
+    {
+      "key": "PST_SI_Desc",
+      "value": "\"No students are safe from <b>our</b> watch, we call the teacher when anyone is outside their classrooms!\""
+    },
+    {
+      "key": "Vfx_PRI_NoPropertyBreak",
+      "value": "No breaking school property in the halls!"
+    },
+    {
+      "key": "Vfx_PRI_NoStabbing",
+      "value": "No stabbing people with pencils in the halls!"
+    },
+    {
+      "key": "Vfx_PRI_NoUglyStun",
+      "value": "No stunning people with ugliness in the halls!"
+    },
+    { "key": "Vfx_PRI_NoLittering", "value": "No littering in the halls!" },
+    { "key": "PST_0TH_Name", "value": "0th Prize" },
+    {
+      "key": "PST_0TH_Desc",
+      "value": "He doesn't like being a replacement for dumb brooms, so he'll make sure to be the <b> very fastest!</b>"
+    },
+    { "key": "Vfx_0TH_WannaSweep", "value": "It appears to be time to sweep!" },
+    { "key": "Vfx_0TH_Sweep", "value": "I feel I must sweep!" },
+    { "key": "PST_MGS_Name", "value": "Magical Student" },
+    {
+      "key": "PST_MGS_Desc",
+      "value": "\"I say abracadabra and there goes my detention spell! I don't know the rules, so everyone gets detention!\""
+    },
+    { "key": "Vfx_MGS_Magic", "value": "[Magic]" },
+    { "key": "Vfx_MGS_PrepMagic", "value": "[Preparing magic]" },
+    { "key": "PST_PB_Name", "value": "Pencil Boy" },
+    {
+      "key": "PST_PB_Desc",
+      "value": "He found a pencil now he's stabbing people with it, how rude! He doesn't like being stabbed back..."
+    },
+    { "key": "Vfx_PB_Wander1", "value": "Uuuugh!" },
+    { "key": "Vfx_PB_Wander2", "value": "Grrrrr!" },
+    { "key": "Vfx_PB_Wander3", "value": "Aaargh!" },
+    { "key": "Vfx_PB_Spot", "value": "[GASP] HA!" },
+    { "key": "Vfx_PB_Catch", "value": "HAAHAHAHahahaha!" },
+    { "key": "Vfx_PB_SuperAngry", "value": "GRRRRRRRRRRRrrrrrrrrrrr!" },
+    { "key": "PST_Stunly_Name", "value": "Stunly" },
+    {
+      "key": "PST_Stunly_Desc",
+      "value": "A snail-like person with such ugliness that is enough for a <b>stunning effect</b>, he abuses it to stun anyone!"
+    },
+    { "key": "Vfx_Stunly_Stun", "value": "[Stun]" },
+    { "key": "Vfx_Stunly_Laughter", "value": "[Laughter]" },
+    { "key": "PST_Leapy_Name", "value": "Leapy" },
+    {
+      "key": "PST_Leapy_Desc",
+      "value": "Such a happy frog, always leaping and <b>stomping</b> the unfortune ones. It'd say sorry if it knew how to speak!"
+    },
+    { "key": "Vfx_Leapy_Stomp", "value": "[Stomping]" },
+    { "key": "Vfx_Leapy_Leap", "value": "[Leaping]" },
+    { "key": "PST_Wch_Name", "value": "The Watcher" },
+    {
+      "key": "PST_Wch_Desc",
+      "value": "It watches the school halls and doesn't like to be watched, <i>ironic</i>. Don't stare for too long, it may spot you."
+    },
+    { "key": "Vfx_Wch_Idle", "value": "[Watching]" },
+    { "key": "Vfx_Wch_Teleport", "value": "[Warping]" },
+    { "key": "Vfx_Wch_Spawn", "value": "[Spawning]" },
+    { "key": "Vfx_Wch_Angered", "value": "[Otherwordly noises]" },
+    { "key": "PST_Spj_Name", "value": "Superintendent Jr." },
+    {
+      "key": "PST_Spj_Desc",
+      "value": "A learner on his journey to become the Principal, by assisting him in reporting rule-breakers! He can get distracted easily."
+    },
+    {
+      "key": "Vfx_Spj_Wander",
+      "value": "I wonder who is following the rules. I know I am."
+    },
+    { "key": "Vfx_Spj_Step", "value": "[Step]" },
+    {
+      "key": "Vfx_Spj_FoundLong1",
+      "value": "The FitnessGram™ Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues."
+    },
+    {
+      "key": "Vfx_Spj_FoundLong2",
+      "value": "The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly, but gets faster each minute after you hear this signal."
+    },
+    {
+      "key": "Vfx_Spj_FoundLong3",
+      "value": "[beep] A single lap should be completed each time you hear this sound. [ding] Remember to run in a straight line, and run as long as possible."
+    },
+    {
+      "key": "Vfx_Spj_FoundLong4",
+      "value": "The second time you fail to complete a lap before the sound, your test is..."
+    },
+    {
+      "key": "Vfx_Spj_Found",
+      "value": "Principal! I found someone breaking the rules!"
+    },
+    { "key": "PST_Gboy_Name", "value": "Glubotrony" },
+    {
+      "key": "PST_Gboy_Desc",
+      "value": "One nerdy kid who likes to stick everyone with glue, he even made a controllable glue robot just for himself!"
+    },
+    { "key": "Vfx_Gboy_Walk", "value": "[BLAM]" },
+    { "key": "Vfx_Gboy_Mischiveous", "value": "HAHAHA! I feel mischievous..." },
+    { "key": "Vfx_Gboy_Situation", "value": "Let's make a STICKY situation!" },
+    { "key": "Vfx_Gboy_PrankTime", "value": "It's prankin' time!" },
+    { "key": "Vfx_Gboy_putGlue1", "value": "All done!" },
+    { "key": "Vfx_Gboy_putGlue2", "value": "There we go." },
+    { "key": "PST_Pix_Name", "value": "Pix the Alien" },
+    {
+      "key": "PST_Pix_Desc",
+      "value": "A pixelated alien who came from an unknown arcade game, he threatens everyone with his laser gun hand."
+    },
+    { "key": "Vfx_Pix_TarDet", "value": "TARGET, DETECTED!" },
+    { "key": "Vfx_Pix_Ez", "value": "THAT WAS E-EASY!" },
+    { "key": "Vfx_Pix_MisFail", "value": "MISSION FAILED!" },
+    { "key": "Vfx_Pix_Grr", "value": "[Grr]" },
+    { "key": "Vfx_Pix_GetYou", "value": "I'LL GET YOU NEXT TIME!" },
+    { "key": "Vfx_Pix_Prepare", "value": "PREPARE TO GET TOASTED!" },
+    { "key": "Vfx_Pix_Stop1", "value": "STOP" },
+    { "key": "Vfx_Pix_Stop2", "value": "RIGHT" },
+    { "key": "Vfx_Pix_Stop3", "value": "THERE!" },
+    { "key": "Vfx_Pix_MisSuc", "value": "MISSION SUCCESSFUL!" },
+    { "key": "Vfx_Pix_Shoot", "value": "[PEW]" },
+    { "key": "PST_Rollbot_Name", "value": "Rollbot" },
+    {
+      "key": "PST_Rollbot_Desc",
+      "value": "A robot able of generating electricity by rolling! But he has to occasionally release it too!"
+    },
+    { "key": "Vfx_Rollbot_Idle1", "value": "Need charging? Rollbot is here!" },
+    {
+      "key": "Vfx_Rollbot_Idle2",
+      "value": "Rolling, charging, rolling, charging.."
+    },
+    {
+      "key": "Vfx_Rollbot_Warning1",
+      "value": "My systems might overheat soon!"
+    },
+    { "key": "Vfx_Rollbot_Warning2", "value": "System overheat imminent." },
+    {
+      "key": "Vfx_Rollbot_Warning3",
+      "value": "Please stand back, my systems are on edge."
+    },
+    {
+      "key": "Vfx_Rollbot_Error",
+      "value": "ERROR 99: SYSTEM OVERHEAT. [triple click] I-I-I-INITIATING BACKUP, RELEASING ENERGY."
+    },
+    { "key": "Vfx_Rollbot_Fix", "value": "Thank you for fixing me!" },
+    { "key": "PST_Dribble_Name", "value": "Coach Dribble" },
+    {
+      "key": "PST_Dribble_Desc",
+      "value": "A good coach who likes to train his students daily. Unfortunately, he has some anger issues."
+    },
+    { "key": "PST_CHK_DRI_LABEL", "value": "Basketball Streak:" },
+    {
+      "key": "Vfx_Dribble_Idle1",
+      "value": "Who's ready for basketball practice?"
+    },
+    {
+      "key": "Vfx_Dribble_Idle2",
+      "value": "It's time for basketball practice!"
+    },
+    { "key": "Vfx_Dribble_Notice1", "value": "Hey you! Come here!" },
+    { "key": "Vfx_Dribble_Notice2", "value": "You there! Come with me!" },
+    {
+      "key": "Vfx_Dribble_Caught1",
+      "value": "You're coming with me to basketball practice!"
+    },
+    {
+      "key": "Vfx_Dribble_Caught2",
+      "value": "You're late to basketball practice!"
+    },
+    { "key": "Vfx_Dribble_Clap", "value": "[Clap]" },
+    {
+      "key": "Vfx_Dribble_Instructions",
+      "value": "I'm going to pass this basketball to you, and you need to catch it!"
+    },
+    { "key": "Vfx_Dribble_Ready", "value": "Ready?" },
+    { "key": "Vfx_Dribble_Catch", "value": "Catch!" },
+    { "key": "Vfx_Dribble_Praise1", "value": "Nice one!" },
+    { "key": "Vfx_Dribble_Praise2", "value": "Good job, you did it!" },
+    { "key": "Vfx_Dribble_Dismissed", "value": "Practice dismissed." },
+    { "key": "Vfx_Dribble_Disappointed_Intro1", "value": "Are you okay?" },
+    { "key": "Vfx_Dribble_Disappointed_Intro2", "value": "Are you alright?" },
+    {
+      "key": "Vfx_Dribble_Disappointed_Reassurance",
+      "value": "You are? Good!"
+    },
+    {
+      "key": "Vfx_Dribble_Angry1",
+      "value": "YOU WERE SUPPOSED TO CATCH IT, NOT DODGE IT!!"
+    },
+    { "key": "Vfx_Dribble_Angry2", "value": "THIS IS NOT DODGEBALL!!" },
+    {
+      "key": "Vfx_Dribble_ChaseAngry1",
+      "value": "WHERE DO YOU THINK YOU'RE GOING!?"
+    },
+    {
+      "key": "Vfx_Dribble_ChaseAngry2",
+      "value": "WHERE ARE YOU RUNNING OFF TO!?"
+    },
+    {
+      "key": "Vfx_Dribble_CaughtAngry1",
+      "value": "NOW RUN A LAP AROUND THE SCHOOL!!"
+    },
+    {
+      "key": "Vfx_Dribble_CaughtAngry2",
+      "value": "NOW I'LL MAKE YOU SPRINT AROUND THE SCHOOL!!"
+    },
+    { "key": "Vfx_Dribble_Punch1", "value": "EXCUSE ME!!" },
+    { "key": "Vfx_Dribble_Punch2", "value": "SORRY!!" },
+    {
+      "key": "Vfx_Dribble_TakeBackChase",
+      "value": "Hey! Let me take you back to where you were!"
+    },
+    { "key": "Vfx_Dribble_TakeBackChaseFail", "value": "Oh, ok then." },
+    { "key": "Vfx_Dribble_OutOfSight", "value": "Hey!" },
+    { "key": "PST_Bubbly_Name", "value": "Bluble" },
+    {
+      "key": "PST_Bubbly_Desc",
+      "value": "A bubble stick that loves making big impressive bubbles, they can even carry anyone around!"
+    },
+    { "key": "Vfx_Bubbly_Fillup", "value": "[WOAP]" },
+    { "key": "PST_Phawillow_Name", "value": "Phawillow" },
+    {
+      "key": "PST_Phawillow_Desc",
+      "value": "A robotic ghost programmed to pick up items and hold them. If you're lucky, you could take the item RIGHT from his hand!"
+    },
+    { "key": "Vfx_Phawillow_Wandering", "value": "[<i>Ghosting Noises</i>]" },
+    { "key": "Vfx_Phawillow_Laught", "value": "[<i>Ghosting Laughter</i>]" },
+    { "key": "Vfx_Phawillow_Spot", "value": "[<i>Ghosting Gasp</i>]" },
+    { "key": "PST_Faker_Name", "value": "Faker" },
+    {
+      "key": "PST_Faker_Desc",
+      "value": "He can take three forms, and lure students to scare them. He can play the sound of <b>any character</b> in the school."
+    },
+    { "key": "PST_CamSt_Name", "value": "Camera Stand" },
+    {
+      "key": "PST_CamSt_Desc",
+      "value": "A sentient camera made for the sole purpose of blinding people if they stare at it for more than 1 second. <i>Stunly was here!</i>"
+    },
+    { "key": "Vfx_CamSt_Idle", "value": "[Singing]" },
+    { "key": "Vfx_CamSt_Announce1", "value": "Say cheese!" },
+    { "key": "Vfx_CamSt_Announce2", "value": "Think fast! Chuckle-nuts!" },
+    { "key": "Vfx_CamSt_Announce3", "value": "Picture day!" },
+    { "key": "PST_Cactungus_Name", "value": "Cactungus" },
+    {
+      "key": "PST_Cactungus_Desc",
+      "value": "A result where a student accidentally spilled chemicals into a cactus pot. Do not let this thing hug you!"
+    },
+    { "key": "Vfx_Cactungus_Noise", "value": "[Cactus Noises]" },
+    { "key": "PST_PEN_Name", "value": "Penny Sciellian" },
+    {
+      "key": "PST_PEN_Desc",
+      "value": "A spelling teacher who loves to teach their students with some cool spelling mini games. Just don't leave her during her lesson!"
+    },
+    { "key": "Vfx_Pen_Spell", "value": "Spell the word..." },
+    {
+      "key": "Vfx_Pen_AngrySpell",
+      "value": "Kids like you deserve a punishment! Now you have to spell..."
+    },
+    { "key": "Vfx_Pen_Warning1", "value": "What?! Where are you going?!" },
+    {
+      "key": "Vfx_Pen_Warning2",
+      "value": "No! You aren't going anywhere, you brat!"
+    },
+    { "key": "Vfx_Pen_Incorrect1", "value": "That is wrong, wrong, WRONG!" },
+    { "key": "Vfx_Pen_Incorrect2", "value": "NO! That's incorrect!" },
+    { "key": "Vfx_Pen_Incorrect3", "value": "That isn't how you spell it!" },
+    { "key": "Vfx_Pen_Intro1", "value": "Hey! It's time for a small quiz!" },
+    {
+      "key": "Vfx_Pen_Intro2",
+      "value": "I hope you like bees... 'cuz it's time for a spelling bee!"
+    },
+    { "key": "Vfx_Pen_Intro3", "value": "Get ready! 'Cuz it's time to spell!" },
+    { "key": "Vfx_Pen_Win1", "value": "Great job! Here's a prize!" },
+    { "key": "Vfx_Pen_Win2", "value": "That is correct! Time for a reward!" },
+    { "key": "Vfx_Pen_Win3", "value": "Congrats! You deserve this!" },
+    { "key": "PST_Pran_Name", "value": "Pran the Dancer" },
+    {
+      "key": "PST_Pran_Desc",
+      "value": "This marvelous dancer enjoys dancing an prancing across the halls and likes to spin and twirl with whoever he comes across!"
+    },
+    {
+      "key": "Vfx_Pran_Idle1",
+      "value": "MY SPECIAL IS DANCING. DANCING IS MY SPECIAL."
+    },
+    { "key": "Vfx_Pran_Idle2", "value": "WHO WANTS TO DANCE WITH ME?" },
+    { "key": "Vfx_Pran_Grab1", "value": "DANCE WITH ME!" },
+    { "key": "Vfx_Pran_Grab2", "value": "LET'S DANCE DANCE DANCE!" },
+    { "key": "Vfx_Pran_CoolestMusic", "value": "[Coolest Music]" },
+    { "key": "Vfx_Pran_LetGo", "value": "OFF YOU GO!" },
+    { "key": "PST_Oran_Name", "value": "Ser Oran" },
+    {
+      "key": "PST_Oran_Desc",
+      "value": "A very hungry orange that loves to eat other's foods. If he wants something, <b>HE WILL GET IT.</b>"
+    },
+    {
+      "key": "Vfx_Oran_Wander1",
+      "value": "Do someone want to meet and feed an orange?"
+    },
+    { "key": "Vfx_Oran_Wander2", "value": "I'm very hungry!" },
+    { "key": "Vfx_Oran_Wander3", "value": "Do someone want to feed me?" },
+    { "key": "Vfx_Oran_Thanks1", "value": "This was delicious!" },
+    { "key": "Vfx_Oran_RequireItem", "value": "Give me your..." },
+    { "key": "Vfx_Oran_DontWant", "value": "NO! I don't want that!" },
+    { "key": "Vfx_Oran_Dirt", "value": "[Ahem] You taste like dirt!" },
+    { "key": "Vfx_Oran_Notice1", "value": "Did I smell items?" },
+    { "key": "Vfx_Oran_Angry1", "value": "I'M STILL HUNGRY!" },
+    {
+      "key": "Vfx_Oran_Angry2",
+      "value": "COME BACK! I DON'T WANT TO HURT YOU... MAYBE."
+    },
+    { "key": "Vfx_Oran_Crunch", "value": "[Crunch Crunch]" },
+    { "key": "Vfx_Oran_Sucking", "value": "[SUCKING AIR]" },
+    { "key": "Vfx_Oran_Item1", "value": "First item" },
+    { "key": "Vfx_Oran_Item2", "value": "Second item" },
+    { "key": "Vfx_Oran_Item3", "value": "Third item" },
+    { "key": "Vfx_Oran_Item4", "value": "Fourth item" },
+    { "key": "Vfx_Oran_Item5", "value": "Fifth item" },
+    { "key": "Vfx_Oran_Item6", "value": "Sixth item" },
+    { "key": "Vfx_Oran_Item7", "value": "Seventh item" },
+    { "key": "Vfx_Oran_Item8", "value": "Eighth item" },
+    { "key": "Vfx_Oran_Item9", "value": "Ninth item" },
+    { "key": "PST_MOP_Name", "value": "Cool Mop" },
+    {
+      "key": "PST_MOP_Desc",
+      "value": "Gotta sweep got sick, so we got a sick mop! Using water on the floor becomes such a more cooler duty!"
+    },
+    { "key": "Vfx_MOP_StartMop", "value": "I'm feelin' like mopping!" },
+    { "key": "Vfx_MOP_Mop", "value": "Heheheee! Doing a little mopping!" },
+    { "key": "Vfx_MOP_Mop2", "value": "OOH! I really love mopping!" },
+    { "key": "Vfx_MOP_Watering", "value": "Careful with the slippery floor!" },
+    { "key": "Vfx_MOP_EndMop", "value": "Okay, that's enough mopping!" },
+    { "key": "PST_InkArt_Name", "value": "Ink Artist" },
+    {
+      "key": "PST_InkArt_Desc",
+      "value": "An ink bottle that loves making art! Make sure not to bump into him, he's so silent he can go by unnoticed!"
+    },
+    { "key": "Vfx_InkArt_Splash", "value": "[SPLASH]" },
+    { "key": "PST_TickTock_Name", "value": "Tick-Tock" },
+    {
+      "key": "PST_TickTock_Desc",
+      "value": "A bit of a sleepyhead. Stays motionless until someone sets him off, he'll make sure to ring at wherever convenient for him"
+    },
+    {
+      "key": "Vfx_TickTock_WanderStart",
+      "value": "Gotta go ring somewhere more appropriate."
+    },
+    { "key": "Vfx_TickTock_Ding", "value": "DING!" },
+    { "key": "Vfx_TickTock_Ring", "value": "[RING]" },
+    {
+      "key": "Vfx_TickTock_GoSleep",
+      "value": "Alright, time to go back to resting time."
+    },
+    { "key": "Vfx_TickTock_Sleeping", "value": "ZZZZZZZZ" },
+    { "key": "PST_Quiker_Name", "value": "Quiker" },
+    {
+      "key": "PST_Quiker_Desc",
+      "value": "Lurks through the shadows (made by himself), managing to blind anyone on his way! Scary!!"
+    },
+    { "key": "Vfx_Quiker_Noises", "value": "[Noises]" },
+    { "key": "PST_PuddingFan_Name", "value": "Pudding Fan" },
+    {
+      "key": "PST_PuddingFan_Desc",
+      "value": "This fan is a fan of pudding (only vanilla, though)! It fills rooms with pudding to show how awesome pudding is to everyone."
+    },
+    { "key": "Vfx_PuddingFan_Blow", "value": "[Blowing]" },
+    { "key": "PST_ZapZap_Name", "value": "Zap-Zap" },
+    {
+      "key": "PST_ZapZap_Desc",
+      "value": "This machine was created to... <b>try</b> to help light up the school! Sometimes their energy is unstable, though."
+    },
+    { "key": "Vfx_ZapZap_Activated", "value": "ZAP-ZAP! Activated!" },
+    {
+      "key": "Vfx_ZapZap_Deactivate",
+      "value": "Time to take a nap- YAYYAYYAYYAY"
+    },
+    { "key": "Vfx_ZapZap_Hacked", "value": "ACK! HACK! Aaack. haack." },
+    { "key": "Vfx_ZapZap_KamiCode_Left", "value": "Left" },
+    { "key": "Vfx_ZapZap_KamiCode_Right", "value": "Right" },
+    { "key": "Vfx_ZapZap_KamiCode_Up", "value": "Up" },
+    { "key": "Vfx_ZapZap_KamiCode_Down", "value": "Down" },
+    { "key": "Vfx_ZapZap_KamiCode_B", "value": "B" },
+    { "key": "Vfx_ZapZap_KamiCode_A", "value": "A" },
+    { "key": "Vfx_ZapZap_KamiCode_Start", "value": "Start" },
+    { "key": "PST_CheeseMan_Name", "value": "Cheese McSwiss" },
+    {
+      "key": "PST_CheeseMan_Desc",
+      "value": "A British cheese that enjoys walking down the hallways, he might get distracted by his humming."
+    },
+    { "key": "Vfx_CheeseMan_Hit1", "value": "Oh bloody heck!" },
+    { "key": "Vfx_CheeseMan_Hit2", "value": "AARGH!" },
+    { "key": "Vfx_CheeseMan_Hit3", "value": "OOF!" },
+    { "key": "Vfx_CheeseMan_Hit4", "value": "OUCH!" },
+    { "key": "Vfx_CheeseMan_Hit5", "value": "Ow, blimey!" },
+    { "key": "Vfx_CheeseMan_AfterHit", "value": "Ooooh... my cheesy head..." },
+    { "key": "Vfx_CheeseMan_Hum", "value": "[Humming]" },
+    {
+      "key": "Vfx_CheeseMan_YTPs1",
+      "value": "Here's some You-Thought-Points, as my apology."
+    },
+    {
+      "key": "Vfx_CheeseMan_YTPs2",
+      "value": "As my apology, I'll give you some You-Thought-Points."
+    },
+    {
+      "key": "Vfx_CheeseMan_YTPs3",
+      "value": "I think these You-Thought-Points would you help you, lad."
+    },
+    {
+      "key": "Vfx_CheeseMan_YTPs4",
+      "value": "It's too dangerous to go alone, lad. Take these You-Thought-Points as my apology!"
+    },
+    {
+      "key": "Vfx_CheeseMan_Sorry1",
+      "value": "I'm terribly sorry about that."
+    },
+    { "key": "Vfx_CheeseMan_Sorry2", "value": "I'm terribly sorry..." },
+    { "key": "Vfx_CheeseMan_Sorry3", "value": "Sorry!" },
+    {
+      "key": "Vfx_CheeseMan_Sorry4",
+      "value": "I'm deeply apologized for this."
+    },
+    { "key": "Vfx_CheeseMan_Sorry5", "value": "Whoops! My bad!" },
+    {
+      "key": "Vfx_CheeseMan_Watch1",
+      "value": "Hey! Watch where you're going next time!"
+    },
+    { "key": "Vfx_CheeseMan_Watch2", "value": "Hey! Wha- ... Fine then." },
+    { "key": "Vfx_CheeseMan_Watch3", "value": "You are a JERK!" },
+    { "key": "PST_DetentionBot_Name", "value": "Detention Bot" },
+    {
+      "key": "PST_DetentionBot_Desc",
+      "value": "A robot capable of sending people to detention! It's unable to do magic, but it can drag just fine."
+    },
+    { "key": "Vfx_DetentionBot_Whistle", "value": "[Robotic Whistling Tune]" },
+    {
+      "key": "Vfx_DetentionBot_FoundTroubleMaker",
+      "value": "TROUBLE MAKER SPOTTED."
+    },
+    {
+      "key": "Vfx_DetentionBot_CarryTroubleMaker",
+      "value": "CARRYING TROUBLE MAKER TO DETENTION."
+    },
+    {
+      "key": "Vfx_DetentionBot_LoseTroubleMaker_1",
+      "value": "DETENTION RESISTING DETECTED."
+    },
+    {
+      "key": "Vfx_DetentionBot_LoseTroubleMaker_2",
+      "value": "LOOKING FOR RULE BREAKER."
+    },
+    { "key": "Vfx_DetentionBot_LectureTroubleMaker_1", "value": "PLEASE," },
+    {
+      "key": "Vfx_DetentionBot_LectureTroubleMaker_2",
+      "value": "DO NOT DARE TO BREAK A RULE AGAIN."
+    },
+    { "key": "PST_SciTeacher_Name", "value": "Science Teacher" },
+    {
+      "key": "PST_SciTeacher_Desc",
+      "value": "A crazy teacher that loves throwing potions at others as an experiment! Expect unexpected effects!"
+    },
+    {
+      "key": "Vfx_SciTeacher_spillComplain1",
+      "value": "And I'm getting fired today."
+    },
+    {
+      "key": "Vfx_SciTeacher_spillComplain2",
+      "value": "Oh no...Man I can't lose my job, are you kidding me!"
+    },
+    { "key": "Vfx_SciTeacher_findPlayer1", "value": "Hey kid, THINK FAST" },
+    { "key": "Vfx_SciTeacher_findPlayer2", "value": "You there!" },
+    {
+      "key": "Vfx_SciTeacher_expectingNoSpill",
+      "value": "Come on, don't spill this time, come on."
+    },
+    { "key": "Vfx_SciTeacher_walking", "value": "[Walking]" },
+    { "key": "Vfx_SciTeacher_spills", "value": "[Spilling]" },
+    { "key": "PST_Adverto_Name", "value": "Adverto" },
+    {
+      "key": "PST_Adverto_Desc",
+      "value": "Don't look at this <i>attracting</i> fella, or else you might get a bit busy with <i>distracting</i> offers!"
+    },
+    { "key": "PST_VacClean_Name", "value": "Vacuum Cleaner" },
+    {
+      "key": "PST_VacClean_Desc",
+      "value": "Instead of going to the garbage, why not bring it to you? This design is surely efficient! But it can clog up sometimes..."
+    },
+    { "key": "Vfx_VacClean_Clean", "value": "[SUCKING AIR]" },
+    { "key": "PST_MOPLISS_Name", "value": "Mopliss" },
+    {
+      "key": "PST_MOPLISS_Desc",
+      "value": "A friendly mop that likes to be organized, only cleaning up rooms with water. Gotta Sweep approves this!"
+    },
+    { "key": "PST_NOSE_Name", "value": "Mr. Nose Man" },
+    {
+      "key": "PST_NOSE_Desc",
+      "value": "The best guy you can find for free YTPs! Although he opts for sneaky ways of giving YTPs... uh.. UH.. <b>ATCHOO!</b>"
+    },
+    {
+      "key": "Vfx_NOSE_Attention1",
+      "value": "Can you stop ignoring me, please?"
+    },
+    { "key": "Vfx_NOSE_Attention2", "value": "Excuse me, my good sir." },
+    { "key": "Vfx_NOSE_Attention3", "value": "Hey, I'm talking to you!" },
+    { "key": "Vfx_NOSE_Attention4", "value": "I'll wait..." },
+    { "key": "Vfx_NOSE_Attention5", "value": "I'm right behind you!" },
+    { "key": "Vfx_NOSE_Attention6", "value": "How rude!" },
+    { "key": "Vfx_NOSE_GiveUp1", "value": "Holy cow! I'm outta of here!" },
+    { "key": "Vfx_NOSE_GiveUp2", "value": "Just forget it!" },
+    { "key": "Vfx_NOSE_PostSneeze", "value": "Oh! I'm sorry for that!" },
+    {
+      "key": "Vfx_NOSE_Reward",
+      "value": "I just wanted to give you this You-Thought-Points."
+    },
+    { "key": "Vfx_NOSE_Sneeze", "value": "[ATCHOO]" },
+    { "key": "PST_Mimi_Name", "value": "Mimicry" },
+    {
+      "key": "PST_Mimi_Desc",
+      "value": "This little blob loves pretending to be certain thing and waiting for an unsuspecting student to pick them up!"
+    },
+    { "key": "Vfx_Mimi_Laughter", "value": "[Blob Laughter]" },
+    { "key": "Vfx_Mimi_Jumpscare", "value": "[Blob Noises]" },
+    { "key": "PST_Winterry_Name", "value": "Winterry" },
+    {
+      "key": "PST_Winterry_Desc",
+      "value": "This sentient pile of snow loves a good snowball fight, impressing everyone with his infinite supply of snowballs!"
+    },
+    { "key": "Vfx_Winterry_Blow", "value": "[BLOWING SNOWBALL]" },
+    { "key": "Vfx_Winterry_Spit", "value": "[SPITS SNOWBALL]" },
+    { "key": "PST_Snowfolke_Name", "value": "Snowfolke" },
+    {
+      "key": "PST_Snowfolke_Desc",
+      "value": "This snowy fella likes to spread Christmas cheer all year round, spreading across snowflakes to soothe the spirits!"
+    },
+    { "key": "Vfx_Snowfolke_ThrowSfx", "value": "[Ice Noises]" },
+    { "key": "Vfx_Snowfolke_Idle1", "value": "I love snow!" },
+    { "key": "Vfx_Snowfolke_Idle2", "value": "Who else likes snow?" },
+    { "key": "Vfx_Snowfolke_BeforeThrow1", "value": "It's snowin' time!" },
+    { "key": "Vfx_Snowfolke_BeforeThrow2", "value": "Better watch out!" },
+    { "key": "Vfx_Snowfolke_Throw", "value": "Oops!" },
+    { "key": "Vfx_Snowfolke_Hit", "value": "[SNOWFLAKE FREEZE]" },
+    { "key": "PST_EverettTree_Name", "value": "Everett Treewood" },
+    {
+      "key": "PST_EverettTree_Desc",
+      "value": "A Christmas tree with the spirit of decorating the school! However, no one should break his decorations, or else..!"
+    },
+    { "key": "Vfx_EverettTree_Spit", "value": "[SPITS CHRISTMAS BALL]" },
+    { "key": "Vfx_EverettTree_Idle1_0", "value": "HOH!" },
+    { "key": "Vfx_EverettTree_Idle1_1", "value": "HOH! HOH!" },
+    { "key": "Vfx_EverettTree_Idle1_2", "value": "HOH! HOH! HOH!" },
+    { "key": "Vfx_EverettTree_Idle1_3", "value": "I am a tree!" },
+    {
+      "key": "Vfx_EverettTree_Idle1_4",
+      "value": "A sentient one and a very jolly one!"
+    },
+    { "key": "Vfx_EverettTree_Idle2_0", "value": "LA" },
+    { "key": "Vfx_EverettTree_Idle2_1", "value": "LAA" },
+    { "key": "Vfx_EverettTree_Idle2_2", "value": "LAAA" },
+    { "key": "Vfx_EverettTree_Idle2_3", "value": "LAAAAA" },
+    { "key": "Vfx_EverettTree_Idle2_4", "value": "LAAAAAA" },
+    { "key": "Vfx_EverettTree_Idle2_5", "value": "LAAAAAAA" },
+    { "key": "Vfx_EverettTree_Idle2_6", "value": "[Pew]" },
+    { "key": "Vfx_EverettTree_Idle2_7", "value": "[Pew] [pew]" },
+    { "key": "Vfx_EverettTree_Idle2_8", "value": "[Pew] [Pewreeew]" },
+    { "key": "Vfx_EverettTree_Mad_1", "value": "AHA!" },
+    { "key": "Vfx_EverettTree_Mad_2", "value": "HOW" },
+    { "key": "Vfx_EverettTree_Mad_3", "value": "HOW DARE" },
+    { "key": "Vfx_EverettTree_Mad_4", "value": "HOW DARE YOU?!" },
+    { "key": "Vfx_EverettTree_Mad_5", "value": "Destroying" },
+    { "key": "Vfx_EverettTree_Mad_6", "value": "Destroying my" },
+    { "key": "Vfx_EverettTree_Mad_7", "value": "Destroying my DECO" },
+    { "key": "Vfx_EverettTree_Mad_8", "value": "Destroying my DECORA" },
+    { "key": "Vfx_EverettTree_Mad_9", "value": "Destroying my DECORATION! ;(" },
+    { "key": "Vfx_EverettTree_Mad_10", "value": "YOU'RE" },
+    { "key": "Vfx_EverettTree_Mad_11", "value": "YOU'RE IN BIG" },
+    { "key": "Vfx_EverettTree_Mad_12", "value": "YOU'RE IN BIG TROOUBLEEEE!" },
+    { "key": "Vfx_EverettTree_HeavyBreathing", "value": "[Heavy Breathing]" },
+    { "key": "Vfx_EverettTree_Spit", "value": "You're in big trouble!" },
+    {
+      "key": "Vfx_EverettTree_Decoration",
+      "value": "It's time to decorate the school!"
+    },
+    { "key": "Vfx_EverettTree_FinishDecor", "value": "Perfect as always!" },
+    { "key": "Vfx_EverettTree_TreeNoises", "value": "[Bell noises]" },
+    {
+      "key": "Vfx_EverettTree_DecorBreak",
+      "value": "[CHRISTMAS DECORATION BREAKING]"
+    },
+    { "key": "Vfx_EverettTree_AngryAtBrokenDecor_0", "value": "[GASP]" },
+    {
+      "key": "Vfx_EverettTree_AngryAtBrokenDecor_1",
+      "value": "Someone walked on my decoration!"
+    },
+    { "key": "PST_Kreye_Name", "value": "Mr. Kreye" },
+    {
+      "key": "PST_Kreye_Desc",
+      "value": "He watches the hallways with his big eye! He may be scary, but he only gives detention... We've guaranteed that."
+    },
+    { "key": "Vfx_Kreye_Grab", "value": "[TACH!]" }
+  ]
+}
