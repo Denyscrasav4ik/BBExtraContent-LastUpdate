@@ -9,7 +9,7 @@
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release</Configurations>
     <DebugType>full</DebugType>
-    <OutputPath>Build\</OutputPath>
+    <OutputPath>Build/</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnyCPU'">
@@ -63,13 +63,12 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="CleanOutput" AfterTargets="Build">
-    <ItemGroup>
-      <ExtraFiles Include="$(TargetDir)*.dll" Exclude="$(TargetDir)BBExtraContent.dll" />
-      <ExtraFiles Include="$(TargetDir)*.pdb" />
-    </ItemGroup>
-    <Delete Files="@(ExtraFiles)" />
-  </Target>
+<Target Name="CleanOutput" AfterTargets="Build">
+  <ItemGroup>
+    <ExtraFiles Include="$(TargetDir)*.dll" Exclude="$(TargetDir)BBExtraContent.dll"/>
+  </ItemGroup>
+  <Delete Files="@(ExtraFiles)" />
+</Target>
 
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
