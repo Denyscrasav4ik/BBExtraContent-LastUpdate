@@ -131,12 +131,6 @@ namespace BBTimes.Helpers
 
 			// Pre found ones
 			var text = files.First(x => Path.GetFileName(x).StartsWith(BBTimesManager.TimesAssetPrefix + posterNamePrefix));
-#if CHEAT
-			Debug.Log("Npc: " + name);
-			Debug.Log("Path used for the sprite selection: " + path);
-			Debug.Log("Files found in path: " + files.Length);
-			Debug.Log("current file: " + Path.GetFileNameWithoutExtension(text));
-#endif
 
 			return AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromFile(text), Vector2.zero, 1f);
 		}

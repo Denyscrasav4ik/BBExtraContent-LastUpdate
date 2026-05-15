@@ -93,11 +93,9 @@ namespace BBTimes.Plugin
         guid_CustomPosters = "io.github.uncertainluei.baldiplus.customposters",
         guid_Mtm101API = "mtm101.rulerp.bbplus.baldidevapi",
         guid_PixelIntAPI = "pixelguy.pixelmodding.baldiplus.pixelinternalapi",
-        guid_ExtraFunSettings = "rost.moment.baldiplus.funsettings",
         guid_AnimationsPlus = "pixelguy.pixelmodding.baldiplus.newanimations",
         guid_DecorationsPlus = "pixelguy.pixelmodding.baldiplus.newdecors",
-        guid_CustomMainMenusAPI = "pixelguy.pixelmodding.baldiplus.custommainmenusapi",
-        guid_Ukrainization = "Ukrainization";
+        guid_CustomMainMenusAPI = "pixelguy.pixelmodding.baldiplus.custommainmenusapi";
 
         // ------------------- Constant Floats ---------------------
         public const float GaugeSprite_PixelsPerUnit = 1f;

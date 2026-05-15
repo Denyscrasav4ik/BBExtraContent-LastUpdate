@@ -22,12 +22,10 @@ using MTM101BaldAPI.AssetTools;
 using MTM101BaldAPI.Registers;
 using MTM101BaldAPI.SaveSystem;
 using UnityEngine;
-using BepInEx.Bootstrap;
-
 
 namespace BBTimes
 {
-    [BepInDependency(Storage.guid_Mtm101API, BepInDependency.DependencyFlags.HardDependency)] // let's not forget this
+    [BepInDependency(Storage.guid_Mtm101API, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(Storage.guid_PixelIntAPI, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(Storage.guid_LevelLoader, BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency(Storage.guid_DecorationsPlus, BepInDependency.DependencyFlags.HardDependency)]
@@ -35,31 +33,17 @@ namespace BBTimes
 
     // Soft dependencies / has exclusive compatibility with
     [BepInDependency(Storage.guid_AnimationsPlus, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency(Storage.guid_ExtraFunSettings, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_CustomPosters, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_CustomVendingMachines, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_CustomMusics, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_HookTweaks, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_Advanced, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Storage.guid_LevelStudio, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency(Storage.guid_Ukrainization, BepInDependency.DependencyFlags.SoftDependency)]
-    // [BepInDependency("pixelguy.pixelmodding.baldiplus.infinitefloors", BepInDependency.DependencyFlags.SoftDependency)] not even here anymore
-    // [BepInDependency("mtm101.rulerp.baldiplus.endlessfloors", BepInDependency.DependencyFlags.SoftDependency)]
-    // [BepInDependency("Rad.cmr.baldiplus.arcaderenovations", BepInDependency.DependencyFlags.SoftDependency)]
-
 
     [BepInPlugin(ModInfo.PLUGIN_GUID, ModInfo.PLUGIN_NAME, ModInfo.PLUGIN_VERSION)]
     public class BasePlugin : BaseUnityPlugin
     {
         public static BasePlugin Instance { get; private set; }
-
-        bool IsUkrainizationLoaded()
-        {
-            return Chainloader.PluginInfos.Values.Any(p =>
-                p.Instance != null &&
-                p.Instance.GetType().Namespace != null &&
-                p.Instance.GetType().Namespace.Contains(Storage.guid_Ukrainization));
-        }
 
         IEnumerator SetupFinal()
         {
@@ -185,17 +169,7 @@ namespace BBTimes
 
             _modPath = AssetLoader.GetModPath(this);
 
-
-            if (IsUkrainizationLoaded())
-            {
-                string ukrPath = Path.Combine(ModPath, "Language", "Ukrainian");
-                if (Directory.Exists(ukrPath))
-                    AssetLoader.LoadLocalizationFolder(ukrPath, Language.English);
-                else
-                    AssetLoader.LoadLocalizationFolder(Path.Combine(ModPath, "Language", "English"), Language.English);
-            }
-            else
-                AssetLoader.LoadLocalizationFolder(Path.Combine(ModPath, "Language", "English"), Language.English);
+            AssetLoader.LocalizationFromMod(this);
 
             try
             {

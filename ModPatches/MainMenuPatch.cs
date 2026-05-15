@@ -60,33 +60,6 @@ namespace BBTimes.ModPatches
         {
             GameObject go = textComponent.gameObject;
 
-            bool hasUkrainization = Chainloader.PluginInfos.ContainsKey(Storage.guid_Ukrainization);
-
-            if (hasUkrainization)
-            {
-                try
-                {
-                    Type ukrType = Type.GetType("Ukrainization.TextLocalizer, Ukrainization");
-                    if (ukrType != null)
-                    {
-                        var existing = go.GetComponent(ukrType);
-                        if (existing != null)
-                            UnityEngine.Object.Destroy(existing);
-
-                        var localizer = go.AddComponent(ukrType);
-
-                        var keyField = ukrType.GetField("key");
-                        keyField?.SetValue(localizer, "BBTimes_ModInfo");
-
-                        var apply = ukrType.GetMethod("ApplyLocalization");
-                        apply?.Invoke(localizer, null);
-
-                        return;
-                    }
-                }
-                catch { }
-            }
-
             try
             {
                 Type baseType = typeof(TextLocalizer);

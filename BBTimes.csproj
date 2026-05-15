@@ -7,13 +7,12 @@
     <Version>1.4.3.4</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
-    <Configurations>Debug;Release;Cheat</Configurations>
-    <AssemblyVersion></AssemblyVersion>
-    <FileVersion></FileVersion>
+    <Configurations>Debug;Release</Configurations>
+    <DebugType>full</DebugType>
     <OutputPath>Build\</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Cheat|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnyCPU'">
     <Optimize>True</Optimize>
   </PropertyGroup>
 
@@ -49,9 +48,6 @@
     </Reference>
     <Reference Include="GrapplingHookTweaks">
       <HintPath>References\GrapplingHookTweaks.dll</HintPath>
-    </Reference>
-    <Reference Include="Infinte floors Hotfix">
-      <HintPath>References\Infinte floors Hotfix.dll</HintPath>
     </Reference>
     <Reference Include="MTM101BaldAPI">
       <HintPath>References\MTM101BaldAPI.dll</HintPath>
