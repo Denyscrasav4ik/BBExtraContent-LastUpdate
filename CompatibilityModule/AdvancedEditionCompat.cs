@@ -23,14 +23,4 @@ namespace BBTimes.CompatibilityModule
 		}
 		const int elvTips = 9;
 	}
-
-	[HarmonyPatch]
-	[ConditionalPatchMod(Storage.guid_Advanced)]
-	internal class AdvancedPatches
-	{
-		[HarmonyPatch(typeof(AdvancedMathMachine), "GenerateProblem")]
-		[HarmonyPrefix]
-		static void ChangeMaxAnswer(ref int ___maxAnswer, List<MathMachineNumber> ___currentNumbers) =>
-			___maxAnswer = ___currentNumbers.Count - 1;
-	}
 }
